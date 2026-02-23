@@ -1,0 +1,130 @@
+---
+title: "Database Management Systems"
+subtitle: "IITM BS Data Science - BSCS2001 (4 Credits)"
+---
+
+## About This Course
+
+Comprehensive notes for the Database Management Systems (DBMS) course at IIT Madras. This is a Diploma-level programming course with no prerequisites, covering fundamental to advanced database concepts.
+
+## Course Structure
+
+| Week | Topics | Status |
+|------|--------|--------|
+| [Week 1](#week-1) | Course Overview & Introduction to Databases | 📝 |
+| [Week 2](#week-2) | Relational Model and Basic SQL | 📝 |
+| [Week 3](#week-3) | Intermediate and Advanced SQL | 📝 |
+| [Week 4](#week-4) | Relational Query Languages & Database Design | 📝 |
+| [Week 5](#week-5) | Introduction to DBMS/2 & Object-Relational Models | 📝 |
+| [Week 6](#week-6) | Transaction Management | 📝 |
+| [Week 7](#week-7) | Concurrency Control | 📝 |
+| [Week 8](#week-8) | Database Internals & Storage Structures | 📝 |
+| [Week 9](#week-9) | Indexing & Query Processing | 📝 |
+| [Week 10](#week-10) | Database Security | 📝 |
+| [Week 11](#week-11) | Data Warehousing | 📝 |
+| [Week 12](#week-12) | Advanced Database Concepts | 📝 |
+
+## Weekly Overview
+
+### Week 1
+**Course Overview & Introduction to Databases**
+- Introduction to databases
+- Database management systems fundamentals
+- Data models and architecture
+
+### Week 2
+**Relational Model and Basic SQL**
+- Core concepts of the relational data model
+- Introduction to SQL syntax
+- Basic SQL queries and operations
+
+### Week 3
+**Intermediate and Advanced SQL**
+- Complex SQL queries
+- JOIN operations
+- Aggregation functions
+- Subqueries and advanced querying techniques
+
+### Week 4
+**Relational Query Languages & Database Design**
+- Relational algebra and calculus
+- Database design principles
+- Normalization concepts (1NF, 2NF, 3NF, BCNF)
+- Entity-Relationship (ER) modeling
+
+### Week 5
+**Introduction to DBMS/2**
+- Extended database management concepts
+- Object-relational data models
+- XML and semi-structured data
+- Advanced data types
+
+### Week 6
+**Transaction Management**
+- ACID properties
+- Transaction states and operations
+- Transaction processing concepts
+- Recovery mechanisms
+
+### Week 7
+**Concurrency Control**
+- Concurrency control mechanisms
+- Locking protocols
+- Deadlock handling
+- Timestamp-based protocols
+
+### Week 8
+**Database Internals & Storage Structures**
+- Database engine internals
+- Storage structures and file organization
+- Buffer management
+- Disk space management
+
+### Week 9
+**Indexing & Query Processing**
+- Index structures (B-trees, B+ trees, Hash indexes)
+- Query optimization
+- Query execution plans
+- Cost-based optimization
+
+### Week 10
+**Database Security**
+- Access control mechanisms
+- Authentication and authorization
+- SQL injection prevention
+- Database encryption
+- Security best practices
+
+### Week 11
+**Data Warehousing**
+- Data warehouse concepts
+- OLAP vs OLTP
+- Star and snowflake schemas
+- ETL processes
+- Data mining basics
+
+### Week 12
+**Advanced Database Concepts**
+- Distributed databases
+- NoSQL databases overview
+- Big data and databases
+- Emerging database technologies
+
+## Course Information
+
+- **Course Code:** BSCS2001
+- **Credits:** 4
+- **Level:** Diploma-level Programming Course
+- **Prerequisites:** None
+- **Duration:** 12 weeks + Quizzes + End-term Exam
+
+## Quick Navigation
+
+Use the sidebar to navigate through weekly content. Each week contains multiple subsections covering specific topics with code examples and practice questions.
+
+## Resources
+
+- [Official Course Page](https://study.iitm.ac.in/ds/course_pages/BSCS2001.html)
+- SQL Practice Exercises
+- Assignment Solutions
+- Exam Preparation Notes

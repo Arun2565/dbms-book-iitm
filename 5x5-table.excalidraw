@@ -1,0 +1,423 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "cell-r0c0",
+      "type": "rectangle",
+      "x": 0,
+      "y": 0,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "#cce8ff"
+    },
+    {
+      "id": "cell-r0c1",
+      "type": "rectangle",
+      "x": 120,
+      "y": 0,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "#cce8ff"
+    },
+    {
+      "id": "cell-r0c2",
+      "type": "rectangle",
+      "x": 240,
+      "y": 0,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "#cce8ff"
+    },
+    {
+      "id": "cell-r0c3",
+      "type": "rectangle",
+      "x": 360,
+      "y": 0,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "#cce8ff"
+    },
+    {
+      "id": "cell-r0c4",
+      "type": "rectangle",
+      "x": 480,
+      "y": 0,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r1c0",
+      "type": "rectangle",
+      "x": 0,
+      "y": 60,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r1c1",
+      "type": "rectangle",
+      "x": 120,
+      "y": 60,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r1c2",
+      "type": "rectangle",
+      "x": 240,
+      "y": 60,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r1c3",
+      "type": "rectangle",
+      "x": 360,
+      "y": 60,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r1c4",
+      "type": "rectangle",
+      "x": 480,
+      "y": 60,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r2c0",
+      "type": "rectangle",
+      "x": 0,
+      "y": 120,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r2c1",
+      "type": "rectangle",
+      "x": 120,
+      "y": 120,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r2c2",
+      "type": "rectangle",
+      "x": 240,
+      "y": 120,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r2c3",
+      "type": "rectangle",
+      "x": 360,
+      "y": 120,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r2c4",
+      "type": "rectangle",
+      "x": 480,
+      "y": 120,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r3c0",
+      "type": "rectangle",
+      "x": 0,
+      "y": 180,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r3c1",
+      "type": "rectangle",
+      "x": 120,
+      "y": 180,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r3c2",
+      "type": "rectangle",
+      "x": 240,
+      "y": 180,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r3c3",
+      "type": "rectangle",
+      "x": 360,
+      "y": 180,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r3c4",
+      "type": "rectangle",
+      "x": 480,
+      "y": 180,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r4c0",
+      "type": "rectangle",
+      "x": 0,
+      "y": 240,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r4c1",
+      "type": "rectangle",
+      "x": 120,
+      "y": 240,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r4c2",
+      "type": "rectangle",
+      "x": 240,
+      "y": 240,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r4c3",
+      "type": "rectangle",
+      "x": 360,
+      "y": 240,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "cell-r4c4",
+      "type": "rectangle",
+      "x": 480,
+      "y": 240,
+      "width": 120,
+      "height": 60,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent"
+    },
+    {
+      "id": "text-title",
+      "type": "text",
+      "x": 100,
+      "y": -40,
+      "text": "Example of a Relation"
+    },
+    {
+      "id": "text-attributes",
+      "type": "text",
+      "x": 140,
+      "y": -10,
+      "text": "attributes (or columns)"
+    },
+    {
+      "id": "text-tuples",
+      "type": "text",
+      "x": 620,
+      "y": 120,
+      "text": "tuples (or rows)"
+    },
+    {
+      "id": "text-header-id",
+      "type": "text",
+      "x": 20,
+      "y": 20,
+      "text": "ID"
+    },
+    {
+      "id": "text-header-name",
+      "type": "text",
+      "x": 140,
+      "y": 20,
+      "text": "name"
+    },
+    {
+      "id": "text-header-dept",
+      "type": "text",
+      "x": 260,
+      "y": 20,
+      "text": "dept_name"
+    },
+    {
+      "id": "text-header-salary",
+      "type": "text",
+      "x": 380,
+      "y": 20,
+      "text": "salary"
+    },
+    {
+      "id": "text-r1c0",
+      "type": "text",
+      "x": 10,
+      "y": 80,
+      "text": "10101"
+    },
+    {
+      "id": "text-r1c1",
+      "type": "text",
+      "x": 130,
+      "y": 80,
+      "text": "Srinivasan"
+    },
+    {
+      "id": "text-r1c2",
+      "type": "text",
+      "x": 250,
+      "y": 80,
+      "text": "Comp. Sci."
+    },
+    {
+      "id": "text-r1c3",
+      "type": "text",
+      "x": 370,
+      "y": 80,
+      "text": "65000"
+    },
+    {
+      "id": "text-r2c0",
+      "type": "text",
+      "x": 10,
+      "y": 140,
+      "text": "12121"
+    },
+    {
+      "id": "text-r2c1",
+      "type": "text",
+      "x": 130,
+      "y": 140,
+      "text": "Wu"
+    },
+    {
+      "id": "text-r2c2",
+      "type": "text",
+      "x": 250,
+      "y": 140,
+      "text": "Finance"
+    },
+    {
+      "id": "text-r2c3",
+      "type": "text",
+      "x": 370,
+      "y": 140,
+      "text": "90000"
+    },
+    {
+      "id": "text-r3c0",
+      "type": "text",
+      "x": 10,
+      "y": 200,
+      "text": "15151"
+    },
+    {
+      "id": "text-r3c1",
+      "type": "text",
+      "x": 130,
+      "y": 200,
+      "text": "Mozart"
+    },
+    {
+      "id": "text-r3c2",
+      "type": "text",
+      "x": 250,
+      "y": 200,
+      "text": "Music"
+    },
+    {
+      "id": "text-r3c3",
+      "type": "text",
+      "x": 370,
+      "y": 200,
+      "text": "40000"
+    },
+    {
+      "id": "text-r4c0",
+      "type": "text",
+      "x": 10,
+      "y": 260,
+      "text": "22222"
+    },
+    {
+      "id": "text-r4c1",
+      "type": "text",
+      "x": 130,
+      "y": 260,
+      "text": "Einstein"
+    },
+    {
+      "id": "text-r4c2",
+      "type": "text",
+      "x": 250,
+      "y": 260,
+      "text": "Physics"
+    },
+    {
+      "id": "text-r4c3",
+      "type": "text",
+      "x": 370,
+      "y": 260,
+      "text": "95000"
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}

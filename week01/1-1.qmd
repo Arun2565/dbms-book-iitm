@@ -1,0 +1,83 @@
+---
+title: "1.1 What is a Database?"
+subtitle: "Week 1 - Section 1"
+date: "2026-02-04"
+---
+
+## Module Objectives 
+
+- To understand the importance of DBMS in modern day applications.
+- To Know Your Course 
+
+
+## Module Outline 
+
+- Why Databases? 
+- KYC : Know Your Course
+    - Course Prerequisite
+    - Course Outline 
+    - Course Textbook
+
+
+### Why DBMS ?
+
+-  A Database system contains information about an enterprise. Here the term enterprise could mean a big business, small business, a bank, a nation, a small group or even individuals.
+
+- Any entity which has the requirement of collecting information of interrelated data, set of programs that process the data and it's an environment that is convenient and efficient to use will need a database system and this is what a database system will provide.
+
+
+### Database Applications 
+
+- Banking : UPI transaction, Netbanking transactions.
+- Reservation applications : Airlines, IRCTC , Bus Travel Services, etc.
+- Universities : Grades, Admission, Examination.
+- Sales : E-commerce like Amazon, Flipkart, Blinkit, Zepto.
+- Manufacturing : Production, inventory, orders and supply chain.
+
+> Databases touch all aspects of our lives.
+
+In early days, the database applications were built on top of file systems. File systems are simply hierarchial structure of folders and files, that we normally see on Windows Explorer, Linux directories, etc that is what we call a File System. We can keep an electronic document in a system, bundle them in a directory and we can have variety of types of files and hierarchy of folders.
+
+- Data can be kept in terms of files, which we call a flat file. The nearest approximation of flat file is a .csv file (comma-seperated values), we seperate them by comma, telling they are values of different fields. It is a common way that we share small scale of data through these csv files.
+
+
+## Drawbacks of File Systems to store data 
+
+
+- **Data redundancy and inconsistency** : When we keep data in terms of flat files, parts of the same data needs to be duplicated and kept at different locations, which led to duplication of information, that leads to bloating of data and it becomes difficult  to keep them consistent.
+
+- **Difficulty in accessing data** : If we have data in csv files, the only way we can access is that either we have to open in Notepad or in Excel application and can traverse [move across cells] and nothing much.
+
+- **Data Isolation** : If there are multiple files and formats, it is very difficult to keep them integrated and consistent.
+
+- **Integrity** : Integrity must be maintained in several places.
+Ex :  Banks maintains a mandate that they should have a minimum balance. So, we cannot make a transaction to debit amount such that it is less than the minimum balance.
+<br>
+If we store in files, it becomes very difficult that this condition of minimum balance will get buried deep down in the code.
+
+- **Atomicity** : 
+
+Ex : When Ram pays Rs.100 to his friend Shyam,there are two things that will happen, 
+1. Rs. 100 will have to get debited from Ram's account, after checking I have the balance.
+2. Rs. 100 has to be credited to Shyam's account. 
+This has to happen for successful transaction. 
+
+But suppose after Rs. 100 are debited and some failure occurs in the system and the money are not credited to Shyam's account. This is a **big** consistency problem and we must do these type of operations in atomic fashion, i.e. the entire transaction happens together or doesn't happen at all.
+
+- **Concurrency** : Concurrency of access means when several users are using the same system like 100s to 1000s or millions of users who use the same system in a concurrent fashion from different parts of organization.
+<br>
+Ex : Two people might want to reserve a berth on the train at the same time, which is the only one left. We can't allow two of them to have a berth. We have to manage that the system is fair and the berth is given to only one of them.
+
+- **Security** : Identity theft issues are present.
+
+
+**Database offers solution to all these problems.**
+
+
+### Course Prerequisites 
+
+
+
+### Course Textbook 
+
+![Fig 1.1 Course Textbook ](Course%20Textbook.png)

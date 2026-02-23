@@ -1,0 +1,121 @@
+---
+title: "1.4 Intro to DBMS - 1"
+---
+
+## Module Objectives 
+
+- To familiarize with the basic notions and terminology of database management systems.
+- To understand the role of data models and languages.
+- To understand the approaches to database design.
+
+## Module Outline 
+
+- Levels of Abstraction
+- Schema and Instance 
+- Data Models 
+    - Relational Databases
+- DDL & DML 
+- SQL 
+- Database Design
+
+## Levels of Abstraction 
+
+We do not look at data at just one way in a database system. In database system, data is looked at three levels of : 
+<br>
+
+1. Physical Level 
+2. Logical Level 
+3. View Level 
+
+### Physical Level 
+
+Physical Level is where we describe how the record is. This is the data that goes into the disk. It is the bits and bytes of data.
+
+### Logical Level 
+
+It describes data stored in databases, and the relationships among the data fields. <br>
+Ex : type : instructor is a record. 
+what is a record ? -> collection of multiple fields . Fields are attributes of same type where we can store some specific values. <br>
+ID : string , name : string , dept_name : string 
+
+- This level is primarily for programmers or database engineers.
+
+### View Level 
+
+The view level is for the application programmers through which data can be used, shown or hidden.
+
+Ex : For a course, the student can know the details of the instructor, his experience, syllabus etc, but the instructor's salary is not necessary to disclose.
+
+- In the view level , we will make a selective view of what is required by the application. A view may show information in a derived form, not the actual information. Ex : Displaying date of birth of a student, we can get the age. 
+
+- The view level can have multiple instances, like shoeing the involvement of instructor in courses, salary computation or in health insurance coverage,etc.
+
+![Fig 1.1](Levels of DBMS.png)
+
+## Schema 
+
+- Schema is the way data is organized. Schema can be physical or logical.
+Physical schema corresponds to the physical levels of abstraction & Logical Schema corresponds to logical level of abstraction.
+
+#### Logical Schema 
+
+- The overall logical structure of the database.
+
+Ex: Customer Schema will consist of Name, Customer ID, Account , Aadhar ID, Mobile. <br> This schema 
+gives us the idea about what fields the schema will consist of , but not the actual customer data values, like Ram , 007, etc.
+
+## Instance 
+
+- Instance is the actual value of the data. Instance is when based on a schema, we have one or more records available. 
+
+- Instances may get added, or removed, but the **schema** remains the same.
+- If we change the schema or the attributes (or) column names. 
+
+
+#### Physical Data Independence 
+
+When there is a change in physical level of abstraction, theat should not affect the logical level. It should be independent of the physical level.
+
+## Data Models 
+
+Data Model is a tool that describes the collection of data, data relationships, data semantics, data constraints.
+
+1. Relational Model 
+2. Entity - Relationship Model 
+3. Object - based Data models.
+
+- Recent models for Semi - structured and Unstructured Data : 
+    - XML format.
+
+
+## DDL : Data Definition Language
+
+Way to express a schema and manipulate an instance. It is used to define the structure of the schema.
+
+- DDL compiler generates a set of table templates stored in a data dictionary. 
+
+- In a database, all the schema information is stored in terms of tables, to know about the table has these fields, so we have further tables in the database system, which keeps track of the information. This is called data dictionary.
+
+
+## DML : Data Manipulation Language
+
+It is often popularly known as Query Language. 
+
+- The inserting of data, updating and deleting of data is known as Data Manipulation Language.
+- For Data Manipulation we use specific models for the relational model. There are three ways : 
+
+1. Relational Algebra
+2. Tuple relational calculus
+3. Domain relational calculus
+
+- This can be expressed in terms of commercial systems, which is : SQL. But SQL is a DML as well as DDL.
+
+- In SQL to do complex computations we embed SQL in some higher level languages. We use SQL for database and other host language for performing complex operations.
+
+
+### Database Design 
+
+We have : 
+
+1. Logical Design 
+2. Physical Design

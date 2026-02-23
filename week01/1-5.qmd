@@ -1,0 +1,113 @@
+---
+title: "1.5 Intro to DBMS - 2"
+---
+
+## Module Objectives 
+
+- To understand models of database management systems.
+- To familiarize with major components of a database engine.
+- To familiarize with database internals and architecture.
+- To understand the historical perspective 
+
+## Database Design 
+
+### Logical Design 
+
+Deciding on the database schema. 
+- Business Decision : Database design requires a good business decision.
+- What attributes should we store in a database?
+- How to organize the data? 
+- Computer Science Decision : What type of schema we should have, relational schema or flat schema.
+
+### Physical Design 
+
+
+
+### Database Design Issues : 
+
+The problem with the below table is that it has data redundancy and the fact that data is being kept at multiple places, and need more storage.
+<br>
+Suppose, if we have updation of data, then all the redundant records must be updated which due to system issues or if some data does not get updated, leads to anomaly. We should keep only the relevant data in the table and remove uneccesary attributes.
+<br>
+If we seperate the tables, then we can solve this issue. The two - tables design is more preferrd over storing all the information in one table.
+
+### Design Approaches 
+
+There are two ways of doing that : 
+
+1. Entity Relationship Model  : 
+- This tries to capture the business requirements.
+- What are the attributes, entities, relationships, what are the queries we want to answer, etc are represented diagramatically in an ER diagram.
+
+2. Normalization Theory  : 
+<br>
+How to organize the data in right set of tables, which is done through a theory called the Normalization Theory.
+
+
+
+## Object Relational Data Models 
+
+It is a relational model which is used to store flat , atomic values like a string, integer,etc. and not a composite value like student , which is tied on to other components.
+<br>
+
+Object Relational Model is an extension of the Relational Model which allows attributes of tuples to have complex types like composite values and preserves the relational foundation.
+
+
+### XML : Extensible Markup Language 
+
+It was defined by WWW Consortium (W3C).
+It was orignally designed for marking up documents. XML is a description of a name value pair. It talks about a tag, so that we can put a value on that.
+- A tag could be composite and multiple other tags and they themselves could have other values.
+- XML has become popular for data interchange.
+
+## Database Engine 
+
+The database engine consists of three main components : 
+
+1. Storage Manager 
+2. Query Processing
+3. Transaction Manager
+
+
+### Storage Manager 
+
+The storage manager has to deal with physical design, data dictionary.
+<br>
+The storage manager is responsible to : 
+<br>
+1. Interact with the OS file manager <br>
+2. Efficient storage, retrieving and updating of the data. 
+
+- The issues are : 
+    - Storage access
+    - File Organization
+    - Indexing and hashing 
+
+
+### Query Processing 
+
+Query Processing has three primary parts : 
+
+- Parsing and translation : Converting the SQL language to the relational algebraic expressions.
+- Optimization : We can use the relational algebra query to optimize the query.
+- Evaluation : We optimize and decide on an execution plan. We evaluate the performance.
+
+### Transaction Management 
+
+A transaction is a collection of operations performed a single logical function on database application. Ex : Checking validity, minimum balance, debit card transaction 
+
+Transaction management is a run time process that will happen, which will make use of queries,storage ,etc.
+
+- Concurrency Control Manager controls the interaction of multiple people.
+
+### Database System Internals 
+
+
+### Database architecture 
+
+Centralized : Store like magnetic tape or file based system.
+Relational : One place where everything is happening.
+Client - serve : Database acts as a server and client are the applications. Loosely coupled system
+Parallized : Multiple clients interacting with each other.
+Distributed : Distribute it physically over a WAN , internet
+Cloud : To store data in the cloud.

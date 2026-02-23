@@ -1,0 +1,773 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Database Management Systems",
+    "section": "",
+    "text": "Comprehensive notes for the Database Management Systems (DBMS) course at IIT Madras. This is a Diploma-level programming course with no prerequisites, covering fundamental to advanced database concepts.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Data Science Course Notes",
+    "section": "",
+    "text": "These are my comprehensive notes for the Data Science course at IIT Madras, organized week by week.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#course-progress",
+    "href": "index.html#course-progress",
+    "title": "Data Science Course Notes",
+    "section": "Course Progress",
+    "text": "Course Progress\n\n\n\nWeek\nTopics\nStatus\n\n\n\n\nWeek 1\nIntroduction & Setup\n📝\n\n\nWeek 2\nNumPy Fundamentals\n📝\n\n\nWeek 3\nPandas Basics\n📝\n\n\nWeek 4\nData Cleaning\n📝\n\n\nWeek 5\nVisualization\n📝\n\n\nWeek 6\nStatistical Analysis\n📝\n\n\nWeek 7\nProbability\n📝\n\n\nWeek 8\nMachine Learning Intro\n📝\n\n\nWeek 9\nLinear Models\n📝\n\n\nWeek 10\nClassification\n📝\n\n\nWeek 11\nClustering\n📝\n\n\nWeek 12\nModel Evaluation\n📝",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-navigation",
+    "href": "index.html#quick-navigation",
+    "title": "Database Management Systems",
+    "section": "Quick Navigation",
+    "text": "Quick Navigation\nUse the sidebar to navigate through weekly content. Each week contains multiple subsections covering specific topics with code examples and practice questions.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#about-this-course",
+    "href": "index.html#about-this-course",
+    "title": "Database Management Systems",
+    "section": "",
+    "text": "Comprehensive notes for the Database Management Systems (DBMS) course at IIT Madras. This is a Diploma-level programming course with no prerequisites, covering fundamental to advanced database concepts.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#course-structure",
+    "href": "index.html#course-structure",
+    "title": "Database Management Systems",
+    "section": "Course Structure",
+    "text": "Course Structure\n\n\n\nWeek\nTopics\nStatus\n\n\n\n\nWeek 1\nCourse Overview & Introduction to Databases\n📝\n\n\nWeek 2\nRelational Model and Basic SQL\n📝\n\n\nWeek 3\nIntermediate and Advanced SQL\n📝\n\n\nWeek 4\nRelational Query Languages & Database Design\n📝\n\n\nWeek 5\nIntroduction to DBMS/2 & Object-Relational Models\n📝\n\n\nWeek 6\nTransaction Management\n📝\n\n\nWeek 7\nConcurrency Control\n📝\n\n\nWeek 8\nDatabase Internals & Storage Structures\n📝\n\n\nWeek 9\nIndexing & Query Processing\n📝\n\n\nWeek 10\nDatabase Security\n📝\n\n\nWeek 11\nData Warehousing\n📝\n\n\nWeek 12\nAdvanced Database Concepts\n📝",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#weekly-overview",
+    "href": "index.html#weekly-overview",
+    "title": "Database Management Systems",
+    "section": "Weekly Overview",
+    "text": "Weekly Overview\n\nWeek 1\nCourse Overview & Introduction to Databases - Introduction to databases - Database management systems fundamentals - Data models and architecture\n\n\nWeek 2\nRelational Model and Basic SQL - Core concepts of the relational data model - Introduction to SQL syntax - Basic SQL queries and operations\n\n\nWeek 3\nIntermediate and Advanced SQL - Complex SQL queries - JOIN operations - Aggregation functions - Subqueries and advanced querying techniques\n\n\nWeek 4\nRelational Query Languages & Database Design - Relational algebra and calculus - Database design principles - Normalization concepts (1NF, 2NF, 3NF, BCNF) - Entity-Relationship (ER) modeling\n\n\nWeek 5\nIntroduction to DBMS/2 - Extended database management concepts - Object-relational data models - XML and semi-structured data - Advanced data types\n\n\nWeek 6\nTransaction Management - ACID properties - Transaction states and operations - Transaction processing concepts - Recovery mechanisms\n\n\nWeek 7\nConcurrency Control - Concurrency control mechanisms - Locking protocols - Deadlock handling - Timestamp-based protocols\n\n\nWeek 8\nDatabase Internals & Storage Structures - Database engine internals - Storage structures and file organization - Buffer management - Disk space management\n\n\nWeek 9\nIndexing & Query Processing - Index structures (B-trees, B+ trees, Hash indexes) - Query optimization - Query execution plans - Cost-based optimization\n\n\nWeek 10\nDatabase Security - Access control mechanisms - Authentication and authorization - SQL injection prevention - Database encryption - Security best practices\n\n\nWeek 11\nData Warehousing - Data warehouse concepts - OLAP vs OLTP - Star and snowflake schemas - ETL processes - Data mining basics\n\n\nWeek 12\nAdvanced Database Concepts - Distributed databases - NoSQL databases overview - Big data and databases - Emerging database technologies",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#course-information",
+    "href": "index.html#course-information",
+    "title": "Database Management Systems",
+    "section": "Course Information",
+    "text": "Course Information\n\nCourse Code: BSCS2001\nCredits: 4\nLevel: Diploma-level Programming Course\nPrerequisites: None\nDuration: 12 weeks + Quizzes + End-term Exam",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "Database Management Systems",
+    "section": "Resources",
+    "text": "Resources\n\nOfficial Course Page\nSQL Practice Exercises\nAssignment Solutions\nExam Preparation Notes",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "Summary",
+    "section": "",
+    "text": "Summary\nIn summary, this book has no content whatsoever."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Introduction\nThis is a book created from markdown and executable code.\nSee @knuth84 for additional discussion of literate programming."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "References"
+  },
+  {
+    "objectID": "week01/1-1.html",
+    "href": "week01/1-1.html",
+    "title": "1.1 What is a Database?",
+    "section": "",
+    "text": "To understand the importance of DBMS in modern day applications.\nTo Know Your Course",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#what-is-ml",
+    "href": "week01/1-1.html#what-is-ml",
+    "title": "1.1 What is a Database?",
+    "section": "",
+    "text": "We all have heard the term ML, it is ubiqituous (it’s everywhere) without knowing what it is exactly.\n\n\nMachine Learning is the study of computer algorithms that improve automatically through experience and by the use of data.\n\nThis definition has terms that are not very clear and easy to understand for laymen.\nWe all have performed ML tasks.\n\nWeather prediction - Googling about Today’s weather.\nFace Detection - Any mobile phone camera is now able to detect faces of persons, which places boxes on people on autofocus.\n\nTask -&gt; Process that converts input to ouptut.\nA task can be performed at three levels :\n\nHuman Labour : Human works on the input to get the output.\n\nInput | + | Human | -&gt; | Output |\n\nTool Usage : Human creates a tool that operates on the input and convert to output. Like Programming where tool is the computer, where human creates a tool through programming and software.\nMachine Learning : This is the highest level. Here the human doesn’t even build the tool himself. Human just gives a broad blueprint to a tool design box. The human just gives broad instructions to a tool design, which in fact uses the data and constructs the tool.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#why-and-when-ml",
+    "href": "week01/1-1.html#why-and-when-ml",
+    "title": "1.1 What is a Database?",
+    "section": "Why and When ML?",
+    "text": "Why and When ML?\nIf we can use Programming and ML to do a task, we shouldn’t use ML.\n\nHuman labour might fail, to satify the cost/ scale/ speed of the task to complete.\nProgramming might fail if we can’t express the rules that conver input to output using any Programming Language.\nIf we don’t know the exact rules transforming input to output.\n\nThis doesn’t mean that ML will succeed in these tasks.\nFor ML to succeed :\n\nWe need to have lots of example data.\nIf we have some structural idea on the rules.\n\n\nTask Analysis : Password Verification",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#drawbacks-of-file-systems-to-store-data",
+    "href": "week01/1-1.html#drawbacks-of-file-systems-to-store-data",
+    "title": "1.1 What is a Database?",
+    "section": "Drawbacks of File Systems to store data",
+    "text": "Drawbacks of File Systems to store data\n\nData redundancy and inconsistency : When we keep data in terms of flat files, parts of the same data needs to be duplicated and kept at different locations, which led to duplication of information, that leads to bloating of data and it becomes difficult to keep them consistent.\nDifficulty in accessing data : If we have data in csv files, the only way we can access is that either we have to open in Notepad or in Excel application and can traverse [move across cells] and nothing much.\nData Isolation : If there are multiple files and formats, it is very difficult to keep them integrated and consistent.\nIntegrity : Integrity must be maintained in several places. Ex : Banks maintains a mandate that they should have a minimum balance. So, we cannot make a transaction to debit amount such that it is less than the minimum balance.  If we store in files, it becomes very difficult that this condition of minimum balance will get buried deep down in the code.\nAtomicity :\n\nEx : When Ram pays Rs.100 to his friend Shyam,there are two things that will happen, 1. Rs. 100 will have to get debited from Ram’s account, after checking I have the balance. 2. Rs. 100 has to be credited to Shyam’s account. This has to happen for successful transaction.\nBut suppose after Rs. 100 are debited and some failure occurs in the system and the money are not credited to Shyam’s account. This is a big consistency problem and we must do these type of operations in atomic fashion, i.e. the entire transaction happens together or doesn’t happen at all.\n\nConcurrency : Concurrency of access means when several users are using the same system like 100s to 1000s or millions of users who use the same system in a concurrent fashion from different parts of organization.  Ex : Two people might want to reserve a berth on the train at the same time, which is the only one left. We can’t allow two of them to have a berth. We have to manage that the system is fair and the berth is given to only one of them.\nSecurity : Identity theft issues are present.\n\nDatabase offers solution to all these problems.\n\nCourse Prerequisites\n\n\nCourse Textbook\n\n\n\nFig 1.1 Course Textbook",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#module-objectives",
+    "href": "week01/1-1.html#module-objectives",
+    "title": "1.1 What is a Database?",
+    "section": "",
+    "text": "To understand the importance of DBMS in modern day applications.\nTo Know Your Course",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html",
+    "href": "week01/1-2.html",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "This Module’s objective is to understand the need of DBMS from a historical perspective. We will look at as a society how we have evolved and how the technology has evolved over years.\nIn the next video, we will learn why we need specific type of systems for solving data related problems, instead of simple computer programs.\n\n\n\nLet’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic\n\n\n\nPhysical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.\n\n\n\nThis started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.\n\n\n\n\n\nThere are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.\n\n\n\nSpreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.\n\n\n\n\nWith the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#evolution-of-data-management",
+    "href": "week01/1-2.html#evolution-of-data-management",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Let’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#physical",
+    "href": "week01/1-2.html#physical",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Physical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#electronic",
+    "href": "week01/1-2.html#electronic",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "This started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#module-outline",
+    "href": "week01/1-1.html#module-outline",
+    "title": "1.1 What is a Database?",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nWhy Databases?\nKYC : Know Your Course\n\nCourse Prerequisite\nCourse Outline\nCourse Textbook\n\n\n\nWhy DBMS ?\n\nA Database system contains information about an enterprise. Here the term enterprise could mean a big business, small business, a bank, a nation, a small group or even individuals.\nAny entity which has the requirement of collecting information of interrelated data, set of programs that process the data and it’s an environment that is convenient and efficient to use will need a database system and this is what a database system will provide.\n\n\n\nDatabase Applications\n\nBanking : UPI transaction, Netbanking transactions.\nReservation applications : Airlines, IRCTC , Bus Travel Services, etc.\nUniversities : Grades, Admission, Examination.\nSales : E-commerce like Amazon, Flipkart, Blinkit, Zepto.\nManufacturing : Production, inventory, orders and supply chain.\n\n\nDatabases touch all aspects of our lives.\n\nIn early days, the database applications were built on top of file systems. File systems are simply hierarchial structure of folders and files, that we normally see on Windows Explorer, Linux directories, etc that is what we call a File System. We can keep an electronic document in a system, bundle them in a directory and we can have variety of types of files and hierarchy of folders.\n\nData can be kept in terms of files, which we call a flat file. The nearest approximation of flat file is a .csv file (comma-seperated values), we seperate them by comma, telling they are values of different fields. It is a common way that we share small scale of data through these csv files.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#book---keeping",
+    "href": "week01/1-2.html#book---keeping",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "There are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#spreadsheets",
+    "href": "week01/1-2.html#spreadsheets",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Spreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#why-leave-file-systems",
+    "href": "week01/1-2.html#why-leave-file-systems",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "With the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html",
+    "href": "week01/1-3.html",
+    "title": "1.3 Why DBMS?/2",
+    "section": "",
+    "text": "Comparison of File Based Systems and DBMS",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#module-objectives",
+    "href": "week01/1-3.html#module-objectives",
+    "title": "1.3 Why DBMS?/2",
+    "section": "",
+    "text": "Comparison of File Based Systems and DBMS",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#module-outline",
+    "href": "week01/1-3.html#module-outline",
+    "title": "1.3 Why DBMS?/2",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nFile handling by Python with a DBMS Bank Transaction example.\nComparative solutions using Python using .csv file and the other is a database system using SQL. We will compare with all the parameters mentioned previously like durability, scalability, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html",
+    "href": "week01/1-5.html",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "",
+    "text": "To understand models of database management systems.\nTo familiarize with major components of a database engine.\nTo familiarize with database internals and architecture.\nTo understand the historical perspective",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#module-objectives",
+    "href": "week01/1-5.html#module-objectives",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "",
+    "text": "To understand models of database management systems.\nTo familiarize with major components of a database engine.\nTo familiarize with database internals and architecture.\nTo understand the historical perspective",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#database-design",
+    "href": "week01/1-5.html#database-design",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Database Design",
+    "text": "Database Design\n\nLogical Design\nDeciding on the database schema. - Business Decision : Database design requires a good business decision. - What attributes should we store in a database? - How to organize the data? - Computer Science Decision : What type of schema we should have, relational schema or flat schema.\n\n\nPhysical Design\n\n\nDatabase Design Issues :\nThe problem with the below table is that it has data redundancy and the fact that data is being kept at multiple places, and need more storage.  Suppose, if we have updation of data, then all the redundant records must be updated which due to system issues or if some data does not get updated, leads to anomaly. We should keep only the relevant data in the table and remove uneccesary attributes.  If we seperate the tables, then we can solve this issue. The two - tables design is more preferrd over storing all the information in one table.\n\n\nDesign Approaches\nThere are two ways of doing that :\n\nEntity Relationship Model :\n\n\nThis tries to capture the business requirements.\nWhat are the attributes, entities, relationships, what are the queries we want to answer, etc are represented diagramatically in an ER diagram.\n\n\nNormalization Theory :  How to organize the data in right set of tables, which is done through a theory called the Normalization Theory.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#object-relational-data-models",
+    "href": "week01/1-5.html#object-relational-data-models",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Object Relational Data Models",
+    "text": "Object Relational Data Models\nIt is a relational model which is used to store flat , atomic values like a string, integer,etc. and not a composite value like student , which is tied on to other components. \nObject Relational Model is an extension of the Relational Model which allows attributes of tuples to have complex types like composite values and preserves the relational foundation.\n\nXML : Extensible Markup Language\nIt was defined by WWW Consortium (W3C). It was orignally designed for marking up documents. XML is a description of a name value pair. It talks about a tag, so that we can put a value on that. - A tag could be composite and multiple other tags and they themselves could have other values. - XML has become popular for data interchange.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#database-engine",
+    "href": "week01/1-5.html#database-engine",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Database Engine",
+    "text": "Database Engine\nThe database engine consists of three main components :\n\nStorage Manager\nQuery Processing\nTransaction Manager\n\n\nStorage Manager\nThe storage manager has to deal with physical design, data dictionary.  The storage manager is responsible to :  1. Interact with the OS file manager  2. Efficient storage, retrieving and updating of the data.\n\nThe issues are :\n\nStorage access\nFile Organization\nIndexing and hashing\n\n\n\n\nQuery Processing\nQuery Processing has three primary parts :\n\nParsing and translation : Converting the SQL language to the relational algebraic expressions.\nOptimization : We can use the relational algebra query to optimize the query.\nEvaluation : We optimize and decide on an execution plan. We evaluate the performance.\n\n\n\nTransaction Management\nA transaction is a collection of operations performed a single logical function on database application. Ex : Checking validity, minimum balance, debit card transaction\nTransaction management is a run time process that will happen, which will make use of queries,storage ,etc.\n\nConcurrency Control Manager controls the interaction of multiple people.\n\n\n\nDatabase System Internals\n\n\nDatabase architecture\nCentralized : Store like magnetic tape or file based system. Relational : One place where everything is happening. Client - serve : Database acts as a server and client are the applications. Loosely coupled system Parallized : Multiple clients interacting with each other. Distributed : Distribute it physically over a WAN , internet Cloud : To store data in the cloud.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#case-study-a-bank-transaction",
+    "href": "week01/1-3.html#case-study-a-bank-transaction",
+    "title": "1.3 Why DBMS?/2",
+    "section": "Case study : A bank transaction",
+    "text": "Case study : A bank transaction\nLet’s take the example of a bank transaction system where he can open a new account , transfer money from the account and check history of all the transactions.  The application is defined with three basic conditions :\n\nIf the account balance is not enough, the transfer will not happen.\nIf the account numbers are not same, it will terminate the transaction and show an error message.\nIf the transaction is successful, it will print a confirmation message.\n\nNow, we will compare File-based system using Python programming language with DBMS.\n\nFor File-based system there are two different files :\n\nAccounts.csv for storing information about accounts.\nLedger.csv are used for storing info related to transactions.\n\nFor a Database application we use :\n\nAccounts table\nLedgers table\n\nIn Python , for every transaction we need to open both the csv files.\nIn DBMS, after initialzing the tables with data, it is very easy to work with data.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html",
+    "href": "week01/1-4.html",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "",
+    "text": "To familiarize with the basic notions and terminology of database management systems.\nTo understand the role of data models and languages.\nTo understand the approaches to database design.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#module-objectives",
+    "href": "week01/1-4.html#module-objectives",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "",
+    "text": "To familiarize with the basic notions and terminology of database management systems.\nTo understand the role of data models and languages.\nTo understand the approaches to database design.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#module-outline",
+    "href": "week01/1-4.html#module-outline",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nLevels of Abstraction\nSchema and Instance\nData Models\n\nRelational Databases\n\nDDL & DML\nSQL\nDatabase Design",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#levels-of-abstraction",
+    "href": "week01/1-4.html#levels-of-abstraction",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Levels of Abstraction",
+    "text": "Levels of Abstraction\nWe do not look at data at just one way in a database system. In database system, data is looked at three levels of : \n\nPhysical Level\nLogical Level\nView Level\n\n\nPhysical Level\nPhysical Level is where we describe how the record is. This is the data that goes into the disk. It is the bits and bytes of data.\n\n\nLogical Level\nIt describes data stored in databases, and the relationships among the data fields.  Ex : type : instructor is a record. what is a record ? -&gt; collection of multiple fields . Fields are attributes of same type where we can store some specific values.  ID : string , name : string , dept_name : string\n\nThis level is primarily for programmers or database engineers.\n\n\n\nView Level\nThe view level is for the application programmers through which data can be used, shown or hidden.\nEx : For a course, the student can know the details of the instructor, his experience, syllabus etc, but the instructor’s salary is not necessary to disclose.\n\nIn the view level , we will make a selective view of what is required by the application. A view may show information in a derived form, not the actual information. Ex : Displaying date of birth of a student, we can get the age.\nThe view level can have multiple instances, like shoeing the involvement of instructor in courses, salary computation or in health insurance coverage,etc.\n\n\n\n\nFig 1.1",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#schema",
+    "href": "week01/1-4.html#schema",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Schema",
+    "text": "Schema\n\nSchema is the way data is organized. Schema can be physical or logical. Physical schema corresponds to the physical levels of abstraction & Logical Schema corresponds to logical level of abstraction.\n\n\nLogical Schema\n\nThe overall logical structure of the database.\n\nEx: Customer Schema will consist of Name, Customer ID, Account , Aadhar ID, Mobile.  This schema gives us the idea about what fields the schema will consist of , but not the actual customer data values, like Ram , 007, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#instance",
+    "href": "week01/1-4.html#instance",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Instance",
+    "text": "Instance\n\nInstance is the actual value of the data. Instance is when based on a schema, we have one or more records available.\nInstances may get added, or removed, but the schema remains the same.\nIf we change the schema or the attributes (or) column names.\n\n\nPhysical Data Independence\nWhen there is a change in physical level of abstraction, theat should not affect the logical level. It should be independent of the physical level.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#data-models",
+    "href": "week01/1-4.html#data-models",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Data Models",
+    "text": "Data Models\nData Model is a tool that describes the collection of data, data relationships, data semantics, data constraints.\n\nRelational Model\nEntity - Relationship Model\nObject - based Data models.\n\n\nRecent models for Semi - structured and Unstructured Data :\n\nXML format.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#ddl-data-definition-language",
+    "href": "week01/1-4.html#ddl-data-definition-language",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "DDL : Data Definition Language",
+    "text": "DDL : Data Definition Language\nWay to express a schema and manipulate an instance. It is used to define the structure of the schema.\n\nDDL compiler generates a set of table templates stored in a data dictionary.\nIn a database, all the schema information is stored in terms of tables, to know about the table has these fields, so we have further tables in the database system, which keeps track of the information. This is called data dictionary.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#dml-data-manipulation-language",
+    "href": "week01/1-4.html#dml-data-manipulation-language",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "DML : Data Manipulation Language",
+    "text": "DML : Data Manipulation Language\nIt is often popularly known as Query Language.\n\nThe inserting of data, updating and deleting of data is known as Data Manipulation Language.\nFor Data Manipulation we use specific models for the relational model. There are three ways :\n\n\nRelational Algebra\nTuple relational calculus\nDomain relational calculus\n\n\nThis can be expressed in terms of commercial systems, which is : SQL. But SQL is a DML as well as DDL.\nIn SQL to do complex computations we embed SQL in some higher level languages. We use SQL for database and other host language for performing complex operations.\n\n\nDatabase Design\nWe have :\n\nLogical Design\nPhysical Design",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week02/2-1.html",
+    "href": "week02/2-1.html",
+    "title": "2.1 Intro to Relational Model/1",
+    "section": "",
+    "text": "A column is defined as an attribute. A row is defined as a tuple or a record.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.1 Intro to Relational Model/1"
+    ]
+  },
+  {
+    "objectID": "week02/2-1.html#attribute-types",
+    "href": "week02/2-1.html#attribute-types",
+    "title": "2.1 Intro to Relational Model/1",
+    "section": "Attribute Types",
+    "text": "Attribute Types\n\nStudent has attributes and is related by Roll No, First Name, Last Name , DOB, Passport, Aadhar, Department relation.\nRoll No : Alphanumeric String\nFirst Name, Last Name : Alpha string\nDOB : Date\nPassport : String - nullable (optional)\nAadhar : 12 digit number\nDepartment : Alpha String\nAttribute values should be atomic and indivisible. EX : indivisible meaning we cannot combine first name and last name to one and make it an attribute.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.1 Intro to Relational Model/1"
+    ]
+  },
+  {
+    "objectID": "week02/2-1.html#relation-schema-and-instance",
+    "href": "week02/2-1.html#relation-schema-and-instance",
+    "title": "2.1 Intro to Relational Model/1",
+    "section": "Relation Schema and Instance",
+    "text": "Relation Schema and Instance\nSchema is the attributes and the type of attributes the table can take. Instance is the actual values and tuples that the table holds.\nSchema can be mathematically represented as a relation.\nA1, A2, …. An are the attributes. R = (A1,A2,….An) is a relation schema.\nEx : Instructor = (ID,name,dept_name,salary) The instructor has the relation schema with these four attributes.\n\nD1,D2,….Dn are the domains of the respective attributes.\nA relation is a subset of (D1,D2,….Dn) .\nThe relational instance is the table of actual set of values.\nThe order of tuples in the table or the relation is irrelevant.\nThere should be no two rows/ tuples that are identical. Every tuple has to be distinct from every other tuple. There should be atleast one field where the value should vary. A relation is nothing but a set, so it does not have an order and does not take duplicate values.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.1 Intro to Relational Model/1"
+    ]
+  },
+  {
+    "objectID": "week02/2-1.html#keys",
+    "href": "week02/2-1.html#keys",
+    "title": "2.1 Intro to Relational Model/1",
+    "section": "Keys",
+    "text": "Keys\nEvery row/ tuple must be unique and identifiable. Instead of knowing all the values to identify every row, we can work with subset of attributes which can uniquely indentify every row.\n\nLet K be a subset of R, where R is a set of attributes in the relation.\n\nEvery attribute has a unique key and they will be called a Super key, unless we show there is no subset smaller than this. Superkey is a candidate key, when k is minimal.\nMinimality - Suppose ‘k’ is a candidate key and no subset of ‘k’ is a Superkey, then we will call this as a minimal set or a candidate key.\nEx : Both ID and ID Names is a superkey and not a candidate key. {ID} -&gt; Candidate Key , there is no subset. {ID,name} -&gt; Super Key\n\nThere may be one or multiple candidate keys. From the primary keys, we can choose one primary key.\nSurrogate key in a database is a unique identifier for either an entity in the modeled world or an object in the database. Ex : A customer orders the same item , same quantity, at different times so they cannot be treated as the same transactions. So, we synthetically generate a key that is the order number.\nSynthetically generated data only at the time of transaction are known as surrogate key. These keys have very short lifetime, in this case the order number exists only until the order is placed and delivered. These values are not changed. In the collection of orders it will be unique.\n\nRoll no and EMP_ID in contrast are permanent in nature. The roll no. remains valid as long as the person is there. These uniquely identify a unique entity in the world.\n\nTable 2.1: Attributes and their keys\n\n\nAttribute\nKey\n\n\n\n\nRoll_No, {Roll_No, DOB}\nSuper Key\n\n\nRoll_No, {First Name, Last Name}, Aadhar\nCandidate Key\n\n\nPassport\nCannot be a key, as it nullable and optional\n\n\n\n\nChoosing a Primary Key\nFor the student table, choosing primary key has two options : Roll No, Aadhar ID.\nThe roll no conveys a lot of information of the student. Ex : Roll No : 14CS92P01\n14: Year of Admission CS : Department of CS 92 : Category of student P : Type of admission 01 : Serial no. # No. of people in a class, etc.\nAll these five types of parameters are put together to create a unique key.\n\nSecondary Keys : Candidate keys which are not primary are called secondary keys. Ex : {First Name, Last Name}, Aadhar.\nSimple Key : A key which consists of a single attribute.\nCandidate Keys : A Candidate Key is a key which has more than one component. Ex : {First Name, Last Name}\nForeign Key : When a particular attribute is a key in a different table. Ex : Students table -&gt; Roll No {Primary Key}, Courses Table -&gt; Course {Primary Key}, Enrollment table -&gt; An attribute which is a key in a different table, here Roll No is a primary key in the students table, but that is not the case all times.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.1 Intro to Relational Model/1"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html",
+    "href": "week02/2-4.html",
+    "title": "2.4 Intro to SQL/2",
+    "section": "",
+    "text": "This section will cover all the remaining basic operations.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#cartesian-product",
+    "href": "week02/2-4.html#cartesian-product",
+    "title": "2.4 Intro to SQL/2",
+    "section": "Cartesian Product",
+    "text": "Cartesian Product\nThe Cartesian Product is a combination of all the tuples that the Instructor and the Teacher has. In this operation we are trying to relate the information on both the tables. Ex : We can get the list of courses an instructor is teaching, which is neither available in both the tables, but from the combination.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html",
+    "href": "week02/2-2.html",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "",
+    "text": "This section will cover Relational Algebra and its operators in great depth.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#basic-properties-of-relations",
+    "href": "week02/2-2.html#basic-properties-of-relations",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Basic Properties of Relations",
+    "text": "Basic Properties of Relations\nA relation is a set. So, the order of tuples or rows don’t matter.\n\nThe order of tuples is inconsequential\n\n\n\n\nA\nB\n\n\n\n\na1\nb1\n\n\na1\nb2\n\n\na2\nb1\n\n\na2\nb2\n\n\n\n\nAll rows/ tuples must be distinct. The values should not be duplicated\n\nA| B | |A|B|\n|——-|————-| |a1|b1| | a1 |b1 | is not valid |a1| b2| | a1| b2| | a1 |b2| | a1 |b1|",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#select-operation",
+    "href": "week02/2-2.html#select-operation",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Select Operation",
+    "text": "Select Operation\nSelect Operation is used to select a subset of rows from a relational instance which satisfy a condition. This takes few rows horizontally.\n\nIt is denoted with Sigma. IMage",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#project-operation",
+    "href": "week02/2-2.html#project-operation",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Project Operation",
+    "text": "Project Operation\nProject Operation is used to take out some columns, - It is denoted with pi.\nImage",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#union-of-two-relations",
+    "href": "week02/2-2.html#union-of-two-relations",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Union of two relations",
+    "text": "Union of two relations\nIf two relations have identical set of attributes, then we take their union.\nPut images or illustrations",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#set-difference",
+    "href": "week02/2-2.html#set-difference",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Set difference",
+    "text": "Set difference\nWhat is present in set R and not in Set S, and take out similar ones which are in S and R.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#set-intersection",
+    "href": "week02/2-2.html#set-intersection",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Set Intersection",
+    "text": "Set Intersection\nTuples or rows which are present in both R and S.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#cartesian-product",
+    "href": "week02/2-2.html#cartesian-product",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Cartesian Product",
+    "text": "Cartesian Product\nCartesian Product is used to combine and scale the two relations. If we do projection on the cartesian product, we get back the original relation.\nIssue with cartesian product if two relations have same column name.\nTake a screenshot of the ppt slide to demonstrate.\nRenaming a table. -: Learn more about this topic.\n\nComposition of Operations\nWe can build expressions using multiple operations. Ex : Sigma (A=C) = C(rXs)",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#natural-join",
+    "href": "week02/2-2.html#natural-join",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Natural Join",
+    "text": "Natural Join\nLet r and s be the relations on schema R and S respectively. The natural join of relations R and S is a relation on schema R U S . - Consider each pair of tuples tr from r and ts from s. - If ts and tr have the same value on each attributes in R intersection S, that is if there is an attribute which is common b/w R and S, then tuples which have identical values on that attribute will be taken in the natural join. In contrast in Cartesian Product we will take all the values.\nThis is a very important and powerful operation.\nShow the example as shown in the PPT slides.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-2.html#aggregate-operators",
+    "href": "week02/2-2.html#aggregate-operators",
+    "title": "2.2 Intro to Relational Model/2",
+    "section": "Aggregate Operators",
+    "text": "Aggregate Operators\nWe take a relation and based on one or more columns and conditions, we do an aggregation. The type of that column should be possible to perform that certain aggregate operation.\nAggregate Operations :\n\nSUM\nAVG\nMIN\nMAX\n\nThese operations are performed on columns and generally produce a numerical value. While Relational Operators take in relations and produce a relation as an output.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.2 Intro to Relational Model/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-1.html#relational-query-languages",
+    "href": "week02/2-1.html#relational-query-languages",
+    "title": "2.1 Intro to Relational Model/1",
+    "section": "Relational Query Languages",
+    "text": "Relational Query Languages\nProcedural Programming tells us how we get a value. Declarative Language tells what the answer should be. This style is useful for relational query.\nThe relational models are :\n\nRelational Algebra\nTuple Relational Calculus\nDomain Relational Calculus",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.1 Intro to Relational Model/1"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html",
+    "href": "week02/2-3.html",
+    "title": "2.3 Intro to SQL/1",
+    "section": "",
+    "text": "IBM developed Structured English Query Language as a part of R project. Later, it was named as SQL in the 1970s and 1980s. In 1989 , integrity constraints was introduced. In 1992, it was standardised using ISO 9075 standard, this is the major revision and we are following this using some revisions.\nnaturally SQL 1999 you can understand that this was getting close to year 2000. So, everybody was concerned with y2k. So, the naming of the standard also changed in the y2k four-digit year format.\nThis added several of very useful features like matching of regular expressions, recursive queries, that is which we will see is not possible in pure relational algebra that is transitive closure was provided as a part of SQL then triggers, support for procedural and control statements, which are SQL as I mentioned, or query languages, as I mentioned are declarative, but some procedural support is also provided. Arrays, structure types and most importantly, first a formal embedding mechanism was given in SQL, so that you can embed SQL queries in Java, which is called SQL will be and you can embed Java in SQL, which is called SQL JRT. Both of these embeddings are possible so that you can choose which part of the task you would like to do as relational operations or database operations and which part you would like to do in a standard programming language like Java. 2003 standard also added a very significant feature of XML. We will talk about XML being a standard format for Information Interchange. So, that was added in 2003 and in 2006, a full functionality of XML including, importing, storing, manipulating, exporting, publishing, all these were added. Subsequently several small but important updates continued to happen in SQL and the latest version of SQL is 2019.\n\n\nPrimarily SQL is used for most cases. There are some frontend softwares made which make SQL easy to write in different languages like Lisp, Haskell, Ruby , Scala.\n\nDerivates using SQL : There are many derived query languages from SQL. But the most effective which stands out is SPARQL.\n\n\nSPARQL has a recursive acronymn SPARQL Protocol and RDF Query Language. This has been used by the query languages for several NOSQL systems - particularly the Graph Databases that uses RDF (Resource Descriptive Framework) to store.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#history-of-sql",
+    "href": "week02/2-3.html#history-of-sql",
+    "title": "2.3 Intro to SQL/1",
+    "section": "",
+    "text": "IBM developed Structured English Query Language as a part of R project. Later, it was named as SQL in the 1970s and 1980s. In 1989 , integrity constraints was introduced. In 1992, it was standardised using ISO 9075 standard, this is the major revision and we are following this using some revisions.\nnaturally SQL 1999 you can understand that this was getting close to year 2000. So, everybody was concerned with y2k. So, the naming of the standard also changed in the y2k four-digit year format.\nThis added several of very useful features like matching of regular expressions, recursive queries, that is which we will see is not possible in pure relational algebra that is transitive closure was provided as a part of SQL then triggers, support for procedural and control statements, which are SQL as I mentioned, or query languages, as I mentioned are declarative, but some procedural support is also provided. Arrays, structure types and most importantly, first a formal embedding mechanism was given in SQL, so that you can embed SQL queries in Java, which is called SQL will be and you can embed Java in SQL, which is called SQL JRT. Both of these embeddings are possible so that you can choose which part of the task you would like to do as relational operations or database operations and which part you would like to do in a standard programming language like Java. 2003 standard also added a very significant feature of XML. We will talk about XML being a standard format for Information Interchange. So, that was added in 2003 and in 2006, a full functionality of XML including, importing, storing, manipulating, exporting, publishing, all these were added. Subsequently several small but important updates continued to happen in SQL and the latest version of SQL is 2019.\n\n\nPrimarily SQL is used for most cases. There are some frontend softwares made which make SQL easy to write in different languages like Lisp, Haskell, Ruby , Scala.\n\nDerivates using SQL : There are many derived query languages from SQL. But the most effective which stands out is SPARQL.\n\n\nSPARQL has a recursive acronymn SPARQL Protocol and RDF Query Language. This has been used by the query languages for several NOSQL systems - particularly the Graph Databases that uses RDF (Resource Descriptive Framework) to store.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#ddl---data-definition-language",
+    "href": "week02/2-3.html#ddl---data-definition-language",
+    "title": "2.3 Intro to SQL/1",
+    "section": "DDL - Data Definition Language",
+    "text": "DDL - Data Definition Language\n\nDomain Types in SQL\nThere are various types in SQL :\n\nvarchar(n) : In varchar(n), it can have any length upto ‘n’. But in char(n) it should have exactly ‘n’ number of characters.\nchar(n). Fixed length character string, with user-specified length n\nsmallint : Small integer (a machine-dependent subset of the integer domain type)\nnumeric(p, d) : Fixed point number, with user-specified precision of p digits, with d digits to the right of decimal point. (ex., numeric(3, 1), allows 44.5 to be stores exactly, but not 444.5 or 0.32)real, double precision. Floating point and double-precision floating point numbers, with machine-dependent precision\nfloat(n): Floating point number, with user-specified precision of at least n digits",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#create-table",
+    "href": "week02/2-3.html#create-table",
+    "title": "2.3 Intro to SQL/1",
+    "section": "Create Table",
+    "text": "Create Table\nCreating Schema is done using the “Create Table” command in SQL. We have to create the table with attributes and their types respectively.\nCREATE TABLE INSTRUCTOR \n(ID CHAR(5),\nNAME VARCHAR(20),\nDEPT_NAME VARCHAR(20),\nSALARY NUMERIC(8,2))\nHere for the salary attribute numeric(8,2) means that it take up to 8 digits, and two decimals, after the period.\n\nIntegrity Constraints\nThese are used to specify that a field should not contain NULL values. - We should mention the Primary Key, primary key by default is not null. - We should maintain the Foriegn Key and its reference.\nCREATE TABLE INSTRUCTOR \n(ID CHAR(5),\nNAME VARCHAR(20) NOT NULL,\nDEPT_NAME VARCHAR(20),\nSALARY NUMERIC(8,2)\nPRIMARY KEY (ID),\nFOREIGN KEY (DEPT_NAME) references department \n)\n\nUpdate Table\nWe can update table using the following operations :\n\nInsert : Insert instance into a table. Ex : insert into instructor values(‘101’,‘Smith’,‘Maths’,50000)\nDelete : We can remove all the tuples from a table.\nDrop Table : We can delete the whole table and it will be removed from data dictionary itself.\nAlter Table : Where we can add an attribute in a table.\n\nalter table r add a \nwhere add a is used to edit the schema. While adding the attributes , initially these should be nullable.\nalter table r drop A",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#dml-data-manipulation-language",
+    "href": "week02/2-3.html#dml-data-manipulation-language",
+    "title": "2.3 Intro to SQL/1",
+    "section": "DML : Data Manipulation Language",
+    "text": "DML : Data Manipulation Language\nBasic SQL Query Structure is in the form : \nselect A1,A2,...An\nfrom r1,r2,...rn\nwhere P\n\nwhere Ai represents an attribute from ri’ s. ri represent a relation P is a predicate , which is nothing but a boolean condition.\n\nSELECT CLAUSE\nSelect Clause mentions the list of attributes required in the query. It corresponds to the projection operation in Relational Algebra.\nSQL names are case insensitive.\nSQL will show duplicate entries in the result. To display unique values without duplicates, we can use the “distinct” keyword which will remove the duplicates.\nselect distinct dept_name from instructor\n To show the duplicates explicitly we can use the all command.\nselect all dept_name from instructor\n\n\nAn asterisk in the select clause uses all the attributes.\n\nselect * from instructor\n\n\nWe can select a literal using the select clause.\n\nselect '437'\n\nWe can use the arithmetic expressions in the Select clause and even rename it using the as clause.\n\nselect ID,name,salary/12 as monthly_salary",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#where-clause",
+    "href": "week02/2-3.html#where-clause",
+    "title": "2.3 Intro to SQL/1",
+    "section": "WHERE Clause",
+    "text": "WHERE Clause\nWHERE Clause is used to specify the conditions that should be resulted or displayed. The result of the predicate is always True or False. - WHERE Clause corresponds to selection predicate of the relational algebra.\nselect name \nfrom instructor \nwhere dept_name = 'Comp_Sci'",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-3.html#from-clause",
+    "href": "week02/2-3.html#from-clause",
+    "title": "2.3 Intro to SQL/1",
+    "section": "FROM Clause",
+    "text": "FROM Clause\nFROM Clause tells us the scope of the relations we are dealing with from one or multiple tables. This corresponds to the Cartesian Product operation in the Relational Algebra.\nselect * \nfrom instructor , teaches\n\nNote : We have to put a WHERE Clause to make it effective and simpler.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.3 Intro to SQL"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#rename-as-operation",
+    "href": "week02/2-4.html#rename-as-operation",
+    "title": "2.4 Intro to SQL/2",
+    "section": "Rename AS Operation",
+    "text": "Rename AS Operation\nThis is used when we need to change the name of an attribute or a relation.  The problems that will occur are : 1. we are trying to do instructor cross instructor, but before we were doing with different tables. 2. If we want to do an operation within an instance / table , it is difficult to clearly mention the table as both have same names.\n\nSo, we can just rename the tables using “AS” key. In the below code, we are doing cartesian product within itself.\nselect  distinct  T.name \nfrom instructor as T, instructor as S,\nwhere T.salary &gt; S.salary and S.dept_name = 'Comp_Sci'\n\nThis code is used to compare the salary of the instructors whose salary is greater than salary of the instructors in the Computer Science.\nCartesian Product example.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#string-operations",
+    "href": "week02/2-4.html#string-operations",
+    "title": "2.4 Intro to SQL/2",
+    "section": "String Operations",
+    "text": "String Operations\nIn some cases, there are some strings that we know partially and we want to find and look for that string. For this we have a LIKE operator. %% is used to do string matching.\nselect name\nfrom instructor \nwhere name like '%dar%'\nEx : dar, sardar , majumdar will match for %dar\n\nWe can specify all the # of characters using underscore. Ex : %dar_ _ _ , this specifies the number of characters after the string.\nWhen it comes to string matching it is case sensitive.\nAlso, SQL supports various operations like concatenation, converting from upper case to lower case, finding string length, extracting substrings, etc.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#ordering-the-tuples",
+    "href": "week02/2-4.html#ordering-the-tuples",
+    "title": "2.4 Intro to SQL/2",
+    "section": "Ordering the Tuples",
+    "text": "Ordering the Tuples\nIn SQL when query results are displayed they are displayed in a lexical order. We use the clause order by\nselect distinct name\nfrom instructor\norder by name\nBy default the order by is used to display the result in ascending order in default. We can also sort using multiple attributes.\n\nSelecting Number of Tuples in Output\nThe select top is used to make it easier to view the tables and convenient.\nselect top 10 distinct name \nfrom instructor\n\n\nDifferent SQL Servers use different conventions for the SELECT TOP Clause.\n\nSQL Server & MS Access supports select top\nMySQL supports the limit clause.\nOracle uses the fetch first n rows only and rownum\n\n\n\n\nWHERE Clause Predicates\nSQL includes a between comparison operator. This can be used when there is a range to compare.\nselect name\nfrom instructor\nwhere salary between 90000 and 100000\n\nTuple comparison\n\nselect name, course_id\nfrom instructor , teaches \nwhere (instructor.ID, dept_name) = (teaches.ID, 'Biology');",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#in-operator",
+    "href": "week02/2-4.html#in-operator",
+    "title": "2.4 Intro to SQL/2",
+    "section": "In Operator",
+    "text": "In Operator\nThe in operator is used to simplify the predicate in the where clause. It is used to specify multiple values to be compared like in set membership.\nselect name \nfrom instructor\nwhere dept_name in ('Comp. Sci','Biology')",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  },
+  {
+    "objectID": "week02/2-4.html#duplicates",
+    "href": "week02/2-4.html#duplicates",
+    "title": "2.4 Intro to SQL/2",
+    "section": "Duplicates",
+    "text": "Duplicates\nNOTE : In relational algebra no duplicates are allowed, in SQL duplicates are allowed.\nMulti-set : We can have multiple elements which are identical and therefore, we can multiset operations.",
+    "crumbs": [
+      "Week 2: Relational Model & Basic SQL",
+      "2.4 Intro to SQL/2"
+    ]
+  }
+]

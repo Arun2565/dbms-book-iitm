@@ -1,0 +1,39 @@
+---
+title: "1.3 Why DBMS?/2"
+date: "2026-02-10"
+---
+
+## Module Objectives 
+
+- Comparison of File Based Systems and DBMS
+
+## Module Outline 
+
+- File handling by Python with a DBMS Bank Transaction example.
+- Comparative solutions using Python using .csv file and the other is a database system using SQL.
+We will compare with all the parameters mentioned previously like durability, scalability, etc.
+
+
+## Case study : A bank transaction 
+
+Let's take the example of a bank transaction system where he can open a new account , transfer money from the account and check history of all the transactions.
+<br>
+The application is defined with three basic conditions : 
+
+- If the account balance is not enough, the transfer will not happen.
+- If the account numbers are not same, it will terminate the transaction and show an error message.
+- If the transaction is successful, it will print a confirmation message.
+
+Now, we will compare File-based system using Python programming language with DBMS.
+
+- For File-based system there are two different files : 
+    - Accounts.csv for storing information about accounts.
+    - Ledger.csv are used for storing info related to transactions.
+
+- For a Database application we use : 
+    - Accounts table 
+    - Ledgers table 
+
+
+- In Python , for every transaction we need to open both the csv files. 
+- In DBMS, after initialzing the tables with data, it is very easy to work with data.
