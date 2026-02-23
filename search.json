@@ -62,7 +62,7 @@
     "text": "Comparison of File Based Systems and DBMS",
     "crumbs": [
       "Week 1: Introduction",
-      "1.3 Why DBMS?/2"
+      "1.3 Why DBMS? / 2"
     ]
   },
   {
@@ -73,7 +73,7 @@
     "text": "Comparison of File Based Systems and DBMS",
     "crumbs": [
       "Week 1: Introduction",
-      "1.3 Why DBMS?/2"
+      "1.3 Why DBMS? / 2"
     ]
   },
   {
@@ -84,7 +84,7 @@
     "text": "Module Outline\n\nFile handling by Python with a DBMS Bank Transaction example.\nComparative solutions using Python using .csv file and the other is a database system using SQL. We will compare with all the parameters mentioned previously like durability, scalability, etc.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.3 Why DBMS?/2"
+      "1.3 Why DBMS? / 2"
     ]
   },
   {
@@ -95,7 +95,7 @@
     "text": "Case study : A bank transaction\nLet’s take the example of a bank transaction system where he can open a new account , transfer money from the account and check history of all the transactions.  The application is defined with three basic conditions :\n\nIf the account balance is not enough, the transfer will not happen.\nIf the account numbers are not same, it will terminate the transaction and show an error message.\nIf the transaction is successful, it will print a confirmation message.\n\nNow, we will compare File-based system using Python programming language with DBMS.\n\nFor File-based system there are two different files :\n\nAccounts.csv for storing information about accounts.\nLedger.csv are used for storing info related to transactions.\n\nFor a Database application we use :\n\nAccounts table\nLedgers table\n\nIn Python , for every transaction we need to open both the csv files.\nIn DBMS, after initialzing the tables with data, it is very easy to work with data.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.3 Why DBMS?/2"
+      "1.3 Why DBMS? / 2"
     ]
   },
   {
@@ -220,7 +220,7 @@
     "text": "This Module’s objective is to understand the need of DBMS from a historical perspective. We will look at as a society how we have evolved and how the technology has evolved over years.\nIn the next video, we will learn why we need specific type of systems for solving data related problems, instead of simple computer programs.\n\n\n\nLet’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic\n\n\n\nPhysical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.\n\n\n\nThis started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.\n\n\n\n\n\nThere are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.\n\n\n\nSpreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.\n\n\n\n\nWith the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -231,7 +231,7 @@
     "text": "Let’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -242,7 +242,7 @@
     "text": "Physical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -253,7 +253,7 @@
     "text": "This started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -264,7 +264,7 @@
     "text": "There are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -275,7 +275,7 @@
     "text": "Spreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
@@ -286,7 +286,7 @@
     "text": "With the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
     "crumbs": [
       "Week 1: Introduction",
-      "1.2 Why DBMS?/1"
+      "1.2 Why DBMS? / 1"
     ]
   },
   {
