@@ -1,6 +1,0 @@
----
-title: "2.5 Intro to SQL/3"
----
-
-## Set Operations 
-
