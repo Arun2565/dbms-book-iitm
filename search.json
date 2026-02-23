@@ -1,0 +1,391 @@
+[
+  {
+    "objectID": "week01/1-5.html",
+    "href": "week01/1-5.html",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "",
+    "text": "To understand models of database management systems.\nTo familiarize with major components of a database engine.\nTo familiarize with database internals and architecture.\nTo understand the historical perspective",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#module-objectives",
+    "href": "week01/1-5.html#module-objectives",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "",
+    "text": "To understand models of database management systems.\nTo familiarize with major components of a database engine.\nTo familiarize with database internals and architecture.\nTo understand the historical perspective",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#database-design",
+    "href": "week01/1-5.html#database-design",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Database Design",
+    "text": "Database Design\n\nLogical Design\nDeciding on the database schema. - Business Decision : Database design requires a good business decision. - What attributes should we store in a database? - How to organize the data? - Computer Science Decision : What type of schema we should have, relational schema or flat schema.\n\n\nPhysical Design\n\n\nDatabase Design Issues :\nThe problem with the below table is that it has data redundancy and the fact that data is being kept at multiple places, and need more storage.  Suppose, if we have updation of data, then all the redundant records must be updated which due to system issues or if some data does not get updated, leads to anomaly. We should keep only the relevant data in the table and remove uneccesary attributes.  If we seperate the tables, then we can solve this issue. The two - tables design is more preferrd over storing all the information in one table.\n\n\nDesign Approaches\nThere are two ways of doing that :\n\nEntity Relationship Model :\n\n\nThis tries to capture the business requirements.\nWhat are the attributes, entities, relationships, what are the queries we want to answer, etc are represented diagramatically in an ER diagram.\n\n\nNormalization Theory :  How to organize the data in right set of tables, which is done through a theory called the Normalization Theory.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#object-relational-data-models",
+    "href": "week01/1-5.html#object-relational-data-models",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Object Relational Data Models",
+    "text": "Object Relational Data Models\nIt is a relational model which is used to store flat , atomic values like a string, integer,etc. and not a composite value like student , which is tied on to other components. \nObject Relational Model is an extension of the Relational Model which allows attributes of tuples to have complex types like composite values and preserves the relational foundation.\n\nXML : Extensible Markup Language\nIt was defined by WWW Consortium (W3C). It was orignally designed for marking up documents. XML is a description of a name value pair. It talks about a tag, so that we can put a value on that. - A tag could be composite and multiple other tags and they themselves could have other values. - XML has become popular for data interchange.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-5.html#database-engine",
+    "href": "week01/1-5.html#database-engine",
+    "title": "1.5 Intro to DBMS - 2",
+    "section": "Database Engine",
+    "text": "Database Engine\nThe database engine consists of three main components :\n\nStorage Manager\nQuery Processing\nTransaction Manager\n\n\nStorage Manager\nThe storage manager has to deal with physical design, data dictionary.  The storage manager is responsible to :  1. Interact with the OS file manager  2. Efficient storage, retrieving and updating of the data.\n\nThe issues are :\n\nStorage access\nFile Organization\nIndexing and hashing\n\n\n\n\nQuery Processing\nQuery Processing has three primary parts :\n\nParsing and translation : Converting the SQL language to the relational algebraic expressions.\nOptimization : We can use the relational algebra query to optimize the query.\nEvaluation : We optimize and decide on an execution plan. We evaluate the performance.\n\n\n\nTransaction Management\nA transaction is a collection of operations performed a single logical function on database application. Ex : Checking validity, minimum balance, debit card transaction\nTransaction management is a run time process that will happen, which will make use of queries,storage ,etc.\n\nConcurrency Control Manager controls the interaction of multiple people.\n\n\n\nDatabase System Internals\n\n\nDatabase architecture\nCentralized : Store like magnetic tape or file based system. Relational : One place where everything is happening. Client - serve : Database acts as a server and client are the applications. Loosely coupled system Parallized : Multiple clients interacting with each other. Distributed : Distribute it physically over a WAN , internet Cloud : To store data in the cloud.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.5 Intro to DBMS - 2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html",
+    "href": "week01/1-3.html",
+    "title": "1.3 Why DBMS?/2",
+    "section": "",
+    "text": "Comparison of File Based Systems and DBMS",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#module-objectives",
+    "href": "week01/1-3.html#module-objectives",
+    "title": "1.3 Why DBMS?/2",
+    "section": "",
+    "text": "Comparison of File Based Systems and DBMS",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#module-outline",
+    "href": "week01/1-3.html#module-outline",
+    "title": "1.3 Why DBMS?/2",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nFile handling by Python with a DBMS Bank Transaction example.\nComparative solutions using Python using .csv file and the other is a database system using SQL. We will compare with all the parameters mentioned previously like durability, scalability, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-3.html#case-study-a-bank-transaction",
+    "href": "week01/1-3.html#case-study-a-bank-transaction",
+    "title": "1.3 Why DBMS?/2",
+    "section": "Case study : A bank transaction",
+    "text": "Case study : A bank transaction\nLet’s take the example of a bank transaction system where he can open a new account , transfer money from the account and check history of all the transactions.  The application is defined with three basic conditions :\n\nIf the account balance is not enough, the transfer will not happen.\nIf the account numbers are not same, it will terminate the transaction and show an error message.\nIf the transaction is successful, it will print a confirmation message.\n\nNow, we will compare File-based system using Python programming language with DBMS.\n\nFor File-based system there are two different files :\n\nAccounts.csv for storing information about accounts.\nLedger.csv are used for storing info related to transactions.\n\nFor a Database application we use :\n\nAccounts table\nLedgers table\n\nIn Python , for every transaction we need to open both the csv files.\nIn DBMS, after initialzing the tables with data, it is very easy to work with data.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.3 Why DBMS?/2"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html",
+    "href": "week01/1-1.html",
+    "title": "1.1 What is a Database?",
+    "section": "",
+    "text": "To understand the importance of DBMS in modern day applications.\nTo Know Your Course",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#module-objectives",
+    "href": "week01/1-1.html#module-objectives",
+    "title": "1.1 What is a Database?",
+    "section": "",
+    "text": "To understand the importance of DBMS in modern day applications.\nTo Know Your Course",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#module-outline",
+    "href": "week01/1-1.html#module-outline",
+    "title": "1.1 What is a Database?",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nWhy Databases?\nKYC : Know Your Course\n\nCourse Prerequisite\nCourse Outline\nCourse Textbook\n\n\n\nWhy DBMS ?\n\nA Database system contains information about an enterprise. Here the term enterprise could mean a big business, small business, a bank, a nation, a small group or even individuals.\nAny entity which has the requirement of collecting information of interrelated data, set of programs that process the data and it’s an environment that is convenient and efficient to use will need a database system and this is what a database system will provide.\n\n\n\nDatabase Applications\n\nBanking : UPI transaction, Netbanking transactions.\nReservation applications : Airlines, IRCTC , Bus Travel Services, etc.\nUniversities : Grades, Admission, Examination.\nSales : E-commerce like Amazon, Flipkart, Blinkit, Zepto.\nManufacturing : Production, inventory, orders and supply chain.\n\n\nDatabases touch all aspects of our lives.\n\nIn early days, the database applications were built on top of file systems. File systems are simply hierarchial structure of folders and files, that we normally see on Windows Explorer, Linux directories, etc that is what we call a File System. We can keep an electronic document in a system, bundle them in a directory and we can have variety of types of files and hierarchy of folders.\n\nData can be kept in terms of files, which we call a flat file. The nearest approximation of flat file is a .csv file (comma-seperated values), we seperate them by comma, telling they are values of different fields. It is a common way that we share small scale of data through these csv files.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "week01/1-1.html#drawbacks-of-file-systems-to-store-data",
+    "href": "week01/1-1.html#drawbacks-of-file-systems-to-store-data",
+    "title": "1.1 What is a Database?",
+    "section": "Drawbacks of File Systems to store data",
+    "text": "Drawbacks of File Systems to store data\n\nData redundancy and inconsistency : When we keep data in terms of flat files, parts of the same data needs to be duplicated and kept at different locations, which led to duplication of information, that leads to bloating of data and it becomes difficult to keep them consistent.\nDifficulty in accessing data : If we have data in csv files, the only way we can access is that either we have to open in Notepad or in Excel application and can traverse [move across cells] and nothing much.\nData Isolation : If there are multiple files and formats, it is very difficult to keep them integrated and consistent.\nIntegrity : Integrity must be maintained in several places. Ex : Banks maintains a mandate that they should have a minimum balance. So, we cannot make a transaction to debit amount such that it is less than the minimum balance.  If we store in files, it becomes very difficult that this condition of minimum balance will get buried deep down in the code.\nAtomicity :\n\nEx : When Ram pays Rs.100 to his friend Shyam,there are two things that will happen, 1. Rs. 100 will have to get debited from Ram’s account, after checking I have the balance. 2. Rs. 100 has to be credited to Shyam’s account. This has to happen for successful transaction.\nBut suppose after Rs. 100 are debited and some failure occurs in the system and the money are not credited to Shyam’s account. This is a big consistency problem and we must do these type of operations in atomic fashion, i.e. the entire transaction happens together or doesn’t happen at all.\n\nConcurrency : Concurrency of access means when several users are using the same system like 100s to 1000s or millions of users who use the same system in a concurrent fashion from different parts of organization.  Ex : Two people might want to reserve a berth on the train at the same time, which is the only one left. We can’t allow two of them to have a berth. We have to manage that the system is fair and the berth is given to only one of them.\nSecurity : Identity theft issues are present.\n\nDatabase offers solution to all these problems.\n\nCourse Prerequisites\n\n\nCourse Textbook\n\n\n\nFig 1.1 Course Textbook",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.1 Course Overview"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Database Management Systems",
+    "section": "",
+    "text": "Comprehensive notes for the Database Management Systems (DBMS) course at IIT Madras. This is a Diploma-level programming course with no prerequisites, covering fundamental to advanced database concepts.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#about-this-course",
+    "href": "index.html#about-this-course",
+    "title": "Database Management Systems",
+    "section": "",
+    "text": "Comprehensive notes for the Database Management Systems (DBMS) course at IIT Madras. This is a Diploma-level programming course with no prerequisites, covering fundamental to advanced database concepts.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#course-structure",
+    "href": "index.html#course-structure",
+    "title": "Database Management Systems",
+    "section": "Course Structure",
+    "text": "Course Structure\n\n\n\nWeek\nTopics\nStatus\n\n\n\n\nWeek 1\nCourse Overview & Introduction to Databases\n📝\n\n\nWeek 2\nRelational Model and Basic SQL\n📝\n\n\nWeek 3\nIntermediate and Advanced SQL\n📝\n\n\nWeek 4\nRelational Query Languages & Database Design\n📝\n\n\nWeek 5\nIntroduction to DBMS/2 & Object-Relational Models\n📝\n\n\nWeek 6\nTransaction Management\n📝\n\n\nWeek 7\nConcurrency Control\n📝\n\n\nWeek 8\nDatabase Internals & Storage Structures\n📝\n\n\nWeek 9\nIndexing & Query Processing\n📝\n\n\nWeek 10\nDatabase Security\n📝\n\n\nWeek 11\nData Warehousing\n📝\n\n\nWeek 12\nAdvanced Database Concepts\n📝",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#weekly-overview",
+    "href": "index.html#weekly-overview",
+    "title": "Database Management Systems",
+    "section": "Weekly Overview",
+    "text": "Weekly Overview\n\nWeek 1\nCourse Overview & Introduction to Databases - Introduction to databases - Database management systems fundamentals - Data models and architecture\n\n\nWeek 2\nRelational Model and Basic SQL - Core concepts of the relational data model - Introduction to SQL syntax - Basic SQL queries and operations\n\n\nWeek 3\nIntermediate and Advanced SQL - Complex SQL queries - JOIN operations - Aggregation functions - Subqueries and advanced querying techniques\n\n\nWeek 4\nRelational Query Languages & Database Design - Relational algebra and calculus - Database design principles - Normalization concepts (1NF, 2NF, 3NF, BCNF) - Entity-Relationship (ER) modeling\n\n\nWeek 5\nIntroduction to DBMS/2 - Extended database management concepts - Object-relational data models - XML and semi-structured data - Advanced data types\n\n\nWeek 6\nTransaction Management - ACID properties - Transaction states and operations - Transaction processing concepts - Recovery mechanisms\n\n\nWeek 7\nConcurrency Control - Concurrency control mechanisms - Locking protocols - Deadlock handling - Timestamp-based protocols\n\n\nWeek 8\nDatabase Internals & Storage Structures - Database engine internals - Storage structures and file organization - Buffer management - Disk space management\n\n\nWeek 9\nIndexing & Query Processing - Index structures (B-trees, B+ trees, Hash indexes) - Query optimization - Query execution plans - Cost-based optimization\n\n\nWeek 10\nDatabase Security - Access control mechanisms - Authentication and authorization - SQL injection prevention - Database encryption - Security best practices\n\n\nWeek 11\nData Warehousing - Data warehouse concepts - OLAP vs OLTP - Star and snowflake schemas - ETL processes - Data mining basics\n\n\nWeek 12\nAdvanced Database Concepts - Distributed databases - NoSQL databases overview - Big data and databases - Emerging database technologies",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#course-information",
+    "href": "index.html#course-information",
+    "title": "Database Management Systems",
+    "section": "Course Information",
+    "text": "Course Information\n\nCourse Code: BSCS2001\nCredits: 4\nLevel: Diploma-level Programming Course\nPrerequisites: None\nDuration: 12 weeks + Quizzes + End-term Exam",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-navigation",
+    "href": "index.html#quick-navigation",
+    "title": "Database Management Systems",
+    "section": "Quick Navigation",
+    "text": "Quick Navigation\nUse the sidebar to navigate through weekly content. Each week contains multiple subsections covering specific topics with code examples and practice questions.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "Database Management Systems",
+    "section": "Resources",
+    "text": "Resources\n\nOfficial Course Page\nSQL Practice Exercises\nAssignment Solutions\nExam Preparation Notes",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html",
+    "href": "week01/1-2.html",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "This Module’s objective is to understand the need of DBMS from a historical perspective. We will look at as a society how we have evolved and how the technology has evolved over years.\nIn the next video, we will learn why we need specific type of systems for solving data related problems, instead of simple computer programs.\n\n\n\nLet’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic\n\n\n\nPhysical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.\n\n\n\nThis started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.\n\n\n\n\n\nThere are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.\n\n\n\nSpreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.\n\n\n\n\nWith the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#evolution-of-data-management",
+    "href": "week01/1-2.html#evolution-of-data-management",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Let’s see what were all the requirements needed in the society back then?\n\nStorage and retrieval : How do we store data and retrieve a particular information. The first thing is storage & retieval.\nTransaction : Something is being exchanged or moved from one place to another, like a financial transaction.\nAudit : Did things happen properly, all rules and regulations are properly followed. Ex : Like tax paid,\nArchival : Keeping data for later, maybe using it later for some purpose.\n\n\nWhom we do it for ?\n\n\nIndividuals\nSmall / Big Enterprise\nGlobal organization\n\nThere are two major approaches in practice :  1. Physical  2. Electronic",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#physical",
+    "href": "week01/1-2.html#physical",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Physical Data Records or Records Management, known as “Book Keeping”. \n\nWriting down everything is laborious and error prone. So, Herman Hollerith brought punching cards that were used in the Jacquard Loom to do a very simple mechanical computation based on ledgers.\n\nThis was folowed till the middle of the 20th century.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#electronic",
+    "href": "week01/1-2.html#electronic",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "This started when computers and programs started.\n\nIN 1950s computers programming started.\nIn 1960s, data was stored in punch cards and then moved to magnetic tapes. This went on untill 10 - 15 years till 1970s, when certain significant improvements and developments happened .\nIn 1970s, COBOL was introduced 50 years ago and is still used till date. CODASYL approach was one approach for data management.  In 1979, Apple introduced VisiCalc marking the birth of spreasheet, which is the great grandfather of Excel, etc. Then later on Excel, Google Sheets came in.  Magnetic tapes became widespread.\nIn 1980s , Relational Database Management Systems changed the face of data management.\nIN 1990s, the Internet came which made the whole data and management records global.\nIn 2000s, the E-commerce boomed, all the E - commerce companies were started, which caused the requirement of storing unstructured data , i.e. data about images, video and audio and Natural Language text, when NoSQL was born.\nIn 2010s, the Data Science took over riding the wave.\n\n\n\nThere are several parameters on which the data and records management system particullarly depends :\n\nDurability : The data must be available for ages, which was a basic drawback of the physical system. There were many reasons : like termite, acid in the paper would decay.\nScalability : The system should be scalable for 100s, 1000s ,1M or billions of users.\nSecured : Based on the application the security will differ, like for a defense application, it needs highest security and compared to defense for a digital library system will be far less.\nRetrieval : How quickly we can retrieve the data? like within a day, hours or seconds.\nEase of Use : It should be easy to use, otherwise it has not served the purpose.\nConsistency : The database must be in a consistent state, before and after the transaction.\nEfficiency : Efficiency must be high.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#book---keeping",
+    "href": "week01/1-2.html#book---keeping",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "There are still grocery shop owners who maintain book registers for data management. Some might have a small PC , some might do on mobile, but there are still many grocery and medical shops who maintain their stock required in notes.\n\nProblems with book - keeping :\nDurability: Physical damage can happen due to rodents, wear and tear, moisture and humidity.\nScalability : Scalability is very difficult to maintain on ledgers. We can maintain records of 100 to 200 customers in physical records, but is not possible to store millions of customers on paper.\nSecurity : We need lockers, and is susceptible to tamper by outsiders.\nRetrieval : It is time - consuming to retrieve data from records.\nConsistency : It is prone to errors, if transaction debited and credited are not written together.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#spreadsheets",
+    "href": "week01/1-2.html#spreadsheets",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "Spreadheets came in about 40 years back. Applications like Excel and Google Sheets use the spreadsheet software.\n\nDurability : Spreadsheets are computer applications and we can Google Sheets in the cloud, which will be stored in the Google infrastructure.\nScalability : It is easier to search, insert and modify records of large numbers.\nSecurity : It can be password - protected. Although this protection can be bypassed by other methods, it is better than book - keeping.\nEase of Use : It is easy to use. It is easier to perform computational operations on the data.\nConsistency : It is not guaranteed in spreadsheets, we have to either write lots of formulas or make sure it is written in a right manner.\n\n These are still used for single user or small enterprise applications.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-2.html#why-leave-file-systems",
+    "href": "week01/1-2.html#why-leave-file-systems",
+    "title": "1.2 Why DBMS?/1",
+    "section": "",
+    "text": "With the increase in scale of data, the time to taken to perform operations on data increases.\nA spreadsheet has a limit on the number of rows.\nConsistency is a big issue challenge.\nConstraints : If we certain constraints in data. Excel allows us to put some constraints, but they are just data entry constraints, like we cannot enter a negative value in a cell. But constraints related to transactions is very difficult to maintain in file-based systems, because we need to write separate code for each condition.\nPermission levels are limited, we can keep a password but we cannot give multiple users use the same file at various levels of authority.\n\n\n\n\nIn 1950s and 1960s magnetic tapes and punch cards were there for storage.\nLate 1960s and 1970s hard disks came in and allowed direct access to data.\nTed Codd defines the relational model.\n80s saw the parallelization and distribution of database systems.\n\nBefore that Database systems were centralized, which means we had one PC, server or machine we were using in.\n\nIn 1980s, across the enterprise it was started using, across the local area network.\nIn 1990s, as the Internet came in the distribution went across the web.\nIn early 2000s, the need for structured and unstructured data management came in so we had XML and XQuery\nLater 2000s , giant data storage systems - Google BigTable , Yahoo, Amazon.\n\n\nFoundation of datascience is not database, it is the database system, which gives data warehousing , data mining , etc of which we are trying to gain expertise about.\n\nThis course will cover mainly on the Client Server RDBMS like Oracle , Sybase, Postgres, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.2 Why DBMS?/1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html",
+    "href": "week01/1-4.html",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "",
+    "text": "To familiarize with the basic notions and terminology of database management systems.\nTo understand the role of data models and languages.\nTo understand the approaches to database design.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#module-objectives",
+    "href": "week01/1-4.html#module-objectives",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "",
+    "text": "To familiarize with the basic notions and terminology of database management systems.\nTo understand the role of data models and languages.\nTo understand the approaches to database design.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#module-outline",
+    "href": "week01/1-4.html#module-outline",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Module Outline",
+    "text": "Module Outline\n\nLevels of Abstraction\nSchema and Instance\nData Models\n\nRelational Databases\n\nDDL & DML\nSQL\nDatabase Design",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#levels-of-abstraction",
+    "href": "week01/1-4.html#levels-of-abstraction",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Levels of Abstraction",
+    "text": "Levels of Abstraction\nWe do not look at data at just one way in a database system. In database system, data is looked at three levels of : \n\nPhysical Level\nLogical Level\nView Level\n\n\nPhysical Level\nPhysical Level is where we describe how the record is. This is the data that goes into the disk. It is the bits and bytes of data.\n\n\nLogical Level\nIt describes data stored in databases, and the relationships among the data fields.  Ex : type : instructor is a record. what is a record ? -&gt; collection of multiple fields . Fields are attributes of same type where we can store some specific values.  ID : string , name : string , dept_name : string\n\nThis level is primarily for programmers or database engineers.\n\n\n\nView Level\nThe view level is for the application programmers through which data can be used, shown or hidden.\nEx : For a course, the student can know the details of the instructor, his experience, syllabus etc, but the instructor’s salary is not necessary to disclose.\n\nIn the view level , we will make a selective view of what is required by the application. A view may show information in a derived form, not the actual information. Ex : Displaying date of birth of a student, we can get the age.\nThe view level can have multiple instances, like shoeing the involvement of instructor in courses, salary computation or in health insurance coverage,etc.\n\n\n\n\nFig 1.1",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#schema",
+    "href": "week01/1-4.html#schema",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Schema",
+    "text": "Schema\n\nSchema is the way data is organized. Schema can be physical or logical. Physical schema corresponds to the physical levels of abstraction & Logical Schema corresponds to logical level of abstraction.\n\n\nLogical Schema\n\nThe overall logical structure of the database.\n\nEx: Customer Schema will consist of Name, Customer ID, Account , Aadhar ID, Mobile.  This schema gives us the idea about what fields the schema will consist of , but not the actual customer data values, like Ram , 007, etc.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#instance",
+    "href": "week01/1-4.html#instance",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Instance",
+    "text": "Instance\n\nInstance is the actual value of the data. Instance is when based on a schema, we have one or more records available.\nInstances may get added, or removed, but the schema remains the same.\nIf we change the schema or the attributes (or) column names.\n\n\nPhysical Data Independence\nWhen there is a change in physical level of abstraction, theat should not affect the logical level. It should be independent of the physical level.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#data-models",
+    "href": "week01/1-4.html#data-models",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "Data Models",
+    "text": "Data Models\nData Model is a tool that describes the collection of data, data relationships, data semantics, data constraints.\n\nRelational Model\nEntity - Relationship Model\nObject - based Data models.\n\n\nRecent models for Semi - structured and Unstructured Data :\n\nXML format.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#ddl-data-definition-language",
+    "href": "week01/1-4.html#ddl-data-definition-language",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "DDL : Data Definition Language",
+    "text": "DDL : Data Definition Language\nWay to express a schema and manipulate an instance. It is used to define the structure of the schema.\n\nDDL compiler generates a set of table templates stored in a data dictionary.\nIn a database, all the schema information is stored in terms of tables, to know about the table has these fields, so we have further tables in the database system, which keeps track of the information. This is called data dictionary.",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  },
+  {
+    "objectID": "week01/1-4.html#dml-data-manipulation-language",
+    "href": "week01/1-4.html#dml-data-manipulation-language",
+    "title": "1.4 Intro to DBMS - 1",
+    "section": "DML : Data Manipulation Language",
+    "text": "DML : Data Manipulation Language\nIt is often popularly known as Query Language.\n\nThe inserting of data, updating and deleting of data is known as Data Manipulation Language.\nFor Data Manipulation we use specific models for the relational model. There are three ways :\n\n\nRelational Algebra\nTuple relational calculus\nDomain relational calculus\n\n\nThis can be expressed in terms of commercial systems, which is : SQL. But SQL is a DML as well as DDL.\nIn SQL to do complex computations we embed SQL in some higher level languages. We use SQL for database and other host language for performing complex operations.\n\n\nDatabase Design\nWe have :\n\nLogical Design\nPhysical Design",
+    "crumbs": [
+      "Week 1: Introduction",
+      "1.4 Intro to DBMS - 1"
+    ]
+  }
+]

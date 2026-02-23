@@ -1,0 +1,119 @@
+---
+title: "2.1 Intro to Relational Model/1"
+---
+
+### Example of a Relation 
+
+
+A column is defined as an **attribute**. 
+A row is defined as a **tuple** or a record.
+
+
+## Attribute Types 
+
+- Student has attributes and is related by Roll No, First Name, Last Name , DOB, Passport, Aadhar, Department relation.
+
+- Roll No : Alphanumeric String 
+- First Name, Last Name :   Alpha string 
+- DOB : Date 
+- Passport : String - nullable (optional)
+- Aadhar : 12 digit number 
+- Department : Alpha String 
+
+
+- Attribute values should be atomic and indivisible. EX : indivisible meaning we cannot combine first name and last name to one and make it an attribute.
+
+
+## Relation Schema and Instance 
+
+Schema is the attributes and the type of attributes the table can take.
+Instance is the actual values and tuples that the table holds.
+
+Schema can be mathematically represented as a relation.
+
+A1, A2, .... An are the attributes.
+R = (A1,A2,....An) is a relation schema.
+
+Ex : Instructor = (ID,name,dept_name,salary)
+The instructor has the relation schema with these four attributes.
+
+- D1,D2,....Dn are the domains of the respective attributes.
+
+- A relation is a subset of (D1,D2,....Dn) .
+- The relational instance is the table of actual set of values.
+
+
+- The order of tuples in the table or the relation is irrelevant.
+- There should be no two rows/ tuples that are identical. Every tuple has to be distinct from every other tuple. There should be atleast one field where the value should vary.
+A relation is nothing but a set, so it does not have an order and does not take duplicate values.
+
+## Keys 
+
+Every row/ tuple must be unique and identifiable. Instead of knowing all the values to identify every row, we can work with subset of attributes which can uniquely indentify every row.
+
+- Let K be a subset of R, where R is a set of attributes in the relation.
+
+Every attribute has a unique key and they will be called a Super key, unless we show there is no subset smaller than this.
+Superkey is a candidate key, when k is minimal.
+
+Minimality - Suppose 'k' is a candidate key and no subset of 'k' is a Superkey, then we will call this as a minimal set or a candidate key.
+
+Ex :  Both ID and ID Names is a superkey and not a candidate key.
+{ID} -> Candidate Key , there is no subset.
+{ID,name} -> Super Key
+
+- There may be one or multiple candidate keys. From the primary keys, we can choose one primary key.
+
+- Surrogate key in a database is a unique identifier for either an entity in the modeled world or an object in the database.
+Ex : A customer orders the same item , same quantity, at different times so they cannot be treated as the same transactions. So, we synthetically generate a key that is the order number. 
+- Synthetically generated data only at the time of transaction are known as surrogate key. These keys have very short lifetime, in this case the order number exists only until the order is placed and delivered. These values are not changed. In the collection of orders it will be unique.
+
+Roll no and EMP_ID in contrast are permanent in nature. The roll no. remains valid as long as the person is there. These uniquely identify a unique entity in the world.
+
+: Table 2.1: Attributes and their keys
+
+| Attribute| Key |
+|-------|-------------|
+| `Roll_No, {Roll_No, DOB}` |Super Key |
+| `Roll_No, {First Name, Last Name}, Aadhar` | Candidate Key|
+| `Passport`   | Cannot be a key, as it nullable and optional |
+
+#### Choosing a Primary Key
+
+
+For the student table, choosing primary key has two options : Roll No, Aadhar ID.
+
+The roll no conveys a lot of information of the student.  Ex : Roll No : 14CS92P01
+
+14: Year of Admission
+CS : Department of CS
+92 : Category of student
+P : Type of admission
+01 : Serial no. # No. of people in a class, etc.
+
+All these five types of parameters are put together to create a unique key.
+
+- Secondary Keys :  Candidate keys which are not primary are called secondary keys. 
+Ex : {First Name, Last Name}, Aadhar.
+
+- Simple Key : A key which consists of a single attribute.
+
+- Candidate Keys : A Candidate Key is a key which has more than one component. 
+Ex : {First Name, Last Name}
+
+
+- Foreign Key : When a particular attribute is a key in a different table.
+Ex : Students table -> Roll No {Primary Key}, Courses Table -> Course {Primary Key}, Enrollment table -> An attribute which is a key in a different table, here Roll No is a primary key in the students table, but that is not the case all times.
+
+
+## Relational Query Languages 
+
+Procedural Programming tells us how we get a value.
+Declarative Language tells what the answer should be. This style is useful for relational query.
+
+The relational models are : 
+
+1. Relational Algebra 
+2. Tuple Relational Calculus
+3. Domain Relational Calculus
+
