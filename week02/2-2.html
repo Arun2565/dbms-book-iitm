@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-10">
 
-<title>1.3 Why DBMS?/2 – DBMS Notes - IITM</title>
+<title>2.2 Intro to Relational Model/2 – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -84,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week01/1-1.html">Week 1: Introduction</a></li><li class="breadcrumb-item"><a href="../week01/1-3.html">1.3 Why DBMS?/2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week02/2-1.html">Week 2: Relational Model &amp; Basic SQL</a></li><li class="breadcrumb-item"><a href="../week02/2-2.html">2.2 Intro to Relational Model/2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -138,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link active">
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
@@ -173,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
   </div>
 </li>
@@ -206,9 +205,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week01/1-1.html">Week 1: Introduction</a></li><li class="breadcrumb-item"><a href="../week01/1-3.html">1.3 Why DBMS?/2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week02/2-1.html">Week 2: Relational Model &amp; Basic SQL</a></li><li class="breadcrumb-item"><a href="../week02/2-2.html">2.2 Intro to Relational Model/2</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1.3 Why DBMS?/2</h1>
+<h1 class="title">2.2 Intro to Relational Model/2</h1>
 </div>
 
 
@@ -216,12 +215,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 10, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -231,42 +224,101 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="module-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="module-objectives">Module Objectives</h2>
+<section id="module-outline" class="level3">
+<h3 class="anchored" data-anchor-id="module-outline">Module Outline</h3>
+<p>This section will cover Relational Algebra and its operators in great depth.</p>
+</section>
+<section id="basic-properties-of-relations" class="level2">
+<h2 class="anchored" data-anchor-id="basic-properties-of-relations">Basic Properties of Relations</h2>
+<p>A relation is a set. So, the order of tuples or rows don’t matter.</p>
 <ul>
-<li>Comparison of File Based Systems and DBMS</li>
+<li>The order of tuples is inconsequential</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a1</td>
+<td>b1</td>
+</tr>
+<tr class="even">
+<td>a1</td>
+<td>b2</td>
+</tr>
+<tr class="odd">
+<td>a2</td>
+<td>b1</td>
+</tr>
+<tr class="even">
+<td>a2</td>
+<td>b2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>All rows/ tuples must be distinct. The values should not be duplicated</li>
+</ul>
+<div class="line-block">A| B | |A|B|</div>
+<p>|——-|————-| |a1|b1| | a1 |b1 | is not valid |a1| b2| | a1| b2| | a1 |b2| | a1 |b1|</p>
+</section>
+<section id="select-operation" class="level2">
+<h2 class="anchored" data-anchor-id="select-operation">Select Operation</h2>
+<p>Select Operation is used to select a subset of rows from a relational instance which satisfy a condition. This takes few rows horizontally.</p>
+<ul>
+<li>It is denoted with Sigma. IMage</li>
 </ul>
 </section>
-<section id="module-outline" class="level2">
-<h2 class="anchored" data-anchor-id="module-outline">Module Outline</h2>
-<ul>
-<li>File handling by Python with a DBMS Bank Transaction example.</li>
-<li>Comparative solutions using Python using .csv file and the other is a database system using SQL. We will compare with all the parameters mentioned previously like durability, scalability, etc.</li>
-</ul>
+<section id="project-operation" class="level2">
+<h2 class="anchored" data-anchor-id="project-operation">Project Operation</h2>
+<p>Project Operation is used to take out some columns, - It is denoted with pi.</p>
+<p>Image</p>
 </section>
-<section id="case-study-a-bank-transaction" class="level2">
-<h2 class="anchored" data-anchor-id="case-study-a-bank-transaction">Case study : A bank transaction</h2>
-<p>Let’s take the example of a bank transaction system where he can open a new account , transfer money from the account and check history of all the transactions. <br> The application is defined with three basic conditions :</p>
+<section id="union-of-two-relations" class="level2">
+<h2 class="anchored" data-anchor-id="union-of-two-relations">Union of two relations</h2>
+<p>If two relations have identical set of attributes, then we take their union.</p>
+<p>Put images or illustrations</p>
+</section>
+<section id="set-difference" class="level2">
+<h2 class="anchored" data-anchor-id="set-difference">Set difference</h2>
+<p>What is present in set R and not in Set S, and take out similar ones which are in S and R.</p>
+</section>
+<section id="set-intersection" class="level2">
+<h2 class="anchored" data-anchor-id="set-intersection">Set Intersection</h2>
+<p>Tuples or rows which are present in both R and S.</p>
+</section>
+<section id="cartesian-product" class="level2">
+<h2 class="anchored" data-anchor-id="cartesian-product">Cartesian Product</h2>
+<p>Cartesian Product is used to combine and scale the two relations. If we do projection on the cartesian product, we get back the original relation.</p>
+<p>Issue with cartesian product if two relations have same column name.</p>
+<p>Take a screenshot of the ppt slide to demonstrate.</p>
+<p>Renaming a table. -: Learn more about this topic.</p>
+<section id="composition-of-operations" class="level3">
+<h3 class="anchored" data-anchor-id="composition-of-operations">Composition of Operations</h3>
+<p>We can build expressions using multiple operations. Ex : Sigma (A=C) = C(rXs)</p>
+</section>
+</section>
+<section id="natural-join" class="level2">
+<h2 class="anchored" data-anchor-id="natural-join">Natural Join</h2>
+<p>Let r and s be the relations on schema R and S respectively. The natural join of relations R and S is a relation on schema R U S . - Consider each pair of tuples tr from r and ts from s. - If ts and tr have the same value on each attributes in R intersection S, that is if there is an attribute which is common b/w R and S, then tuples which have identical values on that attribute will be taken in the natural join. In contrast in Cartesian Product we will take all the values.</p>
+<p>This is a very important and powerful operation.</p>
+<p>Show the example as shown in the PPT slides.</p>
+</section>
+<section id="aggregate-operators" class="level2">
+<h2 class="anchored" data-anchor-id="aggregate-operators">Aggregate Operators</h2>
+<p>We take a relation and based on one or more columns and conditions, we do an aggregation. The type of that column should be possible to perform that certain aggregate operation.</p>
+<p>Aggregate Operations :</p>
 <ul>
-<li>If the account balance is not enough, the transfer will not happen.</li>
-<li>If the account numbers are not same, it will terminate the transaction and show an error message.</li>
-<li>If the transaction is successful, it will print a confirmation message.</li>
+<li>SUM</li>
+<li>AVG</li>
+<li>MIN</li>
+<li>MAX</li>
 </ul>
-<p>Now, we will compare File-based system using Python programming language with DBMS.</p>
-<ul>
-<li>For File-based system there are two different files :
-<ul>
-<li>Accounts.csv for storing information about accounts.</li>
-<li>Ledger.csv are used for storing info related to transactions.</li>
-</ul></li>
-<li>For a Database application we use :
-<ul>
-<li>Accounts table</li>
-<li>Ledgers table</li>
-</ul></li>
-<li>In Python , for every transaction we need to open both the csv files.</li>
-<li>In DBMS, after initialzing the tables with data, it is very easy to work with data.</li>
-</ul>
+<p>These operations are performed on columns and generally produce a numerical value. While Relational Operators take in relations and produce a relation as an output.</p>
 
 
 </section>

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>1.5 Intro to DBMS - 2 – DBMS Notes - IITM</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,15 +35,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9113b4e0cf801fa0085b3cc9c6a63c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-220657a59bad66b45d92981142df0ebf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -130,13 +132,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1.2 Why DBMS? / 1</span></a>
+ <span class="menu-text">1.2 Why DBMS?/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1.3 Why DBMS? / 2</span></a>
+ <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -153,39 +155,53 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2: Relational Model &amp; Basic SQL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.4 Intro to SQL/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL/3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#module-objectives" id="toc-module-objectives" class="nav-link active" data-scroll-target="#module-objectives">Module Objectives</a></li>
-  <li><a href="#database-design" id="toc-database-design" class="nav-link" data-scroll-target="#database-design">Database Design</a>
-  <ul class="collapse">
-  <li><a href="#logical-design" id="toc-logical-design" class="nav-link" data-scroll-target="#logical-design">Logical Design</a></li>
-  <li><a href="#physical-design" id="toc-physical-design" class="nav-link" data-scroll-target="#physical-design">Physical Design</a></li>
-  <li><a href="#database-design-issues" id="toc-database-design-issues" class="nav-link" data-scroll-target="#database-design-issues">Database Design Issues :</a></li>
-  <li><a href="#design-approaches" id="toc-design-approaches" class="nav-link" data-scroll-target="#design-approaches">Design Approaches</a></li>
-  </ul></li>
-  <li><a href="#object-relational-data-models" id="toc-object-relational-data-models" class="nav-link" data-scroll-target="#object-relational-data-models">Object Relational Data Models</a>
-  <ul class="collapse">
-  <li><a href="#xml-extensible-markup-language" id="toc-xml-extensible-markup-language" class="nav-link" data-scroll-target="#xml-extensible-markup-language">XML : Extensible Markup Language</a></li>
-  </ul></li>
-  <li><a href="#database-engine" id="toc-database-engine" class="nav-link" data-scroll-target="#database-engine">Database Engine</a>
-  <ul class="collapse">
-  <li><a href="#storage-manager" id="toc-storage-manager" class="nav-link" data-scroll-target="#storage-manager">Storage Manager</a></li>
-  <li><a href="#query-processing" id="toc-query-processing" class="nav-link" data-scroll-target="#query-processing">Query Processing</a></li>
-  <li><a href="#transaction-management" id="toc-transaction-management" class="nav-link" data-scroll-target="#transaction-management">Transaction Management</a></li>
-  <li><a href="#database-system-internals" id="toc-database-system-internals" class="nav-link" data-scroll-target="#database-system-internals">Database System Internals</a></li>
-  <li><a href="#database-architecture" id="toc-database-architecture" class="nav-link" data-scroll-target="#database-architecture">Database architecture</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
