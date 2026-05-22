@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>summary – DBMS Notes - IITM</title>
+<title>3.2 Intermediate SQL/1 – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,6 +75,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -249,9 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      DBMS Notes - IITM
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-2.html">3.2 Intermediate SQL/1</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -266,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">DBMS Notes - IITM</a> 
+      <a href="../">DBMS Notes - IITM</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -281,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -296,31 +337,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.1 Course Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.2 Why DBMS?/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
   </div>
 </li>
@@ -337,31 +378,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.4 Intro to SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL/3</span></a>
   </div>
 </li>
@@ -378,31 +419,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1 SQL Examples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.2 Intermediate SQL/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.3 Intermediate SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.4 Intermediate SQL/3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.5 Advanced SQL</span></a>
   </div>
 </li>
@@ -419,13 +460,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
   </div>
 </li>
@@ -441,22 +482,255 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#nested-subqueries" id="toc-nested-subqueries" class="nav-link active" data-scroll-target="#nested-subqueries">Nested Subqueries</a></li>
+  <li><a href="#subqueries-in-the-where-clause" id="toc-subqueries-in-the-where-clause" class="nav-link" data-scroll-target="#subqueries-in-the-where-clause">Subqueries in the <code>WHERE</code> Clause</a>
+  <ul class="collapse">
+  <li><a href="#set-membership" id="toc-set-membership" class="nav-link" data-scroll-target="#set-membership">Set Membership</a></li>
+  <li><a href="#set-comparison---with-some-clause" id="toc-set-comparison---with-some-clause" class="nav-link" data-scroll-target="#set-comparison---with-some-clause">Set Comparison - with <code>some</code> clause</a></li>
+  </ul></li>
+  <li><a href="#subqueries-in-the-from-clause" id="toc-subqueries-in-the-from-clause" class="nav-link" data-scroll-target="#subqueries-in-the-from-clause">Subqueries in the <code>FROM</code> Clause</a>
+  <ul class="collapse">
+  <li><a href="#with-clause" id="toc-with-clause" class="nav-link" data-scroll-target="#with-clause"><code>with</code> clause</a></li>
+  </ul></li>
+  <li><a href="#subqueries-in-the-select-clause" id="toc-subqueries-in-the-select-clause" class="nav-link" data-scroll-target="#subqueries-in-the-select-clause">Subqueries in the <code>SELECT</code> clause</a></li>
+  <li><a href="#modification-of-databases" id="toc-modification-of-databases" class="nav-link" data-scroll-target="#modification-of-databases">Modification of Databases</a>
+  <ul class="collapse">
+  <li><a href="#delete" id="toc-delete" class="nav-link" data-scroll-target="#delete">Delete</a></li>
+  <li><a href="#insert" id="toc-insert" class="nav-link" data-scroll-target="#insert">Insert</a></li>
+  <li><a href="#update" id="toc-update" class="nav-link" data-scroll-target="#update">Update</a></li>
+  <li><a href="#case-statement-for-conditional-updates" id="toc-case-statement-for-conditional-updates" class="nav-link" data-scroll-target="#case-statement-for-conditional-updates">Case Statement for Conditional Updates</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-2.html">3.2 Intermediate SQL/1</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">3.2 Intermediate SQL/1</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="summary" class="level1">
-<h1>Summary</h1>
-<p>In summary, this book has no content whatsoever.</p>
+</header>
 
 
+<section id="nested-subqueries" class="level2">
+<h2 class="anchored" data-anchor-id="nested-subqueries">Nested Subqueries</h2>
+<p>Nested Subquery is a feature where one query can occur occur as a part of condition in another query, or part of some other query.</p>
+<ul>
+<li>An attribute can be replaced by a query that generates a single value or relation can be replaced by <span class="math inline">r_i</span> any valid query.</li>
+</ul>
+<p>Output of query is a single relation. The output is a relation in the <code>FROM</code> clause .</p>
+<p>As follows:</p>
+<ul>
+<li><span class="math inline">A_i</span> can be replaced by a subquery that generates a single value</li>
+<li><span class="math inline">r_i</span> can be replaced by any valid subquery</li>
+<li><span class="math inline">P</span> can be replaced with an expression of the form: <span class="math display">\text{B &lt;operation&gt; (subquery)}</span> where <span class="math inline">B</span> is an attribute and <operation> to be defined later</operation></li>
+</ul>
+</section>
+<section id="subqueries-in-the-where-clause" class="level2">
+<h2 class="anchored" data-anchor-id="subqueries-in-the-where-clause">Subqueries in the <code>WHERE</code> Clause</h2>
+<p>A typical subquery is used to perform tests . These are used for : <br></p>
+<ul>
+<li>Set membership</li>
+<li>Set comparisons</li>
+<li>Set cardinality</li>
+</ul>
+<section id="set-membership" class="level3">
+<h3 class="anchored" data-anchor-id="set-membership">Set Membership</h3>
+<ul>
+<li>Find the courses offered in Fall 2009 and Spring 2010.</li>
+</ul>
+<pre><code>(select course_id from section where sem = 'Fall' and year = 2009)
+and course_id in 
+(select course_id from section where sem = 'Spring' and year = 2010)
+</code></pre>
+<p>Does the same course_id occur in the other set, we find that out using the <code>in</code> operator.</p>
+<ul>
+<li>Find the courses offered in Fall 2009 but not in Spring 2010.</li>
+</ul>
+<pre><code>(select course_id from section where sem = 'Fall' and year = 2009)
+and course_id not in 
+(select course_id from section where sem = 'Spring' and year = 2010)
+</code></pre>
+<p>Set membership can be done, not only with a single value but also with an entire tuple.</p>
+<pre><code>select count (distinct ID) 
+from takes 
+where (course_id, semester, year) in 
+(select course_id, sec_id, semester, year from teaches where teaches.ID = 10101);</code></pre>
+</section>
+<section id="set-comparison---with-some-clause" class="level3">
+<h3 class="anchored" data-anchor-id="set-comparison---with-some-clause">Set Comparison - with <code>some</code> clause</h3>
+<p>Find the names of instructors with salary greater than that of some (at least one ) instructor in the Biology department.</p>
+<p>Normal query</p>
+<pre><code>select distinct T.name
+from instructor as T, instructor as S
+where T.salary &gt; S.salary and S.dept_name = 'Biology' ;</code></pre>
+<p>Using the <code>some</code> clause.</p>
+<pre><code>select name from instructor 
+where salary &gt; some(select salary from instructor where dept_name = 'Biology');</code></pre>
+<ul>
+<li><code>some</code> represents an existential qunatification.</li>
+</ul>
+<section id="all-clause" class="level4">
+<h4 class="anchored" data-anchor-id="all-clause"><code>all</code> clause</h4>
+<p>Find the names of all the instructors whose salary is greater than the salary of all the instructors in the Biology department.</p>
+<pre><code>select name from instructor  
+where salary &gt; all (select salary from instructor where dept_name = 'Biology');</code></pre>
+<p>This query means that each salary in the subquery should be less than the main query for the instructor to be selected in the final result.</p>
+<p>If we take each and every tuple of the relation <span class="math display"> R </span> , then this condition must get satisfied, if it does then the whole predicate is True.</p>
+<ul>
+<li><code>all</code> represents universal qunatification.</li>
+</ul>
+</section>
+<section id="exists-to-check-for-empty-relation" class="level4">
+<h4 class="anchored" data-anchor-id="exists-to-check-for-empty-relation"><code>exists</code> : to check for empty relation</h4>
+<p><code>exists</code> is a construct that will return true if there exists atleast one tuple in the relation.</p>
+<ul>
+<li><p>If we perform a <code>count</code> and we get value greater than zero, then it exists. Otherwise it does not exist.</p>
+<ul>
+<li>exists <span class="math display"> r </span> <span class="math display">&lt;-&gt;</span> <span class="math display"> r </span> != 0</li>
+<li>not exists r &lt;-&gt; r != 0</li>
+</ul></li>
+</ul>
+<pre><code>select course_id
+from section as S
+where semester = 'Fall' and year = 2009 and
+      exists (select *
+              from section as T
+              where semester = 'Spring' and year = 2010
+              and S.course_id = T.course_id);</code></pre>
+<p>First subquery lists all the courses offered in Biology. Second query lists all courses a particular student took.</p>
+</section>
+<section id="not-exists" class="level4">
+<h4 class="anchored" data-anchor-id="not-exists"><code>not exists</code></h4>
+<pre><code>select distinct S.ID, S.name
+from student as S
+where not exists ( (select course_id
+                                from course
+                                where dept_name = 'Biology')
+                               except
+                             (select T.course_id
+                                from takes as T
+                                where S.ID = T.ID));</code></pre>
+</section>
+<section id="unique" class="level4">
+<h4 class="anchored" data-anchor-id="unique"><code>unique</code></h4>
+<p>In a subquery, it will be true such that all the tuples returned are unique, otherwise it is false.</p>
+<ul>
+<li>Find all courses that were offered in 2009.</li>
+</ul>
+<pre><code>select T.course_id
+from course as T
+where unique (select R.course_id
+              from section as R
+              where T.course_id = R.course_id
+              and R.year = 2009);</code></pre>
+</section>
+</section>
+</section>
+<section id="subqueries-in-the-from-clause" class="level2">
+<h2 class="anchored" data-anchor-id="subqueries-in-the-from-clause">Subqueries in the <code>FROM</code> Clause</h2>
+<ul>
+<li>Find the average instructor salaries for departments where that average exceeds $42,000, you can use the following SQL query which employs a subquery in the FROM clause:</li>
+</ul>
+<pre><code>select dept_name, avg_salary
+from (select dept_name, avg(salary) as avg_salary
+      from instructor
+      group by dept_name)
+where avg_salary &gt; 42000;</code></pre>
+<section id="with-clause" class="level3">
+<h3 class="anchored" data-anchor-id="with-clause"><code>with</code> clause</h3>
+<ul>
+<li>Find all departments with the maximum budget using a WITH clause, you can use the following SQL query:</li>
+</ul>
+<pre><code>with max_budget (value) as
+    (select max(budget)
+     from department)
+select department.name
+from department, max_budget
+where department.budget = max_budget.value;</code></pre>
+<p>Using the <code>with</code> clause the resultant value produced from the subquery becomes the table named <code>max_budget</code> where value is the attribute. - By using <code>with</code> we are creating a temporary relation, which can be used in the query.</p>
+</section>
+</section>
+<section id="subqueries-in-the-select-clause" class="level2">
+<h2 class="anchored" data-anchor-id="subqueries-in-the-select-clause">Subqueries in the <code>SELECT</code> clause</h2>
+<p>We can have subqueries in the <code>select</code> but <code>select</code> is always an attribute.</p>
+<pre><code>select dept_name,
+    (select count(*)
+     from instructor
+     where department.dept_name = instructor.dept_name)
+    as num_instructors
+from department;</code></pre>
+</section>
+<section id="modification-of-databases" class="level2">
+<h2 class="anchored" data-anchor-id="modification-of-databases">Modification of Databases</h2>
+<p>There are three things we can do :</p>
+<ol type="1">
+<li>Insert a tuple into a relation</li>
+<li>Delete a tuple from a relation</li>
+<li>Update a tuple in a relation</li>
+</ol>
+<section id="delete" class="level3">
+<h3 class="anchored" data-anchor-id="delete">Delete</h3>
+<ul>
+<li>Delete all instructors</li>
+</ul>
+<pre><code>delete from instructor</code></pre>
+<ul>
+<li>Delete all instructors from the Finance department</li>
+</ul>
+<pre><code>delete from instructor
+where dept_name = 'Finance';</code></pre>
+<ul>
+<li>Delete all tuples in the instructor relation for those instructors associated with a department located in the Watson building</li>
+</ul>
+<pre><code>delete from instructor
+where dept_name in (select dept_name
+from department
+where building = 'Watson');</code></pre>
+</section>
+<section id="insert" class="level3">
+<h3 class="anchored" data-anchor-id="insert">Insert</h3>
+<p>In Insert , we insert into the table and we should insert values in the order mentioned of the attributes.</p>
+</section>
+<section id="update" class="level3">
+<h3 class="anchored" data-anchor-id="update">Update</h3>
+<p>When using Update it is mostly recommended to use the case statement when subqueries are present.</p>
+<ul>
+<li>Scalar query : It will return only one query.</li>
+</ul>
+<pre><code>update instructor
+    set salary = salary * 1.03
+    where salary &gt; 100000;
+update instructor
+    set salary = salary * 1.05
+    where salary &lt;= 100000;
+</code></pre>
+</section>
+<section id="case-statement-for-conditional-updates" class="level3">
+<h3 class="anchored" data-anchor-id="case-statement-for-conditional-updates">Case Statement for Conditional Updates</h3>
+<pre><code>update instructor 
+set salary = case
+when salary &lt;= 100000
+then salary * 1.05
+else salary * 1.03
+end</code></pre>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->

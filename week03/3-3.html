@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>summary – DBMS Notes - IITM</title>
+<title>3.3 Intermediate SQL/2 – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,6 +75,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -249,9 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      DBMS Notes - IITM
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-3.html">3.3 Intermediate SQL/2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -266,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">DBMS Notes - IITM</a> 
+      <a href="../">DBMS Notes - IITM</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -281,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -296,31 +337,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.1 Course Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.2 Why DBMS?/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
   </div>
 </li>
@@ -337,31 +378,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.4 Intro to SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL/3</span></a>
   </div>
 </li>
@@ -378,31 +419,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1 SQL Examples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.2 Intermediate SQL/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.3 Intermediate SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.4 Intermediate SQL/3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.5 Advanced SQL</span></a>
   </div>
 </li>
@@ -419,13 +460,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
   </div>
 </li>
@@ -441,22 +482,407 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#join-expressions" id="toc-join-expressions" class="nav-link active" data-scroll-target="#join-expressions">Join Expressions</a></li>
+  <li><a href="#different-types-of-joins" id="toc-different-types-of-joins" class="nav-link" data-scroll-target="#different-types-of-joins">Different Types of Joins</a>
+  <ul class="collapse">
+  <li><a href="#cross-join" id="toc-cross-join" class="nav-link" data-scroll-target="#cross-join">Cross Join</a></li>
+  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner Join</a></li>
+  <li><a href="#outer-join" id="toc-outer-join" class="nav-link" data-scroll-target="#outer-join">Outer Join</a></li>
+  <li><a href="#left-outer-join" id="toc-left-outer-join" class="nav-link" data-scroll-target="#left-outer-join">Left Outer Join</a></li>
+  <li><a href="#right-outer-join" id="toc-right-outer-join" class="nav-link" data-scroll-target="#right-outer-join">Right Outer Join</a></li>
+  <li><a href="#full-outer-join" id="toc-full-outer-join" class="nav-link" data-scroll-target="#full-outer-join">Full Outer Join</a></li>
+  </ul></li>
+  <li><a href="#views" id="toc-views" class="nav-link" data-scroll-target="#views">Views</a>
+  <ul class="collapse">
+  <li><a href="#view-creation" id="toc-view-creation" class="nav-link" data-scroll-target="#view-creation">View creation</a></li>
+  <li><a href="#view-defined-using-other-views" id="toc-view-defined-using-other-views" class="nav-link" data-scroll-target="#view-defined-using-other-views">View Defined using other views</a></li>
+  <li><a href="#view-expansion" id="toc-view-expansion" class="nav-link" data-scroll-target="#view-expansion">View Expansion</a></li>
+  <li><a href="#updating-a-view" id="toc-updating-a-view" class="nav-link" data-scroll-target="#updating-a-view">Updating a View</a></li>
+  <li><a href="#materialzing-the-view" id="toc-materialzing-the-view" class="nav-link" data-scroll-target="#materialzing-the-view">Materialzing the view</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-3.html">3.3 Intermediate SQL/2</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">3.3 Intermediate SQL/2</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="summary" class="level1">
-<h1>Summary</h1>
-<p>In summary, this book has no content whatsoever.</p>
+</header>
 
 
+<section id="join-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="join-expressions">Join Expressions</h2>
+<ul>
+<li><p>Join operations takes two relations and return another result relation.</p></li>
+<li><p>A join operation takes a Cartesian Product which requires tuples in two relations.</p></li>
+<li><p>We can also specify the attributes that are present in the result of the join.</p></li>
+<li><p>The join operations are also used in the subquery expressions in the <code>FROM</code> clause.</p></li>
+</ul>
+</section>
+<section id="different-types-of-joins" class="level2">
+<h2 class="anchored" data-anchor-id="different-types-of-joins">Different Types of Joins</h2>
+<section id="cross-join" class="level3">
+<h3 class="anchored" data-anchor-id="cross-join">Cross Join</h3>
+<p>Cross Join are a simple Cartesian product of the rows from tables in the join.</p>
+<p>This is an explicit way through join.</p>
+<pre><code>select * from employee
+where cross join department; 
+</code></pre>
+<p>This query takes all the records from the employee table and the department table and match them in whatever possible way. If we have m employee tuples and n department tuples then m X n is the total number of tuples with total set of attributes .</p>
+<p><em>Implicit</em></p>
+<pre><code>select * from employee , department; 
+</code></pre>
+<p>These are the tables used for explaining all the joins. <br></p>
+<ul>
+<li>Relation course</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CS-315</td>
+<td style="text-align: left;">Robotics</td>
+<td style="text-align: left;">Comp. Sci</td>
+<td style="text-align: left;">3</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li>Relation prereq</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">prereq_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">BIO-101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CS-315</td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inner-join" class="level3">
+<h3 class="anchored" data-anchor-id="inner-join">Inner Join</h3>
+<p>Inner Join is the intersection of both the relations. It combines the common tuples in both the relations.</p>
+<ul>
+<li>After performing inner join on both the tables, this is the result.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+<th style="text-align: left;">prere_id</th>
+<th style="text-align: left;">course_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">BIO-101</td>
+<td style="text-align: left;">BIO-301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CS-101</td>
+<td style="text-align: left;">CS-190</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If it is mentioned <em>natural</em> inner join, then the duplicate column will be removed and the result will be displayed with only one <code>course_id</code> attribute.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+<th style="text-align: left;">prere_id</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">BIO-101</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CS-101</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>This is the most conservative way of doing join, in case of absence of information.</li>
+</ul>
+</section>
+<section id="outer-join" class="level3">
+<h3 class="anchored" data-anchor-id="outer-join">Outer Join</h3>
+<p>We perform Outer Join when we want to avoid any loss of information. From the above relations, when we perform inner join , we are removing the tuple <code>course_id</code> if we don’t know <code>prereq_id</code>. Instead we can give <code>NULL</code> if we don’t know a value. Here we are trying to get more inclusive, this is the notion of the Outer Join.</p>
+<ul>
+<li>Outer Join can be of two types :</li>
+</ul>
+<ol type="1">
+<li>Left Outer Join</li>
+<li>Right Outer Join</li>
+</ol>
+</section>
+<section id="left-outer-join" class="level3">
+<h3 class="anchored" data-anchor-id="left-outer-join">Left Outer Join</h3>
+<p>In left outer join, all of A is included and the common b/w A and B is included.</p>
+<pre><code>course left natural join prereq
+</code></pre>
+<p>Result : The above query returns everything from the left table / relation and common things to the right table / relation. Since, we called it <code>natural</code> the duplicate <code>course_id</code> column is not displayed.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+<th style="text-align: left;">prere_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">BIO-101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CS-315</td>
+<td style="text-align: left;">Robotics</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><em>null</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="right-outer-join" class="level3">
+<h3 class="anchored" data-anchor-id="right-outer-join">Right Outer Join</h3>
+<p>In right outer join, all of the B relation will be taken and the intersection of A and B tables will be displayed.</p>
+<pre><code>course natural right outer join prereq
+</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+<th style="text-align: left;">prere_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">BIO-101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CS-347</td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="full-outer-join" class="level3">
+<h3 class="anchored" data-anchor-id="full-outer-join">Full Outer Join</h3>
+<pre><code>course natural full outer join prereq</code></pre>
+<p>All information is preserved.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">course_id</th>
+<th style="text-align: left;">title</th>
+<th style="text-align: left;">dept_name</th>
+<th style="text-align: left;">credits</th>
+<th style="text-align: left;">prereq_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BIO-301</td>
+<td style="text-align: left;">Genetics</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">BIO-101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-190</td>
+<td style="text-align: left;">Game Design</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CS-315</td>
+<td style="text-align: left;">Robotics</td>
+<td style="text-align: left;">Comp. Sci.</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><em>null</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CS-347</td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;"><em>null</em></td>
+<td style="text-align: left;">CS-101</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Theta Join is a join with additional condition.</li>
+</ul>
+<p>Difference b/w equijoin and natural join is that natural join removes duplicates.</p>
+<blockquote class="blockquote">
+<p>Join is the only way to explicitly link information</p>
+</blockquote>
+</section>
+</section>
+<section id="views" class="level2">
+<h2 class="anchored" data-anchor-id="views">Views</h2>
+<p>In view level , it is not the data that is stored but the data that is viewed or perceived. We don’t want to show or give access to all the data in the logical level.</p>
+<ul>
+<li>View is a <strong>virtual</strong> relation.</li>
+</ul>
+<section id="view-creation" class="level3">
+<h3 class="anchored" data-anchor-id="view-creation">View creation</h3>
+<pre><code>create view v as  &lt;query expression&gt;</code></pre>
+<p>During <code>create table</code> the table gets physically created and data gets inserted, we can modify and delete and it stays in the table. But , view is like an expression. View gets continuous changes.</p>
+<ul>
+<li>A view of instructors without their salary</li>
+</ul>
+<pre><code>create view faculty as
+    select ID, name, dept_name
+    from instructor</code></pre>
+<ul>
+<li>Find all instructors in the Biology department.</li>
+</ul>
+<pre><code>select name
+from faculty
+where dept_name = 'Biology'</code></pre>
+</section>
+<section id="view-defined-using-other-views" class="level3">
+<h3 class="anchored" data-anchor-id="view-defined-using-other-views">View Defined using other views</h3>
+<ul>
+<li>One view may be used in the expression defining another view</li>
+<li>A view relation <span class="math inline">v_1</span> is said to <strong>depend directly</strong> on a view relation <span class="math inline">v_2</span> , if <span class="math inline">v_2</span> is used in the expression defining <span class="math inline">v_1</span></li>
+<li>A view relation <span class="math inline">v_1</span> is said to <strong>depend on</strong> view relation <span class="math inline">v_2</span> if either <span class="math inline">v_1</span> depends directly on <span class="math inline">v_2</span> or there is a path of dependencies from <span class="math inline">v_1</span> to <span class="math inline">v_2</span></li>
+<li>A view relation <span class="math inline">v</span> is said to be <strong>recursive</strong> if it depends on itself</li>
+</ul>
+</section>
+<section id="view-expansion" class="level3">
+<h3 class="anchored" data-anchor-id="view-expansion">View Expansion</h3>
+<ul>
+<li><p>A way to define the meaning of views defined in terms of other views</p></li>
+<li><p>Let view <span class="math inline">v_1</span> be defined by an expression <span class="math inline">e_1</span> that may itself contain uses of view relations</p></li>
+<li><p>View expansion of an expression repeats the following replacement step: <br> <strong>repeat</strong> <br> Find any view relation <span class="math inline">v_i</span> in <span class="math inline">e_1</span></p>
+<p><br> Replace the view relation <span class="math inline">v_i</span> by the expression defining <span class="math inline">v_i</span> <strong>until</strong> no more view relations are present in <span class="math inline">e_1</span></p></li>
+<li><p>As long as the view definitions are not recursive, this loop will terminate</p></li>
+</ul>
+</section>
+<section id="updating-a-view" class="level3">
+<h3 class="anchored" data-anchor-id="updating-a-view">Updating a View</h3>
+<p>When we update a view , to insert values then the insert happens in the original table.</p>
+<ul>
+<li>Updates are restricted and only allowed on a single relation view.</li>
+</ul>
+</section>
+<section id="materialzing-the-view" class="level3">
+<h3 class="anchored" data-anchor-id="materialzing-the-view">Materialzing the view</h3>
+<p>We can materialize the view tuples into a physical table, but if we materialize it will become inconsistent with the future views of the view.</p>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->

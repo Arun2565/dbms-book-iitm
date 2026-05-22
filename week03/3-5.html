@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>summary – DBMS Notes - IITM</title>
+<title>3.5 Advanced SQL – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -249,9 +249,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      DBMS Notes - IITM
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-5.html">3.5 Advanced SQL</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -266,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">DBMS Notes - IITM</a> 
+      <a href="../">DBMS Notes - IITM</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -281,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -296,31 +294,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.1 Course Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.2 Why DBMS?/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
   </div>
 </li>
@@ -337,31 +335,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.4 Intro to SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL/3</span></a>
   </div>
 </li>
@@ -378,31 +376,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1 SQL Examples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.2 Intermediate SQL/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.3 Intermediate SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.4 Intermediate SQL/3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.5 Advanced SQL</span></a>
   </div>
 </li>
@@ -419,13 +417,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
   </div>
 </li>
@@ -441,20 +439,85 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#functions-and-procedural-constructs" id="toc-functions-and-procedural-constructs" class="nav-link active" data-scroll-target="#functions-and-procedural-constructs">Functions and Procedural Constructs</a>
+  <ul class="collapse">
+  <li><a href="#functions-and-procedures" id="toc-functions-and-procedures" class="nav-link" data-scroll-target="#functions-and-procedures">Functions and Procedures</a></li>
+  <li><a href="#table-functions" id="toc-table-functions" class="nav-link" data-scroll-target="#table-functions">Table Functions</a></li>
+  </ul></li>
+  <li><a href="#types-of-triggers" id="toc-types-of-triggers" class="nav-link" data-scroll-target="#types-of-triggers">Types of Triggers</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-5.html">3.5 Advanced SQL</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">3.5 Advanced SQL</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="summary" class="level1">
-<h1>Summary</h1>
-<p>In summary, this book has no content whatsoever.</p>
+</header>
+
+
+<section id="functions-and-procedural-constructs" class="level2">
+<h2 class="anchored" data-anchor-id="functions-and-procedural-constructs">Functions and Procedural Constructs</h2>
+<p>Query Language : SQL Native Language : C, Java, Python, etc</p>
+<p>Two models :</p>
+<ol type="1">
+<li><p>We have C programs, functions,etc and we can invoke them from SQL. We pass the data to C function and the C function gives the result back. This is called the extensional programming from SQL. SQL through query processor continues to interact with the database.</p></li>
+<li><p>In this model, instead of having both of them independently. We have SQL embedded as a part of the native language program code. All the transactions with the database will be done through the query processor from the SQL.</p></li>
+</ol>
+<p>Over the period of time,SQL has added functional and procedural features.</p>
+<section id="functions-and-procedures" class="level3">
+<h3 class="anchored" data-anchor-id="functions-and-procedures">Functions and Procedures</h3>
+<p>Function and Control Statements were added in SQL : 1999. - Functions written in external languages are particularly useful with specialized datatypes such as images and geometric objects or complex algorithms. Doing object oriented tasks like in C++ or Java.</p>
+<ul>
+<li>Table valued functions : Functions in SQL can also return a table, normally they return values.</li>
+</ul>
+<p>SQL Functions are parameterized views.</p>
+</section>
+<section id="table-functions" class="level3">
+<h3 class="anchored" data-anchor-id="table-functions">Table Functions</h3>
+<p>Table functions are functions that return a table/relation as a result.</p>
+<pre><code>create function instructor_of (dept_name char(20))
+    returns table (
+        ID varchar(5),
+        name varhar(20),
+        dept_name varchar(20),
+        salary numeric(8,2),
+    )
+    returns table   
+        (select ID,name,dept_name,salary
+        from instructor  where instructor.dept_name = instructor_of.dept_name)
+</code></pre>
+<p>Usage :</p>
+<pre><code>select * from table (instructor_of('Music'))
+</code></pre>
+<p>This means that a table function must be invoked</p>
+</section>
+</section>
+<section id="types-of-triggers" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-triggers">Types of Triggers</h2>
+<ul>
+<li>BEFORE triggers</li>
+</ul>
+<p>Runs <code>before</code> an update or insert.</p>
+<ul>
+<li>BEFORE DELETE triggers</li>
+</ul>
+<p>Run before a delete. - Before we delete we need to check the values.</p>
 
 
 </section>

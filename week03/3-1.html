@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>summary – DBMS Notes - IITM</title>
+<title>3.1 SQL Examples – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a2b057e5c9987ee096ab3c4c0b0f3f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-301a98e4bbbace5bb5ea970534f4a819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -249,9 +249,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      DBMS Notes - IITM
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-1.html">3.1 SQL Examples</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -266,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">DBMS Notes - IITM</a> 
+      <a href="../">DBMS Notes - IITM</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -281,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -296,31 +294,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.1 Course Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.2 Why DBMS?/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.3 Why DBMS?/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week01/1-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
   </div>
 </li>
@@ -337,31 +335,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.4 Intro to SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week02/2-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 Intro to SQL/3</span></a>
   </div>
 </li>
@@ -378,31 +376,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.1 SQL Examples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.2 Intermediate SQL/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.3 Intermediate SQL/2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.4 Intermediate SQL/3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week03/3-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.5 Advanced SQL</span></a>
   </div>
 </li>
@@ -419,13 +417,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week04/4-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
   </div>
 </li>
@@ -441,22 +439,255 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#select-statement" id="toc-select-statement" class="nav-link active" data-scroll-target="#select-statement">SELECT Statement</a>
+  <ul class="collapse">
+  <li><a href="#select-all" id="toc-select-all" class="nav-link" data-scroll-target="#select-all">SELECT ALL</a></li>
+  </ul></li>
+  <li><a href="#cartesian-product" id="toc-cartesian-product" class="nav-link" data-scroll-target="#cartesian-product">Cartesian Product</a>
+  <ul class="collapse">
+  <li><a href="#using-the-as-operation" id="toc-using-the-as-operation" class="nav-link" data-scroll-target="#using-the-as-operation">Using the AS Operation</a></li>
+  </ul></li>
+  <li><a href="#select-and-and-or" id="toc-select-and-and-or" class="nav-link" data-scroll-target="#select-and-and-or">SELECT : <code>AND</code> and <code>OR</code></a></li>
+  <li><a href="#string-operations" id="toc-string-operations" class="nav-link" data-scroll-target="#string-operations">String Operations</a></li>
+  <li><a href="#order-by" id="toc-order-by" class="nav-link" data-scroll-target="#order-by"><code>Order By</code></a></li>
+  <li><a href="#in-operator" id="toc-in-operator" class="nav-link" data-scroll-target="#in-operator">In Operator</a></li>
+  <li><a href="#set-operations" id="toc-set-operations" class="nav-link" data-scroll-target="#set-operations">Set Operations</a>
+  <ul class="collapse">
+  <li><a href="#union" id="toc-union" class="nav-link" data-scroll-target="#union">Union</a></li>
+  <li><a href="#intersect" id="toc-intersect" class="nav-link" data-scroll-target="#intersect">Intersect</a></li>
+  <li><a href="#except" id="toc-except" class="nav-link" data-scroll-target="#except">Except</a></li>
+  </ul></li>
+  <li><a href="#aggregate-functions" id="toc-aggregate-functions" class="nav-link" data-scroll-target="#aggregate-functions">Aggregate functions</a>
+  <ul class="collapse">
+  <li><a href="#avg" id="toc-avg" class="nav-link" data-scroll-target="#avg"><code>avg</code></a></li>
+  <li><a href="#min" id="toc-min" class="nav-link" data-scroll-target="#min"><code>min</code></a></li>
+  <li><a href="#max" id="toc-max" class="nav-link" data-scroll-target="#max"><code>max</code></a></li>
+  <li><a href="#count" id="toc-count" class="nav-link" data-scroll-target="#count"><code>count</code></a></li>
+  <li><a href="#sum" id="toc-sum" class="nav-link" data-scroll-target="#sum"><code>sum</code></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week03/3-1.html">Week 3: Advanced SQL</a></li><li class="breadcrumb-item"><a href="../week03/3-1.html">3.1 SQL Examples</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">3.1 SQL Examples</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="summary" class="level1">
-<h1>Summary</h1>
-<p>In summary, this book has no content whatsoever.</p>
+</header>
 
 
+<section id="select-statement" class="level2">
+<h2 class="anchored" data-anchor-id="select-statement">SELECT Statement</h2>
+<p>From the classroom relation, we have to find the names of the buildings in which every individual classroom has capacity less than 100. (removes duplicates)</p>
+<pre><code>select distinct building 
+from classroom where capacity &lt; 100;
+</code></pre>
+<p>This query will return :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>building</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Painter</td>
+</tr>
+<tr class="even">
+<td>Watson</td>
+</tr>
+<tr class="odd">
+<td>Taylor</td>
+</tr>
+</tbody>
+</table>
+<section id="select-all" class="level3">
+<h3 class="anchored" data-anchor-id="select-all">SELECT ALL</h3>
+<p>This will include all the duplicates.</p>
+<pre><code>select all building 
+from classroom where capacity &lt; 100;
+</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>building</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Painter</td>
+</tr>
+<tr class="even">
+<td>Watson</td>
+</tr>
+<tr class="odd">
+<td>Taylor</td>
+</tr>
+<tr class="even">
+<td>Watson</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Even if we don’t mention <code>select all</code> it will implicitly give with duplicates.</p>
+</section>
+</section>
+<section id="cartesian-product" class="level2">
+<h2 class="anchored" data-anchor-id="cartesian-product">Cartesian Product</h2>
+<p>Cartesian product returns all the tuples. Cartesian Product is used where we have two or more relations.</p>
+<pre><code>select name,  budget from 
+student , department 
+where student.dept_name = department.dept_name # This line will ensure the student is from a department.
+and budget &lt; 100000</code></pre>
+<section id="using-the-as-operation" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-as-operation">Using the AS Operation</h3>
+<p>We can rename attributes and relations using the <code>as</code> operation.</p>
+<pre><code>select S.name as studentname, budget as deptbudget
+from student as S, department as D
+where S.dept_name = D.dept_name 
+and budget &lt; 100000
+</code></pre>
+<p>We rename the attributes which are in both the relations.</p>
+</section>
+</section>
+<section id="select-and-and-or" class="level2">
+<h2 class="anchored" data-anchor-id="select-and-and-or">SELECT : <code>AND</code> and <code>OR</code></h2>
+<p>In the <code>where</code> clause we have the predicate, where we can use any of the boolean operator.</p>
+<ul>
+<li>Find the names of instructors whose department is Finance or whose department is in any of the following buildings : Watson, Taylor.</li>
+</ul>
+<pre><code>select name from instructor I, department D
+where D.dept_name = I.dept_name 
+and (I.dept_name = 'Finance' or building in ('Watson','Taylor'));
+</code></pre>
+<ul>
+<li>Note : Note put parentheses carefully when using boolean operators, here if the <code>or</code> operator isn’t in the parentheses, it will return a different tuple.</li>
+</ul>
+</section>
+<section id="string-operations" class="level2">
+<h2 class="anchored" data-anchor-id="string-operations">String Operations</h2>
+<p>We can use string matching to find various types of values.</p>
+<ul>
+<li>Find the titles of all courses whose course_id has threee alphabets indicating the department.</li>
+</ul>
+<pre><code>select title from course
+where course_id like '___-%'</code></pre>
+<p>This denotes that three characters has to be present before the hiphen.</p>
+</section>
+<section id="order-by" class="level2">
+<h2 class="anchored" data-anchor-id="order-by"><code>Order By</code></h2>
+<p><code>Order by</code> is used to select the attributes , which will return the tuples in an ordered manner. By default, it is ascending order.</p>
+<pre><code>select name, dept_name, tot_cred
+from student
+order by dept_name ASC , tot_cred DESC ;</code></pre>
+<p>It is important to what order of the attributes needs to displayed.</p>
+</section>
+<section id="in-operator" class="level2">
+<h2 class="anchored" data-anchor-id="in-operator">In Operator</h2>
+<p>Write about In Operator purpose.</p>
+<p>Find the IDs of all the courses taught in the Fall or Spring of 2018.</p>
+<pre><code>select course_id 
+from teaches where 
+semester in ('Fall','Spring')
+and year = 2018;
+</code></pre>
+</section>
+<section id="set-operations" class="level2">
+<h2 class="anchored" data-anchor-id="set-operations">Set Operations</h2>
+<section id="union" class="level3">
+<h3 class="anchored" data-anchor-id="union">Union</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Union is a Pure set operation. It will remove the duplicates.</p>
+</div>
+</div>
+<p>Example :</p>
+<pre><code>(select course_id from teaches where sem = 'Fall' and year = 2018)
+union
+(select course_id from teaches where sem = 'Spring' and year = 2018)
+</code></pre>
+</section>
+<section id="intersect" class="level3">
+<h3 class="anchored" data-anchor-id="intersect">Intersect</h3>
+<p>Find the names of instructors who taught in Computer Science or Finance department and whose salary is &lt; 80000.</p>
+<pre><code>select name from instructor where dept_name in ('Comp.Sci', 'Finance')
+intersect
+select name from instructor where salary &lt; 80000;
+</code></pre>
+</section>
+<section id="except" class="level3">
+<h3 class="anchored" data-anchor-id="except">Except</h3>
+<p>Find the names of instructors who taught in Computer Science or Finance department and whose salary is either &gt;= 90000 and &lt;=70000.</p>
+<pre><code>select name from instructor where dept_name in ('Comp.Sci', 'Finance')
+intersect
+select name from instructor where salary &lt; 90000 and salary &gt; 70000;
+</code></pre>
+</section>
+</section>
+<section id="aggregate-functions" class="level2">
+<h2 class="anchored" data-anchor-id="aggregate-functions">Aggregate functions</h2>
+<section id="avg" class="level3">
+<h3 class="anchored" data-anchor-id="avg"><code>avg</code></h3>
+<p>In aggreagation we need to <code>groupby</code> on the entity.</p>
+<ul>
+<li>Ex : Find the names and the average capacity of each building whose average capacity is greater than 25.</li>
+</ul>
+<pre><code>select building, avg (capacity) from classroom
+groupby building having avg (capacity) &gt; 25;
+</code></pre>
+<p>Here we take the building attribute and perform average function and then check the capacity is greater than 25.</p>
+</section>
+<section id="min" class="level3">
+<h3 class="anchored" data-anchor-id="min"><code>min</code></h3>
+<p>Find the least salary drawn by any instructor among all the instructors.</p>
+<pre><code>select min(salary) as least_salary
+from instructor;
+</code></pre>
+</section>
+<section id="max" class="level3">
+<h3 class="anchored" data-anchor-id="max"><code>max</code></h3>
+<p>Find the maximum credits obtained by any student among all the students.</p>
+<pre><code>select max(tot_cred) as max_credits
+from student;</code></pre>
+</section>
+<section id="count" class="level3">
+<h3 class="anchored" data-anchor-id="count"><code>count</code></h3>
+<p>Find the number of courses run in each building.</p>
+<pre><code>select building, count(course_id) as course_count
+from section groupby building;
+</code></pre>
+</section>
+<section id="sum" class="level3">
+<h3 class="anchored" data-anchor-id="sum"><code>sum</code></h3>
+<p>Find the total credits offered by each department.</p>
+<pre><code>select dept_name, sum(credits) as sum_credits 
+from course 
+groupby dept_name;  </code></pre>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
