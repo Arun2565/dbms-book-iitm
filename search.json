@@ -590,7 +590,7 @@
     "href": "week02/2-2.html#select-operation",
     "title": "2.2 Intro to Relational Model/2",
     "section": "Select Operation",
-    "text": "Select Operation\nSelect Operation is used to select a subset of rows from a relational instance which satisfy a condition. This takes few rows horizontally.\n\nIt is denoted with Sigma. IMage",
+    "text": "Select Operation\nSelect Operation is used to select a subset of rows from a relational instance which satisfy a condition. This takes few rows horizontally.\n\nIt is denoted with Sigma.",
     "crumbs": [
       "Week 2: Relational Model & Basic SQL",
       "2.2 Intro to Relational Model/2"
@@ -601,7 +601,7 @@
     "href": "week02/2-2.html#project-operation",
     "title": "2.2 Intro to Relational Model/2",
     "section": "Project Operation",
-    "text": "Project Operation\nProject Operation is used to take out some columns, - It is denoted with pi.\nImage",
+    "text": "Project Operation\nProject Operation is used to take out some columns, - It is denoted with pi.",
     "crumbs": [
       "Week 2: Relational Model & Basic SQL",
       "2.2 Intro to Relational Model/2"
