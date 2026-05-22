@@ -1,0 +1,214 @@
+---
+title: "3.1 SQL Examples"
+---
+
+## SELECT Statement 
+
+From the classroom relation, we have to find the names of the buildings in which every individual classroom has capacity less than 100. (removes duplicates)
+
+```
+select distinct building 
+from classroom where capacity < 100;
+
+```
+
+This query will return : 
+
+|building|
+|-------|
+| Painter |
+| Watson|
+| Taylor|
+
+
+### SELECT ALL 
+
+This will include all the duplicates.
+
+```
+select all building 
+from classroom where capacity < 100;
+
+```
+|building|
+|-------|
+| Painter |
+| Watson|
+| Taylor|
+| Watson|
+
+Note : Even if we don't mention `select all` it will implicitly give with duplicates. 
+
+## Cartesian Product 
+
+Cartesian product returns all the tuples. Cartesian Product is used where we have two or more relations.
+
+```
+select name,  budget from 
+student , department 
+where student.dept_name = department.dept_name # This line will ensure the student is from a department.
+and budget < 100000
+```
+
+
+### Using the AS Operation
+
+We can rename attributes and relations using the `as` operation.
+
+```
+select S.name as studentname, budget as deptbudget
+from student as S, department as D
+where S.dept_name = D.dept_name 
+and budget < 100000
+
+```
+We rename the attributes which are in both the relations.
+
+
+## SELECT : `AND` and `OR`
+
+In the `where` clause we have the predicate, where we can use any of the boolean operator.
+
+- Find the names of instructors whose department is Finance or whose department is in any of the following buildings : Watson, Taylor.
+
+
+```
+select name from instructor I, department D
+where D.dept_name = I.dept_name 
+and (I.dept_name = 'Finance' or building in ('Watson','Taylor'));
+
+```
+
+- Note : Note put parentheses carefully when using boolean operators, here if the `or` operator isn't in the parentheses, it will return a different tuple.
+
+## String Operations
+
+We can use string matching to find various types of values.
+
+- Find the titles of all courses whose course_id  has threee alphabets indicating the department. 
+
+```
+select title from course
+where course_id like '___-%'
+```
+
+This denotes that three characters has to be present before the hiphen.
+
+## `Order By`
+
+`Order by` is used to select  the attributes , which will return the tuples in an ordered manner. By default, it is ascending order.
+
+```
+select name, dept_name, tot_cred
+from student
+order by dept_name ASC , tot_cred DESC ;
+```
+It is important to what order of the attributes needs to displayed.
+
+## In Operator
+
+Write about In Operator purpose.
+
+Find the IDs of all the courses taught in the Fall or Spring of 2018.
+
+```
+select course_id 
+from teaches where 
+semester in ('Fall','Spring')
+and year = 2018;
+
+```
+
+## Set Operations 
+
+### Union 
+
+::: {.callout-note}
+ Union is a Pure set operation. It will remove the duplicates.
+:::
+
+Example : 
+
+```
+(select course_id from teaches where sem = 'Fall' and year = 2018)
+union
+(select course_id from teaches where sem = 'Spring' and year = 2018)
+
+```
+
+### Intersect 
+
+Find the names of instructors who taught in Computer Science or Finance department and whose salary is < 80000.
+
+```
+select name from instructor where dept_name in ('Comp.Sci', 'Finance')
+intersect
+select name from instructor where salary < 80000;
+
+```
+
+### Except
+
+Find the names of instructors who taught in Computer Science or Finance department and whose salary is either >= 90000 and <=70000.
+
+```
+select name from instructor where dept_name in ('Comp.Sci', 'Finance')
+intersect
+select name from instructor where salary < 90000 and salary > 70000;
+
+```
+
+## Aggregate functions 
+
+### `avg`
+
+In aggreagation we need to `groupby` on the entity. 
+
+- Ex : Find the names and the average capacity of each building whose average capacity is greater than 25.
+
+```
+select building, avg (capacity) from classroom
+groupby building having avg (capacity) > 25;
+
+```
+Here we take the building attribute and perform average function and then check the capacity is greater than 25.
+
+### `min`
+
+Find the least salary drawn by any instructor among all the instructors.
+
+```
+select min(salary) as least_salary
+from instructor;
+
+```
+
+### `max`
+
+Find the maximum credits obtained by any student among all the students.
+
+```
+select max(tot_cred) as max_credits
+from student;
+```
+
+### `count`
+
+Find the number of courses run in each building.
+
+```
+select building, count(course_id) as course_count
+from section groupby building;
+
+```
+
+### `sum`
+
+Find the total credits offered by each department.
+
+```
+select dept_name, sum(credits) as sum_credits 
+from course 
+groupby dept_name;  
+```
+

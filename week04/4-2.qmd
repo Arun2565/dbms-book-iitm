@@ -1,0 +1,51 @@
+---
+title: "4.2 Formal Relational Query Languages/2"
+---
+
+## Predicate Logic 
+
+Predicate Logic or Predicate Calculus is an extension of Propositional Logic or Boolean Algebra.
+
+- In Boolean Algebra , we have propositions or variables which take `True` or `False` values and returns a result based on the proposition. 
+
+We add the concept of Predicates and Quantifiers to capture the concept of Propositional Logic.
+
+- Tuple Relational Calculus and Domain Relational Calculus are entirely based on Predicate Calculus.
+
+> "x is greater than 3."
+
+where x is a predicate and the statement 'is greater than 3', is a property, this is called a predicate.
+
+- It is denoted using `P(x)` , if we put a value it becomes a proposition. Like P(5) becomes a proposition where it returns `True` or `False`. 
+
+We can think of the predicate value as a function. We can have any number of variables.
+
+
+### Quantifiers 
+
+Quantifiers are used to talk baout properties that hold over the entire domain in a certain way.
+There are two types of quantifiers : 
+1. Universal Quantifier
+2. Existential Quantifier 
+
+
+## Tuple Relational Calculus 
+
+Tuple Relational Calculus is a non-procedural query language, where each query is in the form of : 
+<br>
+
+\{ t \mid | P(t)\}
+
+
+The components of the Predicate are : 
+
+- Set of attributes.
+- Set of comparison operators. 
+- Set of connectives : AND (^) , or (V), not ()
+- Implication 
+- Set of quantifiers :  
+
+### EXAMPLE 
+
+
+\sigma_{dept\_name = 'Physics'} (instructor)

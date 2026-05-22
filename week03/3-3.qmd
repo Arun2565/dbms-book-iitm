@@ -1,0 +1,213 @@
+---
+title: "3.3 Intermediate SQL/2"
+---
+
+## Join Expressions 
+
+- Join operations takes two relations and return another result relation.
+
+- A join operation takes a Cartesian Product which requires tuples in two relations.
+
+- We can also specify the attributes that are present in the result of the join.
+
+- The join operations are also used in the subquery expressions in the `FROM` clause.
+
+
+## Different Types of Joins 
+
+### Cross Join 
+
+Cross Join are a simple Cartesian product of the rows from tables in the join. 
+
+This is an explicit way through join.
+```
+select * from employee
+where cross join department; 
+
+```
+This query takes all the records from the employee table and the department table and match them in whatever possible way. If we have m employee tuples and n department tuples then m X n is the total number of tuples with total set of attributes .
+
+*Implicit*
+
+```
+select * from employee , department; 
+
+```
+
+These are the tables used for explaining all the joins.
+<br>
+
+- Relation course 
+
+
+| course_id | title | dept_name | credits | 
+| :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 |
+| CS-190 | Game Design | Comp. Sci | 4 |
+| CS-315 | Robotics | Comp. Sci | 3 |
+
+<br>
+
+- Relation prereq 
+
+
+| course_id | prereq_id |
+| :--- | :--- |     
+| BIO-301 | BIO-101 |
+| CS-190 | CS-101 |
+| CS-315 | CS-101 |
+
+### Inner Join 
+
+Inner Join is the intersection of both the relations. It combines the common tuples in both the relations.
+
+- After performing inner join on both the tables, this is the result.
+
+| course_id | title | dept_name | credits | prere_id | course_id |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 | BIO-101 | BIO-301 |
+| CS-190 | Game Design | Comp. Sci. | 4 | CS-101 | CS-190 |
+
+
+- If it is mentioned *natural* inner join, then the duplicate column will be removed and the result will be displayed with only one `course_id` attribute. 
+
+| course_id | title | dept_name | credits | prere_id | 
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 | BIO-101 |
+| CS-190 | Game Design | Comp. Sci. | 4 | CS-101 |
+
+- This is the most conservative way of doing join, in case of absence of information.
+
+### Outer Join 
+
+We perform Outer Join when we want to avoid any loss of information. From the above relations, when we perform inner join , we are removing the tuple `course_id` if we don't know `prereq_id`. Instead we can give `NULL` if we don't know a value. Here we are trying to get more inclusive, this is the notion of the Outer Join.
+
+- Outer Join can be of two types : 
+
+1. Left Outer Join 
+2. Right Outer Join 
+
+### Left Outer Join 
+
+In left outer join, all of A is included and the common b/w A and B is included.
+
+
+```
+course left natural join prereq
+
+```
+
+Result : The above query returns everything from the left table / relation and common things to the right table / relation. Since, we called it `natural` the duplicate `course_id` column is not displayed.   
+
+| course_id | title | dept_name | credits | prere_id |
+| :--- | :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 | BIO-101 |
+| CS-190 | Game Design | Comp. Sci. | 4 | CS-101 |
+| CS-315 | Robotics | Comp. Sci. | 3 | *null* |
+
+
+### Right Outer Join 
+
+In right outer join, all of the B relation will be taken and the intersection of A and B tables will be displayed.
+
+```
+course natural right outer join prereq
+
+```
+
+
+| course_id | title | dept_name | credits | prere_id |
+| :--- | :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 | BIO-101 |
+| CS-190 | Game Design | Comp. Sci. | 4 | CS-101 |
+| CS-347 | *null* | *null* | *null* | CS-101 |
+
+
+### Full Outer Join 
+
+```
+course natural full outer join prereq
+```
+All information is preserved. 
+
+| course_id | title | dept_name | credits | prereq_id |
+| :--- | :--- | :--- | :--- | :--- |
+| BIO-301 | Genetics | Biology | 4 | BIO-101 |
+| CS-190 | Game Design | Comp. Sci. | 4 | CS-101 |
+| CS-315 | Robotics | Comp. Sci. | 3 | *null* |
+| CS-347 | *null* | *null* | *null* | CS-101 |
+
+
+
+- Theta Join is a join with additional condition.
+
+Difference b/w equijoin and natural join is that natural join removes duplicates.
+
+> Join is the only way to explicitly link information 
+
+
+## Views 
+
+In view level , it is not the data that is stored but the data that is viewed or perceived. We don't want to show or give access to all the data in the logical level. 
+
+- View is a **virtual** relation.
+
+### View creation 
+
+```
+create view v as  <query expression>
+```
+
+During `create table` the table gets physically created and data gets inserted, we can modify and delete and it stays in the table. But , view is like an expression. View gets continuous changes.
+
+- A view of instructors without their salary
+
+```
+create view faculty as
+    select ID, name, dept_name
+    from instructor
+```
+
+
+- Find all instructors in the Biology department.
+
+```
+select name
+from faculty
+where dept_name = 'Biology'
+```
+
+
+### View Defined using other views
+
+
+* One view may be used in the expression defining another view
+* A view relation $v_1$ is said to **depend directly** on a view relation $v_2$ , if $v_2$ is used in the expression defining $v_1$
+* A view relation $v_1$ is said to **depend on** view relation $v_2$ if either $v_1$ depends directly on $v_2$ or there is a path of dependencies from $v_1$ to $v_2$
+* A view relation $v$ is said to be **recursive** if it depends on itself
+
+
+### View Expansion
+
+* A way to define the meaning of views defined in terms of other views
+* Let view $v_1$ be defined by an expression $e_1$ that may itself contain uses of view relations
+* View expansion of an expression repeats the following replacement step: <br>
+    **repeat**
+       <br> Find any view relation $v_i$ in $e_1$
+
+    <br> Replace the view relation $v_i$ by the expression defining $v_i$
+    **until** no more view relations are present in $e_1$
+* As long as the view definitions are not recursive, this loop will terminate
+
+
+### Updating a View 
+
+
+When we update a view , to insert values then the insert happens in the original table.
+
+- Updates are restricted and only allowed on a single relation view.
+
+
+### Materialzing the view
+
+We can materialize the view tuples into a physical table, but if we materialize it will become inconsistent with the future views of the view. 

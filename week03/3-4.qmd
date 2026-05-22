@@ -1,0 +1,247 @@
+---
+title: "3.4 Intermediate SQL/3"
+---
+
+## Transactions 
+
+Transactions are a unit of work which are atomic. It is atomic since either the transaction gets committed or it gets roll back.
+
+## Integrity Constraints 
+
+Integrity Constraints are required to guard against certain basic rules of the real world.
+<br> 
+Examples : 
+    
+- Checking account must have a balance greater than Rs. 10,000.
+- A salary of bank employee must be atleast Rs. 250.00 an hour.
+- A customer must have a (non-null) phone number. 
+
+### Integrity Constraints 
+
+Integrity Constraints can be used on a single relation.
+
+1. not null 
+2. primary key
+3. unique 
+4. check (P) , where P is a predicate.
+
+#### Not null 
+
+Certain attributes can be declared `not null` , such that they don't allow null values.
+
+```
+name varchar(20) not null
+budget numeric (12,2) not null 
+```
+### unique 
+
+We can define a set of attributes as unique, the set of tuples that go in the table will never be repeated . Candidate keys cannot be permitted to be null.
+
+```
+
+```
+
+### check 
+
+check (P) can be put to enforce some business logic.
+
+```
+create table section (
+    course_id varchar(8),
+    sec_id varchar(8),
+    semester varchar(6),
+    year numeric(4,0),
+    building varchar(15),
+    room_number varchar(7),
+    time_slot_id varchar(4),
+    primary key (course_id, sec_id, semester, year),
+    check (semester in ('Fall', 'Winter', 'Spring', 'Summer'))
+);
+
+```
+
+## Referential Integrity 
+
+This type of integrity is used to maintain integrity b/w different two or more tables. We come up with the concept of foreign key. The department in instructor becomes the foreign key from the department table.
+
+```
+create table course (
+    course_id char(5) primary key ,
+    title varchar (20),
+    dept_name varchar(20) references department 
+);
+
+```
+
+- If the department Biology is removed from the department table , then the cascading effect is that all tuples in the course table  which has biology as a department_name value will also be deleted.
+
+```
+create table course (
+    dept_name varchar(20),
+    foreign key (dept_name) references department
+        on delete cascade
+        on update cascade,
+    ...
+)
+
+```
+
+The foreign key with cascade integrity constraints will ensure proper referential integrity is maintained. 
+
+
+## SQL Data Types and Schema 
+
+### Built in data types in SQL
+
+- date: Stores a specific calendar date (Year-Month-Day).
+Example: 2005-7-27
+
+- time: Stores the time of day in hours, minutes, and seconds. It can also include fractional seconds.
+Example: 09:00:30.75
+
+- timestamp: A combination of both date and time.
+Example: 2005-7-27 09:00:30.75
+
+- interval: Represents a duration or period of time rather than a specific point in time.
+Example: '1' day or '5' hours
+
+
+## Index Creation 
+
+Syntax : 
+
+```
+create index studentID_index on student(ID)
+```
+
+- Database indices are data structures that speed up record processing , to speed up the search of any particular record. With the index, the search can be reduced to log(n) , otherwise it has to search all the records in the database.
+
+### User Defined Data Types 
+
+These are more like aliases created with certain properties. 
+
+```
+create type Dollars as numeric (12,2) final
+```
+
+```
+create table department (
+    dept_name varchar (20),
+    building varchar (15),
+    budget Dollars
+);
+
+```
+
+### Domains 
+
+Domains can be used to add some more constraints.
+
+```
+create domain person_name char(20) not null
+```
+
+- Domains are constrained data types in SQL and give a name which can be consistently used all across the database design.
+
+
+## Large Objects 
+
+
+These are stored as a part of the file system and not the database system. But a reference will be maintained. When we access the blob, we don't get the data but a pointer to the data.
+
+- blob : binary large object which stores a large collection of binary data.
+- clob : character large object which stores a large collection of character data.
+
+## Authorization 
+
+Authorization is necessary as not everybody can perform actions on the database.
+
+<br>
+
+Forms of authorization are : 
+
+- Read : Allows reading, should have read permission.
+- Insert : Allows insertion of data , but not modification of existing data.
+- Update : Allows modification, but not deletion of data.
+- Delete : Allows deletion of data.
+
+Forms of authorization on operations to modify the database schema : 
+
+- Index :  Index may not change the data, but affect the performance of the database, so we have to create constraints on who can create the index and relations.
+
+Authorizations are given by priveleges. We can grant a privelege to a list of users on a relation.
+
+## Privileges 
+
+- `select` : This is a read authorization. We can read the data from one or more relations.
+
+```
+grant select on instructor to $$ U_1 , U_2 ,U_3 $$ 
+```
+
+- `insert` : the ability to insert tuples . 
+
+- `update` : the ability to update 
+
+- `delete` : the ability to delete tuples.
+
+- `all privilges` : Gives permission to all privileges.
+
+
+## Revoke 
+
+The revoke statement is used to revoke authorization : 
+
+```
+revoke <privilege list>
+on <relation name or view name > from <user list>
+```
+
+Example : 
+```
+revoke select on branch from U1,U2,U3
+```
+
+- The grant statement is used to confer authorization
+        <br>
+        grant <privilege list>
+        on <relation name or view name> to <user list>
+<user list> is:
+a user-id
+public, which allows all valid users the privilege granted
+- A role (more on this later)
+
+## Roles 
+
+Suppose there is a development group, there are 20 engineers in the development group. Now as a group of
+developers they need a certain type of authorization. Now instead of giving each and every
+granting, each and every privilege to each one, which is explosive, you can say that what is
+the role of this person is to develop so this person needs this privileges.
+
+We are granting the privileges to a role.
+```
+grant instructor to Amit ;
+```
+
+Privileges to roles : 
+
+```
+grant select on takes to instructor;
+```
+
+### Authorization on Views 
+
+Authorization can be done on views also.
+- 
+```create view geo_instructor as
+  (select *
+  from instructor
+  where dept_name = 'Geology');
+  grant select on geo_instructor to geo_staff
+```
+
+- Suppose that a geo_staff member issues
+```
+  select *
+  from geo_instructor;
+```

@@ -1,0 +1,67 @@
+---
+title: "3.5 Advanced SQL"
+---
+
+## Functions and Procedural Constructs 
+
+Query Language : SQL
+Native Language : C, Java, Python, etc
+
+Two models : 
+
+1. We have C programs, functions,etc and we can invoke them from SQL. We pass the data to C function and the C function gives the result back. This is  called the extensional programming from SQL. SQL through query processor continues to interact with the database.
+
+2. In this model, instead of having both of them independently. We have SQL embedded as a part of the native language program code. All the transactions with the database will be done through the query processor from the SQL. 
+
+
+Over the period of time,SQL has added functional and procedural features.
+
+
+### Functions and Procedures 
+
+Function and Control Statements were added in SQL : 1999.
+- Functions written in external languages are particularly useful with specialized datatypes such as images and geometric objects or complex algorithms. Doing object oriented tasks  like in C++ or Java.
+
+- Table valued functions : Functions in SQL can also return a table, normally they return values.
+
+
+SQL Functions are parameterized views.
+
+### Table Functions 
+
+Table functions are functions that return a table/relation as a result.
+
+```
+create function instructor_of (dept_name char(20))
+    returns table (
+        ID varchar(5),
+        name varhar(20),
+        dept_name varchar(20),
+        salary numeric(8,2),
+    )
+    returns table   
+        (select ID,name,dept_name,salary
+        from instructor  where instructor.dept_name = instructor_of.dept_name)
+
+```
+
+Usage : 
+
+```
+select * from table (instructor_of('Music'))
+
+```
+This means that a table function must be invoked
+
+
+## Types of Triggers 
+
+- BEFORE triggers 
+
+Runs `before` an update or insert.
+
+- BEFORE DELETE triggers
+
+Run before a delete.
+    - Before we delete we need to check the values.
+     

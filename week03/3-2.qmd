@@ -1,0 +1,246 @@
+---
+title: "3.2 Intermediate SQL/1"
+---
+
+## Nested Subqueries 
+
+Nested Subquery is a feature where one query can occur occur as a part of condition in another query, or part of some other query.
+
+- An attribute can be replaced by a query that generates a single value or relation can be replaced by $r_i$  any valid query.
+
+Output of query is a single relation. The output is a relation in the `FROM` clause .
+
+As follows:
+
+* $A_i$ can be replaced by a subquery that generates a single value
+* $r_i$ can be replaced by any valid subquery
+* $P$ can be replaced with an expression of the form:
+  $$\text{B <operation> (subquery)}$$
+  where $B$ is an attribute and <operation> to be defined later
+
+
+## Subqueries in the `WHERE` Clause
+
+A typical subquery is used to perform tests . These are used for :
+<br>
+
+- Set membership
+- Set comparisons
+- Set cardinality 
+
+### Set Membership 
+
+- Find the courses offered in Fall 2009 and Spring 2010.
+
+```
+(select course_id from section where sem = 'Fall' and year = 2009)
+and course_id in 
+(select course_id from section where sem = 'Spring' and year = 2010)
+
+```
+
+Does the same course_id occur in the other set, we find that out using the `in` operator.
+
+- Find the courses offered in Fall 2009 but not in Spring 2010.
+
+```
+(select course_id from section where sem = 'Fall' and year = 2009)
+and course_id not in 
+(select course_id from section where sem = 'Spring' and year = 2010)
+
+```
+
+Set membership can be done, not only with a single value but also with an entire tuple.
+
+```
+select count (distinct ID) 
+from takes 
+where (course_id, semester, year) in 
+(select course_id, sec_id, semester, year from teaches where teaches.ID = 10101);
+```
+
+### Set Comparison - with `some` clause
+
+Find the names of instructors with salary greater than that of some (at least one ) instructor in the Biology department.
+
+Normal query
+```
+select distinct T.name
+from instructor as T, instructor as S
+where T.salary > S.salary and S.dept_name = 'Biology' ;
+```
+
+
+Using the `some` clause.
+
+```
+select name from instructor 
+where salary > some(select salary from instructor where dept_name = 'Biology');
+```
+
+- `some` represents an existential qunatification.
+
+#### `all` clause
+
+Find the names of all the instructors whose salary is greater than the salary of all the instructors in the Biology department.
+
+```
+select name from instructor  
+where salary > all (select salary from instructor where dept_name = 'Biology');
+```
+This query means that each salary in the subquery should be less than the main query for the instructor to be selected in the final result.
+
+If we take each and every tuple of the relation $$ R $$ , then this condition must get satisfied, if it does then the whole predicate is True.
+
+- `all` represents universal qunatification.
+
+#### `exists` : to check for empty relation
+
+`exists` is a construct that will return true if there exists atleast one tuple in the relation.
+
+- If we perform a `count` and we get value greater than zero, then it exists. Otherwise it does not exist.
+
+    - exists $$ r $$ $$<->$$  $$ r $$  != 0 
+    - not exists r <-> r != 0
+
+```
+select course_id
+from section as S
+where semester = 'Fall' and year = 2009 and
+      exists (select *
+              from section as T
+              where semester = 'Spring' and year = 2010
+              and S.course_id = T.course_id);
+```
+First subquery lists all the courses offered in Biology.
+Second query lists all courses a particular student took.
+
+#### `not exists` 
+
+```
+select distinct S.ID, S.name
+from student as S
+where not exists ( (select course_id
+                                from course
+                                where dept_name = 'Biology')
+                               except
+                             (select T.course_id
+                                from takes as T
+                                where S.ID = T.ID));
+```
+
+#### `unique` 
+
+In a subquery, it will be true such that all the tuples returned are unique, otherwise it is false.
+
+- Find all courses that were offered in 2009.
+
+```
+select T.course_id
+from course as T
+where unique (select R.course_id
+              from section as R
+              where T.course_id = R.course_id
+              and R.year = 2009);
+```
+
+## Subqueries in the `FROM` Clause
+
+- Find the average instructor salaries for departments where that average exceeds $42,000, you can use the following SQL query which employs a subquery in the FROM clause:
+
+```
+select dept_name, avg_salary
+from (select dept_name, avg(salary) as avg_salary
+      from instructor
+      group by dept_name)
+where avg_salary > 42000;
+```
+
+### `with` clause
+
+- Find all departments with the maximum budget using a WITH clause, you can use the following SQL query:
+
+```
+with max_budget (value) as
+    (select max(budget)
+     from department)
+select department.name
+from department, max_budget
+where department.budget = max_budget.value;
+```
+ 
+Using the `with` clause the resultant value produced from the subquery becomes the table named `max_budget` where value is the attribute.
+- By using `with ` we are creating a temporary relation, which can be used in the query.
+
+## Subqueries in the `SELECT` clause
+
+We can have subqueries in the `select` but `select` is always an attribute.
+
+```
+select dept_name,
+    (select count(*)
+     from instructor
+     where department.dept_name = instructor.dept_name)
+    as num_instructors
+from department;
+```
+
+
+## Modification of Databases
+
+There are three things we can do : 
+
+1. Insert a tuple into a relation
+2. Delete a tuple from a relation
+3. Update a tuple in a relation
+
+
+### Delete 
+- Delete all instructors
+```
+delete from instructor
+```
+- Delete all instructors from the Finance department
+```
+delete from instructor
+where dept_name = 'Finance';
+```
+
+- Delete all tuples in the instructor relation for those instructors associated with a department located in the Watson building
+```
+delete from instructor
+where dept_name in (select dept_name
+from department
+where building = 'Watson');
+```
+
+### Insert 
+
+In Insert , we insert into the table and we should insert values in the order mentioned of the attributes.
+
+### Update 
+
+When using Update it is mostly recommended to use the case statement when subqueries are present.
+
+- Scalar query : It will return only one query. 
+
+```
+update instructor
+    set salary = salary * 1.03
+    where salary > 100000;
+update instructor
+    set salary = salary * 1.05
+    where salary <= 100000;
+
+```
+
+### Case Statement for Conditional Updates
+
+```
+update instructor 
+set salary = case
+when salary <= 100000
+then salary * 1.05
+else salary * 1.03
+end
+```
