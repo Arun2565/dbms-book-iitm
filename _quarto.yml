@@ -128,14 +128,18 @@ website:
 #           - text: "10.3 Security Best Practices"
 #             href: week10/10-3.qmd
       
-#       - section: "Week 11: Data Warehousing"
-#         contents:
-#           - text: "11.1 Data Warehouse Concepts"
-#             href: week11/11-1.qmd
-#           - text: "11.2 OLAP vs OLTP"
-#             href: week11/11-2.qmd
-#           - text: "11.3 ETL Processes"
-#             href: week11/11-3.qmd
+      - section: "Week 11: Backup, Recovery & RAID"
+        contents:
+          - text: "11.1 Backup Concepts & Strategies"
+            href: week11/11-1.qmd
+          - text: "11.2 Failure Classification & Log-based Recovery"
+            href: week11/11-2.qmd
+          - text: "11.3 Logging, Checkpoints & Recovery Algorithm"
+            href: week11/11-3.qmd
+          - text: "11.4 Recovery with Early Lock Release"
+            href: week11/11-4.qmd
+          - text: "11.5 RAID"
+            href: week11/11-5.qmd
       
 #       - section: "Week 12: Advanced Topics"
 #         contents:
