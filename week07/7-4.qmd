@@ -1,0 +1,265 @@
+---
+title: "7.4 Building database applications with Python and PostgreSQL"
+---
+
+## PostgreSQL
+
+PostgreSQL is a powerful, open-source object-relational database system. It
+supports a large subset of SQL standards and offers many advanced features.
+It is one of the most popular databases for application development.
+
+PostgreSQL uses a client-server architecture:
+- The database runs as a server process.
+- Client applications connect through the network using the PostgreSQL
+  protocol.
+- Each client connection is handled by a separate server process.
+
+## Connecting Python to PostgreSQL
+
+The standard Python library for connecting to PostgreSQL is **psycopg2**.
+It implements the Python DB-API 2.0 specification.
+
+### Installation
+
+```bash
+pip install psycopg2
+# or for the binary version:
+pip install psycopg2-binary
+```
+
+### Basic connection
+
+```python
+import psycopg2
+
+conn = psycopg2.connect(
+    host="localhost",
+    port=5432,
+    dbname="mydatabase",
+    user="myuser",
+    password="mypassword"
+)
+```
+
+### Connection parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| host | Database server hostname | localhost |
+| port | Database server port | 5432 |
+| dbname | Database name | — |
+| user | Username | — |
+| password | Password | — |
+
+### Connection pool
+
+Creating a new connection for every request is expensive. For web
+applications, use a **connection pool** to reuse connections:
+
+```python
+from psycopg2 import pool
+
+connection_pool = psycopg2.pool.SimpleConnectionPool(
+    1,      # min connections
+    20,     # max connections
+    host="localhost",
+    dbname="mydatabase",
+    user="myuser",
+    password="mypassword"
+)
+
+conn = connection_pool.getconn()
+# ... use connection ...
+connection_pool.putconn(conn)
+```
+
+## CRUD operations
+
+### Create (INSERT)
+
+```python
+cur = conn.cursor()
+cur.execute(
+    "INSERT INTO students (id, name, gpa) VALUES (%s, %s, %s)",
+    (101, "Alice", 3.8)
+)
+conn.commit()
+```
+
+### Read (SELECT)
+
+```python
+cur = conn.cursor()
+cur.execute("SELECT * FROM students WHERE gpa > %s", (3.0,))
+rows = cur.fetchall()
+for row in rows:
+    print(row)
+```
+
+### Update
+
+```python
+cur = conn.cursor()
+cur.execute(
+    "UPDATE students SET gpa = %s WHERE id = %s",
+    (4.0, 101)
+)
+conn.commit()
+```
+
+### Delete
+
+```python
+cur = conn.cursor()
+cur.execute("DELETE FROM students WHERE id = %s", (101,))
+conn.commit()
+```
+
+## Parameterized queries and SQL injection
+
+Always use parameterized queries (`%s` placeholders) instead of string
+formatting. This prevents SQL injection attacks.
+
+**Bad (vulnerable to SQL injection):**
+```python
+cur.execute(f"SELECT * FROM users WHERE name = '{user_input}'")
+```
+
+**Good (safe):**
+```python
+cur.execute("SELECT * FROM users WHERE name = %s", (user_input,))
+```
+
+The database driver handles escaping and quoting automatically.
+
+## Transaction management
+
+By default, psycopg2 starts a transaction for every statement. You must
+commit or rollback:
+
+```python
+try:
+    cur.execute("UPDATE accounts SET balance = balance - 100 WHERE id = 1")
+    cur.execute("UPDATE accounts SET balance = balance + 100 WHERE id = 2")
+    conn.commit()
+except:
+    conn.rollback()
+```
+
+Set autocommit mode if you want every statement to be committed immediately:
+
+```python
+conn.autocommit = True
+```
+
+## Python frameworks for PostgreSQL
+
+While using psycopg2 directly is possible, most production applications use
+a web framework that integrates with the database.
+
+### Flask
+
+Flask is a lightweight web framework for Python. It can be combined with
+psycopg2 or with an ORM like SQLAlchemy.
+
+```python
+from flask import Flask, request, jsonify
+import psycopg2
+
+app = Flask(__name__)
+
+def get_db():
+    return psycopg2.connect(
+        host="localhost",
+        dbname="mydb",
+        user="user",
+        password="pass"
+    )
+
+@app.route("/students/<int:id>")
+def get_student(id):
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM students WHERE id = %s", (id,))
+    student = cur.fetchone()
+    cur.close()
+    conn.close()
+    if student:
+        return jsonify({"id": student[0], "name": student[1]})
+    return jsonify({"error": "Not found"}), 404
+```
+
+### SQLAlchemy (ORM)
+
+SQLAlchemy is the most popular Python ORM. It maps Python classes to
+database tables and handles SQL generation automatically.
+
+```python
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://user:pass@localhost/mydb"
+db = SQLAlchemy(app)
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    gpa = db.Column(db.Float)
+
+@app.route("/students")
+def list_students():
+    students = Student.query.filter(Student.gpa > 3.0).all()
+    return [{"id": s.id, "name": s.name} for s in students]
+```
+
+### Django
+
+Django is a full-featured web framework that includes its own ORM. It
+supports PostgreSQL, MySQL, SQLite, and Oracle.
+
+```python
+# models.py
+from django.db import models
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    gpa = models.FloatField()
+
+# views.py
+def student_list(request):
+    students = Student.objects.filter(gpa__gt=3.0)
+    return render(request, "students.html", {"students": students})
+```
+
+## Django REST Framework
+
+For building REST APIs, Django REST Framework (DRF) provides tools for
+serialization, authentication, and API views.
+
+```python
+from rest_framework import serializers, viewsets
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ["id", "name", "gpa"]
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+```
+
+## Summary
+
+| Technique | Python library | Use case |
+|-----------|---------------|----------|
+| Direct SQL | psycopg2 | Simple apps, full SQL control |
+| ORM | SQLAlchemy | Complex apps, automatic mapping |
+| Web framework | Flask + psycopg2 | Lightweight apps |
+| Full framework | Django + ORM | Large applications with admin UI |
+| REST API | Django REST Framework | API-first applications |
+
+Use direct psycopg2 for simple applications where full SQL control is needed.
+Use an ORM for complex applications to reduce boilerplate. Use a framework
+like Flask or Django to structure the web application layer.

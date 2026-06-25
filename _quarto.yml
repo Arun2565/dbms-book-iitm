@@ -80,14 +80,18 @@ website:
           - text: "6.5 Design Process & Temporal Data"
             href: week06/6-5.qmd
       
-#       - section: "Week 7: Concurrency Control"
-#         contents:
-#           - text: "7.1 Locking Protocols"
-#             href: week07/7-1.qmd
-#           - text: "7.2 Deadlock Handling"
-#             href: week07/7-2.qmd
-#           - text: "7.3 Timestamp Protocols"
-#             href: week07/7-3.qmd
+      - section: "Week 7: Application Development"
+        contents:
+          - text: "7.1 Application Architecture"
+            href: week07/7-1.qmd
+          - text: "7.2 Web Technologies"
+            href: week07/7-2.qmd
+          - text: "7.3 SQL & Native Language"
+            href: week07/7-3.qmd
+          - text: "7.4 Python & PostgreSQL"
+            href: week07/7-4.qmd
+          - text: "7.5 RAD, Performance & Security"
+            href: week07/7-5.qmd
       
 #       - section: "Week 8: Database Internals"
 #         contents:
