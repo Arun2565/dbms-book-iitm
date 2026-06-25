@@ -93,14 +93,18 @@ website:
           - text: "7.5 RAD, Performance & Security"
             href: week07/7-5.qmd
       
-#       - section: "Week 8: Database Internals"
-#         contents:
-#           - text: "8.1 Storage Structures"
-#             href: week08/8-1.qmd
-#           - text: "8.2 File Organization"
-#             href: week08/8-2.qmd
-#           - text: "8.3 Buffer Management"
-#             href: week08/8-3.qmd
+      - section: "Week 8: Storage, Indexing & Query Processing"
+        contents:
+          - text: "8.1 Data Storage"
+            href: week08/8-1.qmd
+          - text: "8.2 File Organization"
+            href: week08/8-2.qmd
+          - text: "8.3 Indexing"
+            href: week08/8-3.qmd
+          - text: "8.4 B+ Tree Index"
+            href: week08/8-4.qmd
+          - text: "8.5 Hash Index"
+            href: week08/8-5.qmd
       
 #       - section: "Week 9: Indexing & Optimization"
 #         contents:
