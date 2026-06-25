@@ -1,0 +1,36 @@
+---
+title: "12.3 Performance and scalability"
+---
+
+## Performance factors
+
+Database performance depends on:
+- Hardware: CPU speed, memory size, disk speed, network bandwidth.
+- Software: DBMS configuration, query optimization, indexing.
+- Workload: Read vs write ratio, query complexity, concurrency level.
+- Design: Schema design, normalization, indexing strategy.
+
+## Architecture options
+
+**Centralized architecture.** A single server handles all requests. Simple
+but limited scalability.
+
+**Client-server architecture.** Clients handle presentation, server handles
+data. The most common architecture for database applications.
+
+**Parallel database systems.** Multiple processors and disks work together
+on a single database. Types:
+
+- **Shared memory.** All processors share the same memory and disks.
+- **Shared disk.** Each processor has its own memory but shares disks.
+- **Shared nothing.** Each processor has its own memory and disks.
+
+![Parallel architectures](images/L12.3_p14.png)
+
+## Scalability strategies
+
+- **Vertical scaling.** Add more resources (CPU, RAM, disk) to existing
+  servers.
+- **Horizontal scaling.** Add more servers and distribute the data.
+- **Replication.** Keep copies of data on multiple servers.
+- **Sharding.** Partition data across multiple database instances.

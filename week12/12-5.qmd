@@ -1,0 +1,55 @@
+---
+title: "12.5 Course summary and RDBMS landscape"
+---
+
+## Widely used RDBMS
+
+Several relational database management systems dominate the market:
+
+- **Commercial.** Oracle, Microsoft SQL Server, IBM Db2.
+- **Open source.** MySQL, PostgreSQL, MariaDB, SQLite.
+- **Cloud.** Amazon Aurora, Google Cloud SQL, Azure SQL Database.
+
+## Market share and ranking
+
+Oracle leads in enterprise market share, followed by MySQL and Microsoft SQL
+Server. PostgreSQL is growing rapidly due to its advanced features and open
+source nature.
+
+## Object-relational databases (ORD)
+
+Object-relational databases extend the relational model with object-oriented
+features:
+- User-defined types.
+- Inheritance.
+- Methods and functions.
+- Nested tables.
+
+PostgreSQL is the leading open-source ORD, supporting arrays, JSON, custom
+types, and full-text search.
+
+## Guidelines for choosing a DBMS
+
+| Requirement | Recommended |
+|-------------|-------------|
+| Enterprise, OLTP | Oracle, SQL Server |
+| Open source, standards | PostgreSQL |
+| Web applications | MySQL, MariaDB |
+| Embedded | SQLite |
+| Cloud native | Aurora, Cloud SQL |
+| Big data, analytics | Column-store, NoSQL |
+
+## Course recap
+
+This course covered:
+1. Relational model and SQL.
+2. Database design and normalization.
+3. Application development with databases.
+4. Storage, indexing, and query processing.
+5. Transaction management and concurrency control.
+6. Backup, recovery, and RAID.
+7. Big data and NoSQL.
+8. Database system architecture and performance.
+
+The principles learned apply across all major database systems. The syntax
+may vary, but the concepts remain the same.

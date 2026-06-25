@@ -129,14 +129,18 @@ website:
 #           - text: "11.3 ETL Processes"
 #             href: week11/11-3.qmd
       
-#       - section: "Week 12: Advanced Topics"
-#         contents:
-#           - text: "12.1 Distributed Databases"
-#             href: week12/12-1.qmd
-#           - text: "12.2 NoSQL Overview"
-#             href: week12/12-2.qmd
-#           - text: "12.3 Emerging Technologies"
-#             href: week12/12-3.qmd
+      - section: "Week 12: Query Optimization & Big Data"
+        contents:
+          - text: "12.1 Query Processing"
+            href: week12/12-1.qmd
+          - text: "12.2 Query Optimization"
+            href: week12/12-2.qmd
+          - text: "12.3 Performance & Scalability"
+            href: week12/12-3.qmd
+          - text: "12.4 Big Data & NoSQL"
+            href: week12/12-4.qmd
+          - text: "12.5 Course Summary & RDBMS Landscape"
+            href: week12/12-5.qmd
 
 format:
   html:
