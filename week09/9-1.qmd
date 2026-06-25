@@ -15,6 +15,8 @@ where the pointer gives the location of the record on disk.
 Index files are typically much smaller than the original data file, so
 searching them is faster than scanning the table.
 
+![Concepts of indexing](images/L9.1_p5.png)
+
 ## Why indexes are needed
 
 Consider a table with millions of records. Without an index, every query
