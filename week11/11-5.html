@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11.5 RAID – DBMS Notes - IITM</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-874f25da523c2bf259082670c4464446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e9180971b27eb13ba52d603e941f6d18.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-874f25da523c2bf259082670c4464446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week11/11-1.html">Week 11: Backup, Recovery &amp; RAID</a></li><li class="breadcrumb-item"><a href="../week11/11-5.html">11.5 RAID</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DBMS Notes - IITM</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1: Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Course Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Why DBMS?/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.3 Why DBMS?/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2: Relational Model &amp; Basic SQL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.4 Intro to SQL/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL/3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3: Advanced SQL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.1 SQL Examples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 Intermediate SQL/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 Intermediate SQL/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.4 Intermediate SQL/3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.5 Advanced SQL</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4: Relational Query Languages</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6: Normalization &amp; Database Design</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.1 Normal Forms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.2 Decomposition Algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.3 LIS Case Study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.4 MVD &amp; 4NF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 7: Application Development</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week07/7-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7.1 Application Architecture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week07/7-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7.2 Web Technologies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week07/7-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7.3 SQL &amp; Native Language</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week07/7-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7.4 Python &amp; PostgreSQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week07/7-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7.5 RAD, Performance &amp; Security</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8: Storage, Indexing &amp; Query Processing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week08/8-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8.1 Data Storage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week08/8-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8.2 File Organization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week08/8-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8.3 Indexing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week08/8-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8.4 B+ Tree Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week08/8-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8.5 Hash Index</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9: Advanced Indexing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week09/9-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9.1 Ordered Indexing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week09/9-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9.2 2-3-4 Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week09/9-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9.3 B+ Tree &amp; B-Tree</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week09/9-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9.4 Static &amp; Dynamic Hashing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week09/9-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9.5 Index Design in SQL</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 11: Backup, Recovery &amp; RAID</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week11/11-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11.1 Backup Concepts &amp; Strategies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week11/11-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11.2 Failure Classification &amp; Log-based Recovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week11/11-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11.3 Logging, Checkpoints &amp; Recovery Algorithm</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week11/11-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11.4 Recovery with Early Lock Release</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week11/11-5.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">11.5 RAID</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#reliability-via-redundancy" id="toc-reliability-via-redundancy" class="nav-link" data-scroll-target="#reliability-via-redundancy">Reliability via redundancy</a>
+  <ul class="collapse">
+  <li><a href="#mirroring" id="toc-mirroring" class="nav-link" data-scroll-target="#mirroring">Mirroring</a></li>
+  <li><a href="#striping" id="toc-striping" class="nav-link" data-scroll-target="#striping">Striping</a></li>
+  <li><a href="#parity" id="toc-parity" class="nav-link" data-scroll-target="#parity">Parity</a></li>
+  </ul></li>
+  <li><a href="#standard-raid-levels" id="toc-standard-raid-levels" class="nav-link" data-scroll-target="#standard-raid-levels">Standard RAID levels</a>
+  <ul class="collapse">
+  <li><a href="#raid-0-striping" id="toc-raid-0-striping" class="nav-link" data-scroll-target="#raid-0-striping">RAID 0: Striping</a></li>
+  <li><a href="#raid-1-mirroring" id="toc-raid-1-mirroring" class="nav-link" data-scroll-target="#raid-1-mirroring">RAID 1: Mirroring</a></li>
+  <li><a href="#raid-2-parity-with-hamming-code" id="toc-raid-2-parity-with-hamming-code" class="nav-link" data-scroll-target="#raid-2-parity-with-hamming-code">RAID 2: Parity with Hamming code</a></li>
+  <li><a href="#raid-3-byte-striping-parity" id="toc-raid-3-byte-striping-parity" class="nav-link" data-scroll-target="#raid-3-byte-striping-parity">RAID 3: Byte striping + parity</a></li>
+  <li><a href="#raid-4-block-striping-parity" id="toc-raid-4-block-striping-parity" class="nav-link" data-scroll-target="#raid-4-block-striping-parity">RAID 4: Block striping + parity</a></li>
+  <li><a href="#raid-5-distributed-parity" id="toc-raid-5-distributed-parity" class="nav-link" data-scroll-target="#raid-5-distributed-parity">RAID 5: Distributed parity</a></li>
+  <li><a href="#raid-6-dual-parity" id="toc-raid-6-dual-parity" class="nav-link" data-scroll-target="#raid-6-dual-parity">RAID 6: Dual parity</a></li>
+  </ul></li>
+  <li><a href="#nested-raid-levels" id="toc-nested-raid-levels" class="nav-link" data-scroll-target="#nested-raid-levels">Nested RAID levels</a>
+  <ul class="collapse">
+  <li><a href="#raid-01-raid-01-mirror-of-stripes" id="toc-raid-01-raid-01-mirror-of-stripes" class="nav-link" data-scroll-target="#raid-01-raid-01-mirror-of-stripes">RAID 01 (RAID 0+1): Mirror of stripes</a></li>
+  <li><a href="#raid-10-raid-10-stripe-of-mirrors" id="toc-raid-10-raid-10-stripe-of-mirrors" class="nav-link" data-scroll-target="#raid-10-raid-10-stripe-of-mirrors">RAID 10 (RAID 1+0): Stripe of mirrors</a></li>
+  </ul></li>
+  <li><a href="#choice-of-raid-levels" id="toc-choice-of-raid-levels" class="nav-link" data-scroll-target="#choice-of-raid-levels">Choice of RAID levels</a>
+  <ul class="collapse">
+  <li><a href="#factors-in-choosing-raid-level" id="toc-factors-in-choosing-raid-level" class="nav-link" data-scroll-target="#factors-in-choosing-raid-level">Factors in choosing RAID level</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week11/11-1.html">Week 11: Backup, Recovery &amp; RAID</a></li><li class="breadcrumb-item"><a href="../week11/11-5.html">11.5 RAID</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">11.5 RAID</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>RAID (Redundant Array of Independent Disks) is a disk organization technique that manages a large number of disks, providing a view of a single disk of:</p>
+<ul>
+<li><strong>High capacity and high speed</strong> by using multiple disks in parallel.</li>
+<li><strong>High reliability</strong> by storing data redundantly, so that data can be recovered even if a disk fails.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p6.png" class="img-fluid figure-img"></p>
+<figcaption>RAID overview</figcaption>
+</figure>
+</div>
+</section>
+<section id="reliability-via-redundancy" class="level2">
+<h2 class="anchored" data-anchor-id="reliability-via-redundancy">Reliability via redundancy</h2>
+<section id="mirroring" class="level3">
+<h3 class="anchored" data-anchor-id="mirroring">Mirroring</h3>
+<p>Store extra information (redundancy) that can be used to rebuild information lost in a disk failure. In mirroring, each disk has an identical copy.</p>
+<p>Mean time to data loss depends on mean time to failure (MTTF) and mean time to repair (MTTR). For example, MTTF of 100,000 hours and MTTR of 10 hours gives a combined MTTF much higher than a single disk.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p7.png" class="img-fluid figure-img"></p>
+<figcaption>Mirroring</figcaption>
+</figure>
+</div>
+</section>
+<section id="striping" class="level3">
+<h3 class="anchored" data-anchor-id="striping">Striping</h3>
+<p><strong>Bit-level striping.</strong> Split the bits of each byte across multiple disks. In an array of eight disks, write bit i of each byte to disk i. Each access can read data at eight times the rate of a single disk. However, seek/access time is worse. Bit-level striping is not used much anymore.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p8.png" class="img-fluid figure-img"></p>
+<figcaption>Striping</figcaption>
+</figure>
+</div>
+</section>
+<section id="parity" class="level3">
+<h3 class="anchored" data-anchor-id="parity">Parity</h3>
+<p><strong>Bit-interleaved parity.</strong> A single parity bit is enough for error correction (not just detection) because we know which disk has failed.</p>
+<p>When writing data, corresponding parity bits must also be computed and written to a parity disk. To recover data in a damaged disk, compute XOR of bits from other disks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p9.png" class="img-fluid figure-img"></p>
+<figcaption>Parity</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="standard-raid-levels" class="level2">
+<h2 class="anchored" data-anchor-id="standard-raid-levels">Standard RAID levels</h2>
+<p>The most common RAID levels employ striping, mirroring, or parity:</p>
+<section id="raid-0-striping" class="level3">
+<h3 class="anchored" data-anchor-id="raid-0-striping">RAID 0: Striping</h3>
+<p>RAID 0 uses data striping only — no redundant information is maintained. If one disk fails, all data in the array is lost. Space utilization is 100%.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p11.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 0</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Maximum storage capacity</td>
+<td>No fault tolerance</td>
+</tr>
+<tr class="even">
+<td>Best write performance</td>
+<td>Any disk failure destroys all data</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raid-1-mirroring" class="level3">
+<h3 class="anchored" data-anchor-id="raid-1-mirroring">RAID 1: Mirroring</h3>
+<p>RAID 1 employs mirroring, maintaining two identical copies of data on two different disks. It provides excellent fault tolerance but is the most expensive solution (50% capacity utilization).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p12.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 1</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Excellent fault tolerance</td>
+<td>High cost (2x storage)</td>
+</tr>
+<tr class="even">
+<td>Fast reads (both copies can serve)</td>
+<td>Write performance may be slower</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raid-2-parity-with-hamming-code" class="level3">
+<h3 class="anchored" data-anchor-id="raid-2-parity-with-hamming-code">RAID 2: Parity with Hamming code</h3>
+<p>RAID 2 uses a designated drive for parity with bit-level striping. Hamming code is used for parity, which can detect up to two-bit errors or correct one-bit errors.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p13.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 2</figcaption>
+</figure>
+</div>
+</section>
+<section id="raid-3-byte-striping-parity" class="level3">
+<h3 class="anchored" data-anchor-id="raid-3-byte-striping-parity">RAID 3: Byte striping + parity</h3>
+<p>RAID 3 has a single check disk with parity information. It uses byte-level striping. The reliability overhead is a single disk — the lowest possible.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p14.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 3</figcaption>
+</figure>
+</div>
+</section>
+<section id="raid-4-block-striping-parity" class="level3">
+<h3 class="anchored" data-anchor-id="raid-4-block-striping-parity">RAID 4: Block striping + parity</h3>
+<p>RAID 4 has a striping unit of a disk block (not a single bit). Read requests of block size can be served entirely by the disk where the requested block resides.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p15.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 4</figcaption>
+</figure>
+</div>
+</section>
+<section id="raid-5-distributed-parity" class="level3">
+<h3 class="anchored" data-anchor-id="raid-5-distributed-parity">RAID 5: Distributed parity</h3>
+<p>RAID 5 improves upon RAID 4 by distributing parity blocks uniformly over all disks instead of storing them on a single check disk. Several write requests can be processed in parallel.</p>
+<p>Requires at least 3 disks. Can tolerate one disk failure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p16.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 5</figcaption>
+</figure>
+</div>
+</section>
+<section id="raid-6-dual-parity" class="level3">
+<h3 class="anchored" data-anchor-id="raid-6-dual-parity">RAID 6: Dual parity</h3>
+<p>RAID 6 extends RAID 5 by adding another parity block. It uses block-level striping with two parity blocks distributed across all member disks. Can tolerate two simultaneous disk failures.</p>
+<p>Requires at least 4 disks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p17.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 6</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="nested-raid-levels" class="level2">
+<h2 class="anchored" data-anchor-id="nested-raid-levels">Nested RAID levels</h2>
+<p>Nested RAID levels combine two or more standard levels to gain performance and additional redundancy.</p>
+<section id="raid-01-raid-01-mirror-of-stripes" class="level3">
+<h3 class="anchored" data-anchor-id="raid-01-raid-01-mirror-of-stripes">RAID 01 (RAID 0+1): Mirror of stripes</h3>
+<p>A mirror of stripes. It achieves both replication and sharing of data. The usable capacity is the same as RAID 1 (50%).</p>
+</section>
+<section id="raid-10-raid-10-stripe-of-mirrors" class="level3">
+<h3 class="anchored" data-anchor-id="raid-10-raid-10-stripe-of-mirrors">RAID 10 (RAID 1+0): Stripe of mirrors</h3>
+<p>A stripe of mirrors. RAID 10 provides better throughput and latency than all other levels. Requires a minimum of four drives. Can tolerate up to one failure per mirrored pair.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p20.png" class="img-fluid figure-img"></p>
+<figcaption>RAID 10</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="choice-of-raid-levels" class="level2">
+<h2 class="anchored" data-anchor-id="choice-of-raid-levels">Choice of RAID levels</h2>
+<p>Different RAID levels have different speed and fault tolerance properties:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 16%">
+<col style="width: 23%">
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Min drives</th>
+<th>Fault tolerance</th>
+<th>Read perf</th>
+<th>Write perf</th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RAID 0</td>
+<td>2</td>
+<td>None</td>
+<td>Excellent</td>
+<td>Excellent</td>
+<td>100%</td>
+</tr>
+<tr class="even">
+<td>RAID 1</td>
+<td>2</td>
+<td>1 drive</td>
+<td>Good</td>
+<td>Good</td>
+<td>50%</td>
+</tr>
+<tr class="odd">
+<td>RAID 5</td>
+<td>3</td>
+<td>1 drive</td>
+<td>Good</td>
+<td>Moderate</td>
+<td>(n-1)/n</td>
+</tr>
+<tr class="even">
+<td>RAID 6</td>
+<td>4</td>
+<td>2 drives</td>
+<td>Good</td>
+<td>Moderate</td>
+<td>(n-2)/n</td>
+</tr>
+<tr class="odd">
+<td>RAID 10</td>
+<td>4</td>
+<td>Up to 1/pair</td>
+<td>Excellent</td>
+<td>Good</td>
+<td>50%</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p21.png" class="img-fluid figure-img"></p>
+<figcaption>RAID level choice</figcaption>
+</figure>
+</div>
+<section id="factors-in-choosing-raid-level" class="level3">
+<h3 class="anchored" data-anchor-id="factors-in-choosing-raid-level">Factors in choosing RAID level</h3>
+<ol type="1">
+<li><strong>Monetary cost.</strong> RAID 1 is most expensive; RAID 0 cheapest but no redundancy.</li>
+<li><strong>Performance.</strong> Number of I/O operations per second and bandwidth during normal operation.</li>
+<li><strong>Write performance.</strong> RAID 1 provides much better write performance than RAID 5. RAID 5 requires at least 2 block reads and 2 block writes to write a single block, whereas RAID 1 requires only 2 block writes.</li>
+<li><strong>Use case.</strong> RAID 1 is preferred for high-update environments such as log disks. RAID 5/6 is preferred for large read-heavy data stores.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p23.png" class="img-fluid figure-img"></p>
+<figcaption>RAID level choice factors</figcaption>
+</figure>
+</div>
+</section>
+<section id="comparison" class="level3">
+<h3 class="anchored" data-anchor-id="comparison">Comparison</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 19%">
+<col style="width: 25%">
+<col style="width: 24%">
+<col style="width: 9%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Description</th>
+<th>Space efficiency</th>
+<th>Fault tolerance</th>
+<th>Read</th>
+<th>Write</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Block striping</td>
+<td>100%</td>
+<td>None</td>
+<td>Fast</td>
+<td>Fast</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Mirroring</td>
+<td>50%</td>
+<td>Single drive</td>
+<td>Fast</td>
+<td>Moderate</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Distributed parity</td>
+<td>(n-1)/n</td>
+<td>Single drive</td>
+<td>Fast</td>
+<td>Slow</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Dual parity</td>
+<td>(n-2)/n</td>
+<td>Two drives</td>
+<td>Fast</td>
+<td>Slow</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Mirror + stripe</td>
+<td>50%</td>
+<td>Up to 1/pair</td>
+<td>Fast</td>
+<td>Fast</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L11.5_p25.png" class="img-fluid figure-img"></p>
+<figcaption>RAID comparison</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>RAID uses multiple disks for improved performance and reliability.</li>
+<li>RAID 0 (striping): maximum capacity, no fault tolerance.</li>
+<li>RAID 1 (mirroring): excellent fault tolerance, 50% capacity.</li>
+<li>RAID 5 (distributed parity): good balance of capacity and fault tolerance.</li>
+<li>RAID 6 (dual parity): tolerates two disk failures.</li>
+<li>RAID 10: combines mirroring and striping for best performance.</li>
+<li>Choice depends on cost, performance, and reliability requirements.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
