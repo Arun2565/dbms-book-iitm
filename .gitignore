@@ -2,3 +2,5 @@
 /_site/
 .DS_Store
 **/*.quarto_ipynb
+week06/transcripts/
+week*/transcripts/
