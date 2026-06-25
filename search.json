@@ -3571,7 +3571,7 @@
     "href": "week09/9-1.html",
     "title": "9.1 Ordered indexing",
     "section": "",
-    "text": "An index is a data structure that speeds up data retrieval. Just as the index of a book lets you find a topic without scanning every page, a database index lets you find records without scanning the entire table.\nA search key is the attribute or set of attributes used to look up records in a file. An index file stores entries of the form (search-key, pointer), where the pointer gives the location of the record on disk.\nIndex files are typically much smaller than the original data file, so searching them is faster than scanning the table.",
+    "text": "An index is a data structure that speeds up data retrieval. Just as the index of a book lets you find a topic without scanning every page, a database index lets you find records without scanning the entire table.\nA search key is the attribute or set of attributes used to look up records in a file. An index file stores entries of the form (search-key, pointer), where the pointer gives the location of the record on disk.\nIndex files are typically much smaller than the original data file, so searching them is faster than scanning the table.\n\n\n\nConcepts of indexing",
     "crumbs": [
       "Week 9: Advanced Indexing",
       "9.1 Ordered Indexing"
@@ -3582,7 +3582,7 @@
     "href": "week09/9-1.html#introduction",
     "title": "9.1 Ordered indexing",
     "section": "",
-    "text": "An index is a data structure that speeds up data retrieval. Just as the index of a book lets you find a topic without scanning every page, a database index lets you find records without scanning the entire table.\nA search key is the attribute or set of attributes used to look up records in a file. An index file stores entries of the form (search-key, pointer), where the pointer gives the location of the record on disk.\nIndex files are typically much smaller than the original data file, so searching them is faster than scanning the table.",
+    "text": "An index is a data structure that speeds up data retrieval. Just as the index of a book lets you find a topic without scanning every page, a database index lets you find records without scanning the entire table.\nA search key is the attribute or set of attributes used to look up records in a file. An index file stores entries of the form (search-key, pointer), where the pointer gives the location of the record on disk.\nIndex files are typically much smaller than the original data file, so searching them is faster than scanning the table.\n\n\n\nConcepts of indexing",
     "crumbs": [
       "Week 9: Advanced Indexing",
       "9.1 Ordered Indexing"
