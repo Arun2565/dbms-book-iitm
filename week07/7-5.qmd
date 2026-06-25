@@ -19,15 +19,12 @@ process.
 4. **Iterative development.** Build prototypes quickly, get feedback, and
    iterate.
 
-### RAD frameworks comparison
+### RAD frameworks
 
-| Framework | Language | Database support | Key feature |
-|-----------|----------|-----------------|-------------|
-| Django | Python | PostgreSQL, MySQL, SQLite, Oracle | Admin interface, ORM, batteries included |
-| Ruby on Rails | Ruby | PostgreSQL, MySQL, SQLite | Convention over configuration, scaffolding |
-| Spring Boot | Java | All major databases | Enterprise-grade, microservices |
-| Laravel | PHP | PostgreSQL, MySQL, SQLite | Eloquent ORM, Artisan CLI |
-| Express + Sequelize | JavaScript | PostgreSQL, MySQL, SQLite | Node.js, lightweight, async |
+Python offers several frameworks for rapid web application development:
+- **Flask.** Lightweight, minimal, good for small to medium applications.
+- **Django.** Full-featured, includes ORM, admin interface, and authentication.
+- **Pyramid.** Flexible, scales from small to large applications.
 
 ## Application performance
 
