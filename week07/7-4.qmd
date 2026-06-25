@@ -2,241 +2,343 @@
 title: "7.4 Building database applications with Python and PostgreSQL"
 ---
 
-## PostgreSQL
+## Working with PostgreSQL and Python
 
-PostgreSQL is a powerful, open-source object-relational database system. It
-supports a large subset of SQL standards and offers many advanced features.
-It is one of the most popular databases for application development.
+Python has several modules to work with a PostgreSQL database. The most
+popular is **psycopg2**.
 
-PostgreSQL uses a client-server architecture:
-- The database runs as a server process.
-- Client applications connect through the network using the PostgreSQL
-  protocol.
-- Each client connection is handled by a separate server process.
+**Advantages of psycopg2:**
+- Most popular and stable module
+- Actively maintained, supports Python 2.x and 3.x
+- Thread-safe, designed for multi-threaded applications
 
-## Connecting Python to PostgreSQL
-
-The standard Python library for connecting to PostgreSQL is **psycopg2**.
-It implements the Python DB-API 2.0 specification.
-
-### Installation
-
+Installation:
 ```bash
 pip install psycopg2
-# or for the binary version:
-pip install psycopg2-binary
 ```
 
-### Basic connection
+## Steps to access PostgreSQL from Python
+
+The workflow follows a standard pattern:
+
+1. Create a connection.
+2. Create a cursor.
+3. Execute SQL queries.
+4. Commit or rollback changes.
+5. Close the cursor.
+6. Close the connection.
+
+![Workflow](images/L7.4_p8.png)
+
+## Connection and cursor APIs
+
+### Connection
 
 ```python
 import psycopg2
 
-conn = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    dbname="mydatabase",
-    user="myuser",
-    password="mypassword"
-)
+def connectDb(dbname, user, password, host, port):
+    conn = None
+    try:
+        conn = psycopg2.connect(
+            database=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+        )
+        print("Connected")
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
-### Connection parameters
+### Cursor
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| host | Database server hostname | localhost |
-| port | Database server port | 5432 |
-| dbname | Database name | — |
-| user | Username | — |
-| password | Password | — |
-
-### Connection pool
-
-Creating a new connection for every request is expensive. For web
-applications, use a **connection pool** to reuse connections:
-
-```python
-from psycopg2 import pool
-
-connection_pool = psycopg2.pool.SimpleConnectionPool(
-    1,      # min connections
-    20,     # max connections
-    host="localhost",
-    dbname="mydatabase",
-    user="myuser",
-    password="mypassword"
-)
-
-conn = connection_pool.getconn()
-# ... use connection ...
-connection_pool.putconn(conn)
-```
-
-## CRUD operations
-
-### Create (INSERT)
+Once connected, create a cursor to execute queries:
 
 ```python
 cur = conn.cursor()
-cur.execute(
-    "INSERT INTO students (id, name, gpa) VALUES (%s, %s, %s)",
-    (101, "Alice", 3.8)
-)
-conn.commit()
 ```
 
-### Read (SELECT)
+### Execute
+
+Execute SQL with optional parameterized placeholders:
 
 ```python
-cur = conn.cursor()
-cur.execute("SELECT * FROM students WHERE gpa > %s", (3.0,))
-rows = cur.fetchall()
-for row in rows:
-    print(row)
+cur.execute("INSERT INTO table VALUES (%s, %s)", (val1, val2))
 ```
 
-### Update
+### Fetch results
+
+- `cursor.fetchone()` — returns the next row.
+- `cursor.fetchmany(size)` — returns `size` rows as a list.
+- `cursor.fetchall()` — returns all remaining rows as a list.
+- `cursor.rowcount` — read-only attribute returning the number of rows
+  modified, inserted, or deleted.
+
+### Commit and rollback
 
 ```python
-cur = conn.cursor()
-cur.execute(
-    "UPDATE students SET gpa = %s WHERE id = %s",
-    (4.0, 101)
-)
-conn.commit()
+conn.commit()     # make changes permanent
+conn.rollback()   # undo changes since last commit
 ```
 
-### Delete
+## Examples
+
+### CREATE table
 
 ```python
-cur = conn.cursor()
-cur.execute("DELETE FROM students WHERE id = %s", (101,))
-conn.commit()
+def createTable():
+    conn = None
+    try:
+        conn = psycopg2.connect(database="testdb", user="postgres",
+                                password="pass", host="127.0.0.1", port="5432")
+        cur = conn.cursor()
+        cur.execute('''
+            CREATE TABLE candidate (
+                email_id  VARCHAR(255) PRIMARY KEY,
+                first_name VARCHAR(100),
+                last_name  VARCHAR(100)
+            )
+        ''')
+        conn.commit()
+        print("Table created successfully")
+        cur.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
-## Parameterized queries and SQL injection
+### INSERT
 
-Always use parameterized queries (`%s` placeholders) instead of string
-formatting. This prevents SQL injection attacks.
-
-**Bad (vulnerable to SQL injection):**
 ```python
-cur.execute(f"SELECT * FROM users WHERE name = '{user_input}'")
+def insertRecord(num, name):
+    conn = None
+    try:
+        conn = psycopg2.connect(database="testdb", user="postgres",
+                                password="pass", host="127.0.0.1", port="5432")
+        cur = conn.cursor()
+        cur.execute(
+            "INSERT INTO candidate (num, name) VALUES (%s, %s)",
+            (num, name)
+        )
+        conn.commit()
+        print("Record inserted successfully")
+        cur.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
-**Good (safe):**
+### DELETE
+
 ```python
-cur.execute("SELECT * FROM users WHERE name = %s", (user_input,))
+def deleteRecord(num):
+    conn = None
+    try:
+        conn = psycopg2.connect(database="testdb", user="postgres",
+                                password="pass", host="127.0.0.1", port="5432")
+        cur = conn.cursor()
+        cur.execute("DELETE FROM candidate WHERE num = %s", (num,))
+        conn.commit()
+        print(f"{cur.rowcount} row(s) deleted")
+        cur.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
-The database driver handles escaping and quoting automatically.
-
-## Transaction management
-
-By default, psycopg2 starts a transaction for every statement. You must
-commit or rollback:
+### UPDATE
 
 ```python
-try:
-    cur.execute("UPDATE accounts SET balance = balance - 100 WHERE id = 1")
-    cur.execute("UPDATE accounts SET balance = balance + 100 WHERE id = 2")
-    conn.commit()
-except:
-    conn.rollback()
+def updateRecord(num, name):
+    conn = None
+    try:
+        conn = psycopg2.connect(database="testdb", user="postgres",
+                                password="pass", host="127.0.0.1", port="5432")
+        cur = conn.cursor()
+        cur.execute(
+            "UPDATE candidate SET name = %s WHERE num = %s",
+            (name, num)
+        )
+        conn.commit()
+        print(f"{cur.rowcount} row(s) updated")
+        cur.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
-Set autocommit mode if you want every statement to be committed immediately:
+### SELECT
 
 ```python
-conn.autocommit = True
+def selectAll():
+    conn = None
+    try:
+        conn = psycopg2.connect(database="testdb", user="postgres",
+                                password="pass", host="127.0.0.1", port="5432")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM candidate")
+        rows = cur.fetchall()
+        for row in rows:
+            print(f"{row[0]} {row[1]} {row[2]}")
+        cur.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        if conn:
+            conn.close()
 ```
 
 ## Flask web framework
 
-Flask is a lightweight web framework for Python. It is used in the course to
-demonstrate building a web application that connects to a PostgreSQL database.
+Flask is a lightweight WSGI micro-framework for Python. It provides a
+convenient way to build web applications that connect to a database.
 
-### A simple Flask application
+### Installation
+
+```bash
+pip install Flask
+```
+
+### Simple example
 
 ```python
 from flask import Flask
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-    return "<h1>Hello, DBMS!</h1>"
+def hello_world():
+    return "<p>Hello, World!</p>"
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
 ```
 
-### Connecting Flask to PostgreSQL
+### A complete application with PostgreSQL
 
+Consider the `candidate` table in PostgreSQL. The application provides:
+- A home page with links to add and view emails.
+- A form to add a new candidate.
+- A page to view all candidates.
+
+**index.html:**
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Candidate Email</title></head>
+<body>
+    <h1>Candidate Email Database</h1>
+    <a href="/add">Add Email</a><br>
+    <a href="/viewall">View Email</a>
+</body>
+</html>
+```
+
+**Python application:**
 ```python
 from flask import Flask, request, render_template
 import psycopg2
 
 app = Flask(__name__)
 
-def get_db():
-    return psycopg2.connect(
-        host="localhost",
-        dbname="mydb",
-        user="user",
-        password="pass"
-    )
-```
+def get_connection():
+    return psycopg2.connect(database="testdb", user="postgres",
+                            password="pass", host="127.0.0.1", port="5432")
 
-### Displaying data from the database
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-```python
-@app.route("/viewall")
-def viewall():
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM candidate")
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    return render_template("viewall.html", rows=rows)
-```
-
-### Inserting data through a form
-
-```python
 @app.route("/add")
 def add():
     return render_template("add.html")
 
 @app.route("/savedetails", methods=["POST"])
 def saveDetails():
-    conn = get_db()
+    conn = get_connection()
     cur = conn.cursor()
-    name = request.form["name"]
     email = request.form["email"]
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
     cur.execute(
-        "INSERT INTO candidate (name, email) VALUES (%s, %s)",
-        (name, email)
+        "INSERT INTO candidate (email_id, first_name, last_name) VALUES (%s, %s, %s)",
+        (email, first_name, last_name)
     )
     conn.commit()
     cur.close()
     conn.close()
     return "Record saved successfully"
+
+@app.route("/viewall")
+def viewAll():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM candidate")
+    results = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template("viewall.html", rows=results)
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5000, debug=True)
 ```
 
-The Flask framework handles:
-- Routing URLs to Python functions.
-- Parsing HTTP requests (GET, POST).
-- Rendering HTML templates.
-- Session and cookie management.
+**add.html:**
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Add Email Information</h1>
+    <form action="/savedetails" method="post">
+        <table>
+            <tr><td>Email ID:</td><td><input type="text" name="email"></td></tr>
+            <tr><td>First Name:</td><td><input type="text" name="first_name"></td></tr>
+            <tr><td>Last Name:</td><td><input type="text" name="last_name"></td></tr>
+            <tr><td colspan="2"><input type="submit" value="Submit"></td></tr>
+        </table>
+    </form>
+</body>
+</html>
+```
+
+**viewall.html:**
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Email List</h1>
+    <table border="1">
+        <tr><th>Email ID</th><th>First Name</th><th>Last Name</th></tr>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br><a href="/">Go Home</a>
+</body>
+</html>
+```
 
 ## Summary
 
-| Technique | Python library | Use case |
-|-----------|---------------|----------|
-| Direct SQL | psycopg2 | Simple scripts, full SQL control |
-| Web framework | Flask | Lightweight web apps with database |
-
-Use direct psycopg2 for simple scripts and database utilities. Use Flask
-when building a full web application that needs a user interface.
+- psycopg2 is the standard Python module for accessing PostgreSQL.
+- The workflow is: connect → cursor → execute → commit/rollback → close.
+- Flask is a lightweight framework for building web applications with
+  database connectivity.
+- Flask handles routing, templates, and HTTP methods, so you can focus on
+  the application logic and database access.
