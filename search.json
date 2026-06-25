@@ -1075,7 +1075,7 @@
     "href": "week02/2-2.html#basic-properties-of-relations",
     "title": "2.2 Intro to Relational Model/2",
     "section": "Basic Properties of Relations",
-    "text": "Basic Properties of Relations\nA relation is a set. So, the order of tuples or rows don’t matter.\n\nThe order of tuples is inconsequential\n\n\n\n\nA\nB\n\n\n\n\na1\nb1\n\n\na1\nb2\n\n\na2\nb1\n\n\na2\nb2\n\n\n\n\nAll rows/ tuples must be distinct. The values should not be duplicated\n\nA| B | |A|B|\n|——-|————-| |a1|b1| | a1 |b1 | is not valid |a1| b2| | a1| b2| | a1 |b2| | a1 |b1|",
+    "text": "Basic Properties of Relations\nA relation is a set. So, the order of tuples or rows don’t matter.\n\nThe order of tuples is inconsequential\n\n\n\n\nA\nB\n\n\n\n\na1\nb1\n\n\na1\nb2\n\n\na2\nb1\n\n\na2\nb2\n\n\n\n\nAll rows/tuples must be distinct. Duplicate rows are not allowed.\n\n\n\n\nA\nB\n\nA\nB\n\n\n\n\na1\nb1\ninvalid\na1\nb1\n\n\na1\nb2\n→\na1\nb2\n\n\na1\nb2\n\na2\nb1\n\n\na2\nb1\n\na2\nb2\n\n\na2\nb1",
     "crumbs": [
       "Week 2: Relational Model & Basic SQL",
       "2.2 Intro to Relational Model/2"

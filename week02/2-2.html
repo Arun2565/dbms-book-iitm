@@ -802,10 +802,56 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <ul>
-<li>All rows/ tuples must be distinct. The values should not be duplicated</li>
+<li>All rows/tuples must be distinct. Duplicate rows are not allowed.</li>
 </ul>
-<div class="line-block">A| B | |A|B|</div>
-<p>|——-|————-| |a1|b1| | a1 |b1 | is not valid |a1| b2| | a1| b2| | a1 |b2| | a1 |b1|</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th></th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a1</td>
+<td>b1</td>
+<td>invalid</td>
+<td>a1</td>
+<td>b1</td>
+</tr>
+<tr class="even">
+<td>a1</td>
+<td>b2</td>
+<td>→</td>
+<td>a1</td>
+<td>b2</td>
+</tr>
+<tr class="odd">
+<td>a1</td>
+<td>b2</td>
+<td></td>
+<td>a2</td>
+<td>b1</td>
+</tr>
+<tr class="even">
+<td>a2</td>
+<td>b1</td>
+<td></td>
+<td>a2</td>
+<td>b2</td>
+</tr>
+<tr class="odd">
+<td>a2</td>
+<td>b1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="select-operation" class="level2">
 <h2 class="anchored" data-anchor-id="select-operation">Select Operation</h2>
