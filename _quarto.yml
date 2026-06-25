@@ -106,14 +106,18 @@ website:
           - text: "8.5 Hash Index"
             href: week08/8-5.qmd
       
-#       - section: "Week 9: Indexing & Optimization"
-#         contents:
-#           - text: "9.1 Index Structures"
-#             href: week09/9-1.qmd
-#           - text: "9.2 Query Optimization"
-#             href: week09/9-2.qmd
-#           - text: "9.3 Execution Plans"
-#             href: week09/9-3.qmd
+      - section: "Week 9: Advanced Indexing"
+        contents:
+          - text: "9.1 Ordered Indexing"
+            href: week09/9-1.qmd
+          - text: "9.2 2-3-4 Trees"
+            href: week09/9-2.qmd
+          - text: "9.3 B+ Tree & B-Tree"
+            href: week09/9-3.qmd
+          - text: "9.4 Static & Dynamic Hashing"
+            href: week09/9-4.qmd
+          - text: "9.5 Index Design in SQL"
+            href: week09/9-5.qmd
       
 #       - section: "Week 10: Database Security"
 #         contents:
