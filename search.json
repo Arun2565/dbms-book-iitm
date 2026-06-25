@@ -1349,300 +1349,274 @@
     ]
   },
   {
-    "objectID": "week06/6-5.html",
-    "href": "week06/6-5.html",
-    "title": "6.5 Database design process and temporal data",
+    "objectID": "week10/10-2.html",
+    "href": "week10/10-2.html",
+    "title": "10.2 Serializability",
     "section": "",
-    "text": "We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.\nThe design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.\n\n\n\nDesign goals summary",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "text": "When transactions execute concurrently, their instructions interleave. Not all interleavings produce correct results. A schedule is serializable if it is equivalent to some serial schedule — that is, the result is the same as if the transactions had run one after another.\nAssumption: each transaction preserves database consistency when run alone. Therefore, a serial schedule always preserves consistency. A serializable schedule also preserves consistency, even though instructions are interleaved."
   },
   {
-    "objectID": "week06/6-5.html#summary-of-the-design-journey",
-    "href": "week06/6-5.html#summary-of-the-design-journey",
-    "title": "6.5 Database design process and temporal data",
+    "objectID": "week10/10-2.html#introduction",
+    "href": "week10/10-2.html#introduction",
+    "title": "10.2 Serializability",
     "section": "",
-    "text": "We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.\nThe design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.\n\n\n\nDesign goals summary",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "text": "When transactions execute concurrently, their instructions interleave. Not all interleavings produce correct results. A schedule is serializable if it is equivalent to some serial schedule — that is, the result is the same as if the transactions had run one after another.\nAssumption: each transaction preserves database consistency when run alone. Therefore, a serial schedule always preserves consistency. A serializable schedule also preserves consistency, even though instructions are interleaved."
   },
   {
-    "objectID": "week06/6-5.html#the-complete-design-process",
-    "href": "week06/6-5.html#the-complete-design-process",
-    "title": "6.5 Database design process and temporal data",
-    "section": "The complete design process",
-    "text": "The complete design process\nThe database design process has these stages:\n\nRequirements analysis. Understand what the users need. This comes from a specification document, interviews, or existing systems.\nConceptual design. Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.\nLogical design. Transform the ER model into a set of relational schemas. This is the initial set of tables.\nNormalization. Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.\nQuery-driven refinement. Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.\nPhysical design. Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.\n\n\n\n\nOverall design process\n\n\n\nStarting points for design\nThe starting point for normalization can come from different sources:\n\nER-to-relational mapping. Like the Library Information System case study. The ER model produces an initial set of tables.\nUniversal relation. A single large relation containing all attributes. Normalization breaks it into smaller relations.\nAdhoc design. Tables created without formal methodology. These need to be checked and normalized.\n\n\n\n\nStarting points for design",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#serial-schedules-recap",
+    "href": "week10/10-2.html#serial-schedules-recap",
+    "title": "10.2 Serializability",
+    "section": "Serial schedules recap",
+    "text": "Serial schedules recap\nSchedule 1 (T1 then T2) and Schedule 2 (T2 then T1) are serial. Both produce valid results.\nSchedule 3 is non-serial but equivalent to Schedule 1. It is serializable.\n\n\n\nSerializable schedule\n\n\nSchedule 4 is non-serial and NOT equivalent to any serial schedule. It produces an incorrect result (A + B changes).\n\n\n\nNon-serializable schedule"
   },
   {
-    "objectID": "week06/6-5.html#sql-and-functional-dependencies",
-    "href": "week06/6-5.html#sql-and-functional-dependencies",
-    "title": "6.5 Database design process and temporal data",
-    "section": "SQL and functional dependencies",
-    "text": "SQL and functional dependencies\nSQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.\nThis means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#simplified-view-of-transactions",
+    "href": "week10/10-2.html#simplified-view-of-transactions",
+    "title": "10.2 Serializability",
+    "section": "Simplified view of transactions",
+    "text": "Simplified view of transactions\nFor analysis, we ignore operations other than read and write instructions. Other operations (computations in memory) are temporary and do not affect the database state.\nWe assume transactions may perform arbitrary computations on data in local buffers, but only read and write operations interact with the shared database.\n\n\n\nSimplified transaction view"
   },
   {
-    "objectID": "week06/6-5.html#denormalization",
-    "href": "week06/6-5.html#denormalization",
-    "title": "6.5 Database design process and temporal data",
-    "section": "Denormalization",
-    "text": "Denormalization\nNormalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.\nConsider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.\n\n\n\nDenormalization trade off\n\n\nDenormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.\nAlternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#conflicting-instructions",
+    "href": "week10/10-2.html#conflicting-instructions",
+    "title": "10.2 Serializability",
+    "section": "Conflicting instructions",
+    "text": "Conflicting instructions\nTwo instructions Iᵢ and Iⱼ from transactions Tᵢ and Tⱼ conflict if they access the same data item Q and at least one of them writes to Q.\n\n\n\nIᵢ\nIⱼ\nConflict?\n\n\n\n\nread(Q)\nread(Q)\nNo\n\n\nread(Q)\nwrite(Q)\nYes\n\n\nwrite(Q)\nread(Q)\nYes\n\n\nwrite(Q)\nwrite(Q)\nYes\n\n\n\nTwo conflicting instructions must be executed in the same order in any equivalent schedule.\n\n\n\nConflicting instructions"
   },
   {
-    "objectID": "week06/6-5.html#bad-design-practices",
-    "href": "week06/6-5.html#bad-design-practices",
-    "title": "6.5 Database design process and temporal data",
-    "section": "Bad design practices",
-    "text": "Bad design practices\nThere are several design practices to avoid.\n\nYear-wise tables\nSome designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)\nThis makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)\n\n\nCross-tab schemas\nSome designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.\n\n\nIgnoring generalization\nIn the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#conflict-serializability",
+    "href": "week10/10-2.html#conflict-serializability",
+    "title": "10.2 Serializability",
+    "section": "Conflict serializability",
+    "text": "Conflict serializability\nA schedule S is conflict serializable if it can be transformed into a serial schedule by swapping adjacent non-conflicting instructions.\nTwo schedules are conflict equivalent if one can be obtained from the other through a series of non-conflicting swaps.\n\n\n\nConflict serializability\n\n\n\nExample\nSchedule 3 can be transformed into a serial schedule (T1 then T2) by swapping non-conflicting instructions:\n\nSwap T1.read(B) and T2.write(A) — they access different items (B vs A).\nSwap T1.read(B) and T2.read(A) — different items.\nSwap T1.write(B) and T2.write(A) — different items.\n\nAfter these swaps, all of T1’s instructions come before T2’s, producing a serial schedule.\n\n\n\nConflict serializability example\n\n\n\n\nExample of a non-conflict-serializable schedule\nT1: read(Q), write(Q)\nT2: write(Q)\nWe cannot swap any instructions because T1.read(Q) and T2.write(Q) conflict, and T1.write(Q) and T2.write(Q) conflict. No transformation can produce a serial schedule.\n\n\n\nNon-conflict-serializable schedule"
   },
   {
-    "objectID": "week06/6-5.html#extending-the-lis-design-with-mvds",
-    "href": "week06/6-5.html#extending-the-lis-design-with-mvds",
-    "title": "6.5 Database design process and temporal data",
-    "section": "Extending the LIS design with MVDs",
-    "text": "Extending the LIS design with MVDs\nThe LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.\nThe Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year\nIf we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)\n\n\n\nLIS extension with MVDs\n\n\nThe 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)\nEach of these is in 4NF. The design now supports multiple authors and multiple editions.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#precedence-graph",
+    "href": "week10/10-2.html#precedence-graph",
+    "title": "10.2 Serializability",
+    "section": "Precedence graph",
+    "text": "Precedence graph\nA precedence graph is a directed graph where:\n\nVertices. One vertex for each transaction.\nEdges. An edge Tᵢ → Tⱼ exists if there is a conflicting pair of instructions where Tᵢ accesses the data item before Tⱼ.\n\n\nExample: bad schedule\nConsider two transactions:\nT1: UPDATE accounts SET balance = balance - 100\nT2: UPDATE accounts SET balance = balance * 1.005\nIn a bad interleaving, T1 reads A, then T2 reads A, then T1 writes A, then T2 writes A. The withdrawal is lost because T2’s read happened before T1’s write. The precedence graph shows T1 → T2 and T2 → T1, forming a cycle.\n\n\n\nBad schedule example\n\n\n\n\nTesting for conflict serializability\nA schedule is conflict serializable if and only if its precedence graph is acyclic (no cycles).\nCycle-detection algorithms run in O(n²) time where n is the number of vertices, or O(n + e) where e is the number of edges.\nIf the precedence graph has a cycle, the schedule is not conflict serializable. The database system must reject such schedules.\n\n\n\nPrecedence graph\n\n\n\n\nConstruction algorithm\n\nCreate a vertex for each transaction.\nFor each conflicting pair of instructions:\n\nIf Tᵢ’s instruction comes before Tⱼ’s instruction, add edge Tᵢ → Tⱼ.\n\nCheck for cycles.\n\nIf no cycles exist, the schedule is conflict serializable."
   },
   {
-    "objectID": "week06/6-5.html#temporal-data",
-    "href": "week06/6-5.html#temporal-data",
-    "title": "6.5 Database design process and temporal data",
-    "section": "Temporal data",
-    "text": "Temporal data\nAll the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.\n\n\n\nTemporal data introduction\n\n\n\nTypes of time\nThere are two important time dimensions:\nValid time. The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.\nTransaction time. The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).\n\n\nTemporal relation types\nUni-temporal relation. Stores either valid time or transaction time, but not both.\nBi-temporal relation. Stores both valid time and transaction time. This is the most powerful approach.\n\n\n\nBi-temporal relation example\n\n\n\n\nChallenges with temporal data\n\nModeling time. Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.\nTemporal ER models. Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.\nTemporal functional dependencies. An FD may hold at one time but not at another. Temporal FDs require a more complex theory.\nTemporal query languages. SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.\nStorage and performance. Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.\n\n\n\nPractical approach\nIn the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:\nEmployee_Salary( Emp_ID, Salary, Start_Date, End_Date )\nHere, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
+    "objectID": "week10/10-2.html#view-serializability",
+    "href": "week10/10-2.html#view-serializability",
+    "title": "10.2 Serializability",
+    "section": "View serializability",
+    "text": "View serializability\nNot all serializable schedules are conflict serializable. Consider:\nT1: write(A), write(B)\nT2: write(A)\nT3: write(A)\nSchedule: T1.write(A), T2.write(A), T3.write(B), T1.read(B), T3.write(A)\nWe cannot swap any instructions (all operations conflict on A or B), but the schedule may still be equivalent to some serial schedule.\nA schedule is view serializable if it is view equivalent to a serial schedule. View serializability is a broader notion than conflict serializability — every conflict-serializable schedule is view serializable, but not vice versa.\n\n\n\nView serializability"
   },
   {
-    "objectID": "week06/6-5.html#final-thoughts",
-    "href": "week06/6-5.html#final-thoughts",
-    "title": "6.5 Database design process and temporal data",
-    "section": "Final thoughts",
-    "text": "Final thoughts\nDatabase design is a balance between theory and practice.\n\nUse normalization to remove redundancy systematically.\nUse the ER model to capture real-world concepts.\nDecompose to BCNF or 4NF with lossless join and dependency preservation where possible.\nFall back to 3NF when BCNF loses dependencies.\nConsider denormalization for performance when needed.\nModel time explicitly when data is time-varying.\nAlways test the design against real queries.\n\nWith these tools, you can design relational databases that are consistent, efficient, and maintainable.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.5 Design Process & Temporal Data"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html",
-    "href": "week06/6-1.html",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "",
-    "text": "Normalization is a way to organize data in a database. Its single goal is to remove redundancy, which is the duplication of data across multiple places in the database.\nWe use a decomposition approach. We start with an original schema and break it into smaller schemas. Each smaller schema must meet some desired properties. If there is still redundancy after decomposition, we add more conditions and decompose further. The process repeats until the redundancy is gone.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#goal-of-normalization",
-    "href": "week06/6-1.html#goal-of-normalization",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "",
-    "text": "Normalization is a way to organize data in a database. Its single goal is to remove redundancy, which is the duplication of data across multiple places in the database.\nWe use a decomposition approach. We start with an original schema and break it into smaller schemas. Each smaller schema must meet some desired properties. If there is still redundancy after decomposition, we add more conditions and decompose further. The process repeats until the redundancy is gone.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#key-properties-of-decomposition",
-    "href": "week06/6-1.html#key-properties-of-decomposition",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Key properties of decomposition",
-    "text": "Key properties of decomposition\nAs we decompose, two properties are critical.\n\nLossless join. It must be possible to rebuild the original data by joining the decomposed relations. We covered this in depth last week.\nDependency preservation. We must still be able to check all functional dependencies in the decomposed relations without computing a join of the data.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#anomalies",
-    "href": "week06/6-1.html#anomalies",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Anomalies",
-    "text": "Anomalies\nNormalization gives us good decomposition, and good decomposition reduces redundancy. Reducing redundancy means removing or reducing anomalies. There are three kinds.\n\n\n\nAnomalies in a database schema\n\n\n\nInsertion anomaly\nYou cannot insert a fact about one entity unless you also have information about another entity. For example, in a supplier relation, you cannot insert a new supplier S5 located in Chennai until the supplier has supplied at least one part. That is because PID is part of the key.\n\n\nDeletion anomaly\nWhen you delete a record, you may lose other information by accident. For example, if you delete the only record for a supplier who is in Kota, you lose the information that Kota has status 40.\n\n\nUpdate anomaly\nIf a supplier moves from Delhi to Kanpur, you must update every record where that supplier appears. If there are multiple records, you have to change each one. Inconsistency can come up easily.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#normal-forms-overview",
-    "href": "week06/6-1.html#normal-forms-overview",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Normal forms overview",
-    "text": "Normal forms overview\nNormal forms are a set of conditions that a relational schema must satisfy based on its constraints. The common normal forms are:\n\nFirst Normal Form (1NF)\nSecond Normal Form (2NF)\nThird Normal Form (3NF)\nBoyce-Codd Normal Form (BCNF)\nFourth Normal Form (4NF)\nFifth Normal Form (5NF)\nSixth Normal Form (6NF)\nElementary Key Normal Form (EKNF)\n\nIn practice, when someone says “a normalized database” without naming a normal form, they almost always mean Third Normal Form (3NF). 3NF is the most common target for normalization in real database design.\nNormal forms follow a hierarchy. Any relation in a higher normal form also meets all the conditions of the normal forms below it.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#first-normal-form-1nf",
-    "href": "week06/6-1.html#first-normal-form-1nf",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "First Normal Form (1NF)",
-    "text": "First Normal Form (1NF)\nThe basic rule for 1NF is that every attribute value must be atomic and indivisible. Two things are taken together to mean atomic:\n\nThe domain contains atomic values. Each attribute holds a single value, not a set or a list.\nNo attribute can be multi-valued. If there are multiple values in the same field, the value has components and is not atomic.\n\nIf we have a relation STUDENT(Sid, Sname, Cname) where a student can take multiple courses and we list all courses in one Cname field, that violates 1NF. The fix is to make each course a separate row. That puts the data in 1NF, though it may cause other redundancy problems.\n\nThe supplier example\nConsider the relation:\nSupplier(SID, Status, City, PID, Qty)\nFunctional dependencies: - SID -&gt; City (each supplier is in one city) - City -&gt; Status (each city has a fixed status) - SID, PID -&gt; Qty (a supplier supplies a specific quantity of a part)\nThe key is {SID, PID}.\n\n\n\nSupplier relation showing redundancy\n\n\nThe values in the table are repeated. S1 has Status 30 and City Delhi repeated for each part. This is the redundancy we want to remove.\nThis relation is in 1NF because all values are atomic. But it has a lot of redundancy and anomalies.\n\nThe city and status of a supplier are repeated for every part they supply.\nIf we delete the only record for supplier S3 who is in Kota, we lose the information that Kota has status 40.\nWe cannot insert a new supplier until they supply at least one part.\nIf S1 moves from Delhi to Kanpur, we must update every record for S1.\n\nFrom a functional dependency view, redundancy happens when there is a non-trivial FD X -&gt; Y over R where X is not a superkey of R. When X is not a superkey, X can appear with duplicate values. Since X determines Y, Y will also have duplicate values.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#second-normal-form-2nf",
-    "href": "week06/6-1.html#second-normal-form-2nf",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Second Normal Form (2NF)",
-    "text": "Second Normal Form (2NF)\nA relation is in 2NF if: 1. It is in 1NF. 2. There is no partial dependency. A non-prime attribute does not depend on a proper subset of any candidate key.\n\nPrime versus non-prime attributes\n\nPrime attribute. An attribute that is part of some candidate key of the relation.\nNon-prime attribute. An attribute that does not belong to any candidate key of the relation.\n\n\n\nPartial dependency definition\nFor a relational schema R, let X be some candidate key. Let Y be a proper subset of some candidate key, and let A be a non-prime attribute. Then:\n Y \\rightarrow A \nis a partial dependency if both of these hold: - Y is a proper subset of some candidate key. - A is a non-prime attribute (not part of any candidate key).\nIf a partial dependency exists, the relation violates 2NF.\n\n\nExample: STUDENT(Sid, Sname, Cname)\n\n\n\nSTUDENT relation with partial dependency\n\n\nFunctional dependencies: - Sid -&gt; Sname - Sid, Cname -&gt; (all attributes)\nCandidate key: {Sid, Cname}.\nHere, Sid is a proper subset of the candidate key. Sname is a non-prime attribute (it is not part of any candidate key). The FD Sid -&gt; Sname is a partial dependency, so STUDENT is not in 2NF.\nWhy is this a problem? Sid appears multiple times, once for each course a student takes. Since Sid determines Sname, we get repeated Sname values. That causes redundancy.\nDecomposition to 2NF. We break it into: - R1(Sid, Sname): Sid is the key, no partial dependency. - R2(Sid, Cname): Sid and Cname together form the key.\nThis decomposition is lossless join (Sid is the common attribute and a key of R1) and dependency preserving.\n\n\nThe supplier example decomposed to 2NF\nThe original Supplier relation had partial dependencies: - SID -&gt; City (SID is a proper subset of the key {SID, PID}) - SID -&gt; Status (derived transitivity: SID -&gt; City -&gt; Status)\n\n\n\nSupplier decomposed to 2NF\n\n\nDecomposition to 2NF: - R1(SID, City, Status): Key is SID. - R2(SID, PID, Qty): Key is {SID, PID}.\nNow each supplier’s city and status appears only once. The insertion, deletion, and update anomalies for city and status are gone. R1 uses SID as key (no partial dependencies). R2 uses the full key {SID, PID} (no partial dependencies).\nBut even after 2NF, there may still be redundancy from transitive dependencies.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#third-normal-form-3nf",
-    "href": "week06/6-1.html#third-normal-form-3nf",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Third Normal Form (3NF)",
-    "text": "Third Normal Form (3NF)\nA relation is in 3NF if: 1. It is in 2NF. 2. There is no transitive dependency. A non-prime attribute does not depend on another non-prime attribute.\n\nTransitive dependency\nA transitive dependency is a functional dependency that holds because of transitivity (Armstrong’s Axiom). It can only happen in a relation with three or more attributes or attribute sets. If:\n\nA -&gt; B (A determines B)\nB does NOT determine A (B -/&gt; A). This condition is critical.\nB -&gt; C\n\nthen A -&gt; C holds by transitivity, and this A -&gt; C is a transitive dependency.\nThe condition “B does not determine A” matters because if A -&gt; B and B -&gt; A, then A and B are equivalent. They are tied together strongly. A -&gt; C would be a direct dependency, not just a transitive one.\n\n\nExample: Book -&gt; Author -&gt; Author_Nationality\nConsider a relation Book(Title, Author, Author_Nationality) where each book has one author.\n\n\n\nTransitive dependency in Book relation\n\n\n\nTitle -&gt; Author (each book has one author)\nAuthor -/&gt; Title (an author may have written many books)\nAuthor -&gt; Author_Nationality\n\nThen Title -&gt; Author_Nationality is a transitive dependency. The problem is that a non-key attribute (Author) determines another non-key attribute (Author_Nationality). If the same author writes multiple books, the nationality is repeated for each book entry.\n\n\nThe SUP_CITY example\nAfter achieving 2NF, we have: R1(SID, City, Status) with FDs: SID -&gt; City, City -&gt; Status\nHere SID -&gt; Status is a transitive dependency because: - SID -&gt; City - City -/&gt; SID (multiple suppliers can be in the same city) - City -&gt; Status\n\n\n\nDecomposition of SUP_CITY to 3NF\n\n\nDecomposition to 3NF. Break R1 into: - SC(SID, City): Key is SID. - CS(City, Status): Key is City.\nNow the transitive dependency is broken. SC can check SID -&gt; City. CS can check City -&gt; Status. By closure, SID -&gt; Status can be checked too. The common attribute City ensures a lossless join.\n\n\nThe simple 3NF definition\nThe accepted modern definition of 3NF is:\nA relation R is in 3NF if for every non-trivial FD X -&gt; A (where A is a single attribute): 1. X is a superkey of R, or 2. A is part of some candidate key of R. That is, A is a prime attribute.\nIf X is not a superkey, there will be redundancy. But 3NF allows some redundancy when A is prime (part of a candidate key).\n\n\nThe dept_advisor example\nConsider dept_advisor(SID, IID, DeptName) where: - A student has one advisor per department. - An advisor belongs to one department.\n\n\n\ndept_advisor 3NF example\n\n\nFDs: 1. SID, DeptName -&gt; IID 2. IID -&gt; DeptName\nCandidate keys: {SID, DeptName} and {SID, IID}.\nIs this in 3NF? Let us check. - IID -&gt; DeptName: IID is not a superkey, but DeptName is a prime attribute. DeptName is part of the candidate key {SID, DeptName}. So this meets condition 2 of 3NF. - Therefore, the relation is in 3NF.\n\n\nCan 3NF still have redundancy?\nYes, 3NF does not remove all redundancy. Consider a relation with attributes J, K, L and FDs: - JK -&gt; L - L -&gt; K\n\n\n\nRedundancy remaining in 3NF\n\n\nHere {J, K} is a candidate key. For the FD L -&gt; K: - L is not a superkey. - But K is a prime attribute (part of the candidate key {J, K}). - So this is in 3NF.\nHowever, if the same value of L appears in multiple tuples, K is determined the same way. That causes redundancy. This kind of redundancy needs BCNF to remove. We will discuss BCNF in a later module.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-1.html#module-summary",
-    "href": "week06/6-1.html#module-summary",
-    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
-    "section": "Module summary",
-    "text": "Module summary\n\nNormalization removes redundancy through decomposition.\n1NF makes sure all attribute values are atomic.\n2NF removes partial dependencies. A non-prime attribute cannot depend on a proper subset of a candidate key.\n3NF removes transitive dependencies. A non-prime attribute cannot depend on another non-prime attribute.\nNormal forms are hierarchical: 1NF covers 2NF, and 2NF covers 3NF.\n3NF is the most common normal form used in practice.\nEvery decomposition should have lossless join and dependency preservation.\n3NF allows some controlled redundancy when the dependent attribute is prime. Removing that extra redundancy needs BCNF.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.1 Normal Forms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html",
-    "href": "week06/6-2.html",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "",
-    "text": "In the previous module, we defined normal forms. But we did not discuss how to transform a relation that is not in a given normal form into one that is. This module covers two algorithms. One decomposes a relation into 3NF. The other decomposes a relation into BCNF.\nThe key difference between 3NF and BCNF is about dependency preservation.\n\nBCNF removes almost all redundancy caused by functional dependencies.\nBut BCNF decomposition may lose some dependencies. We cannot check those dependencies on the decomposed relations without computing a join.\n3NF is weaker than BCNF. It allows some redundancy. But 3NF decomposition always preserves all dependencies.\n\nIn practice, dependency preservation is very important. When we update the database, we must check that constraints hold. If we cannot check a dependency on a single relation, we must join two or more relations to verify it. That join is expensive.\nSo there is a trade off. BCNF gives better redundancy removal but may lose dependencies. 3NF keeps all dependencies but may leave some redundancy.\n\n\n\nMotivation for 3NF over BCNF",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#why-we-need-decomposition-algorithms",
-    "href": "week06/6-2.html#why-we-need-decomposition-algorithms",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "",
-    "text": "In the previous module, we defined normal forms. But we did not discuss how to transform a relation that is not in a given normal form into one that is. This module covers two algorithms. One decomposes a relation into 3NF. The other decomposes a relation into BCNF.\nThe key difference between 3NF and BCNF is about dependency preservation.\n\nBCNF removes almost all redundancy caused by functional dependencies.\nBut BCNF decomposition may lose some dependencies. We cannot check those dependencies on the decomposed relations without computing a join.\n3NF is weaker than BCNF. It allows some redundancy. But 3NF decomposition always preserves all dependencies.\n\nIn practice, dependency preservation is very important. When we update the database, we must check that constraints hold. If we cannot check a dependency on a single relation, we must join two or more relations to verify it. That join is expensive.\nSo there is a trade off. BCNF gives better redundancy removal but may lose dependencies. 3NF keeps all dependencies but may leave some redundancy.\n\n\n\nMotivation for 3NF over BCNF",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#checking-whether-a-relation-is-already-in-3nf",
-    "href": "week06/6-2.html#checking-whether-a-relation-is-already-in-3nf",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "Checking whether a relation is already in 3NF",
-    "text": "Checking whether a relation is already in 3NF\nBefore we decompose, we might want to check if the relation is already in 3NF. The definition says: for every non-trivial FD X -&gt; A, either X is a superkey or A is a prime attribute (part of some candidate key).\n\n\n\n3NF definition\n\n\nIf X is a superkey, the check is easy. We compute the attribute closure of X. If the closure is the whole relation, X is a superkey.\nIf X is not a superkey, we must verify that each attribute in the right-hand side is part of some candidate key. Finding all candidate keys of a relation is expensive. There could be many candidate keys. This problem has been shown to be NP-hard. That means there is no known algorithm that runs in polynomial time to test 3NF.\nFortunately, we do not need to test 3NF. We can decompose directly into 3NF using a polynomial time algorithm. That algorithm always produces a 3NF schema.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#the-3nf-decomposition-algorithm",
-    "href": "week06/6-2.html#the-3nf-decomposition-algorithm",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "The 3NF decomposition algorithm",
-    "text": "The 3NF decomposition algorithm\nThe 3NF decomposition algorithm has three steps.\n\n\n\n3NF decomposition algorithm\n\n\nThe three steps are explained below.\n\nStep 1: Compute the canonical cover\nThe canonical cover Fc is a minimal representation of the functional dependencies. It has three properties.\n\nEvery FD in Fc has a single attribute on the right side.\nNo FD in Fc has any extraneous attributes on the left side.\nNo FD in Fc is redundant. That is, removing any FD from Fc changes the closure.\n\nWe already learned how to compute the canonical cover in an earlier module. The algorithm checks each FD for extraneous attributes and removes redundant FDs.\n\n\nStep 2: Create one relation for each FD in the canonical cover\nFor each functional dependency X -&gt; Y in Fc, we create a relation schema with attributes X ∪ Y. The left-hand side X becomes a key of this relation.\nFor example, if Fc has three dependencies: - X -&gt; Y - Z -&gt; W - P -&gt; Q\nThen we create three relations: - R1(X, Y) - R2(Z, W) - R3(P, Q)\n\n\nStep 3: Add the key if needed\nIf none of the decomposed relations contains a candidate key of the original relation, we add one more relation. This extra relation contains only the attributes of that candidate key.\nWe need this step to ensure lossless join. Without a relation that contains a key, we may not be able to reconstruct the original relation by joining.\n\n\nProperties of the 3NF decomposition\nEach Ri is in 3NF. Every FD in Fc becomes a relation where the left-hand side is the key. By construction, the conditions of 3NF are satisfied on each Ri.\nDependency preservation. Every FD in the canonical cover can be checked on its corresponding relation directly. Since Fc covers all FDs (Fc is equivalent to F), all dependencies are preserved.\nLossless join. The decomposition has the lossless join property. One way to see this is that every step preserves lossless join. The intersection of any two decomposed relations contains a key of one of them.\n\n\nExample: customer_banker_branch\nConsider the relation:\ncustomer_banker_branch(cust_ID, emp_ID, branch_name, type)\nFunctional dependencies: - cust_ID, emp_ID -&gt; branch_name, type (a customer working with an employee determines the branch and account type) - emp_ID -&gt; branch_name (an employee works in one branch) - cust_ID, branch_name -&gt; emp_ID (a customer at a given branch has a fixed employee)\nThe key of the original relation is {cust_ID, emp_ID}.\n\n\n\ncustomer_banker_branch example\n\n\nStep 1: Compute canonical cover.\nFirst, we check for extraneous attributes. In the FD cust_ID, emp_ID -&gt; branch_name, type, the attribute branch_name is extraneous. Why? Because emp_ID already determines branch_name (from emp_ID -&gt; branch_name). If we remove branch_name from the right side, the closure of the left side stays the same. So we can remove branch_name.\nAfter removing the extraneous attribute, the FDs become: - cust_ID, emp_ID -&gt; type - emp_ID -&gt; branch_name - cust_ID, branch_name -&gt; emp_ID\nWe also check for redundant FDs. None are redundant in this set. So the canonical cover Fc has these three FDs.\nStep 2: Create one relation for each FD.\nFrom the three FDs in Fc, we create three relations: - R1(cust_ID, emp_ID, type) - R2(emp_ID, branch_name) - R3(cust_ID, branch_name, emp_ID)\nCheck the keys: - R1: {cust_ID, emp_ID} is the key (matches the original key). - R2: emp_ID is the key. - R3: {cust_ID, branch_name} is the key.\nStep 3: Check if the key is covered.\nThe original key {cust_ID, emp_ID} is contained in R1. So we do not need to add a separate relation.\nNext, we check if any relation is a subset of another. R2(emp_ID, branch_name) has all its attributes in R3(cust_ID, branch_name, emp_ID). So R2 is a subset of R3. We can drop R2.\nThe final 3NF decomposition is: - R1(cust_ID, emp_ID, type) - R3(cust_ID, branch_name, emp_ID)\n\n\n\n3NF decomposition result\n\n\nBoth relations are in 3NF. All FDs can be checked directly. The decomposition has lossless join.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#the-bcnf-decomposition-algorithm",
-    "href": "week06/6-2.html#the-bcnf-decomposition-algorithm",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "The BCNF decomposition algorithm",
-    "text": "The BCNF decomposition algorithm\nBCNF has a simpler definition than 3NF. Every non-trivial FD X -&gt; A must have X as a superkey of the relation.\n\n\n\nBCNF definition\n\n\n\nBCNF decomposition step\nThe BCNF decomposition algorithm works as follows:\n\nFind a non-trivial FD X -&gt; Y that violates BCNF. That is, X is not a superkey of R.\nDecompose R into two relations:\n\nR1 = X ∪ Y\nR2 = R - (Y - X)\n\nNote: R2 keeps X plus all attributes of R that are not in Y.\nCheck if each resulting relation is in BCNF. If not, decompose it further using the same rule.\nStop when all relations are in BCNF.\n\nThis decomposition is always lossless join. The common attribute X between R1 and R2 is a key of R1. That guarantees lossless join.\nBut BCNF decomposition may not preserve dependencies, as we will see.\n\n\nExample: A -&gt; B, B -&gt; C\nConsider R(A, B, C) with FDs: - A -&gt; B - B -&gt; C\nThe key is A. The FD B -&gt; C violates BCNF because B is not a superkey.\nStep 1: Decompose using B -&gt; C. - R1 = B ∪ C = (B, C) - R2 = R - (C - B) = R - C = (A, B)\nNow check each: - R1(B, C): The only non-trivial FD that holds here is B -&gt; C. B is a superkey of R1 (the key is B). So R1 is in BCNF. - R2(A, B): The only non-trivial FD that holds here is A -&gt; B. A is a superkey of R2 (the key is A). So R2 is in BCNF.\nThe decomposition {(B, C), (A, B)} is in BCNF and is lossless join. It also preserves both dependencies.\n\n\nBCNF that loses dependencies\nConsider R(J, K, L) with FDs: - JK -&gt; L - L -&gt; K\nCandidate keys: {J, K} and {J, L}.\nThe FD L -&gt; K violates BCNF because L is not a superkey.\nDecompose using L -&gt; K: - R1 = L ∪ K = (L, K) - R2 = R - (K - L) = R - K = (J, L)\nNow check: - R1(L, K): The FD L -&gt; K holds. L is a superkey (the key). So R1 is in BCNF. - R2(J, L): What FDs hold here? JK -&gt; L projected onto (J, L) gives nothing because we need all three attributes. The only FD is the trivial one. The key is {J, L}. R2 is in BCNF.\nBoth relations are in BCNF. But the FD JK -&gt; L cannot be checked on either relation alone. To check JK -&gt; L, we must join R1 and R2 on L.\nThis is the problem with BCNF. The decomposition is lossless join. Each relation is in BCNF. But we lost the ability to check JK -&gt; L efficiently.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#testing-whether-a-decomposed-relation-is-in-bcnf",
-    "href": "week06/6-2.html#testing-whether-a-decomposed-relation-is-in-bcnf",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "Testing whether a decomposed relation is in BCNF",
-    "text": "Testing whether a decomposed relation is in BCNF\nAfter we decompose, we must check if each resulting relation is in BCNF. There is an important subtlety here.\nIf we check only the FDs in the original set F, we might wrongly conclude that a decomposed relation is in BCNF. The reason is that F+ may contain additional FDs that become active in the decomposed relation.\n\n\n\nTesting for BCNF in decomposed relations\n\n\n\nExample of the pitfall\nConsider R(A, B, C, D, E) with FDs: - A -&gt; B - BC -&gt; D\nThe key of R is {A, C, E}.\nThe FD A -&gt; B violates BCNF because A is not a superkey.\nDecompose using A -&gt; B: - R1 = (A, B) - R2 = (A, C, D, E)\nNow check R2 using only F in F. The FD BC -&gt; D involves attributes {B, C, D}. But B is not in R2. So BC -&gt; D does not seem to apply to R2. We might think R2 is in BCNF.\nBut this is wrong. Look at F+. From A -&gt; B, we can derive AC -&gt; BC (by augmentation). And BC -&gt; D. So AC -&gt; D holds (by transitivity). In R2, the attributes {A, C, D} are all present. So AC -&gt; D holds on R2. But AC is not a superkey of R2 because E is also in R2 and AC does not determine E. So R2 violates BCNF.\nThe pitfall is that we checked only F, not F+. We missed the FD AC -&gt; D which comes from closure.\n\n\nCorrect method to test a decomposed relation for BCNF\nTo check if a decomposed relation Ri is in BCNF:\n\nCompute the restriction of F onto Ri. This means we take F+, and then keep only those FDs whose attributes are all in Ri. Since computing F+ is expensive, we can use an alternative.\nUse the attribute closure method. For every subset α of attributes of Ri, compute α+. Either:\n\nα+ contains no attributes from Ri besides α (meaning α determines nothing new in Ri), or\nα+ contains all attributes of Ri (meaning α is a superkey of Ri).\n\nIf α+ includes some but not all attributes of Ri, then α -&gt; (α+ - α) is a violation of BCNF in Ri.\n\nThis method is more expensive than checking just F. But it is the correct way to verify BCNF for decomposed relations.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#testing-dependency-preservation-for-bcnf",
-    "href": "week06/6-2.html#testing-dependency-preservation-for-bcnf",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "Testing dependency preservation for BCNF",
-    "text": "Testing dependency preservation for BCNF\nWhen we have a BCNF decomposition, we may want to check whether dependencies are preserved. There are two approaches.\n\n\n\nTesting dependency preservation\n\n\n\nExponential time algorithm\nThe exponential algorithm uses F+. For each FD X -&gt; Y in F, we check if it is preserved in the decomposition.\nThe algorithm works as follows. Let the decomposition be {R1, R2, …, Rn}. For each FD X -&gt; Y, we compute:\nresult = X repeat for each Ri in the decomposition: t = (result ∩ Ri)+ ∩ Ri (closure computed under F) result = result ∪ t until result stops changing\nIf the final result contains all attributes of Y, then X -&gt; Y is preserved.\nThis algorithm is correct. But it requires computing closures multiple times, and it may be exponential in the worst case.\n\n\nPolynomial time algorithm (conservative)\nThe polynomial time algorithm does not use F+. Instead, it only checks if each FD in F can be checked directly on some Ri. An FD X -&gt; Y is considered preserved if there exists a Ri such that X ∪ Y ⊆ Ri.\nThis algorithm is faster. But it is conservative. It may say a dependency is not preserved when it actually is preserved through transitivity across multiple relations.\nThe polynomial time algorithm never gives a false positive. If it says a decomposition is dependency preserving, that is always correct. If it says a decomposition is not dependency preserving, it could be wrong. The actual answer may still be that dependencies are preserved.\n\n\nThe cyclic dependency example\nConsider the classic example of cyclic dependencies: - A -&gt; B - B -&gt; C - C -&gt; D - D -&gt; A\n\n\n\nCyclic dependency with polynomial vs exponential test\n\n\nA BCNF decomposition might split these into separate relations. Each individual FD might seem lost because no single relation contains both sides. But by transitivity across all four relations, D -&gt; A can still be checked. The polynomial time algorithm would miss this. The exponential algorithm would catch it.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#comparison-3nf-versus-bcnf",
-    "href": "week06/6-2.html#comparison-3nf-versus-bcnf",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
-    "section": "Comparison: 3NF versus BCNF",
-    "text": "Comparison: 3NF versus BCNF\n\n\n\nComparison of 3NF and BCNF\n\n\nThe practical takeaway is this. If dependency preservation is critical, use 3NF. If removing all redundancy is critical and losing some dependencies is acceptable, use BCNF. In most real databases, 3NF is the preferred choice.",
-    "crumbs": [
-      "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
-    ]
-  },
-  {
-    "objectID": "week06/6-2.html#summary",
-    "href": "week06/6-2.html#summary",
-    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "objectID": "week10/10-2.html#summary",
+    "href": "week10/10-2.html#summary",
+    "title": "10.2 Serializability",
     "section": "Summary",
-    "text": "Summary\n\nThe 3NF decomposition algorithm computes a canonical cover, creates one relation per FD, and adds a key relation if needed.\n3NF decomposition always has lossless join and dependency preservation.\nThe BCNF decomposition algorithm finds a violating FD, splits the relation into two, and recurses.\nBCNF decomposition always has lossless join but may lose dependencies.\nTesting whether a decomposed relation is in BCNF requires checking F+, not just F.\nThe polynomial test for dependency preservation is conservative and may give false negatives.\n3NF is the more practical choice for real applications because it guarantees dependency preservation.",
+    "text": "Summary\n\nA serializable schedule produces the same result as a serial schedule.\nTwo instructions conflict if they access the same item and at least one writes.\nA schedule is conflict serializable if it can be transformed into a serial schedule by swapping non-conflicting instructions.\nThe precedence graph test: a schedule is conflict serializable iff the graph is acyclic.\nView serializability is broader but harder to test."
+  },
+  {
+    "objectID": "week10/10-5.html",
+    "href": "week10/10-5.html",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "",
+    "text": "A system is in a deadlock state if there is a set of transactions such that every transaction in the set is waiting for another transaction in the set to release a lock. No transaction in the set can proceed.\nThree approaches to dealing with deadlocks:\n\nDeadlock prevention. Ensure the system never enters a deadlock.\nDeadlock detection. Allow deadlocks to occur, detect them, and recover.\nDeadlock avoidance. Use additional information to avoid deadlocks.\n\n\n\n\nDeadlock handling"
+  },
+  {
+    "objectID": "week10/10-5.html#deadlock-handling",
+    "href": "week10/10-5.html#deadlock-handling",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "",
+    "text": "A system is in a deadlock state if there is a set of transactions such that every transaction in the set is waiting for another transaction in the set to release a lock. No transaction in the set can proceed.\nThree approaches to dealing with deadlocks:\n\nDeadlock prevention. Ensure the system never enters a deadlock.\nDeadlock detection. Allow deadlocks to occur, detect them, and recover.\nDeadlock avoidance. Use additional information to avoid deadlocks.\n\n\n\n\nDeadlock handling"
+  },
+  {
+    "objectID": "week10/10-5.html#transaction-timestamps",
+    "href": "week10/10-5.html#transaction-timestamps",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Transaction timestamps",
+    "text": "Transaction timestamps\nA timestamp is a unique identifier assigned by the DBMS to identify the relative starting time of a transaction. Timestamps are used in both deadlock prevention and timestamp-based concurrency control.\nProperties: - Each transaction receives a timestamp when it enters the system. - If Tᵢ starts before Tⱼ, then TS(Tᵢ) &lt; TS(Tⱼ). - Timestamps are unique and monotonically increasing."
+  },
+  {
+    "objectID": "week10/10-5.html#deadlock-prevention",
+    "href": "week10/10-5.html#deadlock-prevention",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Deadlock prevention",
+    "text": "Deadlock prevention\nDeadlock prevention protocols ensure that the system never enters a deadlock state. One prevention strategy: require that each transaction locks all its data items before it begins execution (pre-acquisition).\nTwo common timestamp-based prevention schemes:\n\nWait-die scheme (non-preemptive)\nWhen transaction Tᵢ requests a data item held by Tⱼ:\n\nIf TS(Tᵢ) &lt; TS(Tⱼ) (Tᵢ is older), Tᵢ is allowed to wait.\nIf TS(Tᵢ) &gt; TS(Tⱼ) (Tᵢ is younger), Tᵢ is killed (dies) and restarted with its original timestamp.\n\nOlder transactions wait for younger ones. Younger transactions never wait for older ones — they die instead.\n\n\n\nWait-die scheme\n\n\n\n\nWound-wait scheme (preemptive)\nWhen transaction Tᵢ requests a data item held by Tⱼ:\n\nIf TS(Tᵢ) &lt; TS(Tⱼ) (Tᵢ is older), Tⱼ is wounded (killed) and its locks are released. Tᵢ gets the lock.\nIf TS(Tᵢ) &gt; TS(Tⱼ) (Tᵢ is younger), Tᵢ is allowed to wait.\n\nOlder transactions wound younger ones and take their locks. Younger transactions wait for older ones.\n\n\n\nWound-wait scheme\n\n\n\n\nProperties of wait-die and wound-wait\nIn both schemes, a rolled-back transaction is restarted with its original timestamp. This ensures that older transactions have precedence over newer ones, and starvation is avoided.\n\n\n\nScheme\nOlder wants younger’s lock\nYounger wants older’s lock\n\n\n\n\nWait-die\nWait\nDie\n\n\nWound-wait\nWound\nWait\n\n\n\n\n\nTimeout-based schemes\nA simpler approach: a transaction waits for a lock only for a specified amount of time. If the lock has not been granted within the timeout, the transaction is rolled back and restarted.\n\nAdvantage. Simple to implement.\nDisadvantage. Difficult to choose the right timeout value. Too short causes unnecessary rollbacks. Too long causes long waits."
+  },
+  {
+    "objectID": "week10/10-5.html#deadlock-detection",
+    "href": "week10/10-5.html#deadlock-detection",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Deadlock detection",
+    "text": "Deadlock detection\nDeadlocks can be described using a wait-for graph G = (V, E):\n\nV is the set of transactions in the system.\nE contains directed edges Tᵢ → Tⱼ if Tᵢ is waiting for Tⱼ to release a data item.\n\nThe system is in a deadlock state if and only if the wait-for graph contains a cycle.\n\n\n\nWait-for graph\n\n\n\nExample\nNo cycle (no deadlock):\nT1 → T2 → T3 → T4\nT1 waits for T2, T2 waits for T3, T3 waits for T4. No cycle, so eventually T4 finishes, then T3, then T2, then T1.\nWith cycle (deadlock):\nT1 → T2 → T3 → T1\nT1 waits for T2, T2 waits for T3, T3 waits for T1. No transaction can proceed. Deadlock detected.\n\n\n\nWait-for graph with cycle"
+  },
+  {
+    "objectID": "week10/10-5.html#deadlock-recovery",
+    "href": "week10/10-5.html#deadlock-recovery",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Deadlock recovery",
+    "text": "Deadlock recovery\nWhen a deadlock is detected, the system must break it:\n\nSelect a victim. Choose a transaction to roll back. The victim should be the transaction that incurs the minimum cost (fewest locks, least work, furthest from completion).\nRollback. Determine how far to roll back:\n\nTotal rollback. Abort the transaction and restart it.\nPartial rollback. Roll back to a savepoint and release only the locks held since that point.\n\nStarvation. A transaction selected as victim repeatedly should not starve. The system must ensure that the same transaction is not always chosen.\n\n\n\n\nDeadlock recovery"
+  },
+  {
+    "objectID": "week10/10-5.html#timestamp-based-protocols",
+    "href": "week10/10-5.html#timestamp-based-protocols",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Timestamp-based protocols",
+    "text": "Timestamp-based protocols\nTimestamp-based protocols use timestamps to order transactions without using locks. They eliminate deadlocks entirely.\nThe timestamp-ordering protocol ensures that conflicting read and write operations are executed in timestamp order.\n\nRead operation\nWhen transaction Tᵢ issues read(Q):\n\nIf TS(Tᵢ) &lt; W-timestamp(Q), the write timestamp of Q is newer than Tᵢ. Tᵢ needs to read a value of Q that was already overwritten. Reject read and roll back Tᵢ.\nIf TS(Tᵢ) ≥ W-timestamp(Q), execute the read. Set R-timestamp(Q) = max(R-timestamp(Q), TS(Tᵢ)).\n\n\n\n\nTimestamp protocol read\n\n\n\n\nWrite operation\nWhen transaction Tᵢ issues write(Q):\n\nIf TS(Tᵢ) &lt; R-timestamp(Q), the value of Q that Tᵢ is producing was already needed by a newer transaction. Reject write and roll back Tᵢ.\nIf TS(Tᵢ) &lt; W-timestamp(Q), Tᵢ is attempting to write an obsolete value of Q. Reject write and roll back Tᵢ.\nOtherwise, execute the write. Set W-timestamp(Q) = TS(Tᵢ).\n\n\n\n\nTimestamp protocol write\n\n\n\n\nExample\nA partial schedule for transactions with timestamps 1, 2, 3, 4, 5:\nT1: read(X)\nT2: read(Y)\nT3: write(Y) → T3 timestamp &lt; R-timestamp(Y)? No. Execute.\nT4: write(X) → TS(4) &lt; R-timestamp(X)? No (set by T1). Execute.\nT5: read(Y) → TS(5) &lt; W-timestamp(Y)? TS(5)=5, W-timestamp(Y)=3. No. Execute.\nThe timestamp order ensures serializability.\n\n\n\nTimestamp protocol example\n\n\n\n\nCorrectness\nThe timestamp-ordering protocol guarantees serializability because all edges in the precedence graph go from a transaction with a smaller timestamp to a transaction with a larger timestamp:\nTS(smaller) → TS(larger)\nNo cycles can form in such a precedence graph.\n\n\n\nTimestamp correctness"
+  },
+  {
+    "objectID": "week10/10-5.html#summary",
+    "href": "week10/10-5.html#summary",
+    "title": "10.5 Deadlock and timestamp protocols",
+    "section": "Summary",
+    "text": "Summary\n\nDeadlock prevention (wait-die, wound-wait) ensures the system never deadlocks by controlling which transactions wait.\nDeadlock detection uses a wait-for graph; a cycle indicates deadlock.\nRecovery selects a victim and rolls it back.\nTimestamp-based protocols order transactions by timestamps without locks, eliminating deadlocks entirely.\nEach approach has trade-offs between concurrency, overhead, and complexity."
+  },
+  {
+    "objectID": "week10/10-1.html",
+    "href": "week10/10-1.html",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "",
+    "text": "A transaction is a unit of program execution that accesses and possibly updates various data items in a database. It consists of one or more operations that logically belong together.\nConsider a fund transfer from account A to account B:\nread(A)\nA := A - 50\nwrite(A)\nread(B)\nB := B + 50\nwrite(B)\nThis sequence of operations is a single logical unit of work. Either all steps complete successfully, or none of them should take effect.\n\n\n\nTransaction concept\n\n\nTwo main issues arise with transactions:\n\nFailures. Hardware failures and system crashes can interrupt a transaction mid-way.\nConcurrency. Multiple transactions executing simultaneously can interfere with each other."
+  },
+  {
+    "objectID": "week10/10-1.html#transaction-concept",
+    "href": "week10/10-1.html#transaction-concept",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "",
+    "text": "A transaction is a unit of program execution that accesses and possibly updates various data items in a database. It consists of one or more operations that logically belong together.\nConsider a fund transfer from account A to account B:\nread(A)\nA := A - 50\nwrite(A)\nread(B)\nB := B + 50\nwrite(B)\nThis sequence of operations is a single logical unit of work. Either all steps complete successfully, or none of them should take effect.\n\n\n\nTransaction concept\n\n\nTwo main issues arise with transactions:\n\nFailures. Hardware failures and system crashes can interrupt a transaction mid-way.\nConcurrency. Multiple transactions executing simultaneously can interfere with each other."
+  },
+  {
+    "objectID": "week10/10-1.html#acid-properties",
+    "href": "week10/10-1.html#acid-properties",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "ACID properties",
+    "text": "ACID properties\n\nAtomicity\nIf the transaction fails after subtracting from A but before adding to B, $50 would be lost. The system must ensure that either both updates take effect, or neither does.\nAtomicity guarantees that each transaction is treated as a single, indivisible unit. If any statement fails, the entire transaction fails and the database is left unchanged.\n\n\nConsistency\nThe sum A + B must be unchanged by the execution of the transaction. Consistency ensures that a transaction can only bring the database from one valid state to another, maintaining all database invariants.\nConsistency requirements include: - Explicit integrity constraints (primary keys, foreign keys) - Implicit integrity constraints (business rules)\n\n\nIsolation\nIf another transaction T2 is allowed to access the partially updated database between subtracting from A and adding to B, it will see an inconsistent state where the sum A + B is less than it should be.\nIsolation can be ensured trivially by running transactions serially — one after the other — but this sacrifices performance.\n\n\nDurability\nOnce the user has been notified that the transaction has completed, the updates must persist even if there is a software or hardware failure immediately afterward.\n\n\n\nACID properties\n\n\n\n\nQuick reference\n\n\n\nProperty\nMeaning\n\n\n\n\nAtomicity\nAll or nothing\n\n\nConsistency\nGuarantees committed transaction state\n\n\nIsolation\nTransactions are independent\n\n\nDurability\nCommitted changes persist\n\n\n\n\n\n\nACID quick reference"
+  },
+  {
+    "objectID": "week10/10-1.html#transaction-states",
+    "href": "week10/10-1.html#transaction-states",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "Transaction states",
+    "text": "Transaction states\nA transaction passes through several states during its execution:\n\nActive. The initial state. The transaction stays in this state while it is executing read and write operations.\nPartially committed. After the final statement has been executed. The transaction may still fail at this point.\nFailed. After the discovery that normal execution can no longer proceed (due to error or crash).\nAborted. The transaction has been rolled back and the database has been restored to its state before the transaction started.\nCommitted. The transaction completed successfully and all changes have been made permanent.\n\n\n\n\nTransaction states\n\n\n\nState transitions\n\nActive → Partially committed (after final statement executes)\nActive → Failed (on error or crash)\nPartially committed → Committed (on successful commit)\nPartially committed → Failed (on failure during commit)\nFailed → Aborted (after rollback completes)\n\nA transaction that has been aborted can be restarted later.\n\n\n\nState transition diagram"
+  },
+  {
+    "objectID": "week10/10-1.html#concurrent-executions",
+    "href": "week10/10-1.html#concurrent-executions",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "Concurrent executions",
+    "text": "Concurrent executions\nMultiple transactions are allowed to run concurrently. This provides two major advantages:\n\nIncreased utilization. One transaction can use the CPU while another reads from or writes to disk.\nReduced response time. Short transactions need not wait behind long ones.\n\nThese advantages improve transaction throughput.\n\n\n\nConcurrent executions\n\n\n\nSchedules\nA schedule is a sequence of instructions that specifies the chronological order in which instructions of concurrent transactions are executed. A schedule must contain all instructions of those transactions and preserve the order of instructions within each transaction.\n\n\nSerial schedules\nA serial schedule executes transactions one after another. Schedule 1: T1 followed by T2. Schedule 2: T2 followed by T1. Both preserve consistency.\n\n\n\nSerial schedule\n\n\n\n\nConcurrent schedule (serializable)\nSchedule 3 interleaves instructions from T1 and T2 but produces the same result as a serial schedule. This is called a serializable schedule.\n\n\n\nSerializable concurrent schedule\n\n\n\n\nConcurrent schedule (not serializable)\nSchedule 4 interleaves instructions in a way that produces an incorrect result. The sum A + B is not preserved.\n\n\n\nNon-serializable schedule"
+  },
+  {
+    "objectID": "week10/10-1.html#summary",
+    "href": "week10/10-1.html#summary",
+    "title": "10.1 Transaction concept and ACID",
+    "section": "Summary",
+    "text": "Summary\n\nA transaction is a logical unit of work with ACID properties.\nAtomicity ensures all-or-nothing execution.\nConsistency maintains database invariants.\nIsolation prevents interference between concurrent transactions.\nDurability guarantees persistence of committed changes.\nTransactions go through states: Active, Partially Committed, Failed, Aborted, Committed.\nConcurrent execution improves throughput but requires careful scheduling."
+  },
+  {
+    "objectID": "week06/6-3.html",
+    "href": "week06/6-3.html",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "",
+    "text": "In this module, we apply everything we have learned about relational database design to a real-world case study. We design a complete database schema for a Library Information System (LIS). The process goes through these steps:\n\nUnderstand the specification document.\nIdentify entity sets and their attributes.\nIdentify relationships between entities.\nCreate an Entity-Relationship (ER) model.\nTransform the ER model into an initial set of relational schemas.\nIdentify functional dependencies hidden in the specification.\nNormalize each schema to BCNF (or 3NF if BCNF is not possible).\nRefine the design based on query requirements.\n\nThis case study shows that database design is not just about theory. A good designer must read between the lines, find hidden requirements, and adjust the design to make queries efficient.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.2 Decomposition Algorithms"
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#overview",
+    "href": "week06/6-3.html#overview",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "",
+    "text": "In this module, we apply everything we have learned about relational database design to a real-world case study. We design a complete database schema for a Library Information System (LIS). The process goes through these steps:\n\nUnderstand the specification document.\nIdentify entity sets and their attributes.\nIdentify relationships between entities.\nCreate an Entity-Relationship (ER) model.\nTransform the ER model into an initial set of relational schemas.\nIdentify functional dependencies hidden in the specification.\nNormalize each schema to BCNF (or 3NF if BCNF is not possible).\nRefine the design based on query requirements.\n\nThis case study shows that database design is not just about theory. A good designer must read between the lines, find hidden requirements, and adjust the design to make queries efficient.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#the-specification",
+    "href": "week06/6-3.html#the-specification",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "The specification",
+    "text": "The specification\nThe institute library has a large number of books and a large number of members. Books are regularly issued to members and returned after a period. The library needs an information system to manage this.\n\n\n\nLIS specification overview\n\n\n\nBooks\nEvery book has: - Title - Author (first author only; single value) - Publisher - Year of publication - ISBN number (unique for a publication) - Accession number (unique for each copy)\nMultiple copies of the same book exist. Each copy has the same ISBN but a different accession number.\n\n\nMembers\nThere are four categories of members: - Undergraduate students - Postgraduate students - Research scholars - Faculty members\nEvery member gets a unique membership number. Each member has a maximum quota for how many books they can issue at a time and for how long. The quota depends on the member type, not the individual member.\n\n\nGround rules for issue\nA book may be issued to a member only if: - It is not already issued to someone else. - Another copy of the same book is not already issued to the same member. - The member has not exceeded their quota. - The member has no overdue books.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#identifying-entity-sets",
+    "href": "week06/6-3.html#identifying-entity-sets",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Identifying entity sets",
+    "text": "Identifying entity sets\nFrom the specification, we identify these entity sets:\n\n\n\nEntity sets from specification\n\n\nBooks. Attributes: ISBN, Title, Author_First, Author_Last, Publisher, Year, Accession_No. Key: Accession_No (unique per copy).\nStudents. Attributes: Roll_No, Member_No, First_Name, Last_Name, Degree, Date_of_Birth, Date_of_Joining, Mobile. Keys: Roll_No, Member_No.\nFaculty. Attributes: ID, Member_No, First_Name, Last_Name, Department, Date_of_Joining, Mobile. Keys: ID, Member_No.\nStaff. Not mentioned in the specification, but a good designer realizes the library needs staff to run it. The staff should also be able to use the library. This is an example of reading between the lines.\nQuota. An intangible entity. Attributes: Member_Type, Max_Books, Max_Duration. Key: Member_Type.\nMembers. A generalization of Students, Faculty, and Staff. Attributes: Member_No, Member_Type, Roll_No (nullable), ID (nullable), etc. Key: Member_No.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#identifying-relationships",
+    "href": "week06/6-3.html#identifying-relationships",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Identifying relationships",
+    "text": "Identifying relationships\nThe main relationship is Book_Issue between Members and Books.\n\n\n\nBook_Issue relationship\n\n\n\nA member can issue many books.\nA book can be issued to only one member at a time.\nThe relationship has an attribute: Date_of_Issue.\nThis is a many-to-one relationship from Book to Member.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#initial-relational-schema",
+    "href": "week06/6-3.html#initial-relational-schema",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Initial relational schema",
+    "text": "Initial relational schema\nFrom the ER model, we create the initial set of relational schemas.\n\n\n\nInitial relational schemas\n\n\nBooks(Accession_No, ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: Accession_No.\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}.\nMembers(Member_No, Member_Type, …). Key: Member_No.\nStudents(Roll_No, Member_No, First_Name, Last_Name, Degree, DOB, DOJ, Mobile). Keys: Roll_No, Member_No.\nFaculty(ID, Member_No, First_Name, Last_Name, Department, DOJ, Mobile). Keys: ID, Member_No.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#normalization",
+    "href": "week06/6-3.html#normalization",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Normalization",
+    "text": "Normalization\nNow we identify functional dependencies hidden in the specification and normalize each schema.\n\nBooks normalization\nFunctional dependencies in Books: 1. Accession_No -&gt; ISBN, Title, Author_First, Author_Last, Publisher, Year 2. ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year\nFD 1 holds because each copy has a unique accession number. FD 2 holds because each publication has a unique ISBN.\nAccession_No is a superkey, so FD 1 does not violate BCNF. But ISBN is not a superkey, so FD 2 violates BCNF.\n\n\n\nBooks normalization\n\n\nBCNF decomposition of Books: - Book_Copy(Accession_No, ISBN). Key: Accession_No. - Book_Title(ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: ISBN.\nBoth relations are now in BCNF. The decomposition is lossless join and dependency preserving.\n\n\nOther relations\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}. The only FD is the key determining Date_of_Issue. This is in BCNF.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type. The only FD is Member_Type determining Max_Books and Max_Duration. This is in BCNF.\nStudents(Roll_No, Member_No, …). FDs: - Roll_No -&gt; (all other attributes) - Member_No -&gt; Roll_No\nBoth Roll_No and Member_No are keys. This is in BCNF.\nFaculty(ID, Member_No, …). Same structure as Students. Both ID and Member_No are keys. This is in BCNF.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#query-driven-refinement",
+    "href": "week06/6-3.html#query-driven-refinement",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Query-driven refinement",
+    "text": "Query-driven refinement\nAfter normalization, we have a theoretically correct design. But when we try to write real queries, we find a problem.\nConsider this query: “Find the name of the member who issued the book with accession number X.”\nFrom Book_Issue, we get the Member_No. But Member_No alone does not tell us whether the member is a Student, Faculty, or Staff. We would have to search all three tables to find the name. That is inefficient and makes the query complex.\nThe problem is that we missed the generalization hierarchy. A member is a general concept, and Student, Faculty, and Staff are specializations.\n\n\n\nMember generalization\n\n\n\nThe refined design\nWe refine the Members relation to include a member class indicator.\nMembers(Member_No, Member_Class, Member_Type, Roll_No, ID, …). Key: Member_No.\n\nMember_Class tells us whether this member is a Student, Faculty, or Staff.\nRoll_No is non-null only for Students.\nID is non-null only for Faculty and Staff.\n\nNow the query is simple. From Book_Issue, we get Member_No. We look up Members to get Member_Class. Depending on the class, we join with the appropriate table to get the name.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#final-schema",
+    "href": "week06/6-3.html#final-schema",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Final schema",
+    "text": "Final schema\nAfter all refinements, the final relational schema is:\n\n\n\nFinal LIS schema\n\n\nBook_Title(ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: ISBN.\nBook_Copy(Accession_No, ISBN). Key: Accession_No.\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}.\nMembers(Member_No, Member_Class, Member_Type, Roll_No, ID, First_Name, Last_Name, …). Key: Member_No.\nStudents(Roll_No, First_Name, Last_Name, Degree, DOB, DOJ, Mobile). Key: Roll_No.\nFaculty(ID, First_Name, Last_Name, Department, DOJ, Mobile). Key: ID.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type.\nEvery relation is in BCNF. The design has lossless join and dependency preservation. Queries can be written efficiently.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
+    ]
+  },
+  {
+    "objectID": "week06/6-3.html#lessons-learned",
+    "href": "week06/6-3.html#lessons-learned",
+    "title": "6.3 Case study: Library Information System design",
+    "section": "Lessons learned",
+    "text": "Lessons learned\n\nDatabase design starts from a specification in natural language.\nThe designer must identify entities, attributes, and relationships.\nFunctional dependencies are hidden in the description and must be extracted by understanding the domain.\nNormalization removes redundancy but may not always give a practical design.\nQuery requirements may force refinements that the theory alone does not suggest.\nReading between the lines is an essential skill. The specification may miss important entities like Staff.\nGeneralization hierarchies (like Member generalizing Student, Faculty, and Staff) need careful handling in the relational model.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.3 LIS Case Study"
     ]
   },
   {
@@ -1756,114 +1730,413 @@
     ]
   },
   {
-    "objectID": "week06/6-3.html",
-    "href": "week06/6-3.html",
-    "title": "6.3 Case study: Library Information System design",
+    "objectID": "week06/6-2.html",
+    "href": "week06/6-2.html",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
     "section": "",
-    "text": "In this module, we apply everything we have learned about relational database design to a real-world case study. We design a complete database schema for a Library Information System (LIS). The process goes through these steps:\n\nUnderstand the specification document.\nIdentify entity sets and their attributes.\nIdentify relationships between entities.\nCreate an Entity-Relationship (ER) model.\nTransform the ER model into an initial set of relational schemas.\nIdentify functional dependencies hidden in the specification.\nNormalize each schema to BCNF (or 3NF if BCNF is not possible).\nRefine the design based on query requirements.\n\nThis case study shows that database design is not just about theory. A good designer must read between the lines, find hidden requirements, and adjust the design to make queries efficient.",
+    "text": "In the previous module, we defined normal forms. But we did not discuss how to transform a relation that is not in a given normal form into one that is. This module covers two algorithms. One decomposes a relation into 3NF. The other decomposes a relation into BCNF.\nThe key difference between 3NF and BCNF is about dependency preservation.\n\nBCNF removes almost all redundancy caused by functional dependencies.\nBut BCNF decomposition may lose some dependencies. We cannot check those dependencies on the decomposed relations without computing a join.\n3NF is weaker than BCNF. It allows some redundancy. But 3NF decomposition always preserves all dependencies.\n\nIn practice, dependency preservation is very important. When we update the database, we must check that constraints hold. If we cannot check a dependency on a single relation, we must join two or more relations to verify it. That join is expensive.\nSo there is a trade off. BCNF gives better redundancy removal but may lose dependencies. 3NF keeps all dependencies but may leave some redundancy.\n\n\n\nMotivation for 3NF over BCNF",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#overview",
-    "href": "week06/6-3.html#overview",
-    "title": "6.3 Case study: Library Information System design",
+    "objectID": "week06/6-2.html#why-we-need-decomposition-algorithms",
+    "href": "week06/6-2.html#why-we-need-decomposition-algorithms",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
     "section": "",
-    "text": "In this module, we apply everything we have learned about relational database design to a real-world case study. We design a complete database schema for a Library Information System (LIS). The process goes through these steps:\n\nUnderstand the specification document.\nIdentify entity sets and their attributes.\nIdentify relationships between entities.\nCreate an Entity-Relationship (ER) model.\nTransform the ER model into an initial set of relational schemas.\nIdentify functional dependencies hidden in the specification.\nNormalize each schema to BCNF (or 3NF if BCNF is not possible).\nRefine the design based on query requirements.\n\nThis case study shows that database design is not just about theory. A good designer must read between the lines, find hidden requirements, and adjust the design to make queries efficient.",
+    "text": "In the previous module, we defined normal forms. But we did not discuss how to transform a relation that is not in a given normal form into one that is. This module covers two algorithms. One decomposes a relation into 3NF. The other decomposes a relation into BCNF.\nThe key difference between 3NF and BCNF is about dependency preservation.\n\nBCNF removes almost all redundancy caused by functional dependencies.\nBut BCNF decomposition may lose some dependencies. We cannot check those dependencies on the decomposed relations without computing a join.\n3NF is weaker than BCNF. It allows some redundancy. But 3NF decomposition always preserves all dependencies.\n\nIn practice, dependency preservation is very important. When we update the database, we must check that constraints hold. If we cannot check a dependency on a single relation, we must join two or more relations to verify it. That join is expensive.\nSo there is a trade off. BCNF gives better redundancy removal but may lose dependencies. 3NF keeps all dependencies but may leave some redundancy.\n\n\n\nMotivation for 3NF over BCNF",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#the-specification",
-    "href": "week06/6-3.html#the-specification",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "The specification",
-    "text": "The specification\nThe institute library has a large number of books and a large number of members. Books are regularly issued to members and returned after a period. The library needs an information system to manage this.\n\n\n\nLIS specification overview\n\n\n\nBooks\nEvery book has: - Title - Author (first author only; single value) - Publisher - Year of publication - ISBN number (unique for a publication) - Accession number (unique for each copy)\nMultiple copies of the same book exist. Each copy has the same ISBN but a different accession number.\n\n\nMembers\nThere are four categories of members: - Undergraduate students - Postgraduate students - Research scholars - Faculty members\nEvery member gets a unique membership number. Each member has a maximum quota for how many books they can issue at a time and for how long. The quota depends on the member type, not the individual member.\n\n\nGround rules for issue\nA book may be issued to a member only if: - It is not already issued to someone else. - Another copy of the same book is not already issued to the same member. - The member has not exceeded their quota. - The member has no overdue books.",
+    "objectID": "week06/6-2.html#checking-whether-a-relation-is-already-in-3nf",
+    "href": "week06/6-2.html#checking-whether-a-relation-is-already-in-3nf",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "Checking whether a relation is already in 3NF",
+    "text": "Checking whether a relation is already in 3NF\nBefore we decompose, we might want to check if the relation is already in 3NF. The definition says: for every non-trivial FD X -&gt; A, either X is a superkey or A is a prime attribute (part of some candidate key).\n\n\n\n3NF definition\n\n\nIf X is a superkey, the check is easy. We compute the attribute closure of X. If the closure is the whole relation, X is a superkey.\nIf X is not a superkey, we must verify that each attribute in the right-hand side is part of some candidate key. Finding all candidate keys of a relation is expensive. There could be many candidate keys. This problem has been shown to be NP-hard. That means there is no known algorithm that runs in polynomial time to test 3NF.\nFortunately, we do not need to test 3NF. We can decompose directly into 3NF using a polynomial time algorithm. That algorithm always produces a 3NF schema.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#identifying-entity-sets",
-    "href": "week06/6-3.html#identifying-entity-sets",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Identifying entity sets",
-    "text": "Identifying entity sets\nFrom the specification, we identify these entity sets:\n\n\n\nEntity sets from specification\n\n\nBooks. Attributes: ISBN, Title, Author_First, Author_Last, Publisher, Year, Accession_No. Key: Accession_No (unique per copy).\nStudents. Attributes: Roll_No, Member_No, First_Name, Last_Name, Degree, Date_of_Birth, Date_of_Joining, Mobile. Keys: Roll_No, Member_No.\nFaculty. Attributes: ID, Member_No, First_Name, Last_Name, Department, Date_of_Joining, Mobile. Keys: ID, Member_No.\nStaff. Not mentioned in the specification, but a good designer realizes the library needs staff to run it. The staff should also be able to use the library. This is an example of reading between the lines.\nQuota. An intangible entity. Attributes: Member_Type, Max_Books, Max_Duration. Key: Member_Type.\nMembers. A generalization of Students, Faculty, and Staff. Attributes: Member_No, Member_Type, Roll_No (nullable), ID (nullable), etc. Key: Member_No.",
+    "objectID": "week06/6-2.html#the-3nf-decomposition-algorithm",
+    "href": "week06/6-2.html#the-3nf-decomposition-algorithm",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "The 3NF decomposition algorithm",
+    "text": "The 3NF decomposition algorithm\nThe 3NF decomposition algorithm has three steps.\n\n\n\n3NF decomposition algorithm\n\n\nThe three steps are explained below.\n\nStep 1: Compute the canonical cover\nThe canonical cover Fc is a minimal representation of the functional dependencies. It has three properties.\n\nEvery FD in Fc has a single attribute on the right side.\nNo FD in Fc has any extraneous attributes on the left side.\nNo FD in Fc is redundant. That is, removing any FD from Fc changes the closure.\n\nWe already learned how to compute the canonical cover in an earlier module. The algorithm checks each FD for extraneous attributes and removes redundant FDs.\n\n\nStep 2: Create one relation for each FD in the canonical cover\nFor each functional dependency X -&gt; Y in Fc, we create a relation schema with attributes X ∪ Y. The left-hand side X becomes a key of this relation.\nFor example, if Fc has three dependencies: - X -&gt; Y - Z -&gt; W - P -&gt; Q\nThen we create three relations: - R1(X, Y) - R2(Z, W) - R3(P, Q)\n\n\nStep 3: Add the key if needed\nIf none of the decomposed relations contains a candidate key of the original relation, we add one more relation. This extra relation contains only the attributes of that candidate key.\nWe need this step to ensure lossless join. Without a relation that contains a key, we may not be able to reconstruct the original relation by joining.\n\n\nProperties of the 3NF decomposition\nEach Ri is in 3NF. Every FD in Fc becomes a relation where the left-hand side is the key. By construction, the conditions of 3NF are satisfied on each Ri.\nDependency preservation. Every FD in the canonical cover can be checked on its corresponding relation directly. Since Fc covers all FDs (Fc is equivalent to F), all dependencies are preserved.\nLossless join. The decomposition has the lossless join property. One way to see this is that every step preserves lossless join. The intersection of any two decomposed relations contains a key of one of them.\n\n\nExample: customer_banker_branch\nConsider the relation:\ncustomer_banker_branch(cust_ID, emp_ID, branch_name, type)\nFunctional dependencies: - cust_ID, emp_ID -&gt; branch_name, type (a customer working with an employee determines the branch and account type) - emp_ID -&gt; branch_name (an employee works in one branch) - cust_ID, branch_name -&gt; emp_ID (a customer at a given branch has a fixed employee)\nThe key of the original relation is {cust_ID, emp_ID}.\n\n\n\ncustomer_banker_branch example\n\n\nStep 1: Compute canonical cover.\nFirst, we check for extraneous attributes. In the FD cust_ID, emp_ID -&gt; branch_name, type, the attribute branch_name is extraneous. Why? Because emp_ID already determines branch_name (from emp_ID -&gt; branch_name). If we remove branch_name from the right side, the closure of the left side stays the same. So we can remove branch_name.\nAfter removing the extraneous attribute, the FDs become: - cust_ID, emp_ID -&gt; type - emp_ID -&gt; branch_name - cust_ID, branch_name -&gt; emp_ID\nWe also check for redundant FDs. None are redundant in this set. So the canonical cover Fc has these three FDs.\nStep 2: Create one relation for each FD.\nFrom the three FDs in Fc, we create three relations: - R1(cust_ID, emp_ID, type) - R2(emp_ID, branch_name) - R3(cust_ID, branch_name, emp_ID)\nCheck the keys: - R1: {cust_ID, emp_ID} is the key (matches the original key). - R2: emp_ID is the key. - R3: {cust_ID, branch_name} is the key.\nStep 3: Check if the key is covered.\nThe original key {cust_ID, emp_ID} is contained in R1. So we do not need to add a separate relation.\nNext, we check if any relation is a subset of another. R2(emp_ID, branch_name) has all its attributes in R3(cust_ID, branch_name, emp_ID). So R2 is a subset of R3. We can drop R2.\nThe final 3NF decomposition is: - R1(cust_ID, emp_ID, type) - R3(cust_ID, branch_name, emp_ID)\n\n\n\n3NF decomposition result\n\n\nBoth relations are in 3NF. All FDs can be checked directly. The decomposition has lossless join.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#identifying-relationships",
-    "href": "week06/6-3.html#identifying-relationships",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Identifying relationships",
-    "text": "Identifying relationships\nThe main relationship is Book_Issue between Members and Books.\n\n\n\nBook_Issue relationship\n\n\n\nA member can issue many books.\nA book can be issued to only one member at a time.\nThe relationship has an attribute: Date_of_Issue.\nThis is a many-to-one relationship from Book to Member.",
+    "objectID": "week06/6-2.html#the-bcnf-decomposition-algorithm",
+    "href": "week06/6-2.html#the-bcnf-decomposition-algorithm",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "The BCNF decomposition algorithm",
+    "text": "The BCNF decomposition algorithm\nBCNF has a simpler definition than 3NF. Every non-trivial FD X -&gt; A must have X as a superkey of the relation.\n\n\n\nBCNF definition\n\n\n\nBCNF decomposition step\nThe BCNF decomposition algorithm works as follows:\n\nFind a non-trivial FD X -&gt; Y that violates BCNF. That is, X is not a superkey of R.\nDecompose R into two relations:\n\nR1 = X ∪ Y\nR2 = R - (Y - X)\n\nNote: R2 keeps X plus all attributes of R that are not in Y.\nCheck if each resulting relation is in BCNF. If not, decompose it further using the same rule.\nStop when all relations are in BCNF.\n\nThis decomposition is always lossless join. The common attribute X between R1 and R2 is a key of R1. That guarantees lossless join.\nBut BCNF decomposition may not preserve dependencies, as we will see.\n\n\nExample: A -&gt; B, B -&gt; C\nConsider R(A, B, C) with FDs: - A -&gt; B - B -&gt; C\nThe key is A. The FD B -&gt; C violates BCNF because B is not a superkey.\nStep 1: Decompose using B -&gt; C. - R1 = B ∪ C = (B, C) - R2 = R - (C - B) = R - C = (A, B)\nNow check each: - R1(B, C): The only non-trivial FD that holds here is B -&gt; C. B is a superkey of R1 (the key is B). So R1 is in BCNF. - R2(A, B): The only non-trivial FD that holds here is A -&gt; B. A is a superkey of R2 (the key is A). So R2 is in BCNF.\nThe decomposition {(B, C), (A, B)} is in BCNF and is lossless join. It also preserves both dependencies.\n\n\nBCNF that loses dependencies\nConsider R(J, K, L) with FDs: - JK -&gt; L - L -&gt; K\nCandidate keys: {J, K} and {J, L}.\nThe FD L -&gt; K violates BCNF because L is not a superkey.\nDecompose using L -&gt; K: - R1 = L ∪ K = (L, K) - R2 = R - (K - L) = R - K = (J, L)\nNow check: - R1(L, K): The FD L -&gt; K holds. L is a superkey (the key). So R1 is in BCNF. - R2(J, L): What FDs hold here? JK -&gt; L projected onto (J, L) gives nothing because we need all three attributes. The only FD is the trivial one. The key is {J, L}. R2 is in BCNF.\nBoth relations are in BCNF. But the FD JK -&gt; L cannot be checked on either relation alone. To check JK -&gt; L, we must join R1 and R2 on L.\nThis is the problem with BCNF. The decomposition is lossless join. Each relation is in BCNF. But we lost the ability to check JK -&gt; L efficiently.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#initial-relational-schema",
-    "href": "week06/6-3.html#initial-relational-schema",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Initial relational schema",
-    "text": "Initial relational schema\nFrom the ER model, we create the initial set of relational schemas.\n\n\n\nInitial relational schemas\n\n\nBooks(Accession_No, ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: Accession_No.\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}.\nMembers(Member_No, Member_Type, …). Key: Member_No.\nStudents(Roll_No, Member_No, First_Name, Last_Name, Degree, DOB, DOJ, Mobile). Keys: Roll_No, Member_No.\nFaculty(ID, Member_No, First_Name, Last_Name, Department, DOJ, Mobile). Keys: ID, Member_No.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type.",
+    "objectID": "week06/6-2.html#testing-whether-a-decomposed-relation-is-in-bcnf",
+    "href": "week06/6-2.html#testing-whether-a-decomposed-relation-is-in-bcnf",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "Testing whether a decomposed relation is in BCNF",
+    "text": "Testing whether a decomposed relation is in BCNF\nAfter we decompose, we must check if each resulting relation is in BCNF. There is an important subtlety here.\nIf we check only the FDs in the original set F, we might wrongly conclude that a decomposed relation is in BCNF. The reason is that F+ may contain additional FDs that become active in the decomposed relation.\n\n\n\nTesting for BCNF in decomposed relations\n\n\n\nExample of the pitfall\nConsider R(A, B, C, D, E) with FDs: - A -&gt; B - BC -&gt; D\nThe key of R is {A, C, E}.\nThe FD A -&gt; B violates BCNF because A is not a superkey.\nDecompose using A -&gt; B: - R1 = (A, B) - R2 = (A, C, D, E)\nNow check R2 using only F in F. The FD BC -&gt; D involves attributes {B, C, D}. But B is not in R2. So BC -&gt; D does not seem to apply to R2. We might think R2 is in BCNF.\nBut this is wrong. Look at F+. From A -&gt; B, we can derive AC -&gt; BC (by augmentation). And BC -&gt; D. So AC -&gt; D holds (by transitivity). In R2, the attributes {A, C, D} are all present. So AC -&gt; D holds on R2. But AC is not a superkey of R2 because E is also in R2 and AC does not determine E. So R2 violates BCNF.\nThe pitfall is that we checked only F, not F+. We missed the FD AC -&gt; D which comes from closure.\n\n\nCorrect method to test a decomposed relation for BCNF\nTo check if a decomposed relation Ri is in BCNF:\n\nCompute the restriction of F onto Ri. This means we take F+, and then keep only those FDs whose attributes are all in Ri. Since computing F+ is expensive, we can use an alternative.\nUse the attribute closure method. For every subset α of attributes of Ri, compute α+. Either:\n\nα+ contains no attributes from Ri besides α (meaning α determines nothing new in Ri), or\nα+ contains all attributes of Ri (meaning α is a superkey of Ri).\n\nIf α+ includes some but not all attributes of Ri, then α -&gt; (α+ - α) is a violation of BCNF in Ri.\n\nThis method is more expensive than checking just F. But it is the correct way to verify BCNF for decomposed relations.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#normalization",
-    "href": "week06/6-3.html#normalization",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Normalization",
-    "text": "Normalization\nNow we identify functional dependencies hidden in the specification and normalize each schema.\n\nBooks normalization\nFunctional dependencies in Books: 1. Accession_No -&gt; ISBN, Title, Author_First, Author_Last, Publisher, Year 2. ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year\nFD 1 holds because each copy has a unique accession number. FD 2 holds because each publication has a unique ISBN.\nAccession_No is a superkey, so FD 1 does not violate BCNF. But ISBN is not a superkey, so FD 2 violates BCNF.\n\n\n\nBooks normalization\n\n\nBCNF decomposition of Books: - Book_Copy(Accession_No, ISBN). Key: Accession_No. - Book_Title(ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: ISBN.\nBoth relations are now in BCNF. The decomposition is lossless join and dependency preserving.\n\n\nOther relations\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}. The only FD is the key determining Date_of_Issue. This is in BCNF.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type. The only FD is Member_Type determining Max_Books and Max_Duration. This is in BCNF.\nStudents(Roll_No, Member_No, …). FDs: - Roll_No -&gt; (all other attributes) - Member_No -&gt; Roll_No\nBoth Roll_No and Member_No are keys. This is in BCNF.\nFaculty(ID, Member_No, …). Same structure as Students. Both ID and Member_No are keys. This is in BCNF.",
+    "objectID": "week06/6-2.html#testing-dependency-preservation-for-bcnf",
+    "href": "week06/6-2.html#testing-dependency-preservation-for-bcnf",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "Testing dependency preservation for BCNF",
+    "text": "Testing dependency preservation for BCNF\nWhen we have a BCNF decomposition, we may want to check whether dependencies are preserved. There are two approaches.\n\n\n\nTesting dependency preservation\n\n\n\nExponential time algorithm\nThe exponential algorithm uses F+. For each FD X -&gt; Y in F, we check if it is preserved in the decomposition.\nThe algorithm works as follows. Let the decomposition be {R1, R2, …, Rn}. For each FD X -&gt; Y, we compute:\nresult = X repeat for each Ri in the decomposition: t = (result ∩ Ri)+ ∩ Ri (closure computed under F) result = result ∪ t until result stops changing\nIf the final result contains all attributes of Y, then X -&gt; Y is preserved.\nThis algorithm is correct. But it requires computing closures multiple times, and it may be exponential in the worst case.\n\n\nPolynomial time algorithm (conservative)\nThe polynomial time algorithm does not use F+. Instead, it only checks if each FD in F can be checked directly on some Ri. An FD X -&gt; Y is considered preserved if there exists a Ri such that X ∪ Y ⊆ Ri.\nThis algorithm is faster. But it is conservative. It may say a dependency is not preserved when it actually is preserved through transitivity across multiple relations.\nThe polynomial time algorithm never gives a false positive. If it says a decomposition is dependency preserving, that is always correct. If it says a decomposition is not dependency preserving, it could be wrong. The actual answer may still be that dependencies are preserved.\n\n\nThe cyclic dependency example\nConsider the classic example of cyclic dependencies: - A -&gt; B - B -&gt; C - C -&gt; D - D -&gt; A\n\n\n\nCyclic dependency with polynomial vs exponential test\n\n\nA BCNF decomposition might split these into separate relations. Each individual FD might seem lost because no single relation contains both sides. But by transitivity across all four relations, D -&gt; A can still be checked. The polynomial time algorithm would miss this. The exponential algorithm would catch it.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#query-driven-refinement",
-    "href": "week06/6-3.html#query-driven-refinement",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Query-driven refinement",
-    "text": "Query-driven refinement\nAfter normalization, we have a theoretically correct design. But when we try to write real queries, we find a problem.\nConsider this query: “Find the name of the member who issued the book with accession number X.”\nFrom Book_Issue, we get the Member_No. But Member_No alone does not tell us whether the member is a Student, Faculty, or Staff. We would have to search all three tables to find the name. That is inefficient and makes the query complex.\nThe problem is that we missed the generalization hierarchy. A member is a general concept, and Student, Faculty, and Staff are specializations.\n\n\n\nMember generalization\n\n\n\nThe refined design\nWe refine the Members relation to include a member class indicator.\nMembers(Member_No, Member_Class, Member_Type, Roll_No, ID, …). Key: Member_No.\n\nMember_Class tells us whether this member is a Student, Faculty, or Staff.\nRoll_No is non-null only for Students.\nID is non-null only for Faculty and Staff.\n\nNow the query is simple. From Book_Issue, we get Member_No. We look up Members to get Member_Class. Depending on the class, we join with the appropriate table to get the name.",
+    "objectID": "week06/6-2.html#comparison-3nf-versus-bcnf",
+    "href": "week06/6-2.html#comparison-3nf-versus-bcnf",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "Comparison: 3NF versus BCNF",
+    "text": "Comparison: 3NF versus BCNF\n\n\n\nComparison of 3NF and BCNF\n\n\nThe practical takeaway is this. If dependency preservation is critical, use 3NF. If removing all redundancy is critical and losing some dependencies is acceptable, use BCNF. In most real databases, 3NF is the preferred choice.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#final-schema",
-    "href": "week06/6-3.html#final-schema",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Final schema",
-    "text": "Final schema\nAfter all refinements, the final relational schema is:\n\n\n\nFinal LIS schema\n\n\nBook_Title(ISBN, Title, Author_First, Author_Last, Publisher, Year). Key: ISBN.\nBook_Copy(Accession_No, ISBN). Key: Accession_No.\nBook_Issue(Accession_No, Member_No, Date_of_Issue). Key: {Accession_No, Member_No}.\nMembers(Member_No, Member_Class, Member_Type, Roll_No, ID, First_Name, Last_Name, …). Key: Member_No.\nStudents(Roll_No, First_Name, Last_Name, Degree, DOB, DOJ, Mobile). Key: Roll_No.\nFaculty(ID, First_Name, Last_Name, Department, DOJ, Mobile). Key: ID.\nQuota(Member_Type, Max_Books, Max_Duration). Key: Member_Type.\nEvery relation is in BCNF. The design has lossless join and dependency preservation. Queries can be written efficiently.",
+    "objectID": "week06/6-2.html#summary",
+    "href": "week06/6-2.html#summary",
+    "title": "6.2 3NF and BCNF decomposition algorithms",
+    "section": "Summary",
+    "text": "Summary\n\nThe 3NF decomposition algorithm computes a canonical cover, creates one relation per FD, and adds a key relation if needed.\n3NF decomposition always has lossless join and dependency preservation.\nThe BCNF decomposition algorithm finds a violating FD, splits the relation into two, and recurses.\nBCNF decomposition always has lossless join but may lose dependencies.\nTesting whether a decomposed relation is in BCNF requires checking F+, not just F.\nThe polynomial test for dependency preservation is conservative and may give false negatives.\n3NF is the more practical choice for real applications because it guarantees dependency preservation.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.2 Decomposition Algorithms"
     ]
   },
   {
-    "objectID": "week06/6-3.html#lessons-learned",
-    "href": "week06/6-3.html#lessons-learned",
-    "title": "6.3 Case study: Library Information System design",
-    "section": "Lessons learned",
-    "text": "Lessons learned\n\nDatabase design starts from a specification in natural language.\nThe designer must identify entities, attributes, and relationships.\nFunctional dependencies are hidden in the description and must be extracted by understanding the domain.\nNormalization removes redundancy but may not always give a practical design.\nQuery requirements may force refinements that the theory alone does not suggest.\nReading between the lines is an essential skill. The specification may miss important entities like Staff.\nGeneralization hierarchies (like Member generalizing Student, Faculty, and Staff) need careful handling in the relational model.",
+    "objectID": "week06/6-1.html",
+    "href": "week06/6-1.html",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "",
+    "text": "Normalization is a way to organize data in a database. Its single goal is to remove redundancy, which is the duplication of data across multiple places in the database.\nWe use a decomposition approach. We start with an original schema and break it into smaller schemas. Each smaller schema must meet some desired properties. If there is still redundancy after decomposition, we add more conditions and decompose further. The process repeats until the redundancy is gone.",
     "crumbs": [
       "Week 6: Normalization & Database Design",
-      "6.3 LIS Case Study"
+      "6.1 Normal Forms"
     ]
+  },
+  {
+    "objectID": "week06/6-1.html#goal-of-normalization",
+    "href": "week06/6-1.html#goal-of-normalization",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "",
+    "text": "Normalization is a way to organize data in a database. Its single goal is to remove redundancy, which is the duplication of data across multiple places in the database.\nWe use a decomposition approach. We start with an original schema and break it into smaller schemas. Each smaller schema must meet some desired properties. If there is still redundancy after decomposition, we add more conditions and decompose further. The process repeats until the redundancy is gone.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#key-properties-of-decomposition",
+    "href": "week06/6-1.html#key-properties-of-decomposition",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Key properties of decomposition",
+    "text": "Key properties of decomposition\nAs we decompose, two properties are critical.\n\nLossless join. It must be possible to rebuild the original data by joining the decomposed relations. We covered this in depth last week.\nDependency preservation. We must still be able to check all functional dependencies in the decomposed relations without computing a join of the data.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#anomalies",
+    "href": "week06/6-1.html#anomalies",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Anomalies",
+    "text": "Anomalies\nNormalization gives us good decomposition, and good decomposition reduces redundancy. Reducing redundancy means removing or reducing anomalies. There are three kinds.\n\n\n\nAnomalies in a database schema\n\n\n\nInsertion anomaly\nYou cannot insert a fact about one entity unless you also have information about another entity. For example, in a supplier relation, you cannot insert a new supplier S5 located in Chennai until the supplier has supplied at least one part. That is because PID is part of the key.\n\n\nDeletion anomaly\nWhen you delete a record, you may lose other information by accident. For example, if you delete the only record for a supplier who is in Kota, you lose the information that Kota has status 40.\n\n\nUpdate anomaly\nIf a supplier moves from Delhi to Kanpur, you must update every record where that supplier appears. If there are multiple records, you have to change each one. Inconsistency can come up easily.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#normal-forms-overview",
+    "href": "week06/6-1.html#normal-forms-overview",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Normal forms overview",
+    "text": "Normal forms overview\nNormal forms are a set of conditions that a relational schema must satisfy based on its constraints. The common normal forms are:\n\nFirst Normal Form (1NF)\nSecond Normal Form (2NF)\nThird Normal Form (3NF)\nBoyce-Codd Normal Form (BCNF)\nFourth Normal Form (4NF)\nFifth Normal Form (5NF)\nSixth Normal Form (6NF)\nElementary Key Normal Form (EKNF)\n\nIn practice, when someone says “a normalized database” without naming a normal form, they almost always mean Third Normal Form (3NF). 3NF is the most common target for normalization in real database design.\nNormal forms follow a hierarchy. Any relation in a higher normal form also meets all the conditions of the normal forms below it.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#first-normal-form-1nf",
+    "href": "week06/6-1.html#first-normal-form-1nf",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "First Normal Form (1NF)",
+    "text": "First Normal Form (1NF)\nThe basic rule for 1NF is that every attribute value must be atomic and indivisible. Two things are taken together to mean atomic:\n\nThe domain contains atomic values. Each attribute holds a single value, not a set or a list.\nNo attribute can be multi-valued. If there are multiple values in the same field, the value has components and is not atomic.\n\nIf we have a relation STUDENT(Sid, Sname, Cname) where a student can take multiple courses and we list all courses in one Cname field, that violates 1NF. The fix is to make each course a separate row. That puts the data in 1NF, though it may cause other redundancy problems.\n\nThe supplier example\nConsider the relation:\nSupplier(SID, Status, City, PID, Qty)\nFunctional dependencies: - SID -&gt; City (each supplier is in one city) - City -&gt; Status (each city has a fixed status) - SID, PID -&gt; Qty (a supplier supplies a specific quantity of a part)\nThe key is {SID, PID}.\n\n\n\nSupplier relation showing redundancy\n\n\nThe values in the table are repeated. S1 has Status 30 and City Delhi repeated for each part. This is the redundancy we want to remove.\nThis relation is in 1NF because all values are atomic. But it has a lot of redundancy and anomalies.\n\nThe city and status of a supplier are repeated for every part they supply.\nIf we delete the only record for supplier S3 who is in Kota, we lose the information that Kota has status 40.\nWe cannot insert a new supplier until they supply at least one part.\nIf S1 moves from Delhi to Kanpur, we must update every record for S1.\n\nFrom a functional dependency view, redundancy happens when there is a non-trivial FD X -&gt; Y over R where X is not a superkey of R. When X is not a superkey, X can appear with duplicate values. Since X determines Y, Y will also have duplicate values.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#second-normal-form-2nf",
+    "href": "week06/6-1.html#second-normal-form-2nf",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Second Normal Form (2NF)",
+    "text": "Second Normal Form (2NF)\nA relation is in 2NF if: 1. It is in 1NF. 2. There is no partial dependency. A non-prime attribute does not depend on a proper subset of any candidate key.\n\nPrime versus non-prime attributes\n\nPrime attribute. An attribute that is part of some candidate key of the relation.\nNon-prime attribute. An attribute that does not belong to any candidate key of the relation.\n\n\n\nPartial dependency definition\nFor a relational schema R, let X be some candidate key. Let Y be a proper subset of some candidate key, and let A be a non-prime attribute. Then:\n Y \\rightarrow A \nis a partial dependency if both of these hold: - Y is a proper subset of some candidate key. - A is a non-prime attribute (not part of any candidate key).\nIf a partial dependency exists, the relation violates 2NF.\n\n\nExample: STUDENT(Sid, Sname, Cname)\n\n\n\nSTUDENT relation with partial dependency\n\n\nFunctional dependencies: - Sid -&gt; Sname - Sid, Cname -&gt; (all attributes)\nCandidate key: {Sid, Cname}.\nHere, Sid is a proper subset of the candidate key. Sname is a non-prime attribute (it is not part of any candidate key). The FD Sid -&gt; Sname is a partial dependency, so STUDENT is not in 2NF.\nWhy is this a problem? Sid appears multiple times, once for each course a student takes. Since Sid determines Sname, we get repeated Sname values. That causes redundancy.\nDecomposition to 2NF. We break it into: - R1(Sid, Sname): Sid is the key, no partial dependency. - R2(Sid, Cname): Sid and Cname together form the key.\nThis decomposition is lossless join (Sid is the common attribute and a key of R1) and dependency preserving.\n\n\nThe supplier example decomposed to 2NF\nThe original Supplier relation had partial dependencies: - SID -&gt; City (SID is a proper subset of the key {SID, PID}) - SID -&gt; Status (derived transitivity: SID -&gt; City -&gt; Status)\n\n\n\nSupplier decomposed to 2NF\n\n\nDecomposition to 2NF: - R1(SID, City, Status): Key is SID. - R2(SID, PID, Qty): Key is {SID, PID}.\nNow each supplier’s city and status appears only once. The insertion, deletion, and update anomalies for city and status are gone. R1 uses SID as key (no partial dependencies). R2 uses the full key {SID, PID} (no partial dependencies).\nBut even after 2NF, there may still be redundancy from transitive dependencies.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#third-normal-form-3nf",
+    "href": "week06/6-1.html#third-normal-form-3nf",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Third Normal Form (3NF)",
+    "text": "Third Normal Form (3NF)\nA relation is in 3NF if: 1. It is in 2NF. 2. There is no transitive dependency. A non-prime attribute does not depend on another non-prime attribute.\n\nTransitive dependency\nA transitive dependency is a functional dependency that holds because of transitivity (Armstrong’s Axiom). It can only happen in a relation with three or more attributes or attribute sets. If:\n\nA -&gt; B (A determines B)\nB does NOT determine A (B -/&gt; A). This condition is critical.\nB -&gt; C\n\nthen A -&gt; C holds by transitivity, and this A -&gt; C is a transitive dependency.\nThe condition “B does not determine A” matters because if A -&gt; B and B -&gt; A, then A and B are equivalent. They are tied together strongly. A -&gt; C would be a direct dependency, not just a transitive one.\n\n\nExample: Book -&gt; Author -&gt; Author_Nationality\nConsider a relation Book(Title, Author, Author_Nationality) where each book has one author.\n\n\n\nTransitive dependency in Book relation\n\n\n\nTitle -&gt; Author (each book has one author)\nAuthor -/&gt; Title (an author may have written many books)\nAuthor -&gt; Author_Nationality\n\nThen Title -&gt; Author_Nationality is a transitive dependency. The problem is that a non-key attribute (Author) determines another non-key attribute (Author_Nationality). If the same author writes multiple books, the nationality is repeated for each book entry.\n\n\nThe SUP_CITY example\nAfter achieving 2NF, we have: R1(SID, City, Status) with FDs: SID -&gt; City, City -&gt; Status\nHere SID -&gt; Status is a transitive dependency because: - SID -&gt; City - City -/&gt; SID (multiple suppliers can be in the same city) - City -&gt; Status\n\n\n\nDecomposition of SUP_CITY to 3NF\n\n\nDecomposition to 3NF. Break R1 into: - SC(SID, City): Key is SID. - CS(City, Status): Key is City.\nNow the transitive dependency is broken. SC can check SID -&gt; City. CS can check City -&gt; Status. By closure, SID -&gt; Status can be checked too. The common attribute City ensures a lossless join.\n\n\nThe simple 3NF definition\nThe accepted modern definition of 3NF is:\nA relation R is in 3NF if for every non-trivial FD X -&gt; A (where A is a single attribute): 1. X is a superkey of R, or 2. A is part of some candidate key of R. That is, A is a prime attribute.\nIf X is not a superkey, there will be redundancy. But 3NF allows some redundancy when A is prime (part of a candidate key).\n\n\nThe dept_advisor example\nConsider dept_advisor(SID, IID, DeptName) where: - A student has one advisor per department. - An advisor belongs to one department.\n\n\n\ndept_advisor 3NF example\n\n\nFDs: 1. SID, DeptName -&gt; IID 2. IID -&gt; DeptName\nCandidate keys: {SID, DeptName} and {SID, IID}.\nIs this in 3NF? Let us check. - IID -&gt; DeptName: IID is not a superkey, but DeptName is a prime attribute. DeptName is part of the candidate key {SID, DeptName}. So this meets condition 2 of 3NF. - Therefore, the relation is in 3NF.\n\n\nCan 3NF still have redundancy?\nYes, 3NF does not remove all redundancy. Consider a relation with attributes J, K, L and FDs: - JK -&gt; L - L -&gt; K\n\n\n\nRedundancy remaining in 3NF\n\n\nHere {J, K} is a candidate key. For the FD L -&gt; K: - L is not a superkey. - But K is a prime attribute (part of the candidate key {J, K}). - So this is in 3NF.\nHowever, if the same value of L appears in multiple tuples, K is determined the same way. That causes redundancy. This kind of redundancy needs BCNF to remove. We will discuss BCNF in a later module.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-1.html#module-summary",
+    "href": "week06/6-1.html#module-summary",
+    "title": "6.1 Normal forms (1NF, 2NF, 3NF)",
+    "section": "Module summary",
+    "text": "Module summary\n\nNormalization removes redundancy through decomposition.\n1NF makes sure all attribute values are atomic.\n2NF removes partial dependencies. A non-prime attribute cannot depend on a proper subset of a candidate key.\n3NF removes transitive dependencies. A non-prime attribute cannot depend on another non-prime attribute.\nNormal forms are hierarchical: 1NF covers 2NF, and 2NF covers 3NF.\n3NF is the most common normal form used in practice.\nEvery decomposition should have lossless join and dependency preservation.\n3NF allows some controlled redundancy when the dependent attribute is prime. Removing that extra redundancy needs BCNF.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.1 Normal Forms"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html",
+    "href": "week06/6-5.html",
+    "title": "6.5 Database design process and temporal data",
+    "section": "",
+    "text": "We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.\nThe design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.\n\n\n\nDesign goals summary",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#summary-of-the-design-journey",
+    "href": "week06/6-5.html#summary-of-the-design-journey",
+    "title": "6.5 Database design process and temporal data",
+    "section": "",
+    "text": "We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.\nThe design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.\n\n\n\nDesign goals summary",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#the-complete-design-process",
+    "href": "week06/6-5.html#the-complete-design-process",
+    "title": "6.5 Database design process and temporal data",
+    "section": "The complete design process",
+    "text": "The complete design process\nThe database design process has these stages:\n\nRequirements analysis. Understand what the users need. This comes from a specification document, interviews, or existing systems.\nConceptual design. Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.\nLogical design. Transform the ER model into a set of relational schemas. This is the initial set of tables.\nNormalization. Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.\nQuery-driven refinement. Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.\nPhysical design. Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.\n\n\n\n\nOverall design process\n\n\n\nStarting points for design\nThe starting point for normalization can come from different sources:\n\nER-to-relational mapping. Like the Library Information System case study. The ER model produces an initial set of tables.\nUniversal relation. A single large relation containing all attributes. Normalization breaks it into smaller relations.\nAdhoc design. Tables created without formal methodology. These need to be checked and normalized.\n\n\n\n\nStarting points for design",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#sql-and-functional-dependencies",
+    "href": "week06/6-5.html#sql-and-functional-dependencies",
+    "title": "6.5 Database design process and temporal data",
+    "section": "SQL and functional dependencies",
+    "text": "SQL and functional dependencies\nSQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.\nThis means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#denormalization",
+    "href": "week06/6-5.html#denormalization",
+    "title": "6.5 Database design process and temporal data",
+    "section": "Denormalization",
+    "text": "Denormalization\nNormalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.\nConsider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.\n\n\n\nDenormalization trade off\n\n\nDenormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.\nAlternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#bad-design-practices",
+    "href": "week06/6-5.html#bad-design-practices",
+    "title": "6.5 Database design process and temporal data",
+    "section": "Bad design practices",
+    "text": "Bad design practices\nThere are several design practices to avoid.\n\nYear-wise tables\nSome designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)\nThis makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)\n\n\nCross-tab schemas\nSome designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.\n\n\nIgnoring generalization\nIn the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#extending-the-lis-design-with-mvds",
+    "href": "week06/6-5.html#extending-the-lis-design-with-mvds",
+    "title": "6.5 Database design process and temporal data",
+    "section": "Extending the LIS design with MVDs",
+    "text": "Extending the LIS design with MVDs\nThe LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.\nThe Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year\nIf we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)\n\n\n\nLIS extension with MVDs\n\n\nThe 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)\nEach of these is in 4NF. The design now supports multiple authors and multiple editions.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#temporal-data",
+    "href": "week06/6-5.html#temporal-data",
+    "title": "6.5 Database design process and temporal data",
+    "section": "Temporal data",
+    "text": "Temporal data\nAll the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.\n\n\n\nTemporal data introduction\n\n\n\nTypes of time\nThere are two important time dimensions:\nValid time. The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.\nTransaction time. The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).\n\n\nTemporal relation types\nUni-temporal relation. Stores either valid time or transaction time, but not both.\nBi-temporal relation. Stores both valid time and transaction time. This is the most powerful approach.\n\n\n\nBi-temporal relation example\n\n\n\n\nChallenges with temporal data\n\nModeling time. Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.\nTemporal ER models. Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.\nTemporal functional dependencies. An FD may hold at one time but not at another. Temporal FDs require a more complex theory.\nTemporal query languages. SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.\nStorage and performance. Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.\n\n\n\nPractical approach\nIn the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:\nEmployee_Salary( Emp_ID, Salary, Start_Date, End_Date )\nHere, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week06/6-5.html#final-thoughts",
+    "href": "week06/6-5.html#final-thoughts",
+    "title": "6.5 Database design process and temporal data",
+    "section": "Final thoughts",
+    "text": "Final thoughts\nDatabase design is a balance between theory and practice.\n\nUse normalization to remove redundancy systematically.\nUse the ER model to capture real-world concepts.\nDecompose to BCNF or 4NF with lossless join and dependency preservation where possible.\nFall back to 3NF when BCNF loses dependencies.\nConsider denormalization for performance when needed.\nModel time explicitly when data is time-varying.\nAlways test the design against real queries.\n\nWith these tools, you can design relational databases that are consistent, efficient, and maintainable.",
+    "crumbs": [
+      "Week 6: Normalization & Database Design",
+      "6.5 Design Process & Temporal Data"
+    ]
+  },
+  {
+    "objectID": "week10/10-3.html",
+    "href": "week10/10-3.html",
+    "title": "10.3 Recoverability and TCL",
+    "section": "",
+    "text": "Serializability helps ensure isolation and consistency in concurrent schedules. However, atomicity and consistency can still be compromised when the system fails.\nConsider a single transaction:\nread(A)\nA := A - 50\nwrite(A)\nread(B)\nB := B + 50\nwrite(B)\nWhat happens if the system crashes after writing A but before writing B? The database would be inconsistent — $50 would be lost. Recovery protocols ensure that such failures do not corrupt the database.\n\n\n\nRecovery"
+  },
+  {
+    "objectID": "week10/10-3.html#what-is-recovery",
+    "href": "week10/10-3.html#what-is-recovery",
+    "title": "10.3 Recoverability and TCL",
+    "section": "",
+    "text": "Serializability helps ensure isolation and consistency in concurrent schedules. However, atomicity and consistency can still be compromised when the system fails.\nConsider a single transaction:\nread(A)\nA := A - 50\nwrite(A)\nread(B)\nB := B + 50\nwrite(B)\nWhat happens if the system crashes after writing A but before writing B? The database would be inconsistent — $50 would be lost. Recovery protocols ensure that such failures do not corrupt the database.\n\n\n\nRecovery"
+  },
+  {
+    "objectID": "week10/10-3.html#recoverable-schedules",
+    "href": "week10/10-3.html#recoverable-schedules",
+    "title": "10.3 Recoverability and TCL",
+    "section": "Recoverable schedules",
+    "text": "Recoverable schedules\nA schedule is recoverable if, whenever a transaction Tⱼ reads a data item previously written by a transaction Tᵢ, the commit operation of Tᵢ appears before the commit operation of Tⱼ.\nT1: write(A) → commit\nT2: read(A) → commit (must happen after T1 commits)\nIf T2 commits before T1 and then T1 aborts, T2 has read a value that never existed (a dirty read). This must be prevented.\n\n\n\nRecoverable schedules\n\n\n\nExample: irrecoverable schedule\n     T1            T2\n     read(A)\n     A = A - 1000\n     write(A)      read(A)      → T2 reads uncommitted value\n     abort         commit       → T2 commits based on uncommitted data\n                              → Irrecoverable!\nT2 reads A=4000 after T1 wrote it but before T1 committed. T1 then aborts, rolling back to A=5000. But T2 has already committed using A=4000. The database is inconsistent.\n\n\n\nIrrecoverable schedule"
+  },
+  {
+    "objectID": "week10/10-3.html#cascading-rollbacks",
+    "href": "week10/10-3.html#cascading-rollbacks",
+    "title": "10.3 Recoverability and TCL",
+    "section": "Cascading rollbacks",
+    "text": "Cascading rollbacks\nA cascading rollback occurs when a single transaction failure leads to a series of transaction rollbacks.\n     T1            T2            T3\n     write(A)\n                   read(A)\n                   write(B)\n                                 read(B)\n                                 write(C)\n     abort\n                   must abort    must abort\nWhen T1 aborts, T2 must abort because it read A written by T1. Then T3 must abort because it read B written by T2. The rollback cascades through the chain of dependent transactions.\n\n\n\nCascading rollback\n\n\n\nRecoverable schedule with cascading rollback\nT1: write(A) → (no commit)\nT2: read(A)  → (no commit)\nT1: commit\nT2: commit\nThis schedule is recoverable (T1 commits before T2), but if T1 aborts before committing, T2 must also be rolled back. This is cascading but recoverable.\n\n\n\nRecoverable with cascading"
+  },
+  {
+    "objectID": "week10/10-3.html#cascadeless-schedules",
+    "href": "week10/10-3.html#cascadeless-schedules",
+    "title": "10.3 Recoverability and TCL",
+    "section": "Cascadeless schedules",
+    "text": "Cascadeless schedules\nA schedule is cascadeless if, for each pair of transactions Tᵢ and Tⱼ such that Tⱼ reads a data item previously written by Tᵢ, the commit operation of Tᵢ appears before the read operation of Tⱼ.\nIn other words, a transaction can only read data items that have already been committed. This eliminates cascading rollbacks entirely.\nEvery cascadeless schedule is also recoverable, but not every recoverable schedule is cascadeless.\n\n\n\nProperty\nTⱼ reads after Tᵢ writes\nTⱼ commits after Tᵢ commits\n\n\n\n\nRecoverable\n—\nRequired\n\n\nCascadeless\nRequired (commit before read)\nRequired\n\n\n\n\n\n\nCascadeless schedules"
+  },
+  {
+    "objectID": "week10/10-3.html#transaction-definition-in-sql",
+    "href": "week10/10-3.html#transaction-definition-in-sql",
+    "title": "10.3 Recoverability and TCL",
+    "section": "Transaction definition in SQL",
+    "text": "Transaction definition in SQL\nSQL provides constructs for defining and controlling transactions.\n\nBeginning a transaction\nIn SQL, a transaction begins implicitly when a user executes a statement that accesses the database. There is no explicit BEGIN TRANSACTION statement (though some databases support it).\n\n\nEnding a transaction\nA transaction in SQL ends by:\n\nCOMMIT. Saves all changes made by the transaction to the database.\nROLLBACK. Undoes all changes made by the transaction since the last COMMIT or ROLLBACK.\n\n\n\n\nTransaction definition in SQL\n\n\n\n\nTCL commands\nTransaction Control Language (TCL) commands manage transactions:\n\n\n\nCommand\nPurpose\n\n\n\n\nCOMMIT\nSave changes permanently\n\n\nROLLBACK\nUndo changes since last COMMIT\n\n\nSAVEPOINT\nSet a point within a transaction\n\n\nRELEASE SAVEPOINT\nRemove a savepoint\n\n\n\n\n\n\nTCL commands\n\n\n\n\nCOMMIT\nCOMMIT saves all transactions to the database since the last COMMIT or ROLLBACK.\nCOMMIT;\n\n\n\nCOMMIT command\n\n\n\n\nROLLBACK\nROLLBACK undoes transactions since the last COMMIT or ROLLBACK.\nROLLBACK;\n\n\n\nROLLBACK command\n\n\n\n\nSAVEPOINT\nA SAVEPOINT is a point within a transaction to which you can roll back without affecting the entire transaction.\nSAVEPOINT sp1;\nDELETE FROM student WHERE age &gt; 25;\nROLLBACK TO sp1;  -- undo the delete, but keep earlier changes\n\n\n\nSAVEPOINT example\n\n\n\n\nRELEASE SAVEPOINT\nRemoves a savepoint. After releasing, you can no longer roll back to that point.\nRELEASE SAVEPOINT sp1;\n\n\n\nRELEASE SAVEPOINT\n\n\n\n\nExample\nSAVEPOINT sp1;\nDELETE FROM student WHERE id = 1;\nDELETE FROM student WHERE id = 2;\nDELETE FROM student WHERE id = 3;\nROLLBACK TO sp1;  -- undo the three deletes\nOnly the SAVEPOINT sp1 remains; the three deletes are rolled back."
+  },
+  {
+    "objectID": "week10/10-3.html#summary",
+    "href": "week10/10-3.html#summary",
+    "title": "10.3 Recoverability and TCL",
+    "section": "Summary",
+    "text": "Summary\n\nRecoverable schedules ensure that a transaction commits only after all transactions whose data it read have committed.\nCascading rollbacks occur when one transaction’s abort forces others to abort. Cascadeless schedules prevent this.\nCOMMIT makes changes permanent; ROLLBACK undoes changes.\nSAVEPOINT allows partial rollback within a transaction."
+  },
+  {
+    "objectID": "week10/10-4.html",
+    "href": "week10/10-4.html",
+    "title": "10.4 Lock-based protocols",
+    "section": "",
+    "text": "Serializability through schedule design is difficult to guarantee in practice. Instead, database systems use concurrency control protocols that automatically ensure serializable schedules.\nA concurrency control mechanism must ensure that all possible schedules are both:\n\nConflict serializable (or view serializable).\nRecoverable and preferably cascadeless.\n\nA simple policy of running transactions one at a time generates serial schedules, but this sacrifices performance. Lock-based protocols allow controlled concurrency.\n\n\n\nConcurrency control"
+  },
+  {
+    "objectID": "week10/10-4.html#concurrency-control",
+    "href": "week10/10-4.html#concurrency-control",
+    "title": "10.4 Lock-based protocols",
+    "section": "",
+    "text": "Serializability through schedule design is difficult to guarantee in practice. Instead, database systems use concurrency control protocols that automatically ensure serializable schedules.\nA concurrency control mechanism must ensure that all possible schedules are both:\n\nConflict serializable (or view serializable).\nRecoverable and preferably cascadeless.\n\nA simple policy of running transactions one at a time generates serial schedules, but this sacrifices performance. Lock-based protocols allow controlled concurrency.\n\n\n\nConcurrency control"
+  },
+  {
+    "objectID": "week10/10-4.html#lock-based-protocols",
+    "href": "week10/10-4.html#lock-based-protocols",
+    "title": "10.4 Lock-based protocols",
+    "section": "Lock-based protocols",
+    "text": "Lock-based protocols\nOne way to ensure isolation is to require that data items be accessed in a mutually exclusive manner. While one transaction is accessing a data item, no other transaction can modify that data item.\nHowever, locking the entire database would lead to strictly serial schedules and poor performance. Instead, locks are applied at the level of individual data items.\n\n\n\nLock-based protocols\n\n\n\nLock modes\nData items can be locked in two modes:\n\nShared (S) mode. Data item can only be read. Multiple transactions can hold shared locks on the same item simultaneously (compatible).\nExclusive (X) mode. Data item can be both read and written. Only one transaction can hold an exclusive lock on an item at a time (not compatible with any other lock).\n\n\n\nLock compatibility matrix\n\n\n\nRequest\nS held\nX held\n\n\n\n\nShared\nCompatible\nNot compatible\n\n\nExclusive\nNot compatible\nNot compatible\n\n\n\nAn exclusive lock is requested using lock-X instruction. A shared lock is requested using lock-S instruction.\n\n\n\nLock compatibility\n\n\n\n\nLock management\nA transaction may be granted a lock on an item only if the requested lock is compatible with locks already held on that item by other transactions.\n\nAny number of transactions can hold shared locks on an item.\nIf any transaction holds an exclusive lock, no other transaction can lock the item.\n\nTransactions must wait if the requested lock is not compatible.\n\n\n\nLock granting"
+  },
+  {
+    "objectID": "week10/10-4.html#example-serial-schedule-with-locking",
+    "href": "week10/10-4.html#example-serial-schedule-with-locking",
+    "title": "10.4 Lock-based protocols",
+    "section": "Example: serial schedule with locking",
+    "text": "Example: serial schedule with locking\nT1 transfers $50 from B to A:\nT1: lock-X(B); read(B); B := B - 50; write(B); unlock(B);\n    lock-X(A); read(A); A := A + 50; write(A); unlock(A);\nT2 displays total amount:\nT2: lock-S(A); read(A); unlock(A);\n    lock-S(B); read(B); unlock(B);\n    display(A + B);\nThis is serial (T1 then T2). The result is correct.\n\n\n\nSerial schedule with locking"
+  },
+  {
+    "objectID": "week10/10-4.html#example-concurrent-schedule-with-early-unlock",
+    "href": "week10/10-4.html#example-concurrent-schedule-with-early-unlock",
+    "title": "10.4 Lock-based protocols",
+    "section": "Example: concurrent schedule with early unlock",
+    "text": "Example: concurrent schedule with early unlock\nIf T1 unlocks B too early, T2 might read an inconsistent state:\nT1: lock-X(B); read(B); B := B - 50; write(B); unlock(B);\n    lock-X(A); read(A); A := A + 50; write(A); unlock(A);\n\nT2:                                 lock-S(A); read(A); unlock(A);\n                                    lock-S(B); read(B); unlock(B); display(...)\nIf T2 executes after T1 unlocks B but before T1 locks A, T2 sees B updated but A not yet updated. The total displayed would be incorrect.\n\n\n\nConcurrent schedule with early unlock\n\n\nThe fix: delay unlocking until the end of the transaction."
+  },
+  {
+    "objectID": "week10/10-4.html#example-deadlock",
+    "href": "week10/10-4.html#example-deadlock",
+    "title": "10.4 Lock-based protocols",
+    "section": "Example: deadlock",
+    "text": "Example: deadlock\nTwo transactions holding locks and waiting for each other:\nT3: lock-X(B); read(B); ...                    (holds B, wants A)\nT4: lock-X(A); read(A); ... lock-S(B); (holds A, wants B)\nT3 is holding exclusive lock on B and wants A. T4 is holding exclusive lock on A and wants B. Both wait forever. This is a deadlock.\n\n\n\nDeadlock example"
+  },
+  {
+    "objectID": "week10/10-4.html#two-phase-locking-protocol",
+    "href": "week10/10-4.html#two-phase-locking-protocol",
+    "title": "10.4 Lock-based protocols",
+    "section": "Two-phase locking protocol",
+    "text": "Two-phase locking protocol\nThe two-phase locking (2PL) protocol ensures conflict-serializable schedules. It has two phases:\n\nPhase 1: Growing phase\nA transaction may obtain locks, but may not release any locks.\n\n\nPhase 2: Shrinking phase\nA transaction may release locks, but may not obtain any new locks.\nThe point where the transaction has all its locks and has not yet started releasing them is called the lock point.\n\n\n\nTwo-phase locking\n\n\n\n\nProperties of 2PL\n\n2PL guarantees conflict serializability.\nHowever, there exist conflict-serializable schedules that cannot be produced by 2PL.\nWithout additional information about data access ordering, 2PL is necessary for conflict serializability.\n\n\n\nLock conversions\nTwo-phase locking with lock conversions allows changing lock modes:\nFirst phase (growing): - Can acquire a shared (S) lock. - Can acquire an exclusive (X) lock. - Can upgrade a shared lock to an exclusive lock (S → X).\nSecond phase (shrinking): - Can downgrade an exclusive lock to a shared lock (X → S). - Can release locks.\n\n\n\nLock conversion"
+  },
+  {
+    "objectID": "week10/10-4.html#automatic-acquisition-of-locks",
+    "href": "week10/10-4.html#automatic-acquisition-of-locks",
+    "title": "10.4 Lock-based protocols",
+    "section": "Automatic acquisition of locks",
+    "text": "Automatic acquisition of locks\nIn most database systems, the programmer does not issue explicit lock calls. Instead, the system automatically locks data items when read or write instructions are executed.\nWhen a transaction Tᵢ issues read(D):\n\nIf Tᵢ already has a lock on D, proceed with the read.\nIf another transaction holds a conflicting lock, Tᵢ waits.\nOtherwise, the system acquires the appropriate lock automatically.\n\nThe SET TRANSACTION ISOLATION LEVEL statement in SQL controls the locking behavior (e.g., SERIALIZABLE, READ COMMITTED, etc.).\n\n\n\nAutomatic lock acquisition"
+  },
+  {
+    "objectID": "week10/10-4.html#summary",
+    "href": "week10/10-4.html#summary",
+    "title": "10.4 Lock-based protocols",
+    "section": "Summary",
+    "text": "Summary\n\nLock-based protocols use shared and exclusive locks to control concurrent access to data items.\nShared locks are compatible; exclusive locks are not compatible with any other lock.\nTwo-phase locking (2PL) ensures conflict serializability by separating lock acquisition (growing phase) from lock release (shrinking phase).\nEarly unlocking can lead to inconsistent states; locking too long can cause deadlocks.\nMost databases handle locking automatically based on isolation level settings."
   },
   {
     "objectID": "week07/7-5.html",
