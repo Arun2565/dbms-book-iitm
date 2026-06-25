@@ -2,45 +2,167 @@
 title: "12.2 Query optimization"
 ---
 
-## Query optimization
+## Introduction
 
-The query optimizer finds the most efficient execution plan among many
-equivalent plans. It considers different join orders, access methods, and
-algorithm choices.
+For a given query, there are many alternative evaluation plans. These
+differ in:
 
-## Equivalent expressions
+1. The order of operations (which join to perform first).
+2. The algorithm used for each operation (nested-loop vs. hash join).
+3. The use of indexes.
 
-Relational algebra expressions can be transformed into equivalent forms
-using rules:
+The cost difference between evaluation plans can be enormous — seconds
+versus days in some cases.
 
-- **Selection pushdown.** Apply selections as early as possible.
-- **Projection pushdown.** Reduce the number of columns early.
-- **Join reordering.** Different join orders can have vastly different
-  costs.
+![Query optimization](images/L12.2_p6.png)
 
-## Evaluation plan
+### Evaluation plan
 
-An evaluation plan specifies:
-- The algorithm for each operation.
-- The order of operations.
-- The access methods (index scan, full scan).
-- Materialization vs pipelining.
+An evaluation plan defines exactly what algorithm is used for each
+operation, and how the execution of the operations is coordinated.
 
-## Cost-based optimization
+Example: Find the names of all instructors in the Music department, along
+with the titles of the courses they teach:
 
-The optimizer estimates the cost of each plan using:
-1. **Statistical metadata.** Table cardinalities, attribute distributions,
-   index sizes.
-2. **Cost formulas.** Estimates for each operation based on statistical
-   metadata.
-3. **Plan enumeration.** Generate and compare candidate plans.
+```
+Π_name, title (σ_dept-name="Music" (instructor ⋈ teaches ⋈ course))
+```
 
-![Cost-based optimization](images/L12.2_p10.png)
+The optimizer may choose to:
+- Apply the selection first (reduce instructor tuples).
+- Choose different join orders.
+- Use nested-loop or hash join depending on sizes.
 
-## Transformation rules
+![Evaluation plan](images/L12.2_p7.png)
 
-Common heuristic transformations:
-- Perform selections early to reduce intermediate results.
-- Perform projections early to reduce tuple sizes.
-- Replace Cartesian products followed by selections with joins.
-- Combine multiple selections into a single scan.
+## Transformation of relational expressions
+
+Two relational algebra expressions are equivalent if they generate the
+same set of tuples on every legal database instance. The order of tuples
+is irrelevant.
+
+The optimizer uses equivalence rules to transform one expression into
+another, cheaper one.
+
+![Transformation of relational expressions](images/L12.2_p10.png)
+
+## Equivalence rules
+
+### Rule 1: Cascading selection
+
+Conjunctive selection operations can be deconstructed into a sequence of
+individual selections:
+
+σ₀₁ ∧ ₀₂ (E) = σ₀₁ (σ₀₂ (E))
+
+### Rule 2: Selection commutativity
+
+Selection operations are commutative:
+
+σ₀₁ (σ₀₂ (E)) = σ₀₂ (σ₀₁ (E))
+
+### Rule 5: Theta-join commutativity
+
+Theta-join (and natural join) are commutative:
+
+E₁ ⋈₀ E₂ = E₂ ⋈₀ E₁
+
+### Rule 6: Join associativity
+
+Natural join is associative:
+
+(E₁ ⋈ E₂) ⋈ E₃ = E₁ ⋈ (E₂ ⋈ E₃)
+
+![Join commutativity and associativity](images/L12.2_p13.png)
+
+### Rule 7: Selection distribution over join
+
+Selection distributes over theta-join when all attributes in the selection
+condition involve only attributes of one of the joined expressions:
+
+σ₀ (E₁ ⋈ E₂) = (σ₀ (E₁)) ⋈ E₂   (if 0 involves only attributes of E₁)
+
+This is called **pushing selections** — applying selection early reduces
+the size of intermediate results.
+
+### Rule 8: Projection distribution over join
+
+Projection distributes over theta-join. Only the attributes needed for the
+join and the final result need to be kept:
+
+Π_{L₁ ∪ L₂} (E₁ ⋈₀ E₂) = (Π_{L₁}(E₁)) ⋈₀ (Π_{L₂}(E₂))
+
+This is called **pushing projections** — reducing the size of tuples early.
+
+![Projection distribution](images/L12.2_p15.png)
+
+### Rule 9: Set operation commutativity
+
+Union and intersection are commutative:
+
+E₁ ∪ E₂ = E₂ ∪ E₁  (set difference is not commutative)
+
+## Transformation example: pushing selections
+
+Query: Find the names of all instructors in the Music department, along
+with the titles of the courses they teach.
+
+Original expression:
+
+Π_name, title (σ_dept-name="Music" (instructor ⋈ (teaches ⋈ Π_course-id, title (course))))
+
+By pushing the selection into the join, we reduce the size of the
+instructor relation before joining, making the query cheaper.
+
+![Pushing selections example](images/L12.2_p18.png)
+
+### Multiple transformations
+
+Query: Find the names of all instructors in the Music department who have
+taught a course in 2009, along with the titles of the courses they taught.
+
+With multiple selection conditions (dept-name="Music" AND year=2009), the
+optimizer can push both selections down independently, reducing both
+relations before the join.
+
+![Multiple transformations](images/L12.2_p20.png)
+
+## Join ordering
+
+Join is associative, so (r₁ ⋈ r₂) ⋈ r₃ = r₁ ⋈ (r₂ ⋈ r₃). But the cost
+differs enormously.
+
+If r₂ ⋈ r₃ is small, compute it first, then join with r₁. If r₁ ⋈ r₂ is
+small, do that first.
+
+The optimizer estimates the sizes of intermediate results and chooses the
+join order with the lowest cost.
+
+![Join ordering](images/L12.2_p22.png)
+
+## Enumeration of equivalent expressions
+
+Query optimizers use equivalence rules to systematically generate
+expressions equivalent to the given expression. The process:
+
+1. Generate all equivalent expressions by applying rules bottom-up.
+2. Estimate the cost of each.
+3. Choose the cheapest.
+
+Space requirements are reduced by sharing common sub-expressions. When E₁
+is generated from E₂ by an equivalence rule, only the top level differs;
+subtrees below can be shared using pointers.
+
+![Enumeration](images/L12.2_p24.png)
+
+## Summary
+
+- Query optimization chooses the cheapest evaluation plan from many
+  equivalent alternatives.
+- Equivalence rules (selection cascading, commutativity, associativity,
+  distribution) allow transforming expressions.
+- Pushing selections and projections early reduces intermediate result
+  sizes.
+- Join ordering has a huge impact on query cost.
+- Optimizers enumerate equivalent expressions and estimate costs using
+  catalog statistics.

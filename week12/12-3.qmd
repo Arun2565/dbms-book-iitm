@@ -1,36 +1,139 @@
 ---
-title: "12.3 Performance and scalability"
+title: "12.3 RDBMS performance and scalability"
 ---
 
-## Performance factors
+## What do DBMS applications need?
 
-Database performance depends on:
-- Hardware: CPU speed, memory size, disk speed, network bandwidth.
-- Software: DBMS configuration, query optimization, indexing.
-- Workload: Read vs write ratio, query complexity, concurrency level.
-- Design: Schema design, normalization, indexing strategy.
+Modern database applications require:
 
-## Architecture options
+- **Throughput, response time, and availability.** The system must process
+  many transactions quickly and be available when needed.
+- **Correctness.** ACID properties must be maintained.
+- **Scalability.** The system should handle growing data volumes and user
+  loads.
 
-**Centralized architecture.** A single server handles all requests. Simple
-but limited scalability.
+![DBMS application needs](images/L12.3_p6.png)
 
-**Client-server architecture.** Clients handle presentation, server handles
-data. The most common architecture for database applications.
+## RDBMS architecture
 
-**Parallel database systems.** Multiple processors and disks work together
-on a single database. Types:
+Several architectural models exist for deploying relational databases:
 
-- **Shared memory.** All processors share the same memory and disks.
-- **Shared disk.** Each processor has its own memory but shares disks.
-- **Shared nothing.** Each processor has its own memory and disks.
+### Centralized architecture
 
-![Parallel architectures](images/L12.3_p14.png)
+The database runs on a single computer system. One to a few CPUs and a
+number of device controllers are connected through a common bus. This is
+the simplest architecture, suitable for small to medium workloads.
 
-## Scalability strategies
+![Centralized architecture](images/L12.3_p9.png)
 
-- **Vertical scaling.** Add more resources (CPU, RAM, disk) to existing
-  servers.
-- **Horizontal scaling.** Add more servers and distribute the data.
-- **Replication.** Keep copies of data on multiple servers.
-- **Sharding.** Partition data across multiple database instances.
+### Client-server architecture
+
+The database functionality is divided into:
+
+- **Back-end.** Manages access structures, query evaluation and
+  optimization, concurrency control, and recovery. Runs on the server.
+- **Front-end.** Tools such as forms, report-writers, and graphical user
+  interfaces. Run on client machines.
+
+Clients send requests over the network, and the server processes them.
+
+![Client-server architecture](images/L12.3_p11.png)
+
+### Transaction server
+
+In a transaction server (also called query server) system:
+
+1. Clients send requests to the server.
+2. Transactions are executed at the server.
+3. Results are sent back to the client.
+
+The server manages the buffer pool, concurrency control, and recovery.
+
+![Transaction server](images/L12.3_p14.png)
+
+### Parallel systems
+
+Parallel database systems consist of multiple processors and multiple disks
+connected by a fast interconnection network.
+
+**Speedup.** A fixed-sized problem runs N times faster on an N-times
+larger system.
+
+**Scaleup.** An N-times larger problem runs in the same time on an N-times
+larger system.
+
+In practice, speedup and scaleup are sublinear due to communication
+overhead and contention.
+
+![Parallel systems](images/L12.3_p15.png)
+
+#### Interconnect architectures
+
+- **Bus.** Components send and receive data on a single communication bus.
+  Does not scale well with increasing parallelism.
+- **Mesh.** Components are arranged as nodes in a grid; each is connected
+  to its neighbors.
+
+#### Memory architectures
+
+- **Shared memory.** All processors share a common memory.
+- **Shared disk.** All processors share a common disk.
+- **Shared nothing.** Processors share neither common memory nor common
+  disk. Each has its own memory and disk.
+- **Hierarchical.** Hybrid of the above.
+
+![Parallel architectures](images/L12.3_p19.png)
+
+### Distributed systems
+
+Data is spread over multiple machines (sites or nodes) connected by a
+network. Data is shared by users on multiple machines.
+
+#### Homogeneous distributed databases
+
+Same software and schema on all sites. Data may be partitioned among
+sites. The goal is to provide a view of a single database, hiding the
+details of distribution.
+
+#### Heterogeneous distributed databases
+
+Different software and schemas on different sites. More complex to manage.
+
+#### Advantages of distributed databases
+
+- **Sharing data.** Users at one site can access data at other sites.
+- **Autonomy.** Each site retains control over its local data.
+- **Higher availability.** Data can be replicated at multiple sites.
+
+![Distributed systems](images/L12.3_p21.png)
+
+## Scaling databases
+
+Relational databases are the mainstay of business. However, web-based
+applications caused spikes in demand, and the explosion of social media
+sites (Facebook, Twitter) created large data needs. Cloud-based solutions
+(Amazon S3, etc.) emerged to address these challenges.
+
+### Horizontal versus vertical scaling
+
+**Vertical scaling (scaling up).** Adding more power to a single machine
+(more CPUs, more memory, faster disks). Limited by the maximum capacity
+of a single machine.
+
+**Horizontal scaling (scaling out).** Adding more machines to the
+infrastructure. This adds complexity — you must decide which machine does
+what and how new machines work with existing ones.
+
+![Scaling databases](images/L12.3_p25.png)
+
+## Summary
+
+- DBMS applications need throughput, availability, correctness, and
+  scalability.
+- Architectures range from centralized to client-server to parallel to
+  distributed.
+- Parallel systems use shared memory, shared disk, or shared nothing
+  designs.
+- Distributed systems provide data sharing and autonomy across sites.
+- Horizontal scaling (adding more machines) is the primary approach for
+  handling large-scale workloads.
