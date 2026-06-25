@@ -730,84 +730,62 @@
     "href": "week07/7-4.html",
     "title": "7.4 Building database applications with Python and PostgreSQL",
     "section": "",
-    "text": "PostgreSQL is a powerful, open-source object-relational database system. It supports a large subset of SQL standards and offers many advanced features. It is one of the most popular databases for application development.\nPostgreSQL uses a client-server architecture: - The database runs as a server process. - Client applications connect through the network using the PostgreSQL protocol. - Each client connection is handled by a separate server process.",
+    "text": "Python has several modules to work with a PostgreSQL database. The most popular is psycopg2.\nAdvantages of psycopg2: - Most popular and stable module - Actively maintained, supports Python 2.x and 3.x - Thread-safe, designed for multi-threaded applications\nInstallation:\npip install psycopg2",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
     ]
   },
   {
-    "objectID": "week07/7-4.html#postgresql",
-    "href": "week07/7-4.html#postgresql",
+    "objectID": "week07/7-4.html#working-with-postgresql-and-python",
+    "href": "week07/7-4.html#working-with-postgresql-and-python",
     "title": "7.4 Building database applications with Python and PostgreSQL",
     "section": "",
-    "text": "PostgreSQL is a powerful, open-source object-relational database system. It supports a large subset of SQL standards and offers many advanced features. It is one of the most popular databases for application development.\nPostgreSQL uses a client-server architecture: - The database runs as a server process. - Client applications connect through the network using the PostgreSQL protocol. - Each client connection is handled by a separate server process.",
+    "text": "Python has several modules to work with a PostgreSQL database. The most popular is psycopg2.\nAdvantages of psycopg2: - Most popular and stable module - Actively maintained, supports Python 2.x and 3.x - Thread-safe, designed for multi-threaded applications\nInstallation:\npip install psycopg2",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
     ]
   },
   {
-    "objectID": "week07/7-4.html#connecting-python-to-postgresql",
-    "href": "week07/7-4.html#connecting-python-to-postgresql",
+    "objectID": "week07/7-4.html#steps-to-access-postgresql-from-python",
+    "href": "week07/7-4.html#steps-to-access-postgresql-from-python",
     "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "Connecting Python to PostgreSQL",
-    "text": "Connecting Python to PostgreSQL\nThe standard Python library for connecting to PostgreSQL is psycopg2. It implements the Python DB-API 2.0 specification.\n\nInstallation\npip install psycopg2\n# or for the binary version:\npip install psycopg2-binary\n\n\nBasic connection\nimport psycopg2\n\nconn = psycopg2.connect(\n    host=\"localhost\",\n    port=5432,\n    dbname=\"mydatabase\",\n    user=\"myuser\",\n    password=\"mypassword\"\n)\n\n\nConnection parameters\n\n\n\nParameter\nDescription\nDefault\n\n\n\n\nhost\nDatabase server hostname\nlocalhost\n\n\nport\nDatabase server port\n5432\n\n\ndbname\nDatabase name\n—\n\n\nuser\nUsername\n—\n\n\npassword\nPassword\n—\n\n\n\n\n\nConnection pool\nCreating a new connection for every request is expensive. For web applications, use a connection pool to reuse connections:\nfrom psycopg2 import pool\n\nconnection_pool = psycopg2.pool.SimpleConnectionPool(\n    1,      # min connections\n    20,     # max connections\n    host=\"localhost\",\n    dbname=\"mydatabase\",\n    user=\"myuser\",\n    password=\"mypassword\"\n)\n\nconn = connection_pool.getconn()\n# ... use connection ...\nconnection_pool.putconn(conn)",
+    "section": "Steps to access PostgreSQL from Python",
+    "text": "Steps to access PostgreSQL from Python\nThe workflow follows a standard pattern:\n\nCreate a connection.\nCreate a cursor.\nExecute SQL queries.\nCommit or rollback changes.\nClose the cursor.\nClose the connection.\n\n\n\n\nWorkflow",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
     ]
   },
   {
-    "objectID": "week07/7-4.html#crud-operations",
-    "href": "week07/7-4.html#crud-operations",
+    "objectID": "week07/7-4.html#connection-and-cursor-apis",
+    "href": "week07/7-4.html#connection-and-cursor-apis",
     "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "CRUD operations",
-    "text": "CRUD operations\n\nCreate (INSERT)\ncur = conn.cursor()\ncur.execute(\n    \"INSERT INTO students (id, name, gpa) VALUES (%s, %s, %s)\",\n    (101, \"Alice\", 3.8)\n)\nconn.commit()\n\n\nRead (SELECT)\ncur = conn.cursor()\ncur.execute(\"SELECT * FROM students WHERE gpa &gt; %s\", (3.0,))\nrows = cur.fetchall()\nfor row in rows:\n    print(row)\n\n\nUpdate\ncur = conn.cursor()\ncur.execute(\n    \"UPDATE students SET gpa = %s WHERE id = %s\",\n    (4.0, 101)\n)\nconn.commit()\n\n\nDelete\ncur = conn.cursor()\ncur.execute(\"DELETE FROM students WHERE id = %s\", (101,))\nconn.commit()",
+    "section": "Connection and cursor APIs",
+    "text": "Connection and cursor APIs\n\nConnection\nimport psycopg2\n\ndef connectDb(dbname, user, password, host, port):\n    conn = None\n    try:\n        conn = psycopg2.connect(\n            database=dbname,\n            user=user,\n            password=password,\n            host=host,\n            port=port\n        )\n        print(\"Connected\")\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()\n\n\nCursor\nOnce connected, create a cursor to execute queries:\ncur = conn.cursor()\n\n\nExecute\nExecute SQL with optional parameterized placeholders:\ncur.execute(\"INSERT INTO table VALUES (%s, %s)\", (val1, val2))\n\n\nFetch results\n\ncursor.fetchone() — returns the next row.\ncursor.fetchmany(size) — returns size rows as a list.\ncursor.fetchall() — returns all remaining rows as a list.\ncursor.rowcount — read-only attribute returning the number of rows modified, inserted, or deleted.\n\n\n\nCommit and rollback\nconn.commit()     # make changes permanent\nconn.rollback()   # undo changes since last commit",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
     ]
   },
   {
-    "objectID": "week07/7-4.html#parameterized-queries-and-sql-injection",
-    "href": "week07/7-4.html#parameterized-queries-and-sql-injection",
+    "objectID": "week07/7-4.html#examples",
+    "href": "week07/7-4.html#examples",
     "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "Parameterized queries and SQL injection",
-    "text": "Parameterized queries and SQL injection\nAlways use parameterized queries (%s placeholders) instead of string formatting. This prevents SQL injection attacks.\nBad (vulnerable to SQL injection):\ncur.execute(f\"SELECT * FROM users WHERE name = '{user_input}'\")\nGood (safe):\ncur.execute(\"SELECT * FROM users WHERE name = %s\", (user_input,))\nThe database driver handles escaping and quoting automatically.",
+    "section": "Examples",
+    "text": "Examples\n\nCREATE table\ndef createTable():\n    conn = None\n    try:\n        conn = psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                                password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n        cur = conn.cursor()\n        cur.execute('''\n            CREATE TABLE candidate (\n                email_id  VARCHAR(255) PRIMARY KEY,\n                first_name VARCHAR(100),\n                last_name  VARCHAR(100)\n            )\n        ''')\n        conn.commit()\n        print(\"Table created successfully\")\n        cur.close()\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()\n\n\nINSERT\ndef insertRecord(num, name):\n    conn = None\n    try:\n        conn = psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                                password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n        cur = conn.cursor()\n        cur.execute(\n            \"INSERT INTO candidate (num, name) VALUES (%s, %s)\",\n            (num, name)\n        )\n        conn.commit()\n        print(\"Record inserted successfully\")\n        cur.close()\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()\n\n\nDELETE\ndef deleteRecord(num):\n    conn = None\n    try:\n        conn = psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                                password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n        cur = conn.cursor()\n        cur.execute(\"DELETE FROM candidate WHERE num = %s\", (num,))\n        conn.commit()\n        print(f\"{cur.rowcount} row(s) deleted\")\n        cur.close()\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()\n\n\nUPDATE\ndef updateRecord(num, name):\n    conn = None\n    try:\n        conn = psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                                password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n        cur = conn.cursor()\n        cur.execute(\n            \"UPDATE candidate SET name = %s WHERE num = %s\",\n            (name, num)\n        )\n        conn.commit()\n        print(f\"{cur.rowcount} row(s) updated\")\n        cur.close()\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()\n\n\nSELECT\ndef selectAll():\n    conn = None\n    try:\n        conn = psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                                password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n        cur = conn.cursor()\n        cur.execute(\"SELECT * FROM candidate\")\n        rows = cur.fetchall()\n        for row in rows:\n            print(f\"{row[0]} {row[1]} {row[2]}\")\n        cur.close()\n    except Exception as e:\n        print(f\"Error: {e}\")\n    finally:\n        if conn:\n            conn.close()",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
     ]
   },
   {
-    "objectID": "week07/7-4.html#transaction-management",
-    "href": "week07/7-4.html#transaction-management",
+    "objectID": "week07/7-4.html#flask-web-framework",
+    "href": "week07/7-4.html#flask-web-framework",
     "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "Transaction management",
-    "text": "Transaction management\nBy default, psycopg2 starts a transaction for every statement. You must commit or rollback:\ntry:\n    cur.execute(\"UPDATE accounts SET balance = balance - 100 WHERE id = 1\")\n    cur.execute(\"UPDATE accounts SET balance = balance + 100 WHERE id = 2\")\n    conn.commit()\nexcept:\n    conn.rollback()\nSet autocommit mode if you want every statement to be committed immediately:\nconn.autocommit = True",
-    "crumbs": [
-      "Week 7: Application Development",
-      "7.4 Python & PostgreSQL"
-    ]
-  },
-  {
-    "objectID": "week07/7-4.html#python-frameworks-for-postgresql",
-    "href": "week07/7-4.html#python-frameworks-for-postgresql",
-    "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "Python frameworks for PostgreSQL",
-    "text": "Python frameworks for PostgreSQL\nWhile using psycopg2 directly is possible, most production applications use a web framework that integrates with the database.\n\nFlask\nFlask is a lightweight web framework for Python. It can be combined with psycopg2 or with an ORM like SQLAlchemy.\nfrom flask import Flask, request, jsonify\nimport psycopg2\n\napp = Flask(__name__)\n\ndef get_db():\n    return psycopg2.connect(\n        host=\"localhost\",\n        dbname=\"mydb\",\n        user=\"user\",\n        password=\"pass\"\n    )\n\n@app.route(\"/students/&lt;int:id&gt;\")\ndef get_student(id):\n    conn = get_db()\n    cur = conn.cursor()\n    cur.execute(\"SELECT * FROM students WHERE id = %s\", (id,))\n    student = cur.fetchone()\n    cur.close()\n    conn.close()\n    if student:\n        return jsonify({\"id\": student[0], \"name\": student[1]})\n    return jsonify({\"error\": \"Not found\"}), 404\n\n\nSQLAlchemy (ORM)\nSQLAlchemy is the most popular Python ORM. It maps Python classes to database tables and handles SQL generation automatically.\nfrom flask import Flask\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config[\"SQLALCHEMY_DATABASE_URI\"] = \"postgresql://user:pass@localhost/mydb\"\ndb = SQLAlchemy(app)\n\nclass Student(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(100))\n    gpa = db.Column(db.Float)\n\n@app.route(\"/students\")\ndef list_students():\n    students = Student.query.filter(Student.gpa &gt; 3.0).all()\n    return [{\"id\": s.id, \"name\": s.name} for s in students]\n\n\nDjango\nDjango is a full-featured web framework that includes its own ORM. It supports PostgreSQL, MySQL, SQLite, and Oracle.\n# models.py\nfrom django.db import models\n\nclass Student(models.Model):\n    name = models.CharField(max_length=100)\n    gpa = models.FloatField()\n\n# views.py\ndef student_list(request):\n    students = Student.objects.filter(gpa__gt=3.0)\n    return render(request, \"students.html\", {\"students\": students})",
-    "crumbs": [
-      "Week 7: Application Development",
-      "7.4 Python & PostgreSQL"
-    ]
-  },
-  {
-    "objectID": "week07/7-4.html#django-rest-framework",
-    "href": "week07/7-4.html#django-rest-framework",
-    "title": "7.4 Building database applications with Python and PostgreSQL",
-    "section": "Django REST Framework",
-    "text": "Django REST Framework\nFor building REST APIs, Django REST Framework (DRF) provides tools for serialization, authentication, and API views.\nfrom rest_framework import serializers, viewsets\n\nclass StudentSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Student\n        fields = [\"id\", \"name\", \"gpa\"]\n\nclass StudentViewSet(viewsets.ModelViewSet):\n    queryset = Student.objects.all()\n    serializer_class = StudentSerializer",
+    "section": "Flask web framework",
+    "text": "Flask web framework\nFlask is a lightweight WSGI micro-framework for Python. It provides a convenient way to build web applications that connect to a database.\n\nInstallation\npip install Flask\n\n\nSimple example\nfrom flask import Flask\napp = Flask(__name__)\n\n@app.route(\"/\")\ndef hello_world():\n    return \"&lt;p&gt;Hello, World!&lt;/p&gt;\"\n\nif __name__ == \"__main__\":\n    app.run(host=\"127.0.0.1\", port=5000)\n\n\nA complete application with PostgreSQL\nConsider the candidate table in PostgreSQL. The application provides: - A home page with links to add and view emails. - A form to add a new candidate. - A page to view all candidates.\nindex.html:\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;&lt;title&gt;Candidate Email&lt;/title&gt;&lt;/head&gt;\n&lt;body&gt;\n    &lt;h1&gt;Candidate Email Database&lt;/h1&gt;\n    &lt;a href=\"/add\"&gt;Add Email&lt;/a&gt;&lt;br&gt;\n    &lt;a href=\"/viewall\"&gt;View Email&lt;/a&gt;\n&lt;/body&gt;\n&lt;/html&gt;\nPython application:\nfrom flask import Flask, request, render_template\nimport psycopg2\n\napp = Flask(__name__)\n\ndef get_connection():\n    return psycopg2.connect(database=\"testdb\", user=\"postgres\",\n                            password=\"pass\", host=\"127.0.0.1\", port=\"5432\")\n\n@app.route(\"/\")\ndef index():\n    return render_template(\"index.html\")\n\n@app.route(\"/add\")\ndef add():\n    return render_template(\"add.html\")\n\n@app.route(\"/savedetails\", methods=[\"POST\"])\ndef saveDetails():\n    conn = get_connection()\n    cur = conn.cursor()\n    email = request.form[\"email\"]\n    first_name = request.form[\"first_name\"]\n    last_name = request.form[\"last_name\"]\n    cur.execute(\n        \"INSERT INTO candidate (email_id, first_name, last_name) VALUES (%s, %s, %s)\",\n        (email, first_name, last_name)\n    )\n    conn.commit()\n    cur.close()\n    conn.close()\n    return \"Record saved successfully\"\n\n@app.route(\"/viewall\")\ndef viewAll():\n    conn = get_connection()\n    cur = conn.cursor()\n    cur.execute(\"SELECT * FROM candidate\")\n    results = cur.fetchall()\n    cur.close()\n    conn.close()\n    return render_template(\"viewall.html\", rows=results)\n\nif __name__ == \"__main__\":\n    app.run(host=\"127.0.0.1\", port=5000, debug=True)\nadd.html:\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;body&gt;\n    &lt;h1&gt;Add Email Information&lt;/h1&gt;\n    &lt;form action=\"/savedetails\" method=\"post\"&gt;\n        &lt;table&gt;\n            &lt;tr&gt;&lt;td&gt;Email ID:&lt;/td&gt;&lt;td&gt;&lt;input type=\"text\" name=\"email\"&gt;&lt;/td&gt;&lt;/tr&gt;\n            &lt;tr&gt;&lt;td&gt;First Name:&lt;/td&gt;&lt;td&gt;&lt;input type=\"text\" name=\"first_name\"&gt;&lt;/td&gt;&lt;/tr&gt;\n            &lt;tr&gt;&lt;td&gt;Last Name:&lt;/td&gt;&lt;td&gt;&lt;input type=\"text\" name=\"last_name\"&gt;&lt;/td&gt;&lt;/tr&gt;\n            &lt;tr&gt;&lt;td colspan=\"2\"&gt;&lt;input type=\"submit\" value=\"Submit\"&gt;&lt;/td&gt;&lt;/tr&gt;\n        &lt;/table&gt;\n    &lt;/form&gt;\n&lt;/body&gt;\n&lt;/html&gt;\nviewall.html:\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;body&gt;\n    &lt;h1&gt;Email List&lt;/h1&gt;\n    &lt;table border=\"1\"&gt;\n        &lt;tr&gt;&lt;th&gt;Email ID&lt;/th&gt;&lt;th&gt;First Name&lt;/th&gt;&lt;th&gt;Last Name&lt;/th&gt;&lt;/tr&gt;\n        {% for row in rows %}\n        &lt;tr&gt;\n            &lt;td&gt;{{ row[0] }}&lt;/td&gt;\n            &lt;td&gt;{{ row[1] }}&lt;/td&gt;\n            &lt;td&gt;{{ row[2] }}&lt;/td&gt;\n        &lt;/tr&gt;\n        {% endfor %}\n    &lt;/table&gt;\n    &lt;br&gt;&lt;a href=\"/\"&gt;Go Home&lt;/a&gt;\n&lt;/body&gt;\n&lt;/html&gt;",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
@@ -818,7 +796,7 @@
     "href": "week07/7-4.html#summary",
     "title": "7.4 Building database applications with Python and PostgreSQL",
     "section": "Summary",
-    "text": "Summary\n\n\n\nTechnique\nPython library\nUse case\n\n\n\n\nDirect SQL\npsycopg2\nSimple apps, full SQL control\n\n\nORM\nSQLAlchemy\nComplex apps, automatic mapping\n\n\nWeb framework\nFlask + psycopg2\nLightweight apps\n\n\nFull framework\nDjango + ORM\nLarge applications with admin UI\n\n\nREST API\nDjango REST Framework\nAPI-first applications\n\n\n\nUse direct psycopg2 for simple applications where full SQL control is needed. Use an ORM for complex applications to reduce boilerplate. Use a framework like Flask or Django to structure the web application layer.",
+    "text": "Summary\n\npsycopg2 is the standard Python module for accessing PostgreSQL.\nThe workflow is: connect → cursor → execute → commit/rollback → close.\nFlask is a lightweight framework for building web applications with database connectivity.\nFlask handles routing, templates, and HTTP methods, so you can focus on the application logic and database access.",
     "crumbs": [
       "Week 7: Application Development",
       "7.4 Python & PostgreSQL"
@@ -1346,7 +1324,7 @@
     "href": "week07/7-5.html",
     "title": "7.5 Rapid application development, performance, and security",
     "section": "",
-    "text": "Building a production-grade database application from scratch takes time. Rapid application development uses frameworks and tools to speed up the process.\n\n\n\nUse of frameworks. Leverage existing frameworks (Django, Ruby on Rails, Spring) that provide built-in database integration, authentication, and templating.\nCode generation. Use tools that generate boilerplate code for common operations (CRUD, authentication, forms).\nReusable components. Build and reuse modular components across projects.\nIterative development. Build prototypes quickly, get feedback, and iterate.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFramework\nLanguage\nDatabase support\nKey feature\n\n\n\n\nDjango\nPython\nPostgreSQL, MySQL, SQLite, Oracle\nAdmin interface, ORM, batteries included\n\n\nRuby on Rails\nRuby\nPostgreSQL, MySQL, SQLite\nConvention over configuration, scaffolding\n\n\nSpring Boot\nJava\nAll major databases\nEnterprise-grade, microservices\n\n\nLaravel\nPHP\nPostgreSQL, MySQL, SQLite\nEloquent ORM, Artisan CLI\n\n\nExpress + Sequelize\nJavaScript\nPostgreSQL, MySQL, SQLite\nNode.js, lightweight, async",
+    "text": "Building a production-grade database application from scratch takes time. Rapid application development uses frameworks and tools to speed up the process.\n\n\n\nUse of frameworks. Leverage existing frameworks (Django, Ruby on Rails, Spring) that provide built-in database integration, authentication, and templating.\nCode generation. Use tools that generate boilerplate code for common operations (CRUD, authentication, forms).\nReusable components. Build and reuse modular components across projects.\nIterative development. Build prototypes quickly, get feedback, and iterate.\n\n\n\n\nPython offers several frameworks for rapid web application development: - Flask. Lightweight, minimal, good for small to medium applications. - Django. Full-featured, includes ORM, admin interface, and authentication. - Pyramid. Flexible, scales from small to large applications.",
     "crumbs": [
       "Week 7: Application Development",
       "7.5 RAD, Performance & Security"
@@ -1357,7 +1335,7 @@
     "href": "week07/7-5.html#rapid-application-development-rad",
     "title": "7.5 Rapid application development, performance, and security",
     "section": "",
-    "text": "Building a production-grade database application from scratch takes time. Rapid application development uses frameworks and tools to speed up the process.\n\n\n\nUse of frameworks. Leverage existing frameworks (Django, Ruby on Rails, Spring) that provide built-in database integration, authentication, and templating.\nCode generation. Use tools that generate boilerplate code for common operations (CRUD, authentication, forms).\nReusable components. Build and reuse modular components across projects.\nIterative development. Build prototypes quickly, get feedback, and iterate.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFramework\nLanguage\nDatabase support\nKey feature\n\n\n\n\nDjango\nPython\nPostgreSQL, MySQL, SQLite, Oracle\nAdmin interface, ORM, batteries included\n\n\nRuby on Rails\nRuby\nPostgreSQL, MySQL, SQLite\nConvention over configuration, scaffolding\n\n\nSpring Boot\nJava\nAll major databases\nEnterprise-grade, microservices\n\n\nLaravel\nPHP\nPostgreSQL, MySQL, SQLite\nEloquent ORM, Artisan CLI\n\n\nExpress + Sequelize\nJavaScript\nPostgreSQL, MySQL, SQLite\nNode.js, lightweight, async",
+    "text": "Building a production-grade database application from scratch takes time. Rapid application development uses frameworks and tools to speed up the process.\n\n\n\nUse of frameworks. Leverage existing frameworks (Django, Ruby on Rails, Spring) that provide built-in database integration, authentication, and templating.\nCode generation. Use tools that generate boilerplate code for common operations (CRUD, authentication, forms).\nReusable components. Build and reuse modular components across projects.\nIterative development. Build prototypes quickly, get feedback, and iterate.\n\n\n\n\nPython offers several frameworks for rapid web application development: - Flask. Lightweight, minimal, good for small to medium applications. - Django. Full-featured, includes ORM, admin interface, and authentication. - Pyramid. Flexible, scales from small to large applications.",
     "crumbs": [
       "Week 7: Application Development",
       "7.5 RAD, Performance & Security"
