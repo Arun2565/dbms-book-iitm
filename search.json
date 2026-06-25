@@ -1179,53 +1179,75 @@
   {
     "objectID": "week08/8-2.html",
     "href": "week08/8-2.html",
-    "title": "8.2 Linear data structures",
+    "title": "8.2 File organization",
     "section": "",
-    "text": "An array stores elements in contiguous memory locations. Each element is accessed by its index in O(1) time. Insertion and deletion at arbitrary positions take O(n) time because elements must be shifted.\n\n\n\nArray structure",
+    "text": "In a file of fixed-length records, each record occupies the same number of bytes. Records are stored sequentially in blocks. Accessing the nth record is straightforward — its offset is n × record_size.\nFixed-length records are simple and fast for sequential access, but wasteful when some fields are optional or vary in length.",
     "crumbs": [
       "Week 8: Storage, Indexing & Query Processing",
       "8.2 File Organization"
     ]
   },
   {
-    "objectID": "week08/8-2.html#arrays",
-    "href": "week08/8-2.html#arrays",
-    "title": "8.2 Linear data structures",
+    "objectID": "week08/8-2.html#fixed-length-records",
+    "href": "week08/8-2.html#fixed-length-records",
+    "title": "8.2 File organization",
     "section": "",
-    "text": "An array stores elements in contiguous memory locations. Each element is accessed by its index in O(1) time. Insertion and deletion at arbitrary positions take O(n) time because elements must be shifted.\n\n\n\nArray structure",
+    "text": "In a file of fixed-length records, each record occupies the same number of bytes. Records are stored sequentially in blocks. Accessing the nth record is straightforward — its offset is n × record_size.\nFixed-length records are simple and fast for sequential access, but wasteful when some fields are optional or vary in length.",
     "crumbs": [
       "Week 8: Storage, Indexing & Query Processing",
       "8.2 File Organization"
     ]
   },
   {
-    "objectID": "week08/8-2.html#linked-lists",
-    "href": "week08/8-2.html#linked-lists",
-    "title": "8.2 Linear data structures",
-    "section": "Linked lists",
-    "text": "Linked lists\nA linked list stores elements in nodes, where each node points to the next. Unlike arrays, linked lists allow O(1) insertion and deletion at known positions, but accessing an element by index takes O(n).\nTypes: - Singly linked. Each node points to the next. - Doubly linked. Each node points to both next and previous. - Circular. The last node points back to the first.",
+    "objectID": "week08/8-2.html#variable-length-records",
+    "href": "week08/8-2.html#variable-length-records",
+    "title": "8.2 File organization",
+    "section": "Variable-length records",
+    "text": "Variable-length records\nVariable-length records store fields of varying size. Each record includes a header with offsets or lengths for each field, allowing the system to locate field boundaries.\nCommon approaches: - Pointer-based. Each field is preceded by a length indicator or followed by a delimiter. - Directory-based. A fixed-size header contains pointers to each field, allowing efficient random access to fields.",
     "crumbs": [
       "Week 8: Storage, Indexing & Query Processing",
       "8.2 File Organization"
     ]
   },
   {
-    "objectID": "week08/8-2.html#linear-search",
-    "href": "week08/8-2.html#linear-search",
-    "title": "8.2 Linear data structures",
-    "section": "Linear search",
-    "text": "Linear search\nLinear search scans each element one by one until the target is found or the list ends. Worst-case time is O(n). It works on unsorted data.",
+    "objectID": "week08/8-2.html#free-lists",
+    "href": "week08/8-2.html#free-lists",
+    "title": "8.2 File organization",
+    "section": "Free lists",
+    "text": "Free lists\nWhen records are deleted, the space they occupied becomes available for reuse. A linked list of free blocks is maintained. When a new record is inserted, the system checks the free list first before allocating a new block.\n\n\n\nFree list structure",
     "crumbs": [
       "Week 8: Storage, Indexing & Query Processing",
       "8.2 File Organization"
     ]
   },
   {
-    "objectID": "week08/8-2.html#binary-search",
-    "href": "week08/8-2.html#binary-search",
-    "title": "8.2 Linear data structures",
-    "section": "Binary search",
-    "text": "Binary search\nBinary search works on sorted arrays. It repeatedly divides the search space in half by comparing the target with the middle element. Worst-case time is O(log n).\n\n\n\nLinear vs binary search",
+    "objectID": "week08/8-2.html#slotted-page-structure",
+    "href": "week08/8-2.html#slotted-page-structure",
+    "title": "8.2 File organization",
+    "section": "Slotted page structure",
+    "text": "Slotted page structure\nA slotted page divides each block into variable-length slots. The page header stores the number of slots and a pointer to the free space. New records are appended to the free area, and the slot array grows toward it.\nThis structure is used in many database systems to manage variable-length records efficiently.\n\n\n\nSlotted page structure",
+    "crumbs": [
+      "Week 8: Storage, Indexing & Query Processing",
+      "8.2 File Organization"
+    ]
+  },
+  {
+    "objectID": "week08/8-2.html#sequential-file-organization",
+    "href": "week08/8-2.html#sequential-file-organization",
+    "title": "8.2 File organization",
+    "section": "Sequential file organization",
+    "text": "Sequential file organization\nIn sequential file organization, records are stored in a key-sorted order. New records must be inserted in the correct position, which may require shifting existing records or using overflow blocks.\nSequential files are efficient for range queries but expensive for insertions and deletions.",
+    "crumbs": [
+      "Week 8: Storage, Indexing & Query Processing",
+      "8.2 File Organization"
+    ]
+  },
+  {
+    "objectID": "week08/8-2.html#heap-file-organization",
+    "href": "week08/8-2.html#heap-file-organization",
+    "title": "8.2 File organization",
+    "section": "Heap file organization",
+    "text": "Heap file organization\nIn a heap file, records are stored without any particular order. When a new record is inserted, it is placed at the end of the file or in a free slot from the free list.\nHeap files support fast insertions but slow search (requires a full scan).",
     "crumbs": [
       "Week 8: Storage, Indexing & Query Processing",
       "8.2 File Organization"

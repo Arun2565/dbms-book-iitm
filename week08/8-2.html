@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8.2 Linear data structures – DBMS Notes - IITM</title>
+<title>8.2 File organization – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -726,10 +726,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#arrays" id="toc-arrays" class="nav-link active" data-scroll-target="#arrays">Arrays</a></li>
-  <li><a href="#linked-lists" id="toc-linked-lists" class="nav-link" data-scroll-target="#linked-lists">Linked lists</a></li>
-  <li><a href="#linear-search" id="toc-linear-search" class="nav-link" data-scroll-target="#linear-search">Linear search</a></li>
-  <li><a href="#binary-search" id="toc-binary-search" class="nav-link" data-scroll-target="#binary-search">Binary search</a></li>
+  <li><a href="#fixed-length-records" id="toc-fixed-length-records" class="nav-link active" data-scroll-target="#fixed-length-records">Fixed-length records</a></li>
+  <li><a href="#variable-length-records" id="toc-variable-length-records" class="nav-link" data-scroll-target="#variable-length-records">Variable-length records</a></li>
+  <li><a href="#free-lists" id="toc-free-lists" class="nav-link" data-scroll-target="#free-lists">Free lists</a></li>
+  <li><a href="#slotted-page-structure" id="toc-slotted-page-structure" class="nav-link" data-scroll-target="#slotted-page-structure">Slotted page structure</a></li>
+  <li><a href="#sequential-file-organization" id="toc-sequential-file-organization" class="nav-link" data-scroll-target="#sequential-file-organization">Sequential file organization</a></li>
+  <li><a href="#heap-file-organization" id="toc-heap-file-organization" class="nav-link" data-scroll-target="#heap-file-organization">Heap file organization</a></li>
   </ul>
 </nav>
     </div>
@@ -739,7 +741,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week08/8-1.html">Week 8: Storage, Indexing &amp; Query Processing</a></li><li class="breadcrumb-item"><a href="../week08/8-2.html">8.2 File Organization</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">8.2 Linear data structures</h1>
+<h1 class="title">8.2 File organization</h1>
 </div>
 
 
@@ -756,34 +758,46 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="arrays" class="level2">
-<h2 class="anchored" data-anchor-id="arrays">Arrays</h2>
-<p>An array stores elements in contiguous memory locations. Each element is accessed by its index in O(1) time. Insertion and deletion at arbitrary positions take O(n) time because elements must be shifted.</p>
+<section id="fixed-length-records" class="level2">
+<h2 class="anchored" data-anchor-id="fixed-length-records">Fixed-length records</h2>
+<p>In a file of fixed-length records, each record occupies the same number of bytes. Records are stored sequentially in blocks. Accessing the nth record is straightforward — its offset is n × record_size.</p>
+<p>Fixed-length records are simple and fast for sequential access, but wasteful when some fields are optional or vary in length.</p>
+</section>
+<section id="variable-length-records" class="level2">
+<h2 class="anchored" data-anchor-id="variable-length-records">Variable-length records</h2>
+<p>Variable-length records store fields of varying size. Each record includes a header with offsets or lengths for each field, allowing the system to locate field boundaries.</p>
+<p>Common approaches: - <strong>Pointer-based.</strong> Each field is preceded by a length indicator or followed by a delimiter. - <strong>Directory-based.</strong> A fixed-size header contains pointers to each field, allowing efficient random access to fields.</p>
+</section>
+<section id="free-lists" class="level2">
+<h2 class="anchored" data-anchor-id="free-lists">Free lists</h2>
+<p>When records are deleted, the space they occupied becomes available for reuse. A linked list of free blocks is maintained. When a new record is inserted, the system checks the free list first before allocating a new block.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L8.2_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Array structure</figcaption>
+<p><img src="images/L8.2_p8.png" class="img-fluid figure-img"></p>
+<figcaption>Free list structure</figcaption>
 </figure>
 </div>
 </section>
-<section id="linked-lists" class="level2">
-<h2 class="anchored" data-anchor-id="linked-lists">Linked lists</h2>
-<p>A linked list stores elements in nodes, where each node points to the next. Unlike arrays, linked lists allow O(1) insertion and deletion at known positions, but accessing an element by index takes O(n).</p>
-<p>Types: - <strong>Singly linked.</strong> Each node points to the next. - <strong>Doubly linked.</strong> Each node points to both next and previous. - <strong>Circular.</strong> The last node points back to the first.</p>
-</section>
-<section id="linear-search" class="level2">
-<h2 class="anchored" data-anchor-id="linear-search">Linear search</h2>
-<p>Linear search scans each element one by one until the target is found or the list ends. Worst-case time is O(n). It works on unsorted data.</p>
-</section>
-<section id="binary-search" class="level2">
-<h2 class="anchored" data-anchor-id="binary-search">Binary search</h2>
-<p>Binary search works on sorted arrays. It repeatedly divides the search space in half by comparing the target with the middle element. Worst-case time is O(log n).</p>
+<section id="slotted-page-structure" class="level2">
+<h2 class="anchored" data-anchor-id="slotted-page-structure">Slotted page structure</h2>
+<p>A slotted page divides each block into variable-length slots. The page header stores the number of slots and a pointer to the free space. New records are appended to the free area, and the slot array grows toward it.</p>
+<p>This structure is used in many database systems to manage variable-length records efficiently.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L8.2_p14.png" class="img-fluid figure-img"></p>
-<figcaption>Linear vs binary search</figcaption>
+<figcaption>Slotted page structure</figcaption>
 </figure>
 </div>
+</section>
+<section id="sequential-file-organization" class="level2">
+<h2 class="anchored" data-anchor-id="sequential-file-organization">Sequential file organization</h2>
+<p>In sequential file organization, records are stored in a key-sorted order. New records must be inserted in the correct position, which may require shifting existing records or using overflow blocks.</p>
+<p>Sequential files are efficient for range queries but expensive for insertions and deletions.</p>
+</section>
+<section id="heap-file-organization" class="level2">
+<h2 class="anchored" data-anchor-id="heap-file-organization">Heap file organization</h2>
+<p>In a heap file, records are stored without any particular order. When a new record is inserted, it is placed at the end of the file or in a free slot from the free list.</p>
+<p>Heap files support fast insertions but slow search (requires a full scan).</p>
 
 
 </section>
