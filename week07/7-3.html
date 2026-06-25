@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6.5 Database design process and temporal data – DBMS Notes - IITM</title>
+<title>7.3 SQL and native language database connectivity – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -249,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-3.html">7.3 SQL &amp; Native Language</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -464,7 +499,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
   </div>
 </li>
@@ -493,7 +528,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week07/7-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../week07/7-3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7.3 SQL &amp; Native Language</span></a>
   </div>
 </li>
@@ -521,28 +556,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary-of-the-design-journey" id="toc-summary-of-the-design-journey" class="nav-link active" data-scroll-target="#summary-of-the-design-journey">Summary of the design journey</a></li>
-  <li><a href="#the-complete-design-process" id="toc-the-complete-design-process" class="nav-link" data-scroll-target="#the-complete-design-process">The complete design process</a>
-  <ul class="collapse">
-  <li><a href="#starting-points-for-design" id="toc-starting-points-for-design" class="nav-link" data-scroll-target="#starting-points-for-design">Starting points for design</a></li>
-  </ul></li>
-  <li><a href="#sql-and-functional-dependencies" id="toc-sql-and-functional-dependencies" class="nav-link" data-scroll-target="#sql-and-functional-dependencies">SQL and functional dependencies</a></li>
-  <li><a href="#denormalization" id="toc-denormalization" class="nav-link" data-scroll-target="#denormalization">Denormalization</a></li>
-  <li><a href="#bad-design-practices" id="toc-bad-design-practices" class="nav-link" data-scroll-target="#bad-design-practices">Bad design practices</a>
-  <ul class="collapse">
-  <li><a href="#year-wise-tables" id="toc-year-wise-tables" class="nav-link" data-scroll-target="#year-wise-tables">Year-wise tables</a></li>
-  <li><a href="#cross-tab-schemas" id="toc-cross-tab-schemas" class="nav-link" data-scroll-target="#cross-tab-schemas">Cross-tab schemas</a></li>
-  <li><a href="#ignoring-generalization" id="toc-ignoring-generalization" class="nav-link" data-scroll-target="#ignoring-generalization">Ignoring generalization</a></li>
-  </ul></li>
-  <li><a href="#extending-the-lis-design-with-mvds" id="toc-extending-the-lis-design-with-mvds" class="nav-link" data-scroll-target="#extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</a></li>
-  <li><a href="#temporal-data" id="toc-temporal-data" class="nav-link" data-scroll-target="#temporal-data">Temporal data</a>
-  <ul class="collapse">
-  <li><a href="#types-of-time" id="toc-types-of-time" class="nav-link" data-scroll-target="#types-of-time">Types of time</a></li>
-  <li><a href="#temporal-relation-types" id="toc-temporal-relation-types" class="nav-link" data-scroll-target="#temporal-relation-types">Temporal relation types</a></li>
-  <li><a href="#challenges-with-temporal-data" id="toc-challenges-with-temporal-data" class="nav-link" data-scroll-target="#challenges-with-temporal-data">Challenges with temporal data</a></li>
-  <li><a href="#practical-approach" id="toc-practical-approach" class="nav-link" data-scroll-target="#practical-approach">Practical approach</a></li>
-  </ul></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#the-paradigm-mismatch" id="toc-the-paradigm-mismatch" class="nav-link active" data-scroll-target="#the-paradigm-mismatch">The paradigm mismatch</a></li>
+  <li><a href="#odbc-open-database-connectivity" id="toc-odbc-open-database-connectivity" class="nav-link" data-scroll-target="#odbc-open-database-connectivity">ODBC (Open Database Connectivity)</a></li>
+  <li><a href="#jdbc-java-database-connectivity" id="toc-jdbc-java-database-connectivity" class="nav-link" data-scroll-target="#jdbc-java-database-connectivity">JDBC (Java Database Connectivity)</a></li>
+  <li><a href="#python-db-api" id="toc-python-db-api" class="nav-link" data-scroll-target="#python-db-api">Python DB-API</a></li>
+  <li><a href="#bridge-direct-database-access-vs.-orm" id="toc-bridge-direct-database-access-vs.-orm" class="nav-link" data-scroll-target="#bridge-direct-database-access-vs.-orm">Bridge: Direct database access vs.&nbsp;ORM</a></li>
+  <li><a href="#embedded-sql" id="toc-embedded-sql" class="nav-link" data-scroll-target="#embedded-sql">Embedded SQL</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -550,9 +570,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-3.html">7.3 SQL &amp; Native Language</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">6.5 Database design process and temporal data</h1>
+<h1 class="title">7.3 SQL and native language database connectivity</h1>
 </div>
 
 
@@ -569,155 +589,220 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary-of-the-design-journey" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-the-design-journey">Summary of the design journey</h2>
-<p>We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.</p>
-<p>The design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Design goals summary</figcaption>
-</figure>
-</div>
-</section>
-<section id="the-complete-design-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-complete-design-process">The complete design process</h2>
-<p>The database design process has these stages:</p>
+<section id="the-paradigm-mismatch" class="level2">
+<h2 class="anchored" data-anchor-id="the-paradigm-mismatch">The paradigm mismatch</h2>
+<p>Applications are written in general-purpose programming languages (Java, Python, C++), while databases use SQL. These are two different paradigms: object-oriented or procedural languages on one side, and the relational model with SQL on the other.</p>
+<p>To build a database-backed application, we need a bridge between the two. There are several approaches:</p>
 <ol type="1">
-<li><p><strong>Requirements analysis.</strong> Understand what the users need. This comes from a specification document, interviews, or existing systems.</p></li>
-<li><p><strong>Conceptual design.</strong> Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.</p></li>
-<li><p><strong>Logical design.</strong> Transform the ER model into a set of relational schemas. This is the initial set of tables.</p></li>
-<li><p><strong>Normalization.</strong> Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.</p></li>
-<li><p><strong>Query-driven refinement.</strong> Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.</p></li>
-<li><p><strong>Physical design.</strong> Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.</p></li>
+<li><strong>Database API libraries</strong> — ODBC, JDBC, Python DB-API</li>
+<li><strong>Embedded SQL</strong> — SQL statements embedded directly in a host language</li>
+<li><strong>ORM (Object-Relational Mapping)</strong> — automatic mapping of objects to tables</li>
 </ol>
+</section>
+<section id="odbc-open-database-connectivity" class="level2">
+<h2 class="anchored" data-anchor-id="odbc-open-database-connectivity">ODBC (Open Database Connectivity)</h2>
+<p>ODBC is a standard API for accessing databases, developed by Microsoft in the early 1990s. It provides a uniform interface to different database systems.</p>
+<p><strong>Architecture:</strong> - <strong>Application.</strong> The program that needs database access. - <strong>ODBC Driver Manager.</strong> Manages communication between the application and drivers. - <strong>ODBC Driver.</strong> A DLL specific to each database (e.g., Oracle driver, MySQL driver, PostgreSQL driver). - <strong>Data Source.</strong> The actual database and its configuration.</p>
+<p>The application uses the same ODBC calls regardless of the underlying database. The driver manager routes the calls to the appropriate driver.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p7.png" class="img-fluid figure-img"></p>
-<figcaption>Overall design process</figcaption>
+<p><img src="images/L7.3_p7.png" class="img-fluid figure-img"></p>
+<figcaption>ODBC architecture</figcaption>
 </figure>
 </div>
-<section id="starting-points-for-design" class="level3">
-<h3 class="anchored" data-anchor-id="starting-points-for-design">Starting points for design</h3>
-<p>The starting point for normalization can come from different sources:</p>
-<ul>
-<li><strong>ER-to-relational mapping.</strong> Like the Library Information System case study. The ER model produces an initial set of tables.</li>
-<li><strong>Universal relation.</strong> A single large relation containing all attributes. Normalization breaks it into smaller relations.</li>
-<li><strong>Adhoc design.</strong> Tables created without formal methodology. These need to be checked and normalized.</li>
-</ul>
+<p><strong>ODBC workflow:</strong> 1. Allocate an environment handle. 2. Allocate a connection handle and connect to the data source. 3. Allocate a statement handle. 4. Execute SQL statements. 5. Fetch results. 6. Free handles and disconnect.</p>
+</section>
+<section id="jdbc-java-database-connectivity" class="level2">
+<h2 class="anchored" data-anchor-id="jdbc-java-database-connectivity">JDBC (Java Database Connectivity)</h2>
+<p>JDBC is the Java equivalent of ODBC. It provides a standard API for Java programs to access databases.</p>
+<p><strong>JDBC drivers come in four types:</strong> 1. <strong>JDBC-ODBC bridge.</strong> Translates JDBC calls to ODBC calls. Useful for databases that only have ODBC drivers, but has performance overhead. 2. <strong>Native-API driver.</strong> Converts JDBC calls to the database’s native API (e.g., Oracle OCI). Requires client-side libraries. 3. <strong>Network protocol driver.</strong> Uses a middleware server that converts JDBC calls to the database protocol. No client libraries needed. 4. <strong>Thin driver.</strong> Converts JDBC calls directly to the database’s wire protocol. Pure Java, no client libraries needed.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p9.png" class="img-fluid figure-img"></p>
-<figcaption>Starting points for design</figcaption>
+<p><img src="images/L7.3_p10.png" class="img-fluid figure-img"></p>
+<figcaption>JDBC driver types</figcaption>
 </figure>
 </div>
-</section>
-</section>
-<section id="sql-and-functional-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="sql-and-functional-dependencies">SQL and functional dependencies</h2>
-<p>SQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.</p>
-<p>This means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.</p>
-</section>
-<section id="denormalization" class="level2">
-<h2 class="anchored" data-anchor-id="denormalization">Denormalization</h2>
-<p>Normalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.</p>
-<p>Consider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.</p>
+<p><strong>JDBC workflow:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Load driver</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Class</span><span class="op">.</span><span class="fu">forName</span><span class="op">(</span><span class="st">"org.postgresql.Driver"</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Connect</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> conn <span class="op">=</span> <span class="bu">DriverManager</span><span class="op">.</span><span class="fu">getConnection</span><span class="op">(</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"jdbc:postgresql://localhost/db"</span><span class="op">,</span> <span class="st">"user"</span><span class="op">,</span> <span class="st">"pass"</span><span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Create statement</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Statement</span> stmt <span class="op">=</span> conn<span class="op">.</span><span class="fu">createStatement</span><span class="op">();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. Execute query</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">ResultSet</span> rs <span class="op">=</span> stmt<span class="op">.</span><span class="fu">executeQuery</span><span class="op">(</span><span class="st">"SELECT * FROM students"</span><span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">// 5. Process results</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>rs<span class="op">.</span><span class="fu">next</span><span class="op">())</span> <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>rs<span class="op">.</span><span class="fu">getString</span><span class="op">(</span><span class="st">"name"</span><span class="op">));</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">// 6. Clean up</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>rs<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>stmt<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>conn<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p12.png" class="img-fluid figure-img"></p>
-<figcaption>Denormalization trade off</figcaption>
+<p><img src="images/L7.3_p12.png" class="img-fluid figure-img"></p>
+<figcaption>JDBC connection example</figcaption>
 </figure>
 </div>
-<p>Denormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.</p>
-<p>Alternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.</p>
+<p><strong>Prepared statements</strong> are a better alternative to Statement. They precompile the SQL, prevent SQL injection, and handle parameter substitution:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">PreparedStatement</span> pstmt <span class="op">=</span> conn<span class="op">.</span><span class="fu">prepareStatement</span><span class="op">(</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INSERT INTO students (id, name) VALUES (?, ?)"</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pstmt<span class="op">.</span><span class="fu">setInt</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">101</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pstmt<span class="op">.</span><span class="fu">setString</span><span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"Alice"</span><span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pstmt<span class="op">.</span><span class="fu">executeUpdate</span><span class="op">();</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="bad-design-practices" class="level2">
-<h2 class="anchored" data-anchor-id="bad-design-practices">Bad design practices</h2>
-<p>There are several design practices to avoid.</p>
-<section id="year-wise-tables" class="level3">
-<h3 class="anchored" data-anchor-id="year-wise-tables">Year-wise tables</h3>
-<p>Some designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)</p>
-<p>This makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)</p>
+<section id="python-db-api" class="level2">
+<h2 class="anchored" data-anchor-id="python-db-api">Python DB-API</h2>
+<p>Python has its own database API specification, PEP 249 (DB-API 2.0). It defines a standard interface that all Python database drivers follow.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> psycopg2</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> psycopg2.<span class="ex">connect</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    host<span class="op">=</span><span class="st">"localhost"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    database<span class="op">=</span><span class="st">"mydb"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">"user"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span><span class="st">"pass"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create cursor</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute query</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SELECT * FROM students"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> cur.fetchall()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(row)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute with parameters (SQL injection safe)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>cur.execute(</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INSERT INTO students (id, name) VALUES (</span><span class="sc">%s</span><span class="st">, </span><span class="sc">%s</span><span class="st">)"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">101</span>, <span class="st">"Alice"</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>conn.commit()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>cur.close()</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The DB-API workflow mirrors ODBC/JDBC: 1. Connect to the database. 2. Create a cursor. 3. Execute SQL through the cursor. 4. Fetch results. 5. Commit or rollback transactions. 6. Close cursor and connection.</p>
 </section>
-<section id="cross-tab-schemas" class="level3">
-<h3 class="anchored" data-anchor-id="cross-tab-schemas">Cross-tab schemas</h3>
-<p>Some designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.</p>
+<section id="bridge-direct-database-access-vs.-orm" class="level2">
+<h2 class="anchored" data-anchor-id="bridge-direct-database-access-vs.-orm">Bridge: Direct database access vs.&nbsp;ORM</h2>
+<p>Database API libraries give direct access to SQL. An alternative is <strong>Object-Relational Mapping (ORM)</strong>, which maps database tables to programming language objects automatically.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th>Direct API (JDBC/ODBC)</th>
+<th>ORM (Hibernate, SQLAlchemy)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control</td>
+<td>Full control over SQL</td>
+<td>Abstraction over SQL</td>
+</tr>
+<tr class="even">
+<td>Performance</td>
+<td>Optimized queries</td>
+<td>May generate inefficient queries</td>
+</tr>
+<tr class="odd">
+<td>Complexity</td>
+<td>More boilerplate code</td>
+<td>Less code, but complex setup</td>
+</tr>
+<tr class="even">
+<td>Learning curve</td>
+<td>Need SQL knowledge</td>
+<td>Need to learn ORM framework</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="ignoring-generalization" class="level3">
-<h3 class="anchored" data-anchor-id="ignoring-generalization">Ignoring generalization</h3>
-<p>In the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.</p>
+<section id="embedded-sql" class="level2">
+<h2 class="anchored" data-anchor-id="embedded-sql">Embedded SQL</h2>
+<p>Embedded SQL allows writing SQL statements directly inside a host language program (C, C++, Java). A preprocessor (precompiler) converts embedded SQL into function calls to the database API.</p>
+<p><strong>Example in C:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>EXEC SQL INCLUDE SQLCA<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>EXEC SQL BEGIN DECLARE SECTION<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> emp_id<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> emp_name<span class="op">[</span><span class="dv">50</span><span class="op">];</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> salary<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>EXEC SQL END DECLARE SECTION<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>EXEC SQL CONNECT TO <span class="ch">'m</span><span class="er">ydb</span><span class="ch">'</span> USER <span class="ch">'u</span><span class="er">ser</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>EXEC SQL DECLARE emp_cursor CURSOR FOR</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    SELECT id<span class="op">,</span> name<span class="op">,</span> salary FROM employees<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>EXEC SQL OPEN emp_cursor<span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    EXEC SQL FETCH emp_cursor INTO <span class="op">:</span>emp_id<span class="op">,</span> <span class="op">:</span>emp_name<span class="op">,</span> <span class="op">:</span>salary<span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>SQLCODE <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> emp_id<span class="op">,</span> emp_name<span class="op">,</span> salary<span class="op">);</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>EXEC SQL CLOSE emp_cursor<span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>EXEC SQL DISCONNECT<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Advantages of embedded SQL:</strong> - SQL is explicit and visible in the code. - The precompiler can perform type checking and optimization. - Good performance for simple queries.</p>
+<p><strong>Disadvantages:</strong> - Mixes two languages in one file. - Requires a precompilation step. - Not portable across different databases.</p>
+<p>Embedded SQL is less common today. Most modern applications use JDBC/ODBC directly or use an ORM framework.</p>
 </section>
-</section>
-<section id="extending-the-lis-design-with-mvds" class="level2">
-<h2 class="anchored" data-anchor-id="extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</h2>
-<p>The LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.</p>
-<p>The Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year</p>
-<p>If we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p15.png" class="img-fluid figure-img"></p>
-<figcaption>LIS extension with MVDs</figcaption>
-</figure>
-</div>
-<p>The 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)</p>
-<p>Each of these is in 4NF. The design now supports multiple authors and multiple editions.</p>
-</section>
-<section id="temporal-data" class="level2">
-<h2 class="anchored" data-anchor-id="temporal-data">Temporal data</h2>
-<p>All the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p19.png" class="img-fluid figure-img"></p>
-<figcaption>Temporal data introduction</figcaption>
-</figure>
-</div>
-<section id="types-of-time" class="level3">
-<h3 class="anchored" data-anchor-id="types-of-time">Types of time</h3>
-<p>There are two important time dimensions:</p>
-<p><strong>Valid time.</strong> The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.</p>
-<p><strong>Transaction time.</strong> The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).</p>
-</section>
-<section id="temporal-relation-types" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-relation-types">Temporal relation types</h3>
-<p><strong>Uni-temporal relation.</strong> Stores either valid time or transaction time, but not both.</p>
-<p><strong>Bi-temporal relation.</strong> Stores both valid time and transaction time. This is the most powerful approach.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p23.png" class="img-fluid figure-img"></p>
-<figcaption>Bi-temporal relation example</figcaption>
-</figure>
-</div>
-</section>
-<section id="challenges-with-temporal-data" class="level3">
-<h3 class="anchored" data-anchor-id="challenges-with-temporal-data">Challenges with temporal data</h3>
-<ul>
-<li><p><strong>Modeling time.</strong> Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.</p></li>
-<li><p><strong>Temporal ER models.</strong> Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.</p></li>
-<li><p><strong>Temporal functional dependencies.</strong> An FD may hold at one time but not at another. Temporal FDs require a more complex theory.</p></li>
-<li><p><strong>Temporal query languages.</strong> SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.</p></li>
-<li><p><strong>Storage and performance.</strong> Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.</p></li>
-</ul>
-</section>
-<section id="practical-approach" class="level3">
-<h3 class="anchored" data-anchor-id="practical-approach">Practical approach</h3>
-<p>In the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:</p>
-<p><strong>Employee_Salary( Emp_ID, Salary, Start_Date, End_Date )</strong></p>
-<p>Here, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.</p>
-</section>
-</section>
-<section id="final-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
-<p>Database design is a balance between theory and practice.</p>
-<ul>
-<li>Use normalization to remove redundancy systematically.</li>
-<li>Use the ER model to capture real-world concepts.</li>
-<li>Decompose to BCNF or 4NF with lossless join and dependency preservation where possible.</li>
-<li>Fall back to 3NF when BCNF loses dependencies.</li>
-<li>Consider denormalization for performance when needed.</li>
-<li>Model time explicitly when data is time-varying.</li>
-<li>Always test the design against real queries.</li>
-</ul>
-<p>With these tools, you can design relational databases that are consistent, efficient, and maintainable.</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technology</th>
+<th>Language</th>
+<th>Standard</th>
+<th>Key feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ODBC</td>
+<td>C/C++</td>
+<td>Microsoft standard</td>
+<td>Driver-based, cross-database</td>
+</tr>
+<tr class="even">
+<td>JDBC</td>
+<td>Java</td>
+<td>Java standard</td>
+<td>Type 1-4 drivers, prepared statements</td>
+</tr>
+<tr class="odd">
+<td>Python DB-API</td>
+<td>Python</td>
+<td>PEP 249</td>
+<td>Consistent interface, parameterized queries</td>
+</tr>
+<tr class="even">
+<td>Embedded SQL</td>
+<td>C/C++, Java, COBOL</td>
+<td>SQL standard</td>
+<td>SQL in source code, precompiler needed</td>
+</tr>
+</tbody>
+</table>
+<p>The choice depends on the application requirements, the programming language used, and the specific database system.</p>
 
 
 </section>

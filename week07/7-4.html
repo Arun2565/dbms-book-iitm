@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6.5 Database design process and temporal data – DBMS Notes - IITM</title>
+<title>7.4 Building database applications with Python and PostgreSQL – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -249,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-4.html">7.4 Python &amp; PostgreSQL</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -464,7 +499,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
   </div>
 </li>
@@ -499,7 +534,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week07/7-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../week07/7-4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7.4 Python &amp; PostgreSQL</span></a>
   </div>
 </li>
@@ -521,28 +556,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary-of-the-design-journey" id="toc-summary-of-the-design-journey" class="nav-link active" data-scroll-target="#summary-of-the-design-journey">Summary of the design journey</a></li>
-  <li><a href="#the-complete-design-process" id="toc-the-complete-design-process" class="nav-link" data-scroll-target="#the-complete-design-process">The complete design process</a>
+  <li><a href="#postgresql" id="toc-postgresql" class="nav-link active" data-scroll-target="#postgresql">PostgreSQL</a></li>
+  <li><a href="#connecting-python-to-postgresql" id="toc-connecting-python-to-postgresql" class="nav-link" data-scroll-target="#connecting-python-to-postgresql">Connecting Python to PostgreSQL</a>
   <ul class="collapse">
-  <li><a href="#starting-points-for-design" id="toc-starting-points-for-design" class="nav-link" data-scroll-target="#starting-points-for-design">Starting points for design</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#basic-connection" id="toc-basic-connection" class="nav-link" data-scroll-target="#basic-connection">Basic connection</a></li>
+  <li><a href="#connection-parameters" id="toc-connection-parameters" class="nav-link" data-scroll-target="#connection-parameters">Connection parameters</a></li>
+  <li><a href="#connection-pool" id="toc-connection-pool" class="nav-link" data-scroll-target="#connection-pool">Connection pool</a></li>
   </ul></li>
-  <li><a href="#sql-and-functional-dependencies" id="toc-sql-and-functional-dependencies" class="nav-link" data-scroll-target="#sql-and-functional-dependencies">SQL and functional dependencies</a></li>
-  <li><a href="#denormalization" id="toc-denormalization" class="nav-link" data-scroll-target="#denormalization">Denormalization</a></li>
-  <li><a href="#bad-design-practices" id="toc-bad-design-practices" class="nav-link" data-scroll-target="#bad-design-practices">Bad design practices</a>
+  <li><a href="#crud-operations" id="toc-crud-operations" class="nav-link" data-scroll-target="#crud-operations">CRUD operations</a>
   <ul class="collapse">
-  <li><a href="#year-wise-tables" id="toc-year-wise-tables" class="nav-link" data-scroll-target="#year-wise-tables">Year-wise tables</a></li>
-  <li><a href="#cross-tab-schemas" id="toc-cross-tab-schemas" class="nav-link" data-scroll-target="#cross-tab-schemas">Cross-tab schemas</a></li>
-  <li><a href="#ignoring-generalization" id="toc-ignoring-generalization" class="nav-link" data-scroll-target="#ignoring-generalization">Ignoring generalization</a></li>
+  <li><a href="#create-insert" id="toc-create-insert" class="nav-link" data-scroll-target="#create-insert">Create (INSERT)</a></li>
+  <li><a href="#read-select" id="toc-read-select" class="nav-link" data-scroll-target="#read-select">Read (SELECT)</a></li>
+  <li><a href="#update" id="toc-update" class="nav-link" data-scroll-target="#update">Update</a></li>
+  <li><a href="#delete" id="toc-delete" class="nav-link" data-scroll-target="#delete">Delete</a></li>
   </ul></li>
-  <li><a href="#extending-the-lis-design-with-mvds" id="toc-extending-the-lis-design-with-mvds" class="nav-link" data-scroll-target="#extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</a></li>
-  <li><a href="#temporal-data" id="toc-temporal-data" class="nav-link" data-scroll-target="#temporal-data">Temporal data</a>
+  <li><a href="#parameterized-queries-and-sql-injection" id="toc-parameterized-queries-and-sql-injection" class="nav-link" data-scroll-target="#parameterized-queries-and-sql-injection">Parameterized queries and SQL injection</a></li>
+  <li><a href="#transaction-management" id="toc-transaction-management" class="nav-link" data-scroll-target="#transaction-management">Transaction management</a></li>
+  <li><a href="#python-frameworks-for-postgresql" id="toc-python-frameworks-for-postgresql" class="nav-link" data-scroll-target="#python-frameworks-for-postgresql">Python frameworks for PostgreSQL</a>
   <ul class="collapse">
-  <li><a href="#types-of-time" id="toc-types-of-time" class="nav-link" data-scroll-target="#types-of-time">Types of time</a></li>
-  <li><a href="#temporal-relation-types" id="toc-temporal-relation-types" class="nav-link" data-scroll-target="#temporal-relation-types">Temporal relation types</a></li>
-  <li><a href="#challenges-with-temporal-data" id="toc-challenges-with-temporal-data" class="nav-link" data-scroll-target="#challenges-with-temporal-data">Challenges with temporal data</a></li>
-  <li><a href="#practical-approach" id="toc-practical-approach" class="nav-link" data-scroll-target="#practical-approach">Practical approach</a></li>
+  <li><a href="#flask" id="toc-flask" class="nav-link" data-scroll-target="#flask">Flask</a></li>
+  <li><a href="#sqlalchemy-orm" id="toc-sqlalchemy-orm" class="nav-link" data-scroll-target="#sqlalchemy-orm">SQLAlchemy (ORM)</a></li>
+  <li><a href="#django" id="toc-django" class="nav-link" data-scroll-target="#django">Django</a></li>
   </ul></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#django-rest-framework" id="toc-django-rest-framework" class="nav-link" data-scroll-target="#django-rest-framework">Django REST Framework</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -550,9 +588,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-4.html">7.4 Python &amp; PostgreSQL</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">6.5 Database design process and temporal data</h1>
+<h1 class="title">7.4 Building database applications with Python and PostgreSQL</h1>
 </div>
 
 
@@ -569,155 +607,266 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary-of-the-design-journey" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-the-design-journey">Summary of the design journey</h2>
-<p>We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.</p>
-<p>The design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Design goals summary</figcaption>
-</figure>
-</div>
+<section id="postgresql" class="level2">
+<h2 class="anchored" data-anchor-id="postgresql">PostgreSQL</h2>
+<p>PostgreSQL is a powerful, open-source object-relational database system. It supports a large subset of SQL standards and offers many advanced features. It is one of the most popular databases for application development.</p>
+<p>PostgreSQL uses a client-server architecture: - The database runs as a server process. - Client applications connect through the network using the PostgreSQL protocol. - Each client connection is handled by a separate server process.</p>
 </section>
-<section id="the-complete-design-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-complete-design-process">The complete design process</h2>
-<p>The database design process has these stages:</p>
-<ol type="1">
-<li><p><strong>Requirements analysis.</strong> Understand what the users need. This comes from a specification document, interviews, or existing systems.</p></li>
-<li><p><strong>Conceptual design.</strong> Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.</p></li>
-<li><p><strong>Logical design.</strong> Transform the ER model into a set of relational schemas. This is the initial set of tables.</p></li>
-<li><p><strong>Normalization.</strong> Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.</p></li>
-<li><p><strong>Query-driven refinement.</strong> Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.</p></li>
-<li><p><strong>Physical design.</strong> Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.</p></li>
-</ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p7.png" class="img-fluid figure-img"></p>
-<figcaption>Overall design process</figcaption>
-</figure>
-</div>
-<section id="starting-points-for-design" class="level3">
-<h3 class="anchored" data-anchor-id="starting-points-for-design">Starting points for design</h3>
-<p>The starting point for normalization can come from different sources:</p>
-<ul>
-<li><strong>ER-to-relational mapping.</strong> Like the Library Information System case study. The ER model produces an initial set of tables.</li>
-<li><strong>Universal relation.</strong> A single large relation containing all attributes. Normalization breaks it into smaller relations.</li>
-<li><strong>Adhoc design.</strong> Tables created without formal methodology. These need to be checked and normalized.</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p9.png" class="img-fluid figure-img"></p>
-<figcaption>Starting points for design</figcaption>
-</figure>
-</div>
+<section id="connecting-python-to-postgresql" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-python-to-postgresql">Connecting Python to PostgreSQL</h2>
+<p>The standard Python library for connecting to PostgreSQL is <strong>psycopg2</strong>. It implements the Python DB-API 2.0 specification.</p>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install psycopg2</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or for the binary version:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install psycopg2-binary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="basic-connection" class="level3">
+<h3 class="anchored" data-anchor-id="basic-connection">Basic connection</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> psycopg2</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> psycopg2.<span class="ex">connect</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    host<span class="op">=</span><span class="st">"localhost"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    port<span class="op">=</span><span class="dv">5432</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    dbname<span class="op">=</span><span class="st">"mydatabase"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">"myuser"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span><span class="st">"mypassword"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sql-and-functional-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="sql-and-functional-dependencies">SQL and functional dependencies</h2>
-<p>SQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.</p>
-<p>This means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.</p>
+<section id="connection-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="connection-parameters">Connection parameters</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>host</td>
+<td>Database server hostname</td>
+<td>localhost</td>
+</tr>
+<tr class="even">
+<td>port</td>
+<td>Database server port</td>
+<td>5432</td>
+</tr>
+<tr class="odd">
+<td>dbname</td>
+<td>Database name</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>user</td>
+<td>Username</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>password</td>
+<td>Password</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="denormalization" class="level2">
-<h2 class="anchored" data-anchor-id="denormalization">Denormalization</h2>
-<p>Normalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.</p>
-<p>Consider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p12.png" class="img-fluid figure-img"></p>
-<figcaption>Denormalization trade off</figcaption>
-</figure>
-</div>
-<p>Denormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.</p>
-<p>Alternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.</p>
-</section>
-<section id="bad-design-practices" class="level2">
-<h2 class="anchored" data-anchor-id="bad-design-practices">Bad design practices</h2>
-<p>There are several design practices to avoid.</p>
-<section id="year-wise-tables" class="level3">
-<h3 class="anchored" data-anchor-id="year-wise-tables">Year-wise tables</h3>
-<p>Some designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)</p>
-<p>This makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)</p>
-</section>
-<section id="cross-tab-schemas" class="level3">
-<h3 class="anchored" data-anchor-id="cross-tab-schemas">Cross-tab schemas</h3>
-<p>Some designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.</p>
-</section>
-<section id="ignoring-generalization" class="level3">
-<h3 class="anchored" data-anchor-id="ignoring-generalization">Ignoring generalization</h3>
-<p>In the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.</p>
-</section>
-</section>
-<section id="extending-the-lis-design-with-mvds" class="level2">
-<h2 class="anchored" data-anchor-id="extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</h2>
-<p>The LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.</p>
-<p>The Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year</p>
-<p>If we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p15.png" class="img-fluid figure-img"></p>
-<figcaption>LIS extension with MVDs</figcaption>
-</figure>
-</div>
-<p>The 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)</p>
-<p>Each of these is in 4NF. The design now supports multiple authors and multiple editions.</p>
-</section>
-<section id="temporal-data" class="level2">
-<h2 class="anchored" data-anchor-id="temporal-data">Temporal data</h2>
-<p>All the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p19.png" class="img-fluid figure-img"></p>
-<figcaption>Temporal data introduction</figcaption>
-</figure>
-</div>
-<section id="types-of-time" class="level3">
-<h3 class="anchored" data-anchor-id="types-of-time">Types of time</h3>
-<p>There are two important time dimensions:</p>
-<p><strong>Valid time.</strong> The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.</p>
-<p><strong>Transaction time.</strong> The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).</p>
-</section>
-<section id="temporal-relation-types" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-relation-types">Temporal relation types</h3>
-<p><strong>Uni-temporal relation.</strong> Stores either valid time or transaction time, but not both.</p>
-<p><strong>Bi-temporal relation.</strong> Stores both valid time and transaction time. This is the most powerful approach.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p23.png" class="img-fluid figure-img"></p>
-<figcaption>Bi-temporal relation example</figcaption>
-</figure>
-</div>
-</section>
-<section id="challenges-with-temporal-data" class="level3">
-<h3 class="anchored" data-anchor-id="challenges-with-temporal-data">Challenges with temporal data</h3>
-<ul>
-<li><p><strong>Modeling time.</strong> Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.</p></li>
-<li><p><strong>Temporal ER models.</strong> Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.</p></li>
-<li><p><strong>Temporal functional dependencies.</strong> An FD may hold at one time but not at another. Temporal FDs require a more complex theory.</p></li>
-<li><p><strong>Temporal query languages.</strong> SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.</p></li>
-<li><p><strong>Storage and performance.</strong> Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.</p></li>
-</ul>
-</section>
-<section id="practical-approach" class="level3">
-<h3 class="anchored" data-anchor-id="practical-approach">Practical approach</h3>
-<p>In the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:</p>
-<p><strong>Employee_Salary( Emp_ID, Salary, Start_Date, End_Date )</strong></p>
-<p>Here, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.</p>
+<section id="connection-pool" class="level3">
+<h3 class="anchored" data-anchor-id="connection-pool">Connection pool</h3>
+<p>Creating a new connection for every request is expensive. For web applications, use a <strong>connection pool</strong> to reuse connections:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> psycopg2 <span class="im">import</span> pool</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>connection_pool <span class="op">=</span> psycopg2.pool.SimpleConnectionPool(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,      <span class="co"># min connections</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20</span>,     <span class="co"># max connections</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    host<span class="op">=</span><span class="st">"localhost"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    dbname<span class="op">=</span><span class="st">"mydatabase"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">"myuser"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span><span class="st">"mypassword"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> connection_pool.getconn()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... use connection ...</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>connection_pool.putconn(conn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="final-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
-<p>Database design is a balance between theory and practice.</p>
-<ul>
-<li>Use normalization to remove redundancy systematically.</li>
-<li>Use the ER model to capture real-world concepts.</li>
-<li>Decompose to BCNF or 4NF with lossless join and dependency preservation where possible.</li>
-<li>Fall back to 3NF when BCNF loses dependencies.</li>
-<li>Consider denormalization for performance when needed.</li>
-<li>Model time explicitly when data is time-varying.</li>
-<li>Always test the design against real queries.</li>
-</ul>
-<p>With these tools, you can design relational databases that are consistent, efficient, and maintainable.</p>
+<section id="crud-operations" class="level2">
+<h2 class="anchored" data-anchor-id="crud-operations">CRUD operations</h2>
+<section id="create-insert" class="level3">
+<h3 class="anchored" data-anchor-id="create-insert">Create (INSERT)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cur.execute(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INSERT INTO students (id, name, gpa) VALUES (</span><span class="sc">%s</span><span class="st">, </span><span class="sc">%s</span><span class="st">, </span><span class="sc">%s</span><span class="st">)"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">101</span>, <span class="st">"Alice"</span>, <span class="fl">3.8</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>conn.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="read-select" class="level3">
+<h3 class="anchored" data-anchor-id="read-select">Read (SELECT)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SELECT * FROM students WHERE gpa &gt; </span><span class="sc">%s</span><span class="st">"</span>, (<span class="fl">3.0</span>,))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> cur.fetchall()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="update" class="level3">
+<h3 class="anchored" data-anchor-id="update">Update</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cur.execute(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"UPDATE students SET gpa = </span><span class="sc">%s</span><span class="st"> WHERE id = </span><span class="sc">%s</span><span class="st">"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">4.0</span>, <span class="dv">101</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>conn.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="delete" class="level3">
+<h3 class="anchored" data-anchor-id="delete">Delete</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"DELETE FROM students WHERE id = </span><span class="sc">%s</span><span class="st">"</span>, (<span class="dv">101</span>,))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>conn.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="parameterized-queries-and-sql-injection" class="level2">
+<h2 class="anchored" data-anchor-id="parameterized-queries-and-sql-injection">Parameterized queries and SQL injection</h2>
+<p>Always use parameterized queries (<code>%s</code> placeholders) instead of string formatting. This prevents SQL injection attacks.</p>
+<p><strong>Bad (vulnerable to SQL injection):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="ss">f"SELECT * FROM users WHERE name = '</span><span class="sc">{</span>user_input<span class="sc">}</span><span class="ss">'"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Good (safe):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SELECT * FROM users WHERE name = </span><span class="sc">%s</span><span class="st">"</span>, (user_input,))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The database driver handles escaping and quoting automatically.</p>
+</section>
+<section id="transaction-management" class="level2">
+<h2 class="anchored" data-anchor-id="transaction-management">Transaction management</h2>
+<p>By default, psycopg2 starts a transaction for every statement. You must commit or rollback:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="st">"UPDATE accounts SET balance = balance - 100 WHERE id = 1"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="st">"UPDATE accounts SET balance = balance + 100 WHERE id = 2"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    conn.commit()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span>:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    conn.rollback()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Set autocommit mode if you want every statement to be committed immediately:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>conn.autocommit <span class="op">=</span> <span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="python-frameworks-for-postgresql" class="level2">
+<h2 class="anchored" data-anchor-id="python-frameworks-for-postgresql">Python frameworks for PostgreSQL</h2>
+<p>While using psycopg2 directly is possible, most production applications use a web framework that integrates with the database.</p>
+<section id="flask" class="level3">
+<h3 class="anchored" data-anchor-id="flask">Flask</h3>
+<p>Flask is a lightweight web framework for Python. It can be combined with psycopg2 or with an ORM like SQLAlchemy.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request, jsonify</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> psycopg2</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_db():</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> psycopg2.<span class="ex">connect</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        host<span class="op">=</span><span class="st">"localhost"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        dbname<span class="op">=</span><span class="st">"mydb"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        user<span class="op">=</span><span class="st">"user"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        password<span class="op">=</span><span class="st">"pass"</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">"/students/&lt;int:id&gt;"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_student(<span class="bu">id</span>):</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    conn <span class="op">=</span> get_db()</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="st">"SELECT * FROM students WHERE id = </span><span class="sc">%s</span><span class="st">"</span>, (<span class="bu">id</span>,))</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    student <span class="op">=</span> cur.fetchone()</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    cur.close()</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    conn.close()</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> student:</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> jsonify({<span class="st">"id"</span>: student[<span class="dv">0</span>], <span class="st">"name"</span>: student[<span class="dv">1</span>]})</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jsonify({<span class="st">"error"</span>: <span class="st">"Not found"</span>}), <span class="dv">404</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sqlalchemy-orm" class="level3">
+<h3 class="anchored" data-anchor-id="sqlalchemy-orm">SQLAlchemy (ORM)</h3>
+<p>SQLAlchemy is the most popular Python ORM. It maps Python classes to database tables and handles SQL generation automatically.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask_sqlalchemy <span class="im">import</span> SQLAlchemy</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>app.config[<span class="st">"SQLALCHEMY_DATABASE_URI"</span>] <span class="op">=</span> <span class="st">"postgresql://user:pass@localhost/mydb"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> SQLAlchemy(app)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Student(db.Model):</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span> <span class="op">=</span> db.Column(db.Integer, primary_key<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> db.Column(db.String(<span class="dv">100</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    gpa <span class="op">=</span> db.Column(db.Float)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">"/students"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_students():</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    students <span class="op">=</span> Student.query.<span class="bu">filter</span>(Student.gpa <span class="op">&gt;</span> <span class="fl">3.0</span>).<span class="bu">all</span>()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [{<span class="st">"id"</span>: s.<span class="bu">id</span>, <span class="st">"name"</span>: s.name} <span class="cf">for</span> s <span class="kw">in</span> students]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="django" class="level3">
+<h3 class="anchored" data-anchor-id="django">Django</h3>
+<p>Django is a full-featured web framework that includes its own ORM. It supports PostgreSQL, MySQL, SQLite, and Oracle.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># models.py</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> django.db <span class="im">import</span> models</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Student(models.Model):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> models.CharField(max_length<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    gpa <span class="op">=</span> models.FloatField()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># views.py</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> student_list(request):</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    students <span class="op">=</span> Student.objects.<span class="bu">filter</span>(gpa__gt<span class="op">=</span><span class="fl">3.0</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> render(request, <span class="st">"students.html"</span>, {<span class="st">"students"</span>: students})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="django-rest-framework" class="level2">
+<h2 class="anchored" data-anchor-id="django-rest-framework">Django REST Framework</h2>
+<p>For building REST APIs, Django REST Framework (DRF) provides tools for serialization, authentication, and API views.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rest_framework <span class="im">import</span> serializers, viewsets</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentSerializer(serializers.ModelSerializer):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Meta:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> Student</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        fields <span class="op">=</span> [<span class="st">"id"</span>, <span class="st">"name"</span>, <span class="st">"gpa"</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentViewSet(viewsets.ModelViewSet):</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    queryset <span class="op">=</span> Student.objects.<span class="bu">all</span>()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    serializer_class <span class="op">=</span> StudentSerializer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Python library</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Direct SQL</td>
+<td>psycopg2</td>
+<td>Simple apps, full SQL control</td>
+</tr>
+<tr class="even">
+<td>ORM</td>
+<td>SQLAlchemy</td>
+<td>Complex apps, automatic mapping</td>
+</tr>
+<tr class="odd">
+<td>Web framework</td>
+<td>Flask + psycopg2</td>
+<td>Lightweight apps</td>
+</tr>
+<tr class="even">
+<td>Full framework</td>
+<td>Django + ORM</td>
+<td>Large applications with admin UI</td>
+</tr>
+<tr class="odd">
+<td>REST API</td>
+<td>Django REST Framework</td>
+<td>API-first applications</td>
+</tr>
+</tbody>
+</table>
+<p>Use direct psycopg2 for simple applications where full SQL control is needed. Use an ORM for complex applications to reduce boilerplate. Use a framework like Flask or Django to structure the web application layer.</p>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6.5 Database design process and temporal data – DBMS Notes - IITM</title>
+<title>7.5 Rapid application development, performance, and security – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -249,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-5.html">7.5 RAD, Performance &amp; Security</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -464,7 +499,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
   </div>
 </li>
@@ -505,7 +540,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week07/7-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../week07/7-5.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7.5 RAD, Performance &amp; Security</span></a>
   </div>
 </li>
@@ -521,28 +556,39 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary-of-the-design-journey" id="toc-summary-of-the-design-journey" class="nav-link active" data-scroll-target="#summary-of-the-design-journey">Summary of the design journey</a></li>
-  <li><a href="#the-complete-design-process" id="toc-the-complete-design-process" class="nav-link" data-scroll-target="#the-complete-design-process">The complete design process</a>
+  <li><a href="#rapid-application-development-rad" id="toc-rapid-application-development-rad" class="nav-link active" data-scroll-target="#rapid-application-development-rad">Rapid application development (RAD)</a>
   <ul class="collapse">
-  <li><a href="#starting-points-for-design" id="toc-starting-points-for-design" class="nav-link" data-scroll-target="#starting-points-for-design">Starting points for design</a></li>
+  <li><a href="#key-principles-of-rad" id="toc-key-principles-of-rad" class="nav-link" data-scroll-target="#key-principles-of-rad">Key principles of RAD</a></li>
+  <li><a href="#rad-frameworks-comparison" id="toc-rad-frameworks-comparison" class="nav-link" data-scroll-target="#rad-frameworks-comparison">RAD frameworks comparison</a></li>
   </ul></li>
-  <li><a href="#sql-and-functional-dependencies" id="toc-sql-and-functional-dependencies" class="nav-link" data-scroll-target="#sql-and-functional-dependencies">SQL and functional dependencies</a></li>
-  <li><a href="#denormalization" id="toc-denormalization" class="nav-link" data-scroll-target="#denormalization">Denormalization</a></li>
-  <li><a href="#bad-design-practices" id="toc-bad-design-practices" class="nav-link" data-scroll-target="#bad-design-practices">Bad design practices</a>
+  <li><a href="#application-performance" id="toc-application-performance" class="nav-link" data-scroll-target="#application-performance">Application performance</a>
   <ul class="collapse">
-  <li><a href="#year-wise-tables" id="toc-year-wise-tables" class="nav-link" data-scroll-target="#year-wise-tables">Year-wise tables</a></li>
-  <li><a href="#cross-tab-schemas" id="toc-cross-tab-schemas" class="nav-link" data-scroll-target="#cross-tab-schemas">Cross-tab schemas</a></li>
-  <li><a href="#ignoring-generalization" id="toc-ignoring-generalization" class="nav-link" data-scroll-target="#ignoring-generalization">Ignoring generalization</a></li>
+  <li><a href="#frontend-performance" id="toc-frontend-performance" class="nav-link" data-scroll-target="#frontend-performance">Frontend performance</a></li>
+  <li><a href="#backendapplication-layer-performance" id="toc-backendapplication-layer-performance" class="nav-link" data-scroll-target="#backendapplication-layer-performance">Backend/application layer performance</a></li>
+  <li><a href="#database-performance" id="toc-database-performance" class="nav-link" data-scroll-target="#database-performance">Database performance</a></li>
   </ul></li>
-  <li><a href="#extending-the-lis-design-with-mvds" id="toc-extending-the-lis-design-with-mvds" class="nav-link" data-scroll-target="#extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</a></li>
-  <li><a href="#temporal-data" id="toc-temporal-data" class="nav-link" data-scroll-target="#temporal-data">Temporal data</a>
+  <li><a href="#application-security" id="toc-application-security" class="nav-link" data-scroll-target="#application-security">Application security</a>
   <ul class="collapse">
-  <li><a href="#types-of-time" id="toc-types-of-time" class="nav-link" data-scroll-target="#types-of-time">Types of time</a></li>
-  <li><a href="#temporal-relation-types" id="toc-temporal-relation-types" class="nav-link" data-scroll-target="#temporal-relation-types">Temporal relation types</a></li>
-  <li><a href="#challenges-with-temporal-data" id="toc-challenges-with-temporal-data" class="nav-link" data-scroll-target="#challenges-with-temporal-data">Challenges with temporal data</a></li>
-  <li><a href="#practical-approach" id="toc-practical-approach" class="nav-link" data-scroll-target="#practical-approach">Practical approach</a></li>
+  <li><a href="#authentication-and-authorization" id="toc-authentication-and-authorization" class="nav-link" data-scroll-target="#authentication-and-authorization">Authentication and authorization</a></li>
+  <li><a href="#sql-injection" id="toc-sql-injection" class="nav-link" data-scroll-target="#sql-injection">SQL injection</a></li>
+  <li><a href="#cross-site-scripting-xss" id="toc-cross-site-scripting-xss" class="nav-link" data-scroll-target="#cross-site-scripting-xss">Cross-site scripting (XSS)</a></li>
+  <li><a href="#csrf-cross-site-request-forgery" id="toc-csrf-cross-site-request-forgery" class="nav-link" data-scroll-target="#csrf-cross-site-request-forgery">CSRF (Cross-site request forgery)</a></li>
+  <li><a href="#https" id="toc-https" class="nav-link" data-scroll-target="#https">HTTPS</a></li>
+  <li><a href="#data-validation" id="toc-data-validation" class="nav-link" data-scroll-target="#data-validation">Data validation</a></li>
+  <li><a href="#environment-specific-configuration" id="toc-environment-specific-configuration" class="nav-link" data-scroll-target="#environment-specific-configuration">Environment-specific configuration</a></li>
   </ul></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#challenges" id="toc-challenges" class="nav-link" data-scroll-target="#challenges">Challenges</a>
+  <ul class="collapse">
+  <li><a href="#session-management" id="toc-session-management" class="nav-link" data-scroll-target="#session-management">Session management</a></li>
+  <li><a href="#concurrency" id="toc-concurrency" class="nav-link" data-scroll-target="#concurrency">Concurrency</a></li>
+  <li><a href="#scalability" id="toc-scalability" class="nav-link" data-scroll-target="#scalability">Scalability</a></li>
+  </ul></li>
+  <li><a href="#mobile-applications" id="toc-mobile-applications" class="nav-link" data-scroll-target="#mobile-applications">Mobile applications</a>
+  <ul class="collapse">
+  <li><a href="#mobile-architecture" id="toc-mobile-architecture" class="nav-link" data-scroll-target="#mobile-architecture">Mobile architecture</a></li>
+  <li><a href="#api-design-for-mobile" id="toc-api-design-for-mobile" class="nav-link" data-scroll-target="#api-design-for-mobile">API design for mobile</a></li>
+  </ul></li>
+  <li><a href="#module-summary" id="toc-module-summary" class="nav-link" data-scroll-target="#module-summary">Module summary</a></li>
   </ul>
 </nav>
     </div>
@@ -550,9 +596,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-5.html">7.5 RAD, Performance &amp; Security</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">6.5 Database design process and temporal data</h1>
+<h1 class="title">7.5 Rapid application development, performance, and security</h1>
 </div>
 
 
@@ -569,155 +615,209 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary-of-the-design-journey" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-the-design-journey">Summary of the design journey</h2>
-<p>We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.</p>
-<p>The design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Design goals summary</figcaption>
-</figure>
-</div>
-</section>
-<section id="the-complete-design-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-complete-design-process">The complete design process</h2>
-<p>The database design process has these stages:</p>
+<section id="rapid-application-development-rad" class="level2">
+<h2 class="anchored" data-anchor-id="rapid-application-development-rad">Rapid application development (RAD)</h2>
+<p>Building a production-grade database application from scratch takes time. Rapid application development uses frameworks and tools to speed up the process.</p>
+<section id="key-principles-of-rad" class="level3">
+<h3 class="anchored" data-anchor-id="key-principles-of-rad">Key principles of RAD</h3>
 <ol type="1">
-<li><p><strong>Requirements analysis.</strong> Understand what the users need. This comes from a specification document, interviews, or existing systems.</p></li>
-<li><p><strong>Conceptual design.</strong> Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.</p></li>
-<li><p><strong>Logical design.</strong> Transform the ER model into a set of relational schemas. This is the initial set of tables.</p></li>
-<li><p><strong>Normalization.</strong> Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.</p></li>
-<li><p><strong>Query-driven refinement.</strong> Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.</p></li>
-<li><p><strong>Physical design.</strong> Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.</p></li>
+<li><strong>Use of frameworks.</strong> Leverage existing frameworks (Django, Ruby on Rails, Spring) that provide built-in database integration, authentication, and templating.</li>
+<li><strong>Code generation.</strong> Use tools that generate boilerplate code for common operations (CRUD, authentication, forms).</li>
+<li><strong>Reusable components.</strong> Build and reuse modular components across projects.</li>
+<li><strong>Iterative development.</strong> Build prototypes quickly, get feedback, and iterate.</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p7.png" class="img-fluid figure-img"></p>
-<figcaption>Overall design process</figcaption>
-</figure>
-</div>
-<section id="starting-points-for-design" class="level3">
-<h3 class="anchored" data-anchor-id="starting-points-for-design">Starting points for design</h3>
-<p>The starting point for normalization can come from different sources:</p>
+</section>
+<section id="rad-frameworks-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="rad-frameworks-comparison">RAD frameworks comparison</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 19%">
+<col style="width: 33%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Framework</th>
+<th>Language</th>
+<th>Database support</th>
+<th>Key feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Django</td>
+<td>Python</td>
+<td>PostgreSQL, MySQL, SQLite, Oracle</td>
+<td>Admin interface, ORM, batteries included</td>
+</tr>
+<tr class="even">
+<td>Ruby on Rails</td>
+<td>Ruby</td>
+<td>PostgreSQL, MySQL, SQLite</td>
+<td>Convention over configuration, scaffolding</td>
+</tr>
+<tr class="odd">
+<td>Spring Boot</td>
+<td>Java</td>
+<td>All major databases</td>
+<td>Enterprise-grade, microservices</td>
+</tr>
+<tr class="even">
+<td>Laravel</td>
+<td>PHP</td>
+<td>PostgreSQL, MySQL, SQLite</td>
+<td>Eloquent ORM, Artisan CLI</td>
+</tr>
+<tr class="odd">
+<td>Express + Sequelize</td>
+<td>JavaScript</td>
+<td>PostgreSQL, MySQL, SQLite</td>
+<td>Node.js, lightweight, async</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="application-performance" class="level2">
+<h2 class="anchored" data-anchor-id="application-performance">Application performance</h2>
+<p>Performance of a database application depends on all three tiers.</p>
+<section id="frontend-performance" class="level3">
+<h3 class="anchored" data-anchor-id="frontend-performance">Frontend performance</h3>
 <ul>
-<li><strong>ER-to-relational mapping.</strong> Like the Library Information System case study. The ER model produces an initial set of tables.</li>
-<li><strong>Universal relation.</strong> A single large relation containing all attributes. Normalization breaks it into smaller relations.</li>
-<li><strong>Adhoc design.</strong> Tables created without formal methodology. These need to be checked and normalized.</li>
+<li><strong>Minimize HTTP requests.</strong> Combine CSS and JavaScript files, use CSS sprites for images.</li>
+<li><strong>Caching.</strong> Use browser caching for static resources. Use CDN for assets.</li>
+<li><strong>Lazy loading.</strong> Load images and content only when needed.</li>
+<li><strong>Minification.</strong> Remove whitespace and comments from HTML, CSS, and JavaScript.</li>
+</ul>
+</section>
+<section id="backendapplication-layer-performance" class="level3">
+<h3 class="anchored" data-anchor-id="backendapplication-layer-performance">Backend/application layer performance</h3>
+<ul>
+<li><strong>Connection pooling.</strong> Reuse database connections instead of creating new ones for every request.</li>
+<li><strong>Caching frequently accessed data.</strong> Use in-memory caches like Redis or Memcached.</li>
+<li><strong>Asynchronous processing.</strong> Move long-running tasks (email, report generation) to background jobs.</li>
+<li><strong>Load balancing.</strong> Distribute requests across multiple application servers.</li>
+</ul>
+</section>
+<section id="database-performance" class="level3">
+<h3 class="anchored" data-anchor-id="database-performance">Database performance</h3>
+<ul>
+<li><strong>Indexing.</strong> Create appropriate indexes on columns used in WHERE, JOIN, and ORDER BY clauses.</li>
+<li><strong>Query optimization.</strong> Use EXPLAIN to analyze query plans. Avoid SELECT *.</li>
+<li><strong>Denormalization.</strong> Add controlled redundancy for read-heavy queries (as discussed in week 6).</li>
+<li><strong>Connection limits.</strong> Configure the database to handle the expected number of concurrent connections.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p9.png" class="img-fluid figure-img"></p>
-<figcaption>Starting points for design</figcaption>
+<p><img src="images/L7.5_p10.png" class="img-fluid figure-img"></p>
+<figcaption>Performance optimization overview</figcaption>
 </figure>
 </div>
 </section>
 </section>
-<section id="sql-and-functional-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="sql-and-functional-dependencies">SQL and functional dependencies</h2>
-<p>SQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.</p>
-<p>This means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.</p>
-</section>
-<section id="denormalization" class="level2">
-<h2 class="anchored" data-anchor-id="denormalization">Denormalization</h2>
-<p>Normalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.</p>
-<p>Consider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p12.png" class="img-fluid figure-img"></p>
-<figcaption>Denormalization trade off</figcaption>
-</figure>
-</div>
-<p>Denormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.</p>
-<p>Alternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.</p>
-</section>
-<section id="bad-design-practices" class="level2">
-<h2 class="anchored" data-anchor-id="bad-design-practices">Bad design practices</h2>
-<p>There are several design practices to avoid.</p>
-<section id="year-wise-tables" class="level3">
-<h3 class="anchored" data-anchor-id="year-wise-tables">Year-wise tables</h3>
-<p>Some designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)</p>
-<p>This makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)</p>
-</section>
-<section id="cross-tab-schemas" class="level3">
-<h3 class="anchored" data-anchor-id="cross-tab-schemas">Cross-tab schemas</h3>
-<p>Some designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.</p>
-</section>
-<section id="ignoring-generalization" class="level3">
-<h3 class="anchored" data-anchor-id="ignoring-generalization">Ignoring generalization</h3>
-<p>In the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.</p>
-</section>
-</section>
-<section id="extending-the-lis-design-with-mvds" class="level2">
-<h2 class="anchored" data-anchor-id="extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</h2>
-<p>The LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.</p>
-<p>The Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year</p>
-<p>If we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p15.png" class="img-fluid figure-img"></p>
-<figcaption>LIS extension with MVDs</figcaption>
-</figure>
-</div>
-<p>The 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)</p>
-<p>Each of these is in 4NF. The design now supports multiple authors and multiple editions.</p>
-</section>
-<section id="temporal-data" class="level2">
-<h2 class="anchored" data-anchor-id="temporal-data">Temporal data</h2>
-<p>All the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p19.png" class="img-fluid figure-img"></p>
-<figcaption>Temporal data introduction</figcaption>
-</figure>
-</div>
-<section id="types-of-time" class="level3">
-<h3 class="anchored" data-anchor-id="types-of-time">Types of time</h3>
-<p>There are two important time dimensions:</p>
-<p><strong>Valid time.</strong> The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.</p>
-<p><strong>Transaction time.</strong> The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).</p>
-</section>
-<section id="temporal-relation-types" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-relation-types">Temporal relation types</h3>
-<p><strong>Uni-temporal relation.</strong> Stores either valid time or transaction time, but not both.</p>
-<p><strong>Bi-temporal relation.</strong> Stores both valid time and transaction time. This is the most powerful approach.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p23.png" class="img-fluid figure-img"></p>
-<figcaption>Bi-temporal relation example</figcaption>
-</figure>
-</div>
-</section>
-<section id="challenges-with-temporal-data" class="level3">
-<h3 class="anchored" data-anchor-id="challenges-with-temporal-data">Challenges with temporal data</h3>
+<section id="application-security" class="level2">
+<h2 class="anchored" data-anchor-id="application-security">Application security</h2>
+<p>Security must be considered at every layer of the application.</p>
+<section id="authentication-and-authorization" class="level3">
+<h3 class="anchored" data-anchor-id="authentication-and-authorization">Authentication and authorization</h3>
 <ul>
-<li><p><strong>Modeling time.</strong> Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.</p></li>
-<li><p><strong>Temporal ER models.</strong> Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.</p></li>
-<li><p><strong>Temporal functional dependencies.</strong> An FD may hold at one time but not at another. Temporal FDs require a more complex theory.</p></li>
-<li><p><strong>Temporal query languages.</strong> SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.</p></li>
-<li><p><strong>Storage and performance.</strong> Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.</p></li>
+<li><strong>Authentication.</strong> Verifying who the user is. Use secure password hashing (bcrypt, Argon2), multi-factor authentication, and OAuth for third-party logins.</li>
+<li><strong>Authorization.</strong> Verifying what the user can do. Implement role-based access control (RBAC) at the application layer.</li>
 </ul>
 </section>
-<section id="practical-approach" class="level3">
-<h3 class="anchored" data-anchor-id="practical-approach">Practical approach</h3>
-<p>In the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:</p>
-<p><strong>Employee_Salary( Emp_ID, Salary, Start_Date, End_Date )</strong></p>
-<p>Here, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.</p>
+<section id="sql-injection" class="level3">
+<h3 class="anchored" data-anchor-id="sql-injection">SQL injection</h3>
+<p>SQL injection occurs when user input is directly concatenated into SQL queries. Always use parameterized queries or prepared statements.</p>
+<p><strong>Vulnerable code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String interpolation — DANGEROUS</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"SELECT * FROM users WHERE name = '</span><span class="sc">{</span>user_input<span class="sc">}</span><span class="ss">'"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Safe code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameterized query — SAFE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SELECT * FROM users WHERE name = </span><span class="sc">%s</span><span class="st">"</span>, (user_input,))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="cross-site-scripting-xss" class="level3">
+<h3 class="anchored" data-anchor-id="cross-site-scripting-xss">Cross-site scripting (XSS)</h3>
+<p>XSS occurs when user input is displayed without sanitization, allowing attackers to inject JavaScript. Sanitize all user input before displaying it in HTML.</p>
 </section>
-<section id="final-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
-<p>Database design is a balance between theory and practice.</p>
+<section id="csrf-cross-site-request-forgery" class="level3">
+<h3 class="anchored" data-anchor-id="csrf-cross-site-request-forgery">CSRF (Cross-site request forgery)</h3>
+<p>CSRF attacks trick authenticated users into performing actions they did not intend. Use CSRF tokens in forms to prevent this. Most web frameworks (Django, Rails, Spring) include CSRF protection by default.</p>
+</section>
+<section id="https" class="level3">
+<h3 class="anchored" data-anchor-id="https">HTTPS</h3>
+<p>Always use HTTPS (TLS) for all communication between the browser and the server. This encrypts data in transit and prevents eavesdropping.</p>
+</section>
+<section id="data-validation" class="level3">
+<h3 class="anchored" data-anchor-id="data-validation">Data validation</h3>
+<p>Validate all input on both the client side (for user experience) and the server side (for security). Never trust client-side validation alone.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L7.5_p14.png" class="img-fluid figure-img"></p>
+<figcaption>Security layers</figcaption>
+</figure>
+</div>
+</section>
+<section id="environment-specific-configuration" class="level3">
+<h3 class="anchored" data-anchor-id="environment-specific-configuration">Environment-specific configuration</h3>
 <ul>
-<li>Use normalization to remove redundancy systematically.</li>
-<li>Use the ER model to capture real-world concepts.</li>
-<li>Decompose to BCNF or 4NF with lossless join and dependency preservation where possible.</li>
-<li>Fall back to 3NF when BCNF loses dependencies.</li>
-<li>Consider denormalization for performance when needed.</li>
-<li>Model time explicitly when data is time-varying.</li>
-<li>Always test the design against real queries.</li>
+<li><strong>Development.</strong> Debug mode on, detailed error messages, local database.</li>
+<li><strong>Staging.</strong> Mimics production, uses separate database.</li>
+<li><strong>Production.</strong> Debug mode off, detailed logging, hardened security, connection pooling, load balancing.</li>
 </ul>
-<p>With these tools, you can design relational databases that are consistent, efficient, and maintainable.</p>
+<p>Never use development settings in production.</p>
+</section>
+</section>
+<section id="challenges" class="level2">
+<h2 class="anchored" data-anchor-id="challenges">Challenges</h2>
+<section id="session-management" class="level3">
+<h3 class="anchored" data-anchor-id="session-management">Session management</h3>
+<p>Web applications need to maintain session state across HTTP requests. Common approaches: - <strong>Server-side sessions.</strong> Store session data in memory or a session table in the database. - <strong>Token-based authentication (JWT).</strong> The client stores a token and sends it with every request. No server-side session storage needed.</p>
+</section>
+<section id="concurrency" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency">Concurrency</h3>
+<p>Multiple users accessing the same data simultaneously can cause race conditions. Use database transactions with appropriate isolation levels (as will be discussed in week 10).</p>
+</section>
+<section id="scalability" class="level3">
+<h3 class="anchored" data-anchor-id="scalability">Scalability</h3>
+<p>As the user base grows, the application must scale: - <strong>Vertical scaling.</strong> Add more resources (CPU, RAM) to the existing server. - <strong>Horizontal scaling.</strong> Add more servers and distribute the load.</p>
+<p>Horizontal scaling is more complex because the database must handle distributed data. Techniques include replication, sharding, and caching.</p>
+</section>
+</section>
+<section id="mobile-applications" class="level2">
+<h2 class="anchored" data-anchor-id="mobile-applications">Mobile applications</h2>
+<p>Most database applications today have mobile counterparts. The mobile app communicates with the same backend API and database.</p>
+<section id="mobile-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="mobile-architecture">Mobile architecture</h3>
+<ul>
+<li><strong>Native apps.</strong> Built for a specific platform (Android with Java/Kotlin, iOS with Swift/Objective-C). They provide the best performance and access to device features.</li>
+<li><strong>Hybrid apps.</strong> Built with web technologies (HTML, CSS, JavaScript) and wrapped in a native container (Cordova, Ionic).</li>
+<li><strong>Cross-platform frameworks.</strong> Use a single codebase for both platforms (Flutter, React Native).</li>
+</ul>
+<p>All of these communicate with the backend through REST APIs or GraphQL, which in turn access the database.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L7.5_p22.png" class="img-fluid figure-img"></p>
+<figcaption>Mobile application architecture</figcaption>
+</figure>
+</div>
+</section>
+<section id="api-design-for-mobile" class="level3">
+<h3 class="anchored" data-anchor-id="api-design-for-mobile">API design for mobile</h3>
+<p>Mobile apps have different requirements from web apps: - <strong>Smaller payloads.</strong> Mobile networks are slower. Send only necessary data. - <strong>Offline support.</strong> Cache data locally and sync when the network is available. - <strong>Push notifications.</strong> Alert users without them having to open the app. - <strong>Battery efficiency.</strong> Minimize background network calls.</p>
+</section>
+</section>
+<section id="module-summary" class="level2">
+<h2 class="anchored" data-anchor-id="module-summary">Module summary</h2>
+<p>Building a production database application involves:</p>
+<ol type="1">
+<li><strong>Choosing the right framework</strong> for rapid development.</li>
+<li><strong>Optimizing performance</strong> at all three tiers (frontend, application, database).</li>
+<li><strong>Implementing security</strong> at every layer (authentication, SQL injection prevention, XSS protection, HTTPS).</li>
+<li><strong>Handling challenges</strong> like session management, concurrency, and scalability.</li>
+<li><strong>Supporting mobile clients</strong> through well-designed APIs.</li>
+</ol>
+<p>This concludes the application development week. The next weeks will cover storage management, indexing, and other advanced topics.</p>
 
 
 </section>

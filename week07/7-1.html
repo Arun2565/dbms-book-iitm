@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6.5 Database design process and temporal data – DBMS Notes - IITM</title>
+<title>7.1 Application programs and architecture – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -249,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-1.html">7.1 Application Architecture</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -464,7 +464,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
   </div>
 </li>
@@ -481,7 +481,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../week07/7-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../week07/7-1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7.1 Application Architecture</span></a>
   </div>
 </li>
@@ -521,28 +521,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary-of-the-design-journey" id="toc-summary-of-the-design-journey" class="nav-link active" data-scroll-target="#summary-of-the-design-journey">Summary of the design journey</a></li>
-  <li><a href="#the-complete-design-process" id="toc-the-complete-design-process" class="nav-link" data-scroll-target="#the-complete-design-process">The complete design process</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-three-layer-architecture" id="toc-the-three-layer-architecture" class="nav-link" data-scroll-target="#the-three-layer-architecture">The three-layer architecture</a>
   <ul class="collapse">
-  <li><a href="#starting-points-for-design" id="toc-starting-points-for-design" class="nav-link" data-scroll-target="#starting-points-for-design">Starting points for design</a></li>
+  <li><a href="#how-the-layers-work-together" id="toc-how-the-layers-work-together" class="nav-link" data-scroll-target="#how-the-layers-work-together">How the layers work together</a></li>
   </ul></li>
-  <li><a href="#sql-and-functional-dependencies" id="toc-sql-and-functional-dependencies" class="nav-link" data-scroll-target="#sql-and-functional-dependencies">SQL and functional dependencies</a></li>
-  <li><a href="#denormalization" id="toc-denormalization" class="nav-link" data-scroll-target="#denormalization">Denormalization</a></li>
-  <li><a href="#bad-design-practices" id="toc-bad-design-practices" class="nav-link" data-scroll-target="#bad-design-practices">Bad design practices</a>
+  <li><a href="#presentation-layer-mvc-architecture" id="toc-presentation-layer-mvc-architecture" class="nav-link" data-scroll-target="#presentation-layer-mvc-architecture">Presentation layer: MVC architecture</a></li>
+  <li><a href="#business-logic-layer" id="toc-business-logic-layer" class="nav-link" data-scroll-target="#business-logic-layer">Business logic layer</a>
   <ul class="collapse">
-  <li><a href="#year-wise-tables" id="toc-year-wise-tables" class="nav-link" data-scroll-target="#year-wise-tables">Year-wise tables</a></li>
-  <li><a href="#cross-tab-schemas" id="toc-cross-tab-schemas" class="nav-link" data-scroll-target="#cross-tab-schemas">Cross-tab schemas</a></li>
-  <li><a href="#ignoring-generalization" id="toc-ignoring-generalization" class="nav-link" data-scroll-target="#ignoring-generalization">Ignoring generalization</a></li>
+  <li><a href="#object-relational-mapping" id="toc-object-relational-mapping" class="nav-link" data-scroll-target="#object-relational-mapping">Object-relational mapping</a></li>
   </ul></li>
-  <li><a href="#extending-the-lis-design-with-mvds" id="toc-extending-the-lis-design-with-mvds" class="nav-link" data-scroll-target="#extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</a></li>
-  <li><a href="#temporal-data" id="toc-temporal-data" class="nav-link" data-scroll-target="#temporal-data">Temporal data</a>
+  <li><a href="#data-access-layer" id="toc-data-access-layer" class="nav-link" data-scroll-target="#data-access-layer">Data access layer</a></li>
+  <li><a href="#evolution-of-architectures" id="toc-evolution-of-architectures" class="nav-link" data-scroll-target="#evolution-of-architectures">Evolution of architectures</a>
   <ul class="collapse">
-  <li><a href="#types-of-time" id="toc-types-of-time" class="nav-link" data-scroll-target="#types-of-time">Types of time</a></li>
-  <li><a href="#temporal-relation-types" id="toc-temporal-relation-types" class="nav-link" data-scroll-target="#temporal-relation-types">Temporal relation types</a></li>
-  <li><a href="#challenges-with-temporal-data" id="toc-challenges-with-temporal-data" class="nav-link" data-scroll-target="#challenges-with-temporal-data">Challenges with temporal data</a></li>
-  <li><a href="#practical-approach" id="toc-practical-approach" class="nav-link" data-scroll-target="#practical-approach">Practical approach</a></li>
+  <li><a href="#one-tier-architecture" id="toc-one-tier-architecture" class="nav-link" data-scroll-target="#one-tier-architecture">One-tier architecture</a></li>
+  <li><a href="#two-tier-architecture-client-server" id="toc-two-tier-architecture-client-server" class="nav-link" data-scroll-target="#two-tier-architecture-client-server">Two-tier architecture (client-server)</a></li>
+  <li><a href="#three-tier-architecture" id="toc-three-tier-architecture" class="nav-link" data-scroll-target="#three-tier-architecture">Three-tier architecture</a></li>
+  <li><a href="#n-tier-architecture" id="toc-n-tier-architecture" class="nav-link" data-scroll-target="#n-tier-architecture">N-tier architecture</a></li>
   </ul></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#sample-applications" id="toc-sample-applications" class="nav-link" data-scroll-target="#sample-applications">Sample applications</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -550,9 +548,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-5.html">6.5 Design Process &amp; Temporal Data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week07/7-1.html">Week 7: Application Development</a></li><li class="breadcrumb-item"><a href="../week07/7-1.html">7.1 Application Architecture</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">6.5 Database design process and temporal data</h1>
+<h1 class="title">7.1 Application programs and architecture</h1>
 </div>
 
 
@@ -569,155 +567,139 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary-of-the-design-journey" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-the-design-journey">Summary of the design journey</h2>
-<p>We have covered a long journey through relational database design. This module summarizes the entire process and introduces one final topic: temporal data.</p>
-<p>The design goals are: - Produce a relational schema in BCNF or 4NF. - Ensure lossless join for every decomposition. - Preserve dependencies wherever possible. - If BCNF is not possible while preserving dependencies, fall back to 3NF. - If 4NF is needed, decompose using multivalued dependencies.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We have covered the entire gamut of relational databases — how to get to a good design, how to normalize, how to reduce redundancy. Now we move forward to the applications that are built with these databases in the backend.</p>
+<p>The end goal of all database design is to build efficient, secure, and scalable applications. Despite the wide variety of application domains, there is a strong commonality in architecture across all of them.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Design goals summary</figcaption>
+<p><img src="images/L7.1_p3.png" class="img-fluid figure-img"></p>
+<figcaption>Application sectors</figcaption>
 </figure>
 </div>
 </section>
-<section id="the-complete-design-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-complete-design-process">The complete design process</h2>
-<p>The database design process has these stages:</p>
+<section id="the-three-layer-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="the-three-layer-architecture">The three-layer architecture</h2>
+<p>Every web application can be split into three conceptual layers:</p>
 <ol type="1">
-<li><p><strong>Requirements analysis.</strong> Understand what the users need. This comes from a specification document, interviews, or existing systems.</p></li>
-<li><p><strong>Conceptual design.</strong> Create an ER model that captures entities, attributes, and relationships. This is independent of any specific DBMS.</p></li>
-<li><p><strong>Logical design.</strong> Transform the ER model into a set of relational schemas. This is the initial set of tables.</p></li>
-<li><p><strong>Normalization.</strong> Identify functional dependencies (and multivalued dependencies) hidden in the requirements. Decompose each schema into 3NF, BCNF, or 4NF as needed.</p></li>
-<li><p><strong>Query-driven refinement.</strong> Test the design against real queries. Adjust the schema if certain queries are hard to write or slow to execute.</p></li>
-<li><p><strong>Physical design.</strong> Decide on indexing, storage, and other physical parameters. This is outside the scope of this module.</p></li>
+<li><p><strong>Frontend (presentation layer).</strong> The layer that interacts directly with the user through a browser or mobile app. It handles user input, displays results, and manages workflows like login, search, checkout, and payment.</p></li>
+<li><p><strong>Middle layer (application / business logic layer).</strong> Implements the functionality of the application. It links the frontend and backend layers. This includes authentication, search logic, pricing, cart management, payment gateway handling, order management, and delivery tracking.</p></li>
+<li><p><strong>Backend (data access layer).</strong> Manages persistent data in a database (Oracle, MySQL, PostgreSQL, etc.). This is the part of the database that we have been learning so far — tables, indexes, queries, normalization.</p></li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p7.png" class="img-fluid figure-img"></p>
-<figcaption>Overall design process</figcaption>
+<p><img src="images/L7.1_p8.png" class="img-fluid figure-img"></p>
+<figcaption>Three-tier architecture</figcaption>
 </figure>
 </div>
-<section id="starting-points-for-design" class="level3">
-<h3 class="anchored" data-anchor-id="starting-points-for-design">Starting points for design</h3>
-<p>The starting point for normalization can come from different sources:</p>
+<section id="how-the-layers-work-together" class="level3">
+<h3 class="anchored" data-anchor-id="how-the-layers-work-together">How the layers work together</h3>
+<p>The frontend makes a request (e.g.&nbsp;through HTTP). This goes to the application layer, which translates it into SQL queries for the database. The database returns table results, which the application layer converts into a format the frontend can display (e.g.&nbsp;HTML).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L7.1_p9.png" class="img-fluid figure-img"></p>
+<figcaption>Request flow across layers</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="presentation-layer-mvc-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="presentation-layer-mvc-architecture">Presentation layer: MVC architecture</h2>
+<p>The frontend layer typically follows the MVC (Model-View-Controller) architecture:</p>
 <ul>
-<li><strong>ER-to-relational mapping.</strong> Like the Library Information System case study. The ER model produces an initial set of tables.</li>
-<li><strong>Universal relation.</strong> A single large relation containing all attributes. Normalization breaks it into smaller relations.</li>
-<li><strong>Adhoc design.</strong> Tables created without formal methodology. These need to be checked and normalized.</li>
+<li><strong>Model.</strong> The part of business logic that has to be presented in the frontend, e.g., authentication checks, data validation.</li>
+<li><strong>View.</strong> How information is displayed on the screen — checkboxes, edit boxes, radio buttons, static text.</li>
+<li><strong>Controller.</strong> Manages the view and model by receiving messages, executing actions, and returning a view to the user.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p9.png" class="img-fluid figure-img"></p>
-<figcaption>Starting points for design</figcaption>
+<p><img src="images/L7.1_p11.png" class="img-fluid figure-img"></p>
+<figcaption>MVC architecture</figcaption>
 </figure>
 </div>
 </section>
-</section>
-<section id="sql-and-functional-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="sql-and-functional-dependencies">SQL and functional dependencies</h2>
-<p>SQL does not provide a direct way to specify functional dependencies. It only supports superkey constraints through PRIMARY KEY and UNIQUE specifications. Other functional dependencies must be checked using assertions or triggers, which are expensive.</p>
-<p>This means that even after a well-normalized design, it is possible to insert data that violates functional dependencies through application code. The designer must be aware of this limitation.</p>
-</section>
-<section id="denormalization" class="level2">
-<h2 class="anchored" data-anchor-id="denormalization">Denormalization</h2>
-<p>Normalization reduces redundancy. But redundancy is not always bad. There is a trade off between normalization and query performance.</p>
-<p>Consider a query that needs to join two large tables frequently. If the query runs many times per second, the join cost may be unacceptable. One solution is to denormalize: combine the two tables into one, accepting some redundancy in exchange for faster reads.</p>
+<section id="business-logic-layer" class="level2">
+<h2 class="anchored" data-anchor-id="business-logic-layer">Business logic layer</h2>
+<p>This layer provides a high-level view of the data. It keeps an object data model corresponding to the relational tables and relationships. It hides the details of the storage schema and can implement complex business rules that cannot be implemented in the database alone.</p>
+<p>For example, a business rule like “a student can enroll in a class only if she has completed prerequisites and paid her tuition fees” is implemented here. The database knows the prerequisites and fee status, but cannot make the business decision — that belongs in the business logic layer.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p12.png" class="img-fluid figure-img"></p>
-<figcaption>Denormalization trade off</figcaption>
+<p><img src="images/L7.1_p14.png" class="img-fluid figure-img"></p>
+<figcaption>Business logic layer details</figcaption>
 </figure>
 </div>
-<p>Denormalization is a deliberate choice after normalization, not a replacement for it. The steps are: 1. Normalize to remove redundancy. 2. Measure query performance. 3. Denormalize selectively where performance is critical. 4. Handle the extra redundancy in the application layer.</p>
-<p>Alternative approaches include using materialized views, which provide the same performance benefit without changing the logical schema.</p>
-</section>
-<section id="bad-design-practices" class="level2">
-<h2 class="anchored" data-anchor-id="bad-design-practices">Bad design practices</h2>
-<p>There are several design practices to avoid.</p>
-<section id="year-wise-tables" class="level3">
-<h3 class="anchored" data-anchor-id="year-wise-tables">Year-wise tables</h3>
-<p>Some designers create separate tables for each year: - Earnings_2004(Company_ID, Amount) - Earnings_2005(Company_ID, Amount) - Earnings_2006(Company_ID, Amount)</p>
-<p>This makes queries that span multiple years very difficult. A better design is a single table with a year attribute: - Earnings(Company_ID, Year, Amount)</p>
-</section>
-<section id="cross-tab-schemas" class="level3">
-<h3 class="anchored" data-anchor-id="cross-tab-schemas">Cross-tab schemas</h3>
-<p>Some designers use attributes to represent values of another attribute, like creating columns Year_2004, Year_2005, Year_2006 in a single table. This leads to many null values and makes the schema inflexible. The proper design is to keep year as a row value, not a column.</p>
-</section>
-<section id="ignoring-generalization" class="level3">
-<h3 class="anchored" data-anchor-id="ignoring-generalization">Ignoring generalization</h3>
-<p>In the LIS case study, treating Students, Faculty, and Staff as completely separate without a common Members table made it impossible to write simple queries. Always look for generalization hierarchies in the data.</p>
-</section>
-</section>
-<section id="extending-the-lis-design-with-mvds" class="level2">
-<h2 class="anchored" data-anchor-id="extending-the-lis-design-with-mvds">Extending the LIS design with MVDs</h2>
-<p>The LIS design from Module 28 assumed each book has only one author (the first author). In reality, books have multiple authors. This introduces multivalued dependencies.</p>
-<p>The Book_Title relation had: - ISBN -&gt; Title, Author_First, Author_Last, Publisher, Year</p>
-<p>If we allow multiple authors, we need: - ISBN -&gt;-&gt; Author (a book can have multiple authors) - ISBN -&gt;-&gt; Edition (a book can have multiple editions)</p>
+<section id="object-relational-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="object-relational-mapping">Object-relational mapping</h3>
+<p>The business logic layer needs an object-oriented view of data, while the database has a relational view. This requires object-relational mapping (ORM), where each entity (e.g., Student, Instructor, Course) has a corresponding class in the programming language and a corresponding table in the database.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p15.png" class="img-fluid figure-img"></p>
-<figcaption>LIS extension with MVDs</figcaption>
+<p><img src="images/L7.1_p16.png" class="img-fluid figure-img"></p>
+<figcaption>ORM mapping</figcaption>
 </figure>
 </div>
-<p>The 4NF decomposition gives: - Book_Author(ISBN, Author_First, Author_Last) - Book_Edition(ISBN, Edition, Year, Publisher) - Book_Title(ISBN, Title)</p>
-<p>Each of these is in 4NF. The design now supports multiple authors and multiple editions.</p>
 </section>
-<section id="temporal-data" class="level2">
-<h2 class="anchored" data-anchor-id="temporal-data">Temporal data</h2>
-<p>All the design theory we have covered assumes data is a snapshot at the current time. But much real-world data is time-varying. Medical records, share prices, exchange rates, and judiciary records all change over time. The database must keep history, not just the current value.</p>
+</section>
+<section id="data-access-layer" class="level2">
+<h2 class="anchored" data-anchor-id="data-access-layer">Data access layer</h2>
+<p>The data access layer interfaces between the business logic layer and the underlying database. It provides a mapping between the object models in the business logic layer and the relational model that the database maintains.</p>
+<p>There is a paradigm mismatch: the business logic uses an object-oriented language (Java, Python, C++), while the database uses SQL. The data access layer bridges this gap.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/L6.5_p19.png" class="img-fluid figure-img"></p>
-<figcaption>Temporal data introduction</figcaption>
-</figure>
-</div>
-<section id="types-of-time" class="level3">
-<h3 class="anchored" data-anchor-id="types-of-time">Types of time</h3>
-<p>There are two important time dimensions:</p>
-<p><strong>Valid time.</strong> The time period during which a fact is true in the real world. For example, John lived in Chennai from April 3, 1992 to June 20, 2015. He lived in Mumbai from June 21, 2015 onwards.</p>
-<p><strong>Transaction time.</strong> The time period during which a fact is stored in the database. For example, John’s birth was registered on April 6, 1992 (not on the actual birth date). His change of address was registered on January 10, 2016 (months after he actually moved).</p>
-</section>
-<section id="temporal-relation-types" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-relation-types">Temporal relation types</h3>
-<p><strong>Uni-temporal relation.</strong> Stores either valid time or transaction time, but not both.</p>
-<p><strong>Bi-temporal relation.</strong> Stores both valid time and transaction time. This is the most powerful approach.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L6.5_p23.png" class="img-fluid figure-img"></p>
-<figcaption>Bi-temporal relation example</figcaption>
+<p><img src="images/L7.1_p17.png" class="img-fluid figure-img"></p>
+<figcaption>Data access layer</figcaption>
 </figure>
 </div>
 </section>
-<section id="challenges-with-temporal-data" class="level3">
-<h3 class="anchored" data-anchor-id="challenges-with-temporal-data">Challenges with temporal data</h3>
+<section id="evolution-of-architectures" class="level2">
+<h2 class="anchored" data-anchor-id="evolution-of-architectures">Evolution of architectures</h2>
+<p>The three-tier architecture did not happen overnight. It evolved over decades:</p>
 <ul>
-<li><p><strong>Modeling time.</strong> Time is linear and moves forward. But it can be discrete, dense, bounded, or unbounded. Different applications need different time models.</p></li>
-<li><p><strong>Temporal ER models.</strong> Standard ER models do not capture time. Attributes need lifetimes. Entities exist for specific durations. The ER model must be extended.</p></li>
-<li><p><strong>Temporal functional dependencies.</strong> An FD may hold at one time but not at another. Temporal FDs require a more complex theory.</p></li>
-<li><p><strong>Temporal query languages.</strong> SQL has limited temporal support. Proposals like SQL/Temporal (from 1997) exist but have not been fully standardized.</p></li>
-<li><p><strong>Storage and performance.</strong> Bi-temporal relations need more storage. Query processing becomes more complex with range checks on time intervals.</p></li>
+<li><strong>1970s: Mainframes.</strong> Everything was centralized in a single huge, expensive computer. This was one-tier.</li>
+<li><strong>1980s: Personal computers + LAN.</strong> Basic data distribution concepts emerged. This introduced two-tier client-server architecture.</li>
+<li><strong>1990s onward: Internet / Web.</strong> Three-tier and N-tier architectures became the norm, with separate presentation, application, and database servers.</li>
+<li><strong>2000s onward: Mobile.</strong> Heavy shift to mobile-based access with Android and iOS platforms.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L7.1_p20.png" class="img-fluid figure-img"></p>
+<figcaption>Architecture evolution</figcaption>
+</figure>
+</div>
+<section id="one-tier-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="one-tier-architecture">One-tier architecture</h3>
+<p>All three layers run on the same computer. Simple but not very useful for real-world applications.</p>
+</section>
+<section id="two-tier-architecture-client-server" class="level3">
+<h3 class="anchored" data-anchor-id="two-tier-architecture-client-server">Two-tier architecture (client-server)</h3>
+<p>The client tier has the frontend, and the database tier has the database layer. The application layer is distributed between them. This is better than one-tier but does not give clean separation.</p>
+</section>
+<section id="three-tier-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="three-tier-architecture">Three-tier architecture</h3>
+<p>The presentation, business logic, and data access layers are separated into distinct tiers. This is the standard for most modern web applications.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L7.1_p21.png" class="img-fluid figure-img"></p>
+<figcaption>Three-tier vs two-tier</figcaption>
+</figure>
+</div>
+</section>
+<section id="n-tier-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="n-tier-architecture">N-tier architecture</h3>
+<p>Functionally similar to three-tier, but in implementation there can be multiple application servers, multiple database servers, web services, and other components. The tiering is done from an implementation and technology perspective.</p>
+</section>
+</section>
+<section id="sample-applications" class="level2">
+<h2 class="anchored" data-anchor-id="sample-applications">Sample applications</h2>
+<p>Every application — web mail, e-commerce, net banking, ride sharing — follows the same three-tier architecture. For example, in web mail:</p>
+<ul>
+<li><strong>Presentation layer:</strong> login, mail list, view mail, compose, filter.</li>
+<li><strong>Business logic layer:</strong> user authentication, connect to mail server, encryption/decryption.</li>
+<li><strong>Data layer:</strong> mail users table, address book, mail items.</li>
 </ul>
 </section>
-<section id="practical-approach" class="level3">
-<h3 class="anchored" data-anchor-id="practical-approach">Practical approach</h3>
-<p>In the absence of standardized temporal database support, most designers model time explicitly in the relational schema by adding start and end timestamp attributes. For example:</p>
-<p><strong>Employee_Salary( Emp_ID, Salary, Start_Date, End_Date )</strong></p>
-<p>Here, Start_Date and End_Date define the valid time for which the salary is in effect. Queries filter on these date columns to get historical data.</p>
-</section>
-</section>
-<section id="final-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
-<p>Database design is a balance between theory and practice.</p>
-<ul>
-<li>Use normalization to remove redundancy systematically.</li>
-<li>Use the ER model to capture real-world concepts.</li>
-<li>Decompose to BCNF or 4NF with lossless join and dependency preservation where possible.</li>
-<li>Fall back to 3NF when BCNF loses dependencies.</li>
-<li>Consider denormalization for performance when needed.</li>
-<li>Model time explicitly when data is time-varying.</li>
-<li>Always test the design against real queries.</li>
-</ul>
-<p>With these tools, you can design relational databases that are consistent, efficient, and maintainable.</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>All data-intensive web applications share the same fundamental three-tier architecture: presentation, business logic, and data access. The database architect designs and implements this architecture, and the specific details are filled in by application developers.</p>
 
 
 </section>
