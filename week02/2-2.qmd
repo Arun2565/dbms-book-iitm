@@ -20,15 +20,16 @@ A relation is a set. So, the order of tuples or rows don't matter.
 | a2 |b1|
 | a2 |b2|
 
-- All rows/ tuples must be distinct. 
-The values should not be duplicated 
+- All rows/tuples must be distinct.
+  Duplicate rows are not allowed.
 
-| A| B |                                                |A|B|
-|-------|-------------|                                 |a1|b1|
-| a1 |b1 |                     is not valid             |a1| b2|
-| a1| b2|
-| a1 |b2|
-| a1 |b1|
+| A | B  |         | A  | B  |
+|---|----|---------|----|----|
+| a1| b1 | invalid | a1 | b1 |
+| a1| b2 |   →     | a1 | b2 |
+| a1| b2 |         | a2 | b1 |
+| a2| b1 |         | a2 | b2 |
+| a2| b1 |         |    |    |
 
 
 ## Select Operation 
