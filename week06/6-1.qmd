@@ -1,0 +1,229 @@
+---
+title: "6.1 Normal Forms (1NF, 2NF, 3NF)"
+---
+
+## Goal of Normalization
+
+The process of normalization is a refinement or standardization technique for organizing data in a database. The single-word goal of normalization is to **eliminate redundancy** — the duplication of data across multiple places in the database.
+
+When we talk about normalization, we refer to a decomposition approach: we start with an original schema and decompose it into smaller schemas. Each smaller schema must satisfy some desirable properties. If after decomposition there is still redundancy, we apply additional conditions and decompose further. This process continues iteratively.
+
+## Key Properties of Decomposition
+
+As we decompose, it is critical that we maintain **two properties**:
+
+1. **Lossless Join** — It must be possible to reconstruct the original data by joining the decomposed relations. We covered this in depth last week.
+2. **Dependency Preservation** — We must still be able to check all functional dependencies (or any form of dependencies) in the decomposed relations without computing a join of the data.
+
+## Anomalies
+
+The reason we need normalization is straightforward: normalization gives us good decomposition, and good decomposition minimizes redundancy. Minimization of redundancy means removal or minimization of **anomalies**. There are three kinds:
+
+### Insertion Anomaly
+We cannot insert a fact about one entity unless we also have information about another entity. For example, in a supplier relation, we cannot insert a new supplier S5 located in Chennai until the supplier has supplied at least one part, because PID is part of the key.
+
+### Deletion Anomaly
+When we delete a record, we may unintentionally lose other information. For example, if we delete a particular supplier record, we may lose the information about the city and its status if that was the only entry for that city.
+
+### Update Anomaly
+If a supplier moves from one city to another (e.g., S1 moves from Delhi to Kanpur), we must update every record where that supplier appears. If there are multiple records, we have to remember to change each one, and inconsistency can easily arise.
+
+## Normal Forms Overview
+
+Normal forms specify a set of conditions that a relational schema must satisfy in terms of its constraints. The common normal forms are:
+
+- **First Normal Form (1NF)**
+- **Second Normal Form (2NF)**
+- **Third Normal Form (3NF)**
+- **Boyce-Codd Normal Form (BCNF)**
+- **Fourth Normal Form (4NF)**
+- Fifth Normal Form (5NF)
+- Sixth Normal Form (6NF)
+- Elementary Key Normal Form (EKNF)
+
+In practice, when someone says "a normalized database" without specifying which normal form, they almost always mean **Third Normal Form (3NF)**. This is the most commonly used target for normalization in real-world database design.
+
+Normal forms follow a hierarchy: any relation in a higher normal form automatically satisfies all conditions of the lower normal forms below it.
+
+## First Normal Form (1NF)
+
+The basic criteria for 1NF is that every attribute value must be **atomic** and **indivisible**. Two aspects are typically taken together to mean atomic:
+
+1. The underlying domain contains atomic values — each attribute holds a single value, not a set or list.
+2. No attribute can be multi-valued — if there are multiple values in the same field, it means the value has components and is therefore not atomic.
+
+If we have a relation STUDENT(Sid, Sname, Cname) where a student can take multiple courses, and we list multiple courses in a single Cname field, that violates 1NF. The solution is to make each course a separate row, which puts the data into 1NF, though it may introduce other redundancy problems.
+
+### The Supplier Example
+
+Consider the relation:
+
+**Supplier(SID, Status, City, PID, Qty)**
+
+Functional dependencies:
+- SID → City (each supplier is located in one city)
+- City → Status (each city has a fixed status)
+- SID, PID → Qty (a supplier supplies a specific quantity of a given part)
+
+The key is {SID, PID}.
+
+This relation is in 1NF because all values are atomic. However, it has significant redundancy and anomalies:
+
+- The city and status information for a supplier is repeated for every part they supply.
+- If we delete the only record for supplier S3 who is in Kota, we lose the information that Kota has status 40.
+- We cannot insert a new supplier until they supply at least one part.
+- If S1 moves from Delhi to Kanpur, we must update every record for S1.
+
+From a **functional dependency perspective**, redundancy occurs whenever there exists a non-trivial FD X → Y over R where X is **not a superkey** of R. When X is not a superkey, X can appear with duplicate values, and since X determines Y, Y will also have duplicate values.
+
+## Second Normal Form (2NF)
+
+A relation is in 2NF if:
+1. It is in 1NF.
+2. There is **no partial dependency** — no non-prime attribute is functionally dependent on a proper subset of any candidate key.
+
+### Prime vs Non-Prime Attributes
+
+- **Prime attribute**: An attribute that is part of some candidate key of the relation.
+- **Non-prime attribute**: An attribute that does not belong to any candidate key of the relation.
+
+### Partial Dependency Definition
+
+For a relational schema R, let X be some candidate key (could be the primary key). Let Y be a proper subset of some candidate key, and let A be a non-prime attribute. Then:
+
+$$ Y \rightarrow A $$
+
+is a **partial dependency** if:
+- Y is a proper subset of some candidate key
+- A is a non-prime attribute (not part of any candidate key)
+
+If a partial dependency exists, the relation violates 2NF.
+
+### Example: STUDENT(Sid, Sname, Cname)
+
+Functional dependencies:
+- Sid → Sname
+- Sid, Cname → (all attributes)
+
+Candidate key: {Sid, Cname}.
+
+Here, Sid is a proper subset of the candidate key. Sname is a non-prime attribute (it is not part of any candidate key). The FD Sid → Sname is therefore a **partial dependency**, which means STUDENT is not in 2NF.
+
+Why is this problematic? Sid appears multiple times (once for each course a student takes), and since Sid determines Sname, we get repeated Sname values, causing redundancy.
+
+**Decomposition to 2NF:** We break it into:
+- R1(Sid, Sname) — Sid is the key, no partial dependency
+- R2(Sid, Cname) — Sid and Cname together form the key
+
+This decomposition is lossless join (since Sid is the common attribute and a key of R1) and dependency preserving.
+
+### The Supplier Example Decomposed to 2NF
+
+The original Supplier relation had partial dependencies:
+- SID → City (SID is a proper subset of the key {SID, PID})
+- SID → Status (derived transitively: SID → City → Status)
+
+**Decomposition to 2NF:**
+- R1(SID, City, Status) — Key: SID
+- R2(SID, PID, Qty) — Key: {SID, PID}
+
+Now each supplier's city and status appears only once, eliminating the insertion, deletion, and update anomalies related to city/status. R1 has SID as key (no partial dependencies), and R2 has the full key {SID, PID} (no partial dependencies).
+
+However, even after achieving 2NF, there may still be redundancy — specifically from **transitive dependencies**.
+
+## Third Normal Form (3NF)
+
+A relation is in 3NF if:
+1. It is in 2NF.
+2. There is **no transitive dependency** — no non-prime attribute is functionally dependent on another non-prime attribute.
+
+### Transitive Dependency
+
+A transitive dependency is a functional dependency that holds by virtue of transitivity (Armstrong's Axiom). It can only occur in a relation with three or more attributes (or attribute sets). If:
+
+- A → B (A determines B)
+- B does NOT determine A (B ↛ A) — this condition is critical
+- B → C
+
+then A → C holds by transitivity, and this A → C is a **transitive dependency**.
+
+The condition "B does not determine A" is important because if A → B and B → A, then A and B are equivalent attributes — they are strongly tied together, and A → C would also be a direct dependency, not just a transitive one.
+
+### Example: Book → Author → Author_Nationality
+
+Consider a relation Book(Title, Author, Author_Nationality) where each book has one author:
+
+- Title → Author (each book has one author)
+- Author ↛ Title (an author may have written many books)
+- Author → Author_Nationality
+
+Then Title → Author_Nationality is a **transitive dependency**. The problem is that a non-key attribute (Author) determines another non-key attribute (Author_Nationality). If the same author writes multiple books, the nationality is repeated for each book entry.
+
+### The SUP_CITY Example
+
+After achieving 2NF, we have:
+**R1(SID, City, Status)** with FDs: SID → City, City → Status
+
+Here SID → Status is a transitive dependency because:
+- SID → City
+- City ↛ SID (multiple suppliers can be in the same city)
+- City → Status
+
+**Decomposition to 3NF:** Break R1 into:
+- SC(SID, City) — Key: SID
+- CS(City, Status) — Key: City
+
+Now the transitive dependency is broken. SC can check SID → City, CS can check City → Status, and by closure, SID → Status can be checked as well. The common attribute City ensures a lossless join.
+
+### The Simple 3NF Definition
+
+The accepted modern definition of 3NF is:
+
+A relation R is in 3NF if for every non-trivial FD X → A (where A is a single attribute):
+1. X is a superkey of R, **OR**
+2. A is part of some candidate key of R (i.e., A is a prime attribute)
+
+If these conditions were expressed more formally:
+- X → A is a non-trivial FD over R
+- If X is **not** a superkey, there will be redundancy
+- But 3NF allows some redundancy if A is prime (part of a candidate key)
+
+### The dept_advisor Example
+
+Consider dept_advisor(SID, IID, DeptName) where:
+- A student has one advisor per department
+- An advisor belongs to one department
+
+FDs:
+1. SID, DeptName → IID
+2. IID → DeptName
+
+Candidate keys: {SID, DeptName} and {SID, IID}.
+
+Is this in 3NF? Let's check:
+- **IID → DeptName**: IID is not a superkey, BUT DeptName is a prime attribute (it is part of the candidate key {SID, DeptName}). So this satisfies condition 2 of 3NF.
+- Therefore, the relation is in 3NF.
+
+### Can 3NF Still Have Redundancy?
+
+Yes, 3NF does not eliminate all redundancy. Consider a relation with attributes J, K, L and FDs:
+- JK → L
+- L → K
+
+Here, {J, K} is a candidate key. For the FD L → K:
+- L is not a superkey
+- But K is a prime attribute (part of the candidate key {J, K})
+- So this is in 3NF
+
+However, if the same value of L appears in multiple tuples, K is determined the same way, causing redundancy. This type of redundancy requires **BCNF** to eliminate, which we will discuss later.
+
+## Module Summary
+
+- **Normalization** is the process of eliminating redundancy through decomposition
+- **1NF** ensures all attribute values are atomic
+- **2NF** eliminates partial dependencies (non-prime attribute depending on a proper subset of a candidate key)
+- **3NF** eliminates transitive dependencies (non-prime attribute depending on another non-prime attribute)
+- Normal forms are hierarchical: 1NF ⊃ 2NF ⊃ 3NF
+- **3NF** is the most commonly used normal form in practice
+- Every decomposition should satisfy **lossless join** and **dependency preservation**
+- 3NF allows some controlled redundancy when the dependent attribute is prime; further reduction requires BCNF
