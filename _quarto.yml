@@ -119,14 +119,18 @@ website:
           - text: "9.5 Index Design in SQL"
             href: week09/9-5.qmd
       
-#       - section: "Week 10: Database Security"
-#         contents:
-#           - text: "10.1 Access Control"
-#             href: week10/10-1.qmd
-#           - text: "10.2 Authentication & Authorization"
-#             href: week10/10-2.qmd
-#           - text: "10.3 Security Best Practices"
-#             href: week10/10-3.qmd
+      - section: "Week 10: Transactions & Concurrency"
+        contents:
+          - text: "10.1 Transaction Concept & ACID"
+            href: week10/10-1.qmd
+          - text: "10.2 Serializability"
+            href: week10/10-2.qmd
+          - text: "10.3 Recoverability & TCL"
+            href: week10/10-3.qmd
+          - text: "10.4 Lock-based Protocols"
+            href: week10/10-4.qmd
+          - text: "10.5 Deadlock & Timestamp Protocols"
+            href: week10/10-5.qmd
       
       - section: "Week 11: Backup, Recovery & RAID"
         contents:
