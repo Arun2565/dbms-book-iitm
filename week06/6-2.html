@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6.2 3NF and BCNF decomposition algorithms – DBMS Notes - IITM</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1474efbd0a4ee46e3859d6ca2d72589d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a20af74ae97700b1221a5fac66f75eab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1474efbd0a4ee46e3859d6ca2d72589d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-2.html">6.2 Decomposition Algorithms</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DBMS Notes - IITM</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1: Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Course Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Why DBMS?/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.3 Why DBMS?/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.4 Intro to DBMS - 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week01/1-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.5 Intro to DBMS - 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2: Relational Model &amp; Basic SQL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.1 Intro to Relational Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.2 Intro to Relational Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.4 Intro to SQL/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week02/2-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.3 Intro to SQL/3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3: Advanced SQL</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.1 SQL Examples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 Intermediate SQL/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 Intermediate SQL/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.4 Intermediate SQL/3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week03/3-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.5 Advanced SQL</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4: Relational Query Languages</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6: Normalization &amp; Database Design</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.1 Normal Forms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">6.2 Decomposition Algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.3 LIS Case Study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.4 MVD &amp; 4NF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week06/6-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6.5 Design Process &amp; Temporal Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-we-need-decomposition-algorithms" id="toc-why-we-need-decomposition-algorithms" class="nav-link active" data-scroll-target="#why-we-need-decomposition-algorithms">Why we need decomposition algorithms</a></li>
+  <li><a href="#checking-whether-a-relation-is-already-in-3nf" id="toc-checking-whether-a-relation-is-already-in-3nf" class="nav-link" data-scroll-target="#checking-whether-a-relation-is-already-in-3nf">Checking whether a relation is already in 3NF</a></li>
+  <li><a href="#the-3nf-decomposition-algorithm" id="toc-the-3nf-decomposition-algorithm" class="nav-link" data-scroll-target="#the-3nf-decomposition-algorithm">The 3NF decomposition algorithm</a>
+  <ul class="collapse">
+  <li><a href="#step-1-compute-the-canonical-cover" id="toc-step-1-compute-the-canonical-cover" class="nav-link" data-scroll-target="#step-1-compute-the-canonical-cover">Step 1: Compute the canonical cover</a></li>
+  <li><a href="#step-2-create-one-relation-for-each-fd-in-the-canonical-cover" id="toc-step-2-create-one-relation-for-each-fd-in-the-canonical-cover" class="nav-link" data-scroll-target="#step-2-create-one-relation-for-each-fd-in-the-canonical-cover">Step 2: Create one relation for each FD in the canonical cover</a></li>
+  <li><a href="#step-3-add-the-key-if-needed" id="toc-step-3-add-the-key-if-needed" class="nav-link" data-scroll-target="#step-3-add-the-key-if-needed">Step 3: Add the key if needed</a></li>
+  <li><a href="#properties-of-the-3nf-decomposition" id="toc-properties-of-the-3nf-decomposition" class="nav-link" data-scroll-target="#properties-of-the-3nf-decomposition">Properties of the 3NF decomposition</a></li>
+  <li><a href="#example-customer_banker_branch" id="toc-example-customer_banker_branch" class="nav-link" data-scroll-target="#example-customer_banker_branch">Example: customer_banker_branch</a></li>
+  </ul></li>
+  <li><a href="#the-bcnf-decomposition-algorithm" id="toc-the-bcnf-decomposition-algorithm" class="nav-link" data-scroll-target="#the-bcnf-decomposition-algorithm">The BCNF decomposition algorithm</a>
+  <ul class="collapse">
+  <li><a href="#bcnf-decomposition-step" id="toc-bcnf-decomposition-step" class="nav-link" data-scroll-target="#bcnf-decomposition-step">BCNF decomposition step</a></li>
+  <li><a href="#example-a---b-b---c" id="toc-example-a---b-b---c" class="nav-link" data-scroll-target="#example-a---b-b---c">Example: A -&gt; B, B -&gt; C</a></li>
+  <li><a href="#bcnf-that-loses-dependencies" id="toc-bcnf-that-loses-dependencies" class="nav-link" data-scroll-target="#bcnf-that-loses-dependencies">BCNF that loses dependencies</a></li>
+  </ul></li>
+  <li><a href="#testing-whether-a-decomposed-relation-is-in-bcnf" id="toc-testing-whether-a-decomposed-relation-is-in-bcnf" class="nav-link" data-scroll-target="#testing-whether-a-decomposed-relation-is-in-bcnf">Testing whether a decomposed relation is in BCNF</a>
+  <ul class="collapse">
+  <li><a href="#example-of-the-pitfall" id="toc-example-of-the-pitfall" class="nav-link" data-scroll-target="#example-of-the-pitfall">Example of the pitfall</a></li>
+  <li><a href="#correct-method-to-test-a-decomposed-relation-for-bcnf" id="toc-correct-method-to-test-a-decomposed-relation-for-bcnf" class="nav-link" data-scroll-target="#correct-method-to-test-a-decomposed-relation-for-bcnf">Correct method to test a decomposed relation for BCNF</a></li>
+  </ul></li>
+  <li><a href="#testing-dependency-preservation-for-bcnf" id="toc-testing-dependency-preservation-for-bcnf" class="nav-link" data-scroll-target="#testing-dependency-preservation-for-bcnf">Testing dependency preservation for BCNF</a>
+  <ul class="collapse">
+  <li><a href="#exponential-time-algorithm" id="toc-exponential-time-algorithm" class="nav-link" data-scroll-target="#exponential-time-algorithm">Exponential time algorithm</a></li>
+  <li><a href="#polynomial-time-algorithm-conservative" id="toc-polynomial-time-algorithm-conservative" class="nav-link" data-scroll-target="#polynomial-time-algorithm-conservative">Polynomial time algorithm (conservative)</a></li>
+  <li><a href="#the-cyclic-dependency-example" id="toc-the-cyclic-dependency-example" class="nav-link" data-scroll-target="#the-cyclic-dependency-example">The cyclic dependency example</a></li>
+  </ul></li>
+  <li><a href="#comparison-3nf-versus-bcnf" id="toc-comparison-3nf-versus-bcnf" class="nav-link" data-scroll-target="#comparison-3nf-versus-bcnf">Comparison: 3NF versus BCNF</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week06/6-1.html">Week 6: Normalization &amp; Database Design</a></li><li class="breadcrumb-item"><a href="../week06/6-2.html">6.2 Decomposition Algorithms</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">6.2 3NF and BCNF decomposition algorithms</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="why-we-need-decomposition-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="why-we-need-decomposition-algorithms">Why we need decomposition algorithms</h2>
+<p>In the previous module, we defined normal forms. But we did not discuss how to transform a relation that is not in a given normal form into one that is. This module covers two algorithms. One decomposes a relation into 3NF. The other decomposes a relation into BCNF.</p>
+<p>The key difference between 3NF and BCNF is about dependency preservation.</p>
+<ul>
+<li>BCNF removes almost all redundancy caused by functional dependencies.</li>
+<li>But BCNF decomposition may lose some dependencies. We cannot check those dependencies on the decomposed relations without computing a join.</li>
+<li>3NF is weaker than BCNF. It allows some redundancy. But 3NF decomposition always preserves all dependencies.</li>
+</ul>
+<p>In practice, dependency preservation is very important. When we update the database, we must check that constraints hold. If we cannot check a dependency on a single relation, we must join two or more relations to verify it. That join is expensive.</p>
+<p>So there is a trade off. BCNF gives better redundancy removal but may lose dependencies. 3NF keeps all dependencies but may leave some redundancy.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p6.png" class="img-fluid figure-img"></p>
+<figcaption>Motivation for 3NF over BCNF</figcaption>
+</figure>
+</div>
+</section>
+<section id="checking-whether-a-relation-is-already-in-3nf" class="level2">
+<h2 class="anchored" data-anchor-id="checking-whether-a-relation-is-already-in-3nf">Checking whether a relation is already in 3NF</h2>
+<p>Before we decompose, we might want to check if the relation is already in 3NF. The definition says: for every non-trivial FD X -&gt; A, either X is a superkey or A is a prime attribute (part of some candidate key).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p7.png" class="img-fluid figure-img"></p>
+<figcaption>3NF definition</figcaption>
+</figure>
+</div>
+<p>If X is a superkey, the check is easy. We compute the attribute closure of X. If the closure is the whole relation, X is a superkey.</p>
+<p>If X is not a superkey, we must verify that each attribute in the right-hand side is part of some candidate key. Finding all candidate keys of a relation is expensive. There could be many candidate keys. This problem has been shown to be NP-hard. That means there is no known algorithm that runs in polynomial time to test 3NF.</p>
+<p>Fortunately, we do not need to test 3NF. We can decompose directly into 3NF using a polynomial time algorithm. That algorithm always produces a 3NF schema.</p>
+</section>
+<section id="the-3nf-decomposition-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-3nf-decomposition-algorithm">The 3NF decomposition algorithm</h2>
+<p>The 3NF decomposition algorithm has three steps.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p10.png" class="img-fluid figure-img"></p>
+<figcaption>3NF decomposition algorithm</figcaption>
+</figure>
+</div>
+<p>The three steps are explained below.</p>
+<section id="step-1-compute-the-canonical-cover" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-compute-the-canonical-cover">Step 1: Compute the canonical cover</h3>
+<p>The canonical cover Fc is a minimal representation of the functional dependencies. It has three properties.</p>
+<ol type="1">
+<li>Every FD in Fc has a single attribute on the right side.</li>
+<li>No FD in Fc has any extraneous attributes on the left side.</li>
+<li>No FD in Fc is redundant. That is, removing any FD from Fc changes the closure.</li>
+</ol>
+<p>We already learned how to compute the canonical cover in an earlier module. The algorithm checks each FD for extraneous attributes and removes redundant FDs.</p>
+</section>
+<section id="step-2-create-one-relation-for-each-fd-in-the-canonical-cover" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-create-one-relation-for-each-fd-in-the-canonical-cover">Step 2: Create one relation for each FD in the canonical cover</h3>
+<p>For each functional dependency X -&gt; Y in Fc, we create a relation schema with attributes X ∪ Y. The left-hand side X becomes a key of this relation.</p>
+<p>For example, if Fc has three dependencies: - X -&gt; Y - Z -&gt; W - P -&gt; Q</p>
+<p>Then we create three relations: - R1(X, Y) - R2(Z, W) - R3(P, Q)</p>
+</section>
+<section id="step-3-add-the-key-if-needed" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-add-the-key-if-needed">Step 3: Add the key if needed</h3>
+<p>If none of the decomposed relations contains a candidate key of the original relation, we add one more relation. This extra relation contains only the attributes of that candidate key.</p>
+<p>We need this step to ensure lossless join. Without a relation that contains a key, we may not be able to reconstruct the original relation by joining.</p>
+</section>
+<section id="properties-of-the-3nf-decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-the-3nf-decomposition">Properties of the 3NF decomposition</h3>
+<p><strong>Each Ri is in 3NF.</strong> Every FD in Fc becomes a relation where the left-hand side is the key. By construction, the conditions of 3NF are satisfied on each Ri.</p>
+<p><strong>Dependency preservation.</strong> Every FD in the canonical cover can be checked on its corresponding relation directly. Since Fc covers all FDs (Fc is equivalent to F), all dependencies are preserved.</p>
+<p><strong>Lossless join.</strong> The decomposition has the lossless join property. One way to see this is that every step preserves lossless join. The intersection of any two decomposed relations contains a key of one of them.</p>
+</section>
+<section id="example-customer_banker_branch" class="level3">
+<h3 class="anchored" data-anchor-id="example-customer_banker_branch">Example: customer_banker_branch</h3>
+<p>Consider the relation:</p>
+<p><strong>customer_banker_branch(cust_ID, emp_ID, branch_name, type)</strong></p>
+<p>Functional dependencies: - cust_ID, emp_ID -&gt; branch_name, type (a customer working with an employee determines the branch and account type) - emp_ID -&gt; branch_name (an employee works in one branch) - cust_ID, branch_name -&gt; emp_ID (a customer at a given branch has a fixed employee)</p>
+<p>The key of the original relation is {cust_ID, emp_ID}.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p12.png" class="img-fluid figure-img"></p>
+<figcaption>customer_banker_branch example</figcaption>
+</figure>
+</div>
+<p><strong>Step 1: Compute canonical cover.</strong></p>
+<p>First, we check for extraneous attributes. In the FD cust_ID, emp_ID -&gt; branch_name, type, the attribute branch_name is extraneous. Why? Because emp_ID already determines branch_name (from emp_ID -&gt; branch_name). If we remove branch_name from the right side, the closure of the left side stays the same. So we can remove branch_name.</p>
+<p>After removing the extraneous attribute, the FDs become: - cust_ID, emp_ID -&gt; type - emp_ID -&gt; branch_name - cust_ID, branch_name -&gt; emp_ID</p>
+<p>We also check for redundant FDs. None are redundant in this set. So the canonical cover Fc has these three FDs.</p>
+<p><strong>Step 2: Create one relation for each FD.</strong></p>
+<p>From the three FDs in Fc, we create three relations: - R1(cust_ID, emp_ID, type) - R2(emp_ID, branch_name) - R3(cust_ID, branch_name, emp_ID)</p>
+<p>Check the keys: - R1: {cust_ID, emp_ID} is the key (matches the original key). - R2: emp_ID is the key. - R3: {cust_ID, branch_name} is the key.</p>
+<p><strong>Step 3: Check if the key is covered.</strong></p>
+<p>The original key {cust_ID, emp_ID} is contained in R1. So we do not need to add a separate relation.</p>
+<p>Next, we check if any relation is a subset of another. R2(emp_ID, branch_name) has all its attributes in R3(cust_ID, branch_name, emp_ID). So R2 is a subset of R3. We can drop R2.</p>
+<p>The final 3NF decomposition is: - R1(cust_ID, emp_ID, type) - R3(cust_ID, branch_name, emp_ID)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p13.png" class="img-fluid figure-img"></p>
+<figcaption>3NF decomposition result</figcaption>
+</figure>
+</div>
+<p>Both relations are in 3NF. All FDs can be checked directly. The decomposition has lossless join.</p>
+</section>
+</section>
+<section id="the-bcnf-decomposition-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-bcnf-decomposition-algorithm">The BCNF decomposition algorithm</h2>
+<p>BCNF has a simpler definition than 3NF. Every non-trivial FD X -&gt; A must have X as a superkey of the relation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p18.png" class="img-fluid figure-img"></p>
+<figcaption>BCNF definition</figcaption>
+</figure>
+</div>
+<section id="bcnf-decomposition-step" class="level3">
+<h3 class="anchored" data-anchor-id="bcnf-decomposition-step">BCNF decomposition step</h3>
+<p>The BCNF decomposition algorithm works as follows:</p>
+<ol type="1">
+<li><p>Find a non-trivial FD X -&gt; Y that violates BCNF. That is, X is not a superkey of R.</p></li>
+<li><p>Decompose R into two relations:</p>
+<ul>
+<li>R1 = X ∪ Y</li>
+<li>R2 = R - (Y - X)</li>
+</ul>
+<p>Note: R2 keeps X plus all attributes of R that are not in Y.</p></li>
+<li><p>Check if each resulting relation is in BCNF. If not, decompose it further using the same rule.</p></li>
+<li><p>Stop when all relations are in BCNF.</p></li>
+</ol>
+<p>This decomposition is always lossless join. The common attribute X between R1 and R2 is a key of R1. That guarantees lossless join.</p>
+<p>But BCNF decomposition may not preserve dependencies, as we will see.</p>
+</section>
+<section id="example-a---b-b---c" class="level3">
+<h3 class="anchored" data-anchor-id="example-a---b-b---c">Example: A -&gt; B, B -&gt; C</h3>
+<p>Consider R(A, B, C) with FDs: - A -&gt; B - B -&gt; C</p>
+<p>The key is A. The FD B -&gt; C violates BCNF because B is not a superkey.</p>
+<p><strong>Step 1: Decompose using B -&gt; C.</strong> - R1 = B ∪ C = (B, C) - R2 = R - (C - B) = R - C = (A, B)</p>
+<p>Now check each: - R1(B, C): The only non-trivial FD that holds here is B -&gt; C. B is a superkey of R1 (the key is B). So R1 is in BCNF. - R2(A, B): The only non-trivial FD that holds here is A -&gt; B. A is a superkey of R2 (the key is A). So R2 is in BCNF.</p>
+<p>The decomposition {(B, C), (A, B)} is in BCNF and is lossless join. It also preserves both dependencies.</p>
+</section>
+<section id="bcnf-that-loses-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="bcnf-that-loses-dependencies">BCNF that loses dependencies</h3>
+<p>Consider R(J, K, L) with FDs: - JK -&gt; L - L -&gt; K</p>
+<p>Candidate keys: {J, K} and {J, L}.</p>
+<p>The FD L -&gt; K violates BCNF because L is not a superkey.</p>
+<p><strong>Decompose using L -&gt; K:</strong> - R1 = L ∪ K = (L, K) - R2 = R - (K - L) = R - K = (J, L)</p>
+<p>Now check: - R1(L, K): The FD L -&gt; K holds. L is a superkey (the key). So R1 is in BCNF. - R2(J, L): What FDs hold here? JK -&gt; L projected onto (J, L) gives nothing because we need all three attributes. The only FD is the trivial one. The key is {J, L}. R2 is in BCNF.</p>
+<p>Both relations are in BCNF. But the FD JK -&gt; L cannot be checked on either relation alone. To check JK -&gt; L, we must join R1 and R2 on L.</p>
+<p>This is the problem with BCNF. The decomposition is lossless join. Each relation is in BCNF. But we lost the ability to check JK -&gt; L efficiently.</p>
+</section>
+</section>
+<section id="testing-whether-a-decomposed-relation-is-in-bcnf" class="level2">
+<h2 class="anchored" data-anchor-id="testing-whether-a-decomposed-relation-is-in-bcnf">Testing whether a decomposed relation is in BCNF</h2>
+<p>After we decompose, we must check if each resulting relation is in BCNF. There is an important subtlety here.</p>
+<p>If we check only the FDs in the original set F, we might wrongly conclude that a decomposed relation is in BCNF. The reason is that F+ may contain additional FDs that become active in the decomposed relation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p19.png" class="img-fluid figure-img"></p>
+<figcaption>Testing for BCNF in decomposed relations</figcaption>
+</figure>
+</div>
+<section id="example-of-the-pitfall" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-the-pitfall">Example of the pitfall</h3>
+<p>Consider R(A, B, C, D, E) with FDs: - A -&gt; B - BC -&gt; D</p>
+<p>The key of R is {A, C, E}.</p>
+<p>The FD A -&gt; B violates BCNF because A is not a superkey.</p>
+<p><strong>Decompose using A -&gt; B:</strong> - R1 = (A, B) - R2 = (A, C, D, E)</p>
+<p>Now check R2 using only F in F. The FD BC -&gt; D involves attributes {B, C, D}. But B is not in R2. So BC -&gt; D does not seem to apply to R2. We might think R2 is in BCNF.</p>
+<p>But this is wrong. Look at F+. From A -&gt; B, we can derive AC -&gt; BC (by augmentation). And BC -&gt; D. So AC -&gt; D holds (by transitivity). In R2, the attributes {A, C, D} are all present. So AC -&gt; D holds on R2. But AC is not a superkey of R2 because E is also in R2 and AC does not determine E. So R2 violates BCNF.</p>
+<p>The pitfall is that we checked only F, not F+. We missed the FD AC -&gt; D which comes from closure.</p>
+</section>
+<section id="correct-method-to-test-a-decomposed-relation-for-bcnf" class="level3">
+<h3 class="anchored" data-anchor-id="correct-method-to-test-a-decomposed-relation-for-bcnf">Correct method to test a decomposed relation for BCNF</h3>
+<p>To check if a decomposed relation Ri is in BCNF:</p>
+<ol type="1">
+<li><p>Compute the restriction of F onto Ri. This means we take F+, and then keep only those FDs whose attributes are all in Ri. Since computing F+ is expensive, we can use an alternative.</p></li>
+<li><p>Use the attribute closure method. For every subset α of attributes of Ri, compute α+. Either:</p>
+<ul>
+<li>α+ contains no attributes from Ri besides α (meaning α determines nothing new in Ri), or</li>
+<li>α+ contains all attributes of Ri (meaning α is a superkey of Ri).</li>
+</ul>
+<p>If α+ includes some but not all attributes of Ri, then α -&gt; (α+ - α) is a violation of BCNF in Ri.</p></li>
+</ol>
+<p>This method is more expensive than checking just F. But it is the correct way to verify BCNF for decomposed relations.</p>
+</section>
+</section>
+<section id="testing-dependency-preservation-for-bcnf" class="level2">
+<h2 class="anchored" data-anchor-id="testing-dependency-preservation-for-bcnf">Testing dependency preservation for BCNF</h2>
+<p>When we have a BCNF decomposition, we may want to check whether dependencies are preserved. There are two approaches.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p21.png" class="img-fluid figure-img"></p>
+<figcaption>Testing dependency preservation</figcaption>
+</figure>
+</div>
+<section id="exponential-time-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-time-algorithm">Exponential time algorithm</h3>
+<p>The exponential algorithm uses F+. For each FD X -&gt; Y in F, we check if it is preserved in the decomposition.</p>
+<p>The algorithm works as follows. Let the decomposition be {R1, R2, …, Rn}. For each FD X -&gt; Y, we compute:</p>
+<p>result = X repeat for each Ri in the decomposition: t = (result ∩ Ri)+ ∩ Ri (closure computed under F) result = result ∪ t until result stops changing</p>
+<p>If the final result contains all attributes of Y, then X -&gt; Y is preserved.</p>
+<p>This algorithm is correct. But it requires computing closures multiple times, and it may be exponential in the worst case.</p>
+</section>
+<section id="polynomial-time-algorithm-conservative" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-time-algorithm-conservative">Polynomial time algorithm (conservative)</h3>
+<p>The polynomial time algorithm does not use F+. Instead, it only checks if each FD in F can be checked directly on some Ri. An FD X -&gt; Y is considered preserved if there exists a Ri such that X ∪ Y ⊆ Ri.</p>
+<p>This algorithm is faster. But it is conservative. It may say a dependency is not preserved when it actually is preserved through transitivity across multiple relations.</p>
+<p>The polynomial time algorithm never gives a false positive. If it says a decomposition is dependency preserving, that is always correct. If it says a decomposition is not dependency preserving, it could be wrong. The actual answer may still be that dependencies are preserved.</p>
+</section>
+<section id="the-cyclic-dependency-example" class="level3">
+<h3 class="anchored" data-anchor-id="the-cyclic-dependency-example">The cyclic dependency example</h3>
+<p>Consider the classic example of cyclic dependencies: - A -&gt; B - B -&gt; C - C -&gt; D - D -&gt; A</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p22.png" class="img-fluid figure-img"></p>
+<figcaption>Cyclic dependency with polynomial vs exponential test</figcaption>
+</figure>
+</div>
+<p>A BCNF decomposition might split these into separate relations. Each individual FD might seem lost because no single relation contains both sides. But by transitivity across all four relations, D -&gt; A can still be checked. The polynomial time algorithm would miss this. The exponential algorithm would catch it.</p>
+</section>
+</section>
+<section id="comparison-3nf-versus-bcnf" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-3nf-versus-bcnf">Comparison: 3NF versus BCNF</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L6.2_p30.png" class="img-fluid figure-img"></p>
+<figcaption>Comparison of 3NF and BCNF</figcaption>
+</figure>
+</div>
+<p>The practical takeaway is this. If dependency preservation is critical, use 3NF. If removing all redundancy is critical and losing some dependencies is acceptable, use BCNF. In most real databases, 3NF is the preferred choice.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>The 3NF decomposition algorithm computes a canonical cover, creates one relation per FD, and adds a key relation if needed.</li>
+<li>3NF decomposition always has lossless join and dependency preservation.</li>
+<li>The BCNF decomposition algorithm finds a violating FD, splits the relation into two, and recurses.</li>
+<li>BCNF decomposition always has lossless join but may lose dependencies.</li>
+<li>Testing whether a decomposed relation is in BCNF requires checking F+, not just F.</li>
+<li>The polynomial test for dependency preservation is conservative and may give false negatives.</li>
+<li>3NF is the more practical choice for real applications because it guarantees dependency preservation.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
