@@ -38,23 +38,25 @@ website:
             href: week02/2-5.qmd          
     
       
-#       - section: "Week 3: Advanced SQL"
-#         contents:
-#           - text: "3.1 Complex Queries"
-#             href: week03/3-1.qmd
-#           - text: "3.2 JOIN Operations"
-#             href: week03/3-2.qmd
-#           - text: "3.3 Aggregation Functions"
-#             href: week03/3-3.qmd
-      
-#       - section: "Week 4: Query Languages & Design"
-#         contents:
-#           - text: "4.1 Relational Algebra"
-#             href: week04/4-1.qmd
-#           - text: "4.2 Database Design Principles"
-#             href: week04/4-2.qmd
-#           - text: "4.3 Normalization"
-#             href: week04/4-3.qmd
+      - section: "Week 3: Advanced SQL"
+        contents:
+          - text: "3.1 SQL Examples"
+            href: week03/3-1.qmd
+          - text: "3.2 Intermediate SQL/1"
+            href: week03/3-2.qmd
+          - text: "3.3 Intermediate SQL/2"
+            href: week03/3-3.qmd
+          - text: "3.4 Intermediate SQL/3"
+            href: week03/3-4.qmd
+          - text: "3.5 Advanced SQL"
+            href: week03/3-5.qmd
+
+      - section: "Week 4: Relational Query Languages"
+        contents:
+          - text: "4.1 Formal Relational Query Languages/1"
+            href: week04/4-1.qmd
+          - text: "4.2 Formal Relational Query Languages/2"
+            href: week04/4-2.qmd
       
 #       - section: "Week 5: Extended DBMS Concepts"
 #         contents:
@@ -65,14 +67,18 @@ website:
 #           - text: "5.3 Advanced Data Types"
 #             href: week05/5-3.qmd
       
-#       - section: "Week 6: Transaction Management"
-#         contents:
-#           - text: "6.1 ACID Properties"
-#             href: week06/6-1.qmd
-#           - text: "6.2 Transaction States"
-#             href: week06/6-2.qmd
-#           - text: "6.3 Recovery Mechanisms"
-#             href: week06/6-3.qmd
+      - section: "Week 6: Normalization & Database Design"
+        contents:
+          - text: "6.1 Normal Forms"
+            href: week06/6-1.qmd
+          - text: "6.2 Decomposition Algorithms"
+            href: week06/6-2.qmd
+          - text: "6.3 LIS Case Study"
+            href: week06/6-3.qmd
+          - text: "6.4 MVD & 4NF"
+            href: week06/6-4.qmd
+          - text: "6.5 Design Process & Temporal Data"
+            href: week06/6-5.qmd
       
 #       - section: "Week 7: Concurrency Control"
 #         contents:
@@ -130,8 +136,18 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light:
+        - cosmo
+        - custom.scss
+      dark:
+        - darkly
+        - custom-dark.scss
+    mainfont: "'Spectral', Georgia, serif"
+    monofont: "'DM Mono', monospace"
+    fontsize: "1.25rem"
+    linestretch: 1.7
+    code-copy: true
+    html-math-method: katex
     toc: true
     toc-depth: 3
-    code-fold: false
-    number-sections: false
