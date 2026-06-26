@@ -250,163 +250,197 @@
     "href": "week04/4-3.html",
     "title": "4.3 Entity-Relationship Model/1",
     "section": "",
-    "text": "The Entity-Relationship (E-R) Model is used in the designing phase of a database. It is a model that helps us visualize the data as a set of entities and the relations that exist between them."
-  },
-  {
-    "objectID": "week04/4-3.html#design-process",
-    "href": "week04/4-3.html#design-process",
-    "title": "4.3 Entity-Relationship Model/1",
-    "section": "Design Process",
-    "text": "Design Process\nDatabase design follows a process of abstraction. We start from the real world and move to a conceptual model, then to a logical model, and finally to a physical schema.\n\n\n\nDatabase design process"
-  },
-  {
-    "objectID": "week04/4-3.html#entities-and-entity-sets",
-    "href": "week04/4-3.html#entities-and-entity-sets",
-    "title": "4.3 Entity-Relationship Model/1",
-    "section": "Entities and Entity Sets",
-    "text": "Entities and Entity Sets\nAn entity is a real-world object. In a student database, entities are students, instructors, and departments.\nAn entity set is a collection of similar entities. It can be taken as a relation with a set of entities that share the same attributes.\n\n\n\nEntity set example"
+    "text": "The Entity-Relationship (E-R) Model is used in the designing phase of a database. It is a model that helps us visualize the data as a set of entities and the relations that exist between them.\nAn entity is a real-world object. In the Student Database, entities are students, instructors, and departments.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
     "objectID": "week04/4-3.html#attributes",
     "href": "week04/4-3.html#attributes",
     "title": "4.3 Entity-Relationship Model/1",
     "section": "Attributes",
-    "text": "Attributes\nAn attribute is a property associated with an entity. There are several types of attributes.\n\nSimple and Composite (Compound) attributes. A simple attribute cannot be divided further. A composite attribute can be divided into sub-units. For example, the attribute name can be divided into first_name, middle_initial, and last_name.\nSingle-valued and Multi-valued attributes. A single-valued attribute takes only one value. A multi-valued attribute takes multiple values, such as phone numbers.\nDerived attributes. An attribute that can be computed from other stored attributes. For example, age can be calculated from date_of_birth.\n\nThe domain is the set of all values that an attribute can take.\n\n\n\nAttribute types"
+    "text": "Attributes\nAn attribute is a property associated with an entity. There are several types of attributes.\n\nSimple and Composite (Compound) attributes. A simple attribute cannot be divided further. A composite attribute can be divided into sub-units. For example, the attribute name can be divided into first_name, middle_initial, and last_name.\nSingle-valued and Multi-valued attributes. A single-valued attribute takes only one value. A multi-valued attribute takes multiple values, such as phone numbers: 123456789, 234565678.\nDerived attributes. An attribute that can be computed from other stored attributes. For example, age can be calculated from date_of_birth. Age becomes the derived attribute.\n\nThe domain is the set of all values that an attribute can take.\nAn entity set can be taken as a relation with a set of entities, which are the set of attributes.\n\n\n\nAttribute types",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
-    "objectID": "week04/4-3.html#entity-sets",
-    "href": "week04/4-3.html#entity-sets",
+    "objectID": "week04/4-3.html#types-of-entity-sets",
+    "href": "week04/4-3.html#types-of-entity-sets",
     "title": "4.3 Entity-Relationship Model/1",
-    "section": "Entity Sets",
-    "text": "Entity Sets\n\nStrong Entity Set\nA strong entity set contains sufficient attributes to uniquely identify all its entities. In other words, a primary key exists for a strong entity set. The primary key is shown by underlining it.\n\n\nWeak Entity Set\nA weak entity set does not contain sufficient attributes to uniquely identify its entities. It does not have a primary key. However, it contains a partial key called a discriminator. The discriminator is shown by underlining with a dashed line.\nSince a weak entity set does not have a primary key, it cannot independently exist in the ER Model. It appears in a relationship with a strong entity set. This is called the identifying relationship.\nThe primary key of a weak entity set is:\n\n\\text{Primary Key} = \\text{Discriminator} + \\text{Primary Key of Strong Entity Set}\n\nA weak entity set must have total participation in the identifying relationship. All its entities must feature in the relationship.\n\n\n\nWeak entity set\n\n\n\nExample\nStrong entity set: Building(building_no, building_name, address). Here building_no is the primary key.\nWeak entity set: Apartment(door_no, floor). Here door_no is the discriminator because door number alone cannot identify an apartment uniquely. There may be several other buildings with the same door number.\nRelationship: BA between Building and Apartment.\nBy total participation in BA, each apartment must be present in at least one building. Building has partial participation because there may be buildings with no apartments.\nPrimary key of Apartment = building_no + door_no"
+    "section": "Types of Entity Sets",
+    "text": "Types of Entity Sets\nThere are two types of entity sets.\n\nStrong Entity Set\nA strong entity set is an entity set that contains sufficient attributes to uniquely identify all its entities. A primary key exists for a strong entity set. The primary key is represented by underlining it. Each entity is a row. We can take each row as an object.\n\n\nWeak Entity Set\nA weak entity set is an entity set that does not contain sufficient attributes to uniquely identify all its entities. A weak entity set does not have a primary key, but it has a partial key called a discriminator, which is represented using dotted lines.\nWe cannot uniquely identify a row in a weak entity set by itself. So we link the partial key with the primary key of a strong entity. This kind of relationship is called an identifying relationship.\nThe primary key of a weak entity set is:\n\n\\text{Primary Key} = \\text{Discriminator} + \\text{Primary Key of Strong Entity Set}\n\nA weak entity set must have total participation in the identifying relationship. All its entities must feature in the relationship.\n\n\n\nWeak entity set\n\n\n\nExample\nStrong entity set: Building(building_no, building_name, address). Here building_no is the primary key.\nWeak entity set: Apartment(door_no, floor). Here door_no is the discriminator because door number alone cannot identify an apartment uniquely. There may be several other buildings with the same door number.\nRelationship: BA between Building and Apartment. By total participation in BA, each apartment must be present in at least one building. Building has partial participation because there may be buildings with no apartments.\nPrimary key of Apartment = building_no + door_no",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
     "objectID": "week04/4-3.html#relationship-sets",
     "href": "week04/4-3.html#relationship-sets",
     "title": "4.3 Entity-Relationship Model/1",
     "section": "Relationship Sets",
-    "text": "Relationship Sets\nA relationship is an association among entities. A relationship set is a set of relationships of the same type.\nFor example, the relationship advisor associates a student with an instructor.\n\n\n\nRelationship set example\n\n\n\nDegree of a Relationship\nMost relationship sets are binary (involving two entity sets). Relationships between more than two entity sets are rare. For example, the project_guide relationship is a ternary relationship between instructor, student, and project."
+    "text": "Relationship Sets\nRelationships are very important for designing the schema of the database. A relationship is an association among entities. A relationship set is a set of relationships of the same type.\nFor example, the relationship advisor associates a student with an instructor.\n\n\n\nRelationship set example\n\n\n\nDegree of a Relationship\nMost relationship sets are binary (involving two entity sets). Relationships between more than two entity sets are rare. For example, the project_guide relationship is a ternary relationship between instructor, student, and project.\n\n\nMapping Cardinality Constraints\nFor a binary relationship set, the mapping cardinality must be one of the following types.\nOne-to-One Relationship. Each instructor has at most one student (1 or less than 1). Each student has at most one instructor (1 or less than 1).\nOne-to-Many Relationship. Each instructor has one or many students. Each student has at most one instructor (meaning a student can have 1 or zero instructors).\nMany-to-One Relationship. Each instructor has at most one student. Each student has one or many instructors.\nMany-to-Many Relationship. Each instructor has one or many students. Each student has one or many instructors. For a Many-to-Many relationship, we need three tables to represent an entity set. There is an intermediate table that references or links the many-to-many relationship between two tables.\n\n\n\nMapping cardinalities\n\n\n\n\nParticipation Constraints\nTotal Participation (indicated by a double line) means that every entity in the entity set participates in at least one relationship in the relationship set. For example, the participation of student in the advisor relation is total because every student must have an associated instructor.\nPartial Participation means some entities may not participate in any relationship in the relationship set. For example, the participation of instructor in the advisor relation is partial.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
-    "objectID": "week04/4-3.html#mapping-cardinality-constraints",
-    "href": "week04/4-3.html#mapping-cardinality-constraints",
+    "objectID": "week04/4-3.html#er-diagram-notation-summary",
+    "href": "week04/4-3.html#er-diagram-notation-summary",
     "title": "4.3 Entity-Relationship Model/1",
-    "section": "Mapping Cardinality Constraints",
-    "text": "Mapping Cardinality Constraints\nMapping cardinality expresses the number of entities to which another entity can be associated through a relationship set. For a binary relationship set, the mapping cardinality must be one of the following types.\n\nOne-to-One Relationship\nEach instructor has at most one student. Each student has at most one instructor.\n\n\nOne-to-Many Relationship\nEach instructor has one or many students. Each student has at most one instructor.\n\n\nMany-to-One Relationship\nEach instructor has at most one student. Each student has one or many instructors.\n\n\nMany-to-Many Relationship\nEach instructor has one or many students. Each student has one or many instructors. For a many-to-many relationship, we need three tables to represent the entity set. There is an intermediate table that references the many-to-many relationship between two tables.\n\n\n\nMapping cardinalities"
-  },
-  {
-    "objectID": "week04/4-3.html#participation-constraints",
-    "href": "week04/4-3.html#participation-constraints",
-    "title": "4.3 Entity-Relationship Model/1",
-    "section": "Participation Constraints",
-    "text": "Participation Constraints\nTotal participation (indicated by a double line) means that every entity in the entity set participates in at least one relationship in the relationship set. For example, the participation of student in the advisor relation is total because every student must have an associated instructor.\nPartial participation means some entities may not participate in any relationship in the relationship set. For example, the participation of instructor in the advisor relation is partial."
+    "section": "ER Diagram Notation Summary",
+    "text": "ER Diagram Notation Summary\n\nRectangles represent entity sets.\nAttributes are listed inside the rectangle.\nAn underline indicates the primary key attribute.\nA diamond represents a relationship set.\nDouble lines indicate total participation.\nA double rectangle represents a weak entity set.\nA double diamond represents a weak entity set or an identifying relationship.\n\n\nTernary Relationship\nA ternary relationship is a relationship between three entity sets.\n\n\nOverlapping and Partial\nIn overlapping specialization, an entity can be in both the relations. In partial specialization, an entity may not be in any of the relations.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
     "objectID": "week04/4-3.html#module-summary",
     "href": "week04/4-3.html#module-summary",
     "title": "4.3 Entity-Relationship Model/1",
     "section": "Module Summary",
-    "text": "Module Summary\nWe introduced the design process for database systems and the E-R Model for real-world representation with entities, entity sets, attributes, and relationships."
+    "text": "Module Summary\nWe introduced the Entity-Relationship Model for real-world representation with entities, entity sets, attributes, and relationships.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.3 Entity-Relationship Model/1"
+    ]
   },
   {
     "objectID": "week04/4-5.html",
     "href": "week04/4-5.html",
     "title": "4.5 Entity-Relationship Model/3",
     "section": "",
-    "text": "In this module we look at extended features of the ER Model and discuss various design issues."
+    "text": "In this module we look at extended features of the ER Model and discuss various design issues.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.5 Entity-Relationship Model/3"
+    ]
   },
   {
     "objectID": "week04/4-5.html#extended-er-features",
     "href": "week04/4-5.html#extended-er-features",
     "title": "4.5 Entity-Relationship Model/3",
     "section": "Extended ER Features",
-    "text": "Extended ER Features\n\nNon-binary Relationship Sets\nMost relationship sets are binary. There are occasions when it is more convenient to represent relationships as non-binary (ternary or higher).\n\n\n\nTernary relationship\n\n\n\nCardinality Constraints on Ternary Relationships\nWe allow at most one arrow out of a ternary or higher-degree relationship to indicate a cardinality constraint. For example, an arrow from proj_guide to instructor indicates each student has at most one guide for a project.\nIf there is more than one arrow, there are two ways of defining the meaning, which can cause confusion. To avoid this, we allow at most one arrow.\n\n\n\nSpecialization (ISA)\nSpecialization is a top-down design process. We designate sub-groupings within an entity set that are distinctive from other entities in the set.\nThese sub-groupings become lower-level entity sets that have attributes or participate in relationships that do not apply to the higher-level entity set. It is depicted by a triangle component labeled ISA (meaning “is a”).\nAttribute inheritance. A lower-level entity set inherits all the attributes and relationship participation of the higher-level entity set to which it is linked.\n\n\n\nSpecialization ISA\n\n\nOverlapping vs Disjoint. In overlapping specialization, an entity can belong to more than one lower-level entity set (for example, a person can be both an employee and a student). In disjoint specialization, an entity can belong to at most one lower-level entity set (for example, an instructor or a secretary).\nTotal vs Partial. Total specialization means every higher-level entity must belong to one of the lower-level entity sets. Partial means some higher-level entities may not belong to any lower-level set.\n\n\n\nOverlapping and disjoint\n\n\n\nRepresenting Specialization via Schema\nThere are two methods.\nMethod 1. Form a schema for the higher-level entity. Form a schema for each lower-level entity set, include the primary key of the higher-level entity set and local attributes. The drawback is that getting information about an employee requires accessing two relations.\nMethod 2. Form a schema for each entity set with all local and inherited attributes. The drawback is that attributes like name, street, and city may be stored redundantly for people who are both students and employees.\n\n\n\nGeneralization\nGeneralization is a bottom-up design process. We combine a number of entity sets that share the same features into a higher-level entity set.\nSpecialization and generalization are simple inversions of each other. They are represented in an ER diagram in the same way.\n\nCompleteness Constraint\nThe completeness constraint specifies whether or not an entity in the higher-level entity set must belong to at least one of the lower-level entity sets within a generalization.\n\nTotal. An entity must belong to one of the lower-level entity sets.\nPartial. An entity need not belong to one of the lower-level entity sets. This is the default.\n\n\n\n\nAggregation\nAggregation treats a relationship as an abstract entity. It allows relationships between relationships.\nConsider the ternary relationship proj_guide. Suppose we want to record evaluations of a student by a guide on a project. The relationship sets eval_for and proj_guide represent overlapping information. Every eval_for relationship corresponds to a proj_guide relationship, but some proj_guide relationships may not correspond to any eval_for relationship. So we cannot discard the proj_guide relationship.\nWe eliminate this redundancy through aggregation. We treat the relationship as an abstract entity.\n\n\n\nAggregation\n\n\n\nRepresenting Aggregation via Schema\nTo represent aggregation, create a schema containing: - The primary key of the aggregated relationship. - The primary key of the associated entity set. - Any descriptive attributes.\nIn our example:\n\n\\text{eval\\_for} = (\\text{s\\_ID}, \\text{project\\_id}, \\text{i\\_ID}, \\text{evaluation\\_id})\n\nThe schema proj_guide is redundant."
+    "text": "Extended ER Features\n\nNon-binary Relationship Sets\nMost relationship sets are binary. There are occasions when it is more convenient to represent relationships as non-binary (ternary or higher).\n\n\n\nTernary relationship\n\n\n\nCardinality Constraints on Ternary Relationships\nWe allow at most one arrow out of a ternary or higher-degree relationship to indicate a cardinality constraint. For example, an arrow from proj_guide to instructor indicates each student has at most one guide for a project.\nIf there is more than one arrow, there are two ways of defining the meaning, which can cause confusion. To avoid this, we allow at most one arrow.\n\n\n\nSpecialization (ISA)\nSpecialization is a top-down design process. We designate sub-groupings within an entity set that are distinctive from other entities in the set.\nThese sub-groupings become lower-level entity sets that have attributes or participate in relationships that do not apply to the higher-level entity set. It is depicted by a triangle component labeled ISA (meaning “is a”).\nAttribute inheritance. A lower-level entity set inherits all the attributes and relationship participation of the higher-level entity set to which it is linked.\n\n\n\nSpecialization ISA\n\n\nOverlapping vs Disjoint. In overlapping specialization, an entity can belong to more than one lower-level entity set (for example, a person can be both an employee and a student). In disjoint specialization, an entity can belong to at most one lower-level entity set (for example, an instructor or a secretary).\nTotal vs Partial. Total specialization means every higher-level entity must belong to one of the lower-level entity sets. Partial means some higher-level entities may not belong to any lower-level set.\n\n\n\nOverlapping and disjoint\n\n\n\nRepresenting Specialization via Schema\nThere are two methods.\nMethod 1. Form a schema for the higher-level entity. Form a schema for each lower-level entity set, include the primary key of the higher-level entity set and local attributes. The drawback is that getting information about an employee requires accessing two relations.\nMethod 2. Form a schema for each entity set with all local and inherited attributes. The drawback is that attributes like name, street, and city may be stored redundantly for people who are both students and employees.\n\n\n\nGeneralization\nGeneralization is a bottom-up design process. We combine a number of entity sets that share the same features into a higher-level entity set.\nSpecialization and generalization are simple inversions of each other. They are represented in an ER diagram in the same way.\n\nCompleteness Constraint\nThe completeness constraint specifies whether or not an entity in the higher-level entity set must belong to at least one of the lower-level entity sets within a generalization.\n\nTotal. An entity must belong to one of the lower-level entity sets.\nPartial. An entity need not belong to one of the lower-level entity sets. This is the default.\n\n\n\n\nAggregation\nAggregation treats a relationship as an abstract entity. It allows relationships between relationships.\nConsider the ternary relationship proj_guide. Suppose we want to record evaluations of a student by a guide on a project. The relationship sets eval_for and proj_guide represent overlapping information. Every eval_for relationship corresponds to a proj_guide relationship, but some proj_guide relationships may not correspond to any eval_for relationship. So we cannot discard the proj_guide relationship.\nWe eliminate this redundancy through aggregation. We treat the relationship as an abstract entity.\n\n\n\nAggregation\n\n\n\nRepresenting Aggregation via Schema\nTo represent aggregation, create a schema containing: - The primary key of the aggregated relationship. - The primary key of the associated entity set. - Any descriptive attributes.\nIn our example:\n\n\\text{eval\\_for} = (\\text{s\\_ID}, \\text{project\\_id}, \\text{i\\_ID}, \\text{evaluation\\_id})\n\nThe schema proj_guide is redundant.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.5 Entity-Relationship Model/3"
+    ]
   },
   {
     "objectID": "week04/4-5.html#design-issues",
     "href": "week04/4-5.html#design-issues",
     "title": "4.5 Entity-Relationship Model/3",
     "section": "Design Issues",
-    "text": "Design Issues\n\nEntities vs Attributes\nWhen designing a schema, you must decide whether a concept is better represented as an entity or an attribute. For example, using phone as an entity allows extra information about phone numbers and supports multiple phone numbers.\n\n\nEntities vs Relationship Sets\nA relationship set describes an action that occurs between entities. You also need to decide where to place relationship attributes. For example, should date be an attribute of advisor or of student?\n\n\nBinary vs Non-binary Relationships\nAlthough it is possible to replace any non-binary relationship set by a number of distinct binary relationship sets, an n-ary relationship set shows more clearly that several entities participate in a single relationship.\nSome relationships that appear to be non-binary may be better represented using binary relationships. For example, a ternary relationship parents, relating a child to father and mother, is better replaced by two binary relationships father and mother. This allows partial information like only the mother being known.\nBut some relationships are naturally non-binary, such as proj_guide.\n\nConverting Non-binary to Binary\nIn general, any non-binary relationship can be represented using binary relationships by creating an artificial entity set.\nReplace relationship R between entity sets A, B, C by an entity set E and three relationship sets R_A, R_B, R_C. Create an identifying attribute for E and add any attributes of R to E.\nFor each relationship (a_i, b_i, c_i) in R, create a new entity e_i in E and add (e_i, a_i) to R_A, (e_i, b_i) to R_B, and (e_i, c_i) to R_C.\nTranslating all constraints may not be possible. There may be instances in the translated schema that cannot correspond to any instance of R.\n\n\n\nOther Design Decisions\n\nWhether to use a strong or weak entity set.\nWhether to use specialization or generalization. This contributes to modularity in the design.\nWhether to use aggregation. You can treat the aggregate entity set as a single unit without concern for the details of its internal structure."
+    "text": "Design Issues\n\nEntities vs Attributes\nWhen designing a schema, you must decide whether a concept is better represented as an entity or an attribute. For example, using phone as an entity allows extra information about phone numbers and supports multiple phone numbers.\n\n\nEntities vs Relationship Sets\nA relationship set describes an action that occurs between entities. You also need to decide where to place relationship attributes. For example, should date be an attribute of advisor or of student?\n\n\nBinary vs Non-binary Relationships\nAlthough it is possible to replace any non-binary relationship set by a number of distinct binary relationship sets, an n-ary relationship set shows more clearly that several entities participate in a single relationship.\nSome relationships that appear to be non-binary may be better represented using binary relationships. For example, a ternary relationship parents, relating a child to father and mother, is better replaced by two binary relationships father and mother. This allows partial information like only the mother being known.\nBut some relationships are naturally non-binary, such as proj_guide.\n\nConverting Non-binary to Binary\nIn general, any non-binary relationship can be represented using binary relationships by creating an artificial entity set.\nReplace relationship R between entity sets A, B, C by an entity set E and three relationship sets R_A, R_B, R_C. Create an identifying attribute for E and add any attributes of R to E.\nFor each relationship (a_i, b_i, c_i) in R, create a new entity e_i in E and add (e_i, a_i) to R_A, (e_i, b_i) to R_B, and (e_i, c_i) to R_C.\nTranslating all constraints may not be possible. There may be instances in the translated schema that cannot correspond to any instance of R.\n\n\n\nOther Design Decisions\n\nWhether to use a strong or weak entity set.\nWhether to use specialization or generalization. This contributes to modularity in the design.\nWhether to use aggregation. You can treat the aggregate entity set as a single unit without concern for the details of its internal structure.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.5 Entity-Relationship Model/3"
+    ]
   },
   {
     "objectID": "week04/4-5.html#symbols-used-in-er-notation",
     "href": "week04/4-5.html#symbols-used-in-er-notation",
     "title": "4.5 Entity-Relationship Model/3",
     "section": "Symbols Used in ER Notation",
-    "text": "Symbols Used in ER Notation\nDifferent notations exist for ER diagrams. The most common ones are Chen notation and IDE1FX (Crows feet notation).\n\n\n\nER notation symbols"
+    "text": "Symbols Used in ER Notation\nDifferent notations exist for ER diagrams. The most common ones are Chen notation and IDE1FX (Crows feet notation).\n\n\n\nER notation symbols",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.5 Entity-Relationship Model/3"
+    ]
   },
   {
     "objectID": "week04/4-5.html#module-summary",
     "href": "week04/4-5.html#module-summary",
     "title": "4.5 Entity-Relationship Model/3",
     "section": "Module Summary",
-    "text": "Module Summary\nWe discussed the extended features of the ER Model and examined various design issues that come up when building ER diagrams."
+    "text": "Module Summary\nWe discussed the extended features of the ER Model and examined various design issues that come up when building ER diagrams.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.5 Entity-Relationship Model/3"
+    ]
   },
   {
     "objectID": "week04/4-2.html",
     "href": "week04/4-2.html",
-    "title": "4.2 Formal Relational Query Languages/2",
+    "title": "4.2 Relational Calculus",
     "section": "",
-    "text": "Predicate Logic, also called Predicate Calculus, is an extension of Propositional Logic or Boolean Algebra. In Boolean Algebra, we have propositions or variables that take True or False values.\nPredicate Logic adds the concept of predicates and quantifiers. This makes the logic more expressive.\n\n\nA predicate is a statement with a variable. For example, “x is greater than 3.” Here x is a variable and “is greater than 3” is a property. This is called a predicate.\nIt is denoted as P(x). If we put a value, it becomes a proposition. For example, P(5) becomes a proposition that returns True or False.\nWe can think of the predicate value as a function. We can have any number of variables.\nPropositional Logic has limitations. From the statements “Socrates is mortal” and “Plato is mortal”, we cannot conclude that all humans are mortal. Propositional Logic cannot be generalized and does not have patterns or relationships. Predicate Logic solves this by breaking the statement down into objects, relations, and properties.\n\n\n\nQuantifiers are used to talk about properties that hold over the entire domain in a certain way. There are two types.\n\nUniversal Quantifier (\\forall). It means “for all”.\n\n\n\\forall x (\\text{Human}(x) \\rightarrow \\text{Mortal}(x))\n\nFor every x, if x is Human then x is mortal.\n\nExistential Quantifier (\\exists). It means “there exists”.\n\n\n\\exists x \\; \\text{Student}(x)\n\nThere exists an x such that x is a Student.\nRelational Logic is also called First-Order Logic.",
+    "text": "In a Procedural Language, we mention clearly what the predicate should be, what the condition is, what should be selected or projected, and what result should be computed. Relational Algebra is a procedural language.\nIn a Non-Procedural Language (also called a declarative language), we only describe what the output should be like and what the property of the result should be like. It is the job of the DBMS system to figure out how to get the result.\nRelational Calculus is a non-procedural language. It has two types:\n\nTuple Relational Calculus\nDomain Relational Calculus",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
+    ]
+  },
+  {
+    "objectID": "week04/4-2.html#procedural-vs-non-procedural-languages",
+    "href": "week04/4-2.html#procedural-vs-non-procedural-languages",
+    "title": "4.2 Relational Calculus",
+    "section": "",
+    "text": "In a Procedural Language, we mention clearly what the predicate should be, what the condition is, what should be selected or projected, and what result should be computed. Relational Algebra is a procedural language.\nIn a Non-Procedural Language (also called a declarative language), we only describe what the output should be like and what the property of the result should be like. It is the job of the DBMS system to figure out how to get the result.\nRelational Calculus is a non-procedural language. It has two types:\n\nTuple Relational Calculus\nDomain Relational Calculus",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
     "objectID": "week04/4-2.html#predicate-logic",
     "href": "week04/4-2.html#predicate-logic",
-    "title": "4.2 Formal Relational Query Languages/2",
-    "section": "",
-    "text": "Predicate Logic, also called Predicate Calculus, is an extension of Propositional Logic or Boolean Algebra. In Boolean Algebra, we have propositions or variables that take True or False values.\nPredicate Logic adds the concept of predicates and quantifiers. This makes the logic more expressive.\n\n\nA predicate is a statement with a variable. For example, “x is greater than 3.” Here x is a variable and “is greater than 3” is a property. This is called a predicate.\nIt is denoted as P(x). If we put a value, it becomes a proposition. For example, P(5) becomes a proposition that returns True or False.\nWe can think of the predicate value as a function. We can have any number of variables.\nPropositional Logic has limitations. From the statements “Socrates is mortal” and “Plato is mortal”, we cannot conclude that all humans are mortal. Propositional Logic cannot be generalized and does not have patterns or relationships. Predicate Logic solves this by breaking the statement down into objects, relations, and properties.\n\n\n\nQuantifiers are used to talk about properties that hold over the entire domain in a certain way. There are two types.\n\nUniversal Quantifier (\\forall). It means “for all”.\n\n\n\\forall x (\\text{Human}(x) \\rightarrow \\text{Mortal}(x))\n\nFor every x, if x is Human then x is mortal.\n\nExistential Quantifier (\\exists). It means “there exists”.\n\n\n\\exists x \\; \\text{Student}(x)\n\nThere exists an x such that x is a Student.\nRelational Logic is also called First-Order Logic.",
+    "title": "4.2 Relational Calculus",
+    "section": "Predicate Logic",
+    "text": "Predicate Logic\nRelational Calculus is based on Predicate Logic. Predicate Logic is an extension of Propositional Logic with variables and quantifiers. It was proposed to make Propositional Logic more expressive.\n\nPropositional Logic and Its Limitations\nA proposition is a declarative statement which has either a True or False value. Propositional Logic is a formal logic system where propositions are connected using logical connectives.\nConsider these statements:\n\nP: Socrates is mortal.\nQ: Plato is mortal.\n\nFrom these two statements, we cannot conclude that “All Humans are mortal”. Propositional Logic has this limitation. It cannot be generalized and does not have patterns or relationships.\nIn Predicate Logic, we break the statement down into objects, relations, and properties. For example, \\text{Human}(\\text{Socrates}) means Socrates is an object, and every property of Human will be applicable to Socrates.\nRelational Logic is also called First-Order Logic.\n\n\nQuantifiers\nThere are two types of quantifiers.\n\nUniversal Quantifier (\\forall) means “for all”.\n\n\n\\forall x (\\text{Human}(x) \\rightarrow \\text{Mortal}(x))\n\nFor every x, if x is Human then x is mortal.\n\nExistential Quantifier (\\exists) means “there exists”.\n\n\n\\exists x \\; \\text{Student}(x)\n\nThere exists an x such that x is a Student.",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
     "objectID": "week04/4-2.html#tuple-relational-calculus",
     "href": "week04/4-2.html#tuple-relational-calculus",
-    "title": "4.2 Formal Relational Query Languages/2",
+    "title": "4.2 Relational Calculus",
     "section": "Tuple Relational Calculus",
-    "text": "Tuple Relational Calculus\nTuple Relational Calculus is a non-procedural query language. In a non-procedural language, you only describe what the output should be like. It is the job of the DBMS to figure out how to get the result.\nEach query is in the form:\n\n\\{ t \\mid P(t) \\}\n\nP(t) may have various logical connectives such as \\land (and), \\lor (or), \\lnot (not), and \\Rightarrow (implication).\nThe components of the predicate are: - Set of attributes. - Set of comparison operators. - Set of connectives. - Implication. - Set of quantifiers.\n\nExamples\nFind the first names of students whose age is greater than 21.\n\n\\{ t.\\text{fname} \\mid \\text{Student}(t) \\land t.\\text{age} &gt; 21 \\}\n\nThere are various ways to represent the same query:\n\n\\{ t.\\text{Fname} \\mid \\text{Student}(t) \\land t.\\text{age} &gt; 21 \\}\n\n\n\\{ t.\\text{Fname} \\mid t \\in \\text{Student} \\land t.\\text{age} &gt; 21 \\}\n\n\n\\{ t \\mid \\exists s \\in \\text{Student} (s.\\text{age} &gt; 21 \\land t.\\text{Fname} = s.\\text{Fname}) \\}\n\nIf there are multiple attributes to project, we connect them using the \\land connective.\n\n\n\nTuple Relational Calculus",
+    "text": "Tuple Relational Calculus\nFormula:\n\n\\{ t \\mid P(t) \\}\n\nIt is the set of all tuples t such that predicate P is true for t. P(t) may have various logical connectives such as \\land (and), \\lor (or), \\lnot (not), and \\Rightarrow (implication).\n\nExamples\nFind the first names of students whose age is greater than 21.\n\n\\{ t.\\text{fname} \\mid \\text{Student}(t) \\land t.\\text{age} &gt; 21 \\}\n\nThere are various ways to represent the same query:\n\n\\begin{gather*}\n\\{ t.\\text{Fname} \\mid \\text{Student}(t) \\land t.\\text{age} &gt; 21 \\} \\\\\n\\{ t.\\text{Fname} \\mid t \\in \\text{Student} \\land t.\\text{age} &gt; 21 \\} \\\\\n\\{ t \\mid \\exists s \\in \\text{Student} (s.\\text{age} &gt; 21 \\land t.\\text{Fname} = s.\\text{Fname}) \\}\n\\end{gather*}\n\nIf we have more than one attribute to project, we connect them using the \\land connective. For example, \\{ t \\mid t.\\text{age} = s.\\text{age} \\land t.\\text{name} = s.\\text{name} \\}.\nThe expression \\{ t \\mid s.\\text{courseid} = c.\\text{courseid} \\} is how we represent an inner join in Relational Calculus.\n\n\n\nTuple Relational Calculus",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
     "objectID": "week04/4-2.html#domain-relational-calculus",
     "href": "week04/4-2.html#domain-relational-calculus",
-    "title": "4.2 Formal Relational Query Languages/2",
+    "title": "4.2 Relational Calculus",
     "section": "Domain Relational Calculus",
-    "text": "Domain Relational Calculus\nDomain Relational Calculus treats a tuple as a collection of domain values. Each attribute is a domain variable.\nThe form is:\n\n\\{ \\langle x_1, x_2, \\dots, x_n \\rangle \\mid P(x_1, x_2, \\dots, x_n) \\}\n\n\n\n\nDomain Relational Calculus",
+    "text": "Domain Relational Calculus\nDomain Relational Calculus treats a tuple as a collection of domain values.\nFormula:\n\n\\{ \\langle x_1, x_2, \\dots, x_n \\rangle \\mid P(x_1, x_2, \\dots, x_n) \\}\n\nEach x_i represents a domain variable. P represents a formula similar to that of predicate calculus.\n\n\n\nDomain Relational Calculus",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
     "objectID": "week04/4-2.html#equivalence-of-algebra-and-calculus",
     "href": "week04/4-2.html#equivalence-of-algebra-and-calculus",
-    "title": "4.2 Formal Relational Query Languages/2",
+    "title": "4.2 Relational Calculus",
     "section": "Equivalence of Algebra and Calculus",
     "text": "Equivalence of Algebra and Calculus\nRelational Algebra and Relational Calculus are equivalent in expressive power. Every query that can be expressed in Relational Algebra can also be expressed in Relational Calculus, and the other way around.\n\n\n\nEquivalence of Algebra and Calculus",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
     "objectID": "week04/4-2.html#module-summary",
     "href": "week04/4-2.html#module-summary",
-    "title": "4.2 Formal Relational Query Languages/2",
+    "title": "4.2 Relational Calculus",
     "section": "Module Summary",
-    "text": "Module Summary\nPredicate Logic extends propositional logic with predicates and quantifiers. Tuple Relational Calculus and Domain Relational Calculus are both non-procedural languages based on Predicate Calculus. They are equivalent in power to Relational Algebra.",
+    "text": "Module Summary\nRelational Calculus is a non-procedural language based on Predicate Calculus. It comes in two forms: Tuple Relational Calculus, where queries are of the form \\{ t \\mid P(t) \\}, and Domain Relational Calculus, where queries are of the form \\{ \\langle x_1, \\dots, x_n \\rangle \\mid P(x_1, \\dots, x_n) \\}. Both are equivalent in power to Relational Algebra.",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.2 Formal Relational Query Languages/2"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.2 Relational Calculus"
     ]
   },
   {
@@ -4627,60 +4661,65 @@
     "href": "week04/4-4.html",
     "title": "4.4 Entity-Relationship Model/2",
     "section": "",
-    "text": "In this module we look at ER Diagram notation and how to translate ER Models into relational schemas."
+    "text": "In this module we look at ER Diagram notation and how to translate ER Models into relational schemas.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.4 Entity-Relationship Model/2"
+    ]
   },
   {
     "objectID": "week04/4-4.html#er-diagram-notation",
     "href": "week04/4-4.html#er-diagram-notation",
     "title": "4.4 Entity-Relationship Model/2",
     "section": "ER Diagram Notation",
-    "text": "ER Diagram Notation\nEntity sets and relationship sets can be represented graphically using standard symbols.\n\nRectangles represent entity sets.\nAttributes are listed inside the entity rectangle.\nAn underline indicates the primary key attribute.\nDiamonds represent relationship sets.\n\n\nRelationship Sets with Attributes\nRelationship sets can also have descriptive attributes. For example, the advisor relationship may have a date attribute.\n\n\n\nRelationship set with attributes\n\n\n\n\nRoles\nEntity sets in a relationship need not be distinct. Each occurrence of an entity set plays a role in the relationship. For example, in the prereq relationship, the labels course_id and prereq_id are called roles.\n\n\n\nRoles in a relationship\n\n\n\n\nCardinality Constraints in ER Diagrams\nWe express cardinality constraints by drawing either a directed line (\\rightarrow), signifying “one”, or an undirected line (-), signifying “many”, between the relationship set and the entity set.\n\nOne-to-one: arrow on both sides.\nOne-to-many: arrow on the “one” side.\nMany-to-many: no arrows.\n\n\n\n\nCardinality constraints in ER diagrams\n\n\n\n\nExpressing More Complex Constraints\nA line may have an associated minimum and maximum cardinality, shown in the form l..h, where l is the minimum and h is the maximum cardinality.\n\nA minimum value of 1 indicates total participation.\nA maximum value of 1 indicates that the entity participates in at most one relationship.\nA maximum value of * indicates no limit.\n\nFor example, an instructor can advise 0 or more students. A student must have 1 advisor and cannot have multiple advisors.\n\n\n\nMin-max notation\n\n\n\n\nWeak Entity Sets in ER Diagrams\n\nA weak entity set is shown with a double rectangle.\nThe discriminator is underlined with a dashed line.\nThe identifying relationship is shown with a double diamond.\nPrimary key for section is (course_id, sec_id, semester, year).\n\n\n\n\nWeak entity set notation\n\n\n\n\nComplete ER Diagram for a University Enterprise\n\n\n\nUniversity ER diagram"
+    "text": "ER Diagram Notation\nEntity sets and relationship sets can be represented graphically using standard symbols.\n\nRectangles represent entity sets.\nAttributes are listed inside the entity rectangle.\nAn underline indicates the primary key attribute.\nDiamonds represent relationship sets.\n\n\nRelationship Sets with Attributes\nRelationship sets can also have descriptive attributes. For example, the advisor relationship may have a date attribute.\n\n\n\nRelationship set with attributes\n\n\n\n\nRoles\nEntity sets in a relationship need not be distinct. Each occurrence of an entity set plays a role in the relationship. For example, in the prereq relationship, the labels course_id and prereq_id are called roles.\n\n\n\nRoles in a relationship\n\n\n\n\nCardinality Constraints in ER Diagrams\nWe express cardinality constraints by drawing either a directed line (\\rightarrow), signifying “one”, or an undirected line (-), signifying “many”, between the relationship set and the entity set.\n\nOne-to-one: arrow on both sides.\nOne-to-many: arrow on the “one” side.\nMany-to-many: no arrows.\n\n\n\n\nCardinality constraints in ER diagrams\n\n\n\n\nExpressing More Complex Constraints\nA line may have an associated minimum and maximum cardinality, shown in the form l..h, where l is the minimum and h is the maximum cardinality.\n\nA minimum value of 1 indicates total participation.\nA maximum value of 1 indicates that the entity participates in at most one relationship.\nA maximum value of * indicates no limit.\n\nFor example, an instructor can advise 0 or more students. A student must have 1 advisor and cannot have multiple advisors.\n\n\n\nMin-max notation\n\n\n\n\nWeak Entity Sets in ER Diagrams\n\nA weak entity set is shown with a double rectangle.\nThe discriminator is underlined with a dashed line.\nThe identifying relationship is shown with a double diamond.\nPrimary key for section is (course_id, sec_id, semester, year).\n\n\n\n\nWeak entity set notation\n\n\n\n\nComplete ER Diagram for a University Enterprise\n\n\n\nUniversity ER diagram",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.4 Entity-Relationship Model/2"
+    ]
   },
   {
     "objectID": "week04/4-4.html#reduction-to-relational-schema",
     "href": "week04/4-4.html#reduction-to-relational-schema",
     "title": "4.4 Entity-Relationship Model/2",
     "section": "Reduction to Relational Schema",
-    "text": "Reduction to Relational Schema\nEntity sets and relationship sets can be expressed uniformly as relation schemas that represent the contents of the database. For each entity set and relationship set, there is a unique schema that is assigned the name of the corresponding entity set or relationship set.\n\nRepresenting Strong Entity Sets\nA strong entity set reduces to a schema with the same attributes.\n\n\\text{student}(\\text{ID}, \\text{name}, \\text{tot\\_cred})\n\n\n\nRepresenting Weak Entity Sets\nA weak entity set becomes a table that includes a column for the primary key of the identifying strong entity set.\n\n\\text{section}(\\text{course\\_id}, \\text{sec\\_id}, \\text{sem}, \\text{year})\n\n\n\nRepresenting Relationship Sets\nA many-to-many relationship set is represented as a schema with attributes for the primary keys of the two participating entity sets and any descriptive attributes.\nExample: schema for relationship set advisor:\n\n\\text{advisor} = (\\text{s\\_id}, \\text{i\\_id})\n\n\n\nComposite Attributes\nComposite attributes are flattened out by creating a separate attribute for each component attribute.\nExample: given entity set instructor with composite attribute name with component attributes first_name and last_name, the schema has two attributes: name_first_name and name_last_name.\n\n\n\nComposite attributes in schema\n\n\n\n\nMultivalued Attributes\nA multivalued attribute M of an entity E is represented by a separate schema E_M. Schema E_M has attributes corresponding to the primary key of E and an attribute corresponding to the multivalued attribute M.\nExample: multivalued attribute phone_number of instructor is represented by a schema:\n\n\\text{inst\\_phone} = (\\text{ID}, \\text{phone\\_number})\n\nEach value of the multivalued attribute maps to a separate tuple of the relation on schema E_M.\n\n\nRedundancy of Schema for Relationships\nMany-to-one and one-to-many relationship sets that are total on the many-side can be represented by adding an extra attribute to the “many” side, containing the primary key of the “one” side.\nExample: Instead of creating a schema for relationship set inst_dept, add an attribute dept_name to the schema arising from entity set instructor.\nFor one-to-one relationship sets, either side can be chosen to act as the “many” side.\nIf participation is partial on the “many” side, replacing a schema by an extra attribute in the schema corresponding to the “many” side could result in null values.\nThe schema corresponding to a relationship set linking a weak entity set to its identifying strong entity set is redundant. For example, the section schema already contains the attributes that would appear in the sec_course schema.\n\n\n\nRedundancy of schema"
+    "text": "Reduction to Relational Schema\nEntity sets and relationship sets can be expressed uniformly as relation schemas that represent the contents of the database. For each entity set and relationship set, there is a unique schema that is assigned the name of the corresponding entity set or relationship set.\n\nRepresenting Strong Entity Sets\nA strong entity set reduces to a schema with the same attributes.\n\n\\text{student}(\\text{ID}, \\text{name}, \\text{tot\\_cred})\n\n\n\nRepresenting Weak Entity Sets\nA weak entity set becomes a table that includes a column for the primary key of the identifying strong entity set.\n\n\\text{section}(\\text{course\\_id}, \\text{sec\\_id}, \\text{sem}, \\text{year})\n\n\n\nRepresenting Relationship Sets\nA many-to-many relationship set is represented as a schema with attributes for the primary keys of the two participating entity sets and any descriptive attributes.\nExample: schema for relationship set advisor:\n\n\\text{advisor} = (\\text{s\\_id}, \\text{i\\_id})\n\n\n\nComposite Attributes\nComposite attributes are flattened out by creating a separate attribute for each component attribute.\nExample: given entity set instructor with composite attribute name with component attributes first_name and last_name, the schema has two attributes: name_first_name and name_last_name.\n\n\n\nComposite attributes in schema\n\n\n\n\nMultivalued Attributes\nA multivalued attribute M of an entity E is represented by a separate schema E_M. Schema E_M has attributes corresponding to the primary key of E and an attribute corresponding to the multivalued attribute M.\nExample: multivalued attribute phone_number of instructor is represented by a schema:\n\n\\text{inst\\_phone} = (\\text{ID}, \\text{phone\\_number})\n\nEach value of the multivalued attribute maps to a separate tuple of the relation on schema E_M.\n\n\nRedundancy of Schema for Relationships\nMany-to-one and one-to-many relationship sets that are total on the many-side can be represented by adding an extra attribute to the “many” side, containing the primary key of the “one” side.\nExample: Instead of creating a schema for relationship set inst_dept, add an attribute dept_name to the schema arising from entity set instructor.\nFor one-to-one relationship sets, either side can be chosen to act as the “many” side.\nIf participation is partial on the “many” side, replacing a schema by an extra attribute in the schema corresponding to the “many” side could result in null values.\nThe schema corresponding to a relationship set linking a weak entity set to its identifying strong entity set is redundant. For example, the section schema already contains the attributes that would appear in the sec_course schema.\n\n\n\nRedundancy of schema",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.4 Entity-Relationship Model/2"
+    ]
   },
   {
     "objectID": "week04/4-4.html#module-summary",
     "href": "week04/4-4.html#module-summary",
     "title": "4.4 Entity-Relationship Model/2",
     "section": "Module Summary",
-    "text": "Module Summary\nWe illustrated ER Diagram notation for ER Models and discussed the translation of ER Models to relational schemas."
+    "text": "Module Summary\nWe illustrated ER Diagram notation for ER Models and discussed the translation of ER Models to relational schemas.",
+    "crumbs": [
+      "Week 4: Relational Query Languages & ER Model",
+      "4.4 Entity-Relationship Model/2"
+    ]
   },
   {
     "objectID": "week04/4-1.html",
     "href": "week04/4-1.html",
-    "title": "4.1 Formal Relational Query Languages/1",
+    "title": "4.1 Relational Algebra",
     "section": "",
-    "text": "There are three formal relational query languages:\nRelational Algebra and Relational Calculus are the theoretical foundations that tell us how data is retrieved from a DBMS. SQL’s inner working is derived from these two core ideas. When you type a SQL query, the database converts it into a relational algebra expression.",
+    "text": "Relational Algebra and Relational Calculus are the foundational theoretical parts which tell how data is retrieved from a DBMS. SQL’s inner working is derived from these two core ideas.\nWhen we type a query:\nthe database converts it into a relational algebra expression.\nWhat SQL can do, Relational Algebra and Relational Calculus can also do.",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.1 Formal Relational Query Languages/1"
-    ]
-  },
-  {
-    "objectID": "week04/4-1.html#relational-algebra",
-    "href": "week04/4-1.html#relational-algebra",
-    "title": "4.1 Formal Relational Query Languages/1",
-    "section": "Relational Algebra",
-    "text": "Relational Algebra\nRelational Algebra was created by Edgar F. Codd at IBM in 1970. It is a procedural language. You describe clearly what the predicate should be, what the condition is, and what result should be computed.\nThere are six basic operators. The operators may be unary or binary. The result of any operation is always a new relation.\n\nSelect Operation\nNotation: \\sigma_p(r)\np is called the selection predicate. It is defined as:\n\n\\sigma_p(r) = \\{ t \\mid t \\in r \\text{ and } p(t) \\}\n\nwhere p is a formula in propositional calculus consisting of terms connected by \\land (and), \\lor (or), \\lnot (not). Each term is one of:\n op  or \nwhere op is one of: =, \\neq, &gt;, \\ge, &lt;, \\le.\nExample:\n\n\\sigma_{\\text{dept\\_name} = \\text{'Physics'}} (\\text{instructor})\n\nThis returns all instructors whose department name is Physics.\n\n\n\nSelect operation\n\n\n\n\nProject Operation\nNotation: \\Pi_{A_1, A_2, \\dots, A_k}(r)\nwhere A_1, A_2 are attribute names and r is a relation.\nThe result is defined as the relation of k columns obtained by erasing the columns that are not listed. Duplicate rows are removed from the result because relations are sets.\nExample: To eliminate the dept_name attribute of instructor:\n\n\\Pi_{\\text{ID}, \\text{name}, \\text{salary}} (\\text{instructor})\n\n\n\n\nProject operation\n\n\n\n\nUnion Operation\nNotation: r \\cup s\nDefined as:\n\nr \\cup s = \\{ t \\mid t \\in r \\text{ or } t \\in s \\}\n\nFor r \\cup s to be valid: 1. r and s must have the same arity (same number of attributes). 2. The attribute domains must be compatible. The second column of r deals with the same type of values as the second column of s.\nExample: Find all courses taught in the Fall 2009 semester, or in the Spring 2010 semester, or in both.\n\n\\Pi_{\\text{course\\_id}}(\\sigma_{\\text{semester}=\\text{\"Fall\"} \\land \\text{year}=2009}(\\text{section}))\n\\;\\cup\\;\n\\Pi_{\\text{course\\_id}}(\\sigma_{\\text{semester}=\\text{\"Spring\"} \\land \\text{year}=2010}(\\text{section}))\n\n\n\n\nUnion operation\n\n\n\n\nSet Difference Operation\nNotation: r - s\nDefined as:\n\nr - s = \\{ t \\mid t \\in r \\text{ and } t \\notin s \\}\n\nSet differences must be taken between compatible relations. The same arity and domain compatibility rules apply as for union.\nExample: Find all courses taught in the Fall 2009 semester but not in the Spring 2010 semester.\n\n\\Pi_{\\text{course\\_id}}(\\sigma_{\\text{semester}=\\text{\"Fall\"} \\land \\text{year}=2009}(\\text{section}))\n\\;-\\;\n\\Pi_{\\text{course\\_id}}(\\sigma_{\\text{semester}=\\text{\"Spring\"} \\land \\text{year}=2010}(\\text{section}))\n\n\n\n\nSet difference operation\n\n\n\n\nIntersection Operation\nNotation: r \\cap s\nDefined as:\n\nr \\cap s = \\{ t \\mid t \\in r \\text{ and } t \\in s \\}\n\nThe same compatibility rules apply. Intersection can be derived from set difference:\n\nr \\cap s = r - (r - s)\n\n\n\n\nIntersection operation\n\n\n\n\nCartesian-Product Operation\nNotation: r \\times s\nDefined as:\n\nr \\times s = \\{ t \\, q \\mid t \\in r \\text{ and } q \\in s \\}\n\nThis assumes that the attributes of r(R) and s(S) are disjoint. If they are not disjoint, you must use renaming.\n\n\n\nCartesian product operation\n\n\n\n\nRename Operation\nThe rename operation allows you to name and refer to the results of relational-algebra expressions. It also allows you to refer to a relation by more than one name.\nExample:\n\n\\rho_X(E)\n\nreturns the expression E under the name X.\nIf a relational-algebra expression E has arity n, then:\n\n\\rho_{X(A_1, A_2, \\dots, A_n)}(E)\n\nreturns the result of expression E under the name X, with the attributes renamed to A_1, A_2, \\dots, A_n.\n\n\n\nRename operation\n\n\n\n\nDivision Operation\nThe division operation is applied to two relations.\nR(Z) \\div S(X), where X \\subseteq Z. Let Y = Z - X. The result of division is a relation T(Y) that includes a tuple t if tuples t_R appear in R with t_R[Y] = t, and with t_R[X] = t_s for every tuple t_s in S.\nFor a tuple t to appear in the result T of the division, the values in t must appear in R in combination with every tuple in S.\nDivision is a derived operation and can be expressed in terms of other operations:\n\nr \\div s \\equiv \\Pi_{R-S}(r) - \\Pi_{R-S}((\\Pi_{R-S}(r) \\times s) - \\Pi_{R-S,S}(r))\n\n\n\n\nDivision operation example\n\n\n\nDivision Examples\nFind customers who have an account in all branches of the bank.\n\n\n\nDivision example 1\n\n\nFind students who have taken all courses given by instructor 1.\n\n\n\nDivision example 2",
-    "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.1 Formal Relational Query Languages/1"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.1 Relational Algebra"
     ]
   },
   {
     "objectID": "week04/4-1.html#module-summary",
     "href": "week04/4-1.html#module-summary",
-    "title": "4.1 Formal Relational Query Languages/1",
+    "title": "4.1 Relational Algebra",
     "section": "Module Summary",
-    "text": "Module Summary\nIn this module we discussed relational algebra with examples. Relational Algebra is a procedural language where you specify how to compute a query using operators like select, project, union, difference, intersection, cartesian product, rename, and division.",
+    "text": "Module Summary\nIn this module we discussed relational algebra. Relational Algebra is a procedural language where we specify how to compute a query using operators like select, project, union, difference, intersection, cartesian product, rename, and division.",
     "crumbs": [
-      "Week 4: Relational Query Languages",
-      "4.1 Formal Relational Query Languages/1"
+      "Week 4: Relational Query Languages & ER Model",
+      "4.1 Relational Algebra"
     ]
   },
   {

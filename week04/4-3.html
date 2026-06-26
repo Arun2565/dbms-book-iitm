@@ -292,9 +292,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      DBMS Notes - IITM
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-3.html">4.3 Entity-Relationship Model/1</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -454,7 +452,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 4: Relational Query Languages</span></a>
+ <span class="menu-text">Week 4: Relational Query Languages &amp; ER Model</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -463,13 +461,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
+ <span class="menu-text">4.1 Relational Algebra</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
+ <span class="menu-text">4.2 Relational Calculus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">4.3 Entity-Relationship Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.4 Entity-Relationship Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.5 Entity-Relationship Model/3</span></a>
   </div>
 </li>
       </ul>
@@ -812,10 +828,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#design-process" id="toc-design-process" class="nav-link active" data-scroll-target="#design-process">Design Process</a></li>
-  <li><a href="#entities-and-entity-sets" id="toc-entities-and-entity-sets" class="nav-link" data-scroll-target="#entities-and-entity-sets">Entities and Entity Sets</a></li>
-  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
-  <li><a href="#entity-sets" id="toc-entity-sets" class="nav-link" data-scroll-target="#entity-sets">Entity Sets</a>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link active" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#types-of-entity-sets" id="toc-types-of-entity-sets" class="nav-link" data-scroll-target="#types-of-entity-sets">Types of Entity Sets</a>
   <ul class="collapse">
   <li><a href="#strong-entity-set" id="toc-strong-entity-set" class="nav-link" data-scroll-target="#strong-entity-set">Strong Entity Set</a></li>
   <li><a href="#weak-entity-set" id="toc-weak-entity-set" class="nav-link" data-scroll-target="#weak-entity-set">Weak Entity Set</a></li>
@@ -823,15 +837,14 @@ window.Quarto = {
   <li><a href="#relationship-sets" id="toc-relationship-sets" class="nav-link" data-scroll-target="#relationship-sets">Relationship Sets</a>
   <ul class="collapse">
   <li><a href="#degree-of-a-relationship" id="toc-degree-of-a-relationship" class="nav-link" data-scroll-target="#degree-of-a-relationship">Degree of a Relationship</a></li>
-  </ul></li>
-  <li><a href="#mapping-cardinality-constraints" id="toc-mapping-cardinality-constraints" class="nav-link" data-scroll-target="#mapping-cardinality-constraints">Mapping Cardinality Constraints</a>
-  <ul class="collapse">
-  <li><a href="#one-to-one-relationship" id="toc-one-to-one-relationship" class="nav-link" data-scroll-target="#one-to-one-relationship">One-to-One Relationship</a></li>
-  <li><a href="#one-to-many-relationship" id="toc-one-to-many-relationship" class="nav-link" data-scroll-target="#one-to-many-relationship">One-to-Many Relationship</a></li>
-  <li><a href="#many-to-one-relationship" id="toc-many-to-one-relationship" class="nav-link" data-scroll-target="#many-to-one-relationship">Many-to-One Relationship</a></li>
-  <li><a href="#many-to-many-relationship" id="toc-many-to-many-relationship" class="nav-link" data-scroll-target="#many-to-many-relationship">Many-to-Many Relationship</a></li>
-  </ul></li>
+  <li><a href="#mapping-cardinality-constraints" id="toc-mapping-cardinality-constraints" class="nav-link" data-scroll-target="#mapping-cardinality-constraints">Mapping Cardinality Constraints</a></li>
   <li><a href="#participation-constraints" id="toc-participation-constraints" class="nav-link" data-scroll-target="#participation-constraints">Participation Constraints</a></li>
+  </ul></li>
+  <li><a href="#er-diagram-notation-summary" id="toc-er-diagram-notation-summary" class="nav-link" data-scroll-target="#er-diagram-notation-summary">ER Diagram Notation Summary</a>
+  <ul class="collapse">
+  <li><a href="#ternary-relationship" id="toc-ternary-relationship" class="nav-link" data-scroll-target="#ternary-relationship">Ternary Relationship</a></li>
+  <li><a href="#overlapping-and-partial" id="toc-overlapping-and-partial" class="nav-link" data-scroll-target="#overlapping-and-partial">Overlapping and Partial</a></li>
+  </ul></li>
   <li><a href="#module-summary" id="toc-module-summary" class="nav-link" data-scroll-target="#module-summary">Module Summary</a></li>
   </ul>
 </nav>
@@ -840,7 +853,7 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-3.html">4.3 Entity-Relationship Model/1</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">4.3 Entity-Relationship Model/1</h1>
 </div>
@@ -860,36 +873,17 @@ window.Quarto = {
 
 
 <p>The Entity-Relationship (E-R) Model is used in the designing phase of a database. It is a model that helps us visualize the data as a set of entities and the relations that exist between them.</p>
-<section id="design-process" class="level2">
-<h2 class="anchored" data-anchor-id="design-process">Design Process</h2>
-<p>Database design follows a process of abstraction. We start from the real world and move to a conceptual model, then to a logical model, and finally to a physical schema.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L4.3_p6.png" class="img-fluid figure-img"></p>
-<figcaption>Database design process</figcaption>
-</figure>
-</div>
-</section>
-<section id="entities-and-entity-sets" class="level2">
-<h2 class="anchored" data-anchor-id="entities-and-entity-sets">Entities and Entity Sets</h2>
-<p>An entity is a real-world object. In a student database, entities are students, instructors, and departments.</p>
-<p>An entity set is a collection of similar entities. It can be taken as a relation with a set of entities that share the same attributes.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/L4.3_p13.png" class="img-fluid figure-img"></p>
-<figcaption>Entity set example</figcaption>
-</figure>
-</div>
-</section>
+<p>An entity is a real-world object. In the Student Database, entities are students, instructors, and departments.</p>
 <section id="attributes" class="level2">
 <h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <p>An attribute is a property associated with an entity. There are several types of attributes.</p>
 <ol type="1">
 <li><p><strong>Simple and Composite (Compound) attributes.</strong> A simple attribute cannot be divided further. A composite attribute can be divided into sub-units. For example, the attribute <code>name</code> can be divided into <code>first_name</code>, <code>middle_initial</code>, and <code>last_name</code>.</p></li>
-<li><p><strong>Single-valued and Multi-valued attributes.</strong> A single-valued attribute takes only one value. A multi-valued attribute takes multiple values, such as phone numbers.</p></li>
-<li><p><strong>Derived attributes.</strong> An attribute that can be computed from other stored attributes. For example, <code>age</code> can be calculated from <code>date_of_birth</code>.</p></li>
+<li><p><strong>Single-valued and Multi-valued attributes.</strong> A single-valued attribute takes only one value. A multi-valued attribute takes multiple values, such as phone numbers: 123456789, 234565678.</p></li>
+<li><p><strong>Derived attributes.</strong> An attribute that can be computed from other stored attributes. For example, <code>age</code> can be calculated from <code>date_of_birth</code>. Age becomes the derived attribute.</p></li>
 </ol>
 <p>The domain is the set of all values that an attribute can take.</p>
+<p>An entity set can be taken as a relation with a set of entities, which are the set of attributes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.3_p15.png" class="img-fluid figure-img"></p>
@@ -897,16 +891,17 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="entity-sets" class="level2">
-<h2 class="anchored" data-anchor-id="entity-sets">Entity Sets</h2>
+<section id="types-of-entity-sets" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-entity-sets">Types of Entity Sets</h2>
+<p>There are two types of entity sets.</p>
 <section id="strong-entity-set" class="level3">
 <h3 class="anchored" data-anchor-id="strong-entity-set">Strong Entity Set</h3>
-<p>A strong entity set contains sufficient attributes to uniquely identify all its entities. In other words, a primary key exists for a strong entity set. The primary key is shown by underlining it.</p>
+<p>A strong entity set is an entity set that contains sufficient attributes to uniquely identify all its entities. A primary key exists for a strong entity set. The primary key is represented by underlining it. Each entity is a row. We can take each row as an object.</p>
 </section>
 <section id="weak-entity-set" class="level3">
 <h3 class="anchored" data-anchor-id="weak-entity-set">Weak Entity Set</h3>
-<p>A weak entity set does not contain sufficient attributes to uniquely identify its entities. It does not have a primary key. However, it contains a partial key called a discriminator. The discriminator is shown by underlining with a dashed line.</p>
-<p>Since a weak entity set does not have a primary key, it cannot independently exist in the ER Model. It appears in a relationship with a strong entity set. This is called the identifying relationship.</p>
+<p>A weak entity set is an entity set that does not contain sufficient attributes to uniquely identify all its entities. A weak entity set does not have a primary key, but it has a partial key called a <strong>discriminator</strong>, which is represented using dotted lines.</p>
+<p>We cannot uniquely identify a row in a weak entity set by itself. So we link the partial key with the primary key of a strong entity. This kind of relationship is called an <strong>identifying relationship</strong>.</p>
 <p>The primary key of a weak entity set is:</p>
 <p><span class="math display">
 \text{Primary Key} = \text{Discriminator} + \text{Primary Key of Strong Entity Set}
@@ -922,15 +917,14 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="example">Example</h4>
 <p>Strong entity set: Building(building_no, building_name, address). Here <code>building_no</code> is the primary key.</p>
 <p>Weak entity set: Apartment(door_no, floor). Here <code>door_no</code> is the discriminator because door number alone cannot identify an apartment uniquely. There may be several other buildings with the same door number.</p>
-<p>Relationship: BA between Building and Apartment.</p>
-<p>By total participation in BA, each apartment must be present in at least one building. Building has partial participation because there may be buildings with no apartments.</p>
+<p>Relationship: BA between Building and Apartment. By total participation in BA, each apartment must be present in at least one building. Building has partial participation because there may be buildings with no apartments.</p>
 <p>Primary key of Apartment = building_no + door_no</p>
 </section>
 </section>
 </section>
 <section id="relationship-sets" class="level2">
 <h2 class="anchored" data-anchor-id="relationship-sets">Relationship Sets</h2>
-<p>A relationship is an association among entities. A relationship set is a set of relationships of the same type.</p>
+<p>Relationships are very important for designing the schema of the database. A relationship is an association among entities. A relationship set is a set of relationships of the same type.</p>
 <p>For example, the relationship <code>advisor</code> associates a student with an instructor.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -942,25 +936,13 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="degree-of-a-relationship">Degree of a Relationship</h3>
 <p>Most relationship sets are binary (involving two entity sets). Relationships between more than two entity sets are rare. For example, the project_guide relationship is a ternary relationship between instructor, student, and project.</p>
 </section>
-</section>
-<section id="mapping-cardinality-constraints" class="level2">
-<h2 class="anchored" data-anchor-id="mapping-cardinality-constraints">Mapping Cardinality Constraints</h2>
-<p>Mapping cardinality expresses the number of entities to which another entity can be associated through a relationship set. For a binary relationship set, the mapping cardinality must be one of the following types.</p>
-<section id="one-to-one-relationship" class="level3">
-<h3 class="anchored" data-anchor-id="one-to-one-relationship">One-to-One Relationship</h3>
-<p>Each instructor has at most one student. Each student has at most one instructor.</p>
-</section>
-<section id="one-to-many-relationship" class="level3">
-<h3 class="anchored" data-anchor-id="one-to-many-relationship">One-to-Many Relationship</h3>
-<p>Each instructor has one or many students. Each student has at most one instructor.</p>
-</section>
-<section id="many-to-one-relationship" class="level3">
-<h3 class="anchored" data-anchor-id="many-to-one-relationship">Many-to-One Relationship</h3>
-<p>Each instructor has at most one student. Each student has one or many instructors.</p>
-</section>
-<section id="many-to-many-relationship" class="level3">
-<h3 class="anchored" data-anchor-id="many-to-many-relationship">Many-to-Many Relationship</h3>
-<p>Each instructor has one or many students. Each student has one or many instructors. For a many-to-many relationship, we need three tables to represent the entity set. There is an intermediate table that references the many-to-many relationship between two tables.</p>
+<section id="mapping-cardinality-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-cardinality-constraints">Mapping Cardinality Constraints</h3>
+<p>For a binary relationship set, the mapping cardinality must be one of the following types.</p>
+<p><strong>One-to-One Relationship.</strong> Each instructor has at most one student (1 or less than 1). Each student has at most one instructor (1 or less than 1).</p>
+<p><strong>One-to-Many Relationship.</strong> Each instructor has one or many students. Each student has at most one instructor (meaning a student can have 1 or zero instructors).</p>
+<p><strong>Many-to-One Relationship.</strong> Each instructor has at most one student. Each student has one or many instructors.</p>
+<p><strong>Many-to-Many Relationship.</strong> Each instructor has one or many students. Each student has one or many instructors. For a Many-to-Many relationship, we need three tables to represent an entity set. There is an intermediate table that references or links the many-to-many relationship between two tables.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.3_p24.png" class="img-fluid figure-img"></p>
@@ -968,15 +950,35 @@ window.Quarto = {
 </figure>
 </div>
 </section>
+<section id="participation-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="participation-constraints">Participation Constraints</h3>
+<p><strong>Total Participation</strong> (indicated by a double line) means that every entity in the entity set participates in at least one relationship in the relationship set. For example, the participation of <code>student</code> in the <code>advisor</code> relation is total because every student must have an associated instructor.</p>
+<p><strong>Partial Participation</strong> means some entities may not participate in any relationship in the relationship set. For example, the participation of <code>instructor</code> in the <code>advisor</code> relation is partial.</p>
 </section>
-<section id="participation-constraints" class="level2">
-<h2 class="anchored" data-anchor-id="participation-constraints">Participation Constraints</h2>
-<p>Total participation (indicated by a double line) means that every entity in the entity set participates in at least one relationship in the relationship set. For example, the participation of <code>student</code> in the <code>advisor</code> relation is total because every student must have an associated instructor.</p>
-<p>Partial participation means some entities may not participate in any relationship in the relationship set. For example, the participation of <code>instructor</code> in the <code>advisor</code> relation is partial.</p>
+</section>
+<section id="er-diagram-notation-summary" class="level2">
+<h2 class="anchored" data-anchor-id="er-diagram-notation-summary">ER Diagram Notation Summary</h2>
+<ul>
+<li>Rectangles represent entity sets.</li>
+<li>Attributes are listed inside the rectangle.</li>
+<li>An underline indicates the primary key attribute.</li>
+<li>A diamond represents a relationship set.</li>
+<li>Double lines indicate total participation.</li>
+<li>A double rectangle represents a weak entity set.</li>
+<li>A double diamond represents a weak entity set or an identifying relationship.</li>
+</ul>
+<section id="ternary-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="ternary-relationship">Ternary Relationship</h3>
+<p>A ternary relationship is a relationship between three entity sets.</p>
+</section>
+<section id="overlapping-and-partial" class="level3">
+<h3 class="anchored" data-anchor-id="overlapping-and-partial">Overlapping and Partial</h3>
+<p>In overlapping specialization, an entity can be in both the relations. In partial specialization, an entity may not be in any of the relations.</p>
+</section>
 </section>
 <section id="module-summary" class="level2">
 <h2 class="anchored" data-anchor-id="module-summary">Module Summary</h2>
-<p>We introduced the design process for database systems and the E-R Model for real-world representation with entities, entity sets, attributes, and relationships.</p>
+<p>We introduced the Entity-Relationship Model for real-world representation with entities, entity sets, attributes, and relationships.</p>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4.1 Formal Relational Query Languages/1 – DBMS Notes - IITM</title>
+<title>4.1 Relational Algebra – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -292,7 +327,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages</a></li><li class="breadcrumb-item"><a href="../week04/4-1.html">4.1 Formal Relational Query Languages/1</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-1.html">4.1 Relational Algebra</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -452,7 +487,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 4: Relational Query Languages</span></a>
+ <span class="menu-text">Week 4: Relational Query Languages &amp; ER Model</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -461,13 +496,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
+ <span class="menu-text">4.1 Relational Algebra</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
+ <span class="menu-text">4.2 Relational Calculus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.3 Entity-Relationship Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.4 Entity-Relationship Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.5 Entity-Relationship Model/3</span></a>
   </div>
 </li>
       </ul>
@@ -810,17 +863,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#relational-algebra" id="toc-relational-algebra" class="nav-link active" data-scroll-target="#relational-algebra">Relational Algebra</a>
-  <ul class="collapse">
-  <li><a href="#select-operation" id="toc-select-operation" class="nav-link" data-scroll-target="#select-operation">Select Operation</a></li>
-  <li><a href="#project-operation" id="toc-project-operation" class="nav-link" data-scroll-target="#project-operation">Project Operation</a></li>
+  <li><a href="#what-is-relational-algebra" id="toc-what-is-relational-algebra" class="nav-link active" data-scroll-target="#what-is-relational-algebra">What is Relational Algebra?</a></li>
+  <li><a href="#selection-operation" id="toc-selection-operation" class="nav-link" data-scroll-target="#selection-operation">Selection Operation</a></li>
+  <li><a href="#projection-operation" id="toc-projection-operation" class="nav-link" data-scroll-target="#projection-operation">Projection Operation</a></li>
   <li><a href="#union-operation" id="toc-union-operation" class="nav-link" data-scroll-target="#union-operation">Union Operation</a></li>
-  <li><a href="#set-difference-operation" id="toc-set-difference-operation" class="nav-link" data-scroll-target="#set-difference-operation">Set Difference Operation</a></li>
+  <li><a href="#difference-operation" id="toc-difference-operation" class="nav-link" data-scroll-target="#difference-operation">Difference Operation</a></li>
   <li><a href="#intersection-operation" id="toc-intersection-operation" class="nav-link" data-scroll-target="#intersection-operation">Intersection Operation</a></li>
-  <li><a href="#cartesian-product-operation" id="toc-cartesian-product-operation" class="nav-link" data-scroll-target="#cartesian-product-operation">Cartesian-Product Operation</a></li>
+  <li><a href="#cartesian-product" id="toc-cartesian-product" class="nav-link" data-scroll-target="#cartesian-product">Cartesian Product</a></li>
   <li><a href="#rename-operation" id="toc-rename-operation" class="nav-link" data-scroll-target="#rename-operation">Rename Operation</a></li>
   <li><a href="#division-operation" id="toc-division-operation" class="nav-link" data-scroll-target="#division-operation">Division Operation</a></li>
-  </ul></li>
   <li><a href="#module-summary" id="toc-module-summary" class="nav-link" data-scroll-target="#module-summary">Module Summary</a></li>
   </ul>
 </nav>
@@ -829,9 +880,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages</a></li><li class="breadcrumb-item"><a href="../week04/4-1.html">4.1 Formal Relational Query Languages/1</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-1.html">4.1 Relational Algebra</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">4.1 Formal Relational Query Languages/1</h1>
+<h1 class="title">4.1 Relational Algebra</h1>
 </div>
 
 
@@ -848,21 +899,34 @@ window.Quarto = {
 </header>
 
 
-<p>There are three formal relational query languages:</p>
-<ol type="1">
-<li>Relational Algebra</li>
-<li>Tuple Relational Calculus</li>
-<li>Domain Relational Calculus</li>
-</ol>
-<p>Relational Algebra and Relational Calculus are the theoretical foundations that tell us how data is retrieved from a DBMS. SQL’s inner working is derived from these two core ideas. When you type a SQL query, the database converts it into a relational algebra expression.</p>
-<section id="relational-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="relational-algebra">Relational Algebra</h2>
-<p>Relational Algebra was created by Edgar F. Codd at IBM in 1970. It is a procedural language. You describe clearly what the predicate should be, what the condition is, and what result should be computed.</p>
-<p>There are six basic operators. The operators may be unary or binary. The result of any operation is always a new relation.</p>
-<section id="select-operation" class="level3">
-<h3 class="anchored" data-anchor-id="select-operation">Select Operation</h3>
-<p>Notation: <span class="math inline">\sigma_p(r)</span></p>
-<p><span class="math inline">p</span> is called the selection predicate. It is defined as:</p>
+<p>Relational Algebra and Relational Calculus are the foundational theoretical parts which tell how data is retrieved from a DBMS. SQL’s inner working is derived from these two core ideas.</p>
+<p>When we type a query:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Student;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>the database converts it into a relational algebra expression.</p>
+<p>What SQL can do, Relational Algebra and Relational Calculus can also do.</p>
+<section id="what-is-relational-algebra" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-relational-algebra">What is Relational Algebra?</h3>
+<p>Relational Algebra was created by Edgar F. Codd at IBM in 1970. It is a <strong>procedural</strong> language. In a procedural language, we mention clearly what the predicate should be, what the condition is, what should be selected or projected, and what result should be computed.</p>
+<p>Relational Algebra has two main operations: Selection and Projection. There are six basic operators in total. The operators may be unary or binary. The result of any operation is always a new relation.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Important for GATE.</strong> In Week 12, we will see exactly how a query is converted into Relational Algebra.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="selection-operation" class="level3">
+<h3 class="anchored" data-anchor-id="selection-operation">Selection Operation</h3>
+<p>A <code>SELECT</code> query in SQL returns columns. The Selection Operation returns the rows of a relation.</p>
+<p>Notation:</p>
+<p><span class="math display">
+\sigma_p(r)
+</span></p>
+<p>where <span class="math inline">p</span> is called the selection predicate. It is defined as:</p>
 <p><span class="math display">
 \sigma_p(r) = \{ t \mid t \in r \text{ and } p(t) \}
 </span></p>
@@ -873,7 +937,7 @@ window.Quarto = {
 <p><span class="math display">
 \sigma_{\text{dept\_name} = \text{'Physics'}} (\text{instructor})
 </span></p>
-<p>This returns all instructors whose department name is Physics.</p>
+<p>This returns all instructors whose department name is Physics. The queries won’t be this simple. They will be combined with Projection and other operations.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.1_p8.png" class="img-fluid figure-img"></p>
@@ -881,15 +945,28 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="project-operation" class="level3">
-<h3 class="anchored" data-anchor-id="project-operation">Project Operation</h3>
-<p>Notation: <span class="math inline">\Pi_{A_1, A_2, \dots, A_k}(r)</span></p>
+<section id="projection-operation" class="level3">
+<h3 class="anchored" data-anchor-id="projection-operation">Projection Operation</h3>
+<p>Projection operation is used to display columns. In Projection Operation, duplicate values are removed because relations are sets.</p>
+<p>Notation:</p>
+<p><span class="math display">
+\Pi_{A_1, A_2, \dots, A_k} (r)
+</span></p>
 <p>where <span class="math inline">A_1, A_2</span> are attribute names and <span class="math inline">r</span> is a relation.</p>
-<p>The result is defined as the relation of <span class="math inline">k</span> columns obtained by erasing the columns that are not listed. Duplicate rows are removed from the result because relations are sets.</p>
 <p>Example: To eliminate the dept_name attribute of instructor:</p>
 <p><span class="math display">
 \Pi_{\text{ID}, \text{name}, \text{salary}} (\text{instructor})
 </span></p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Every query we write in SQL can be written using these two operations of Relational Algebra.</p>
+</div>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.1_p9.png" class="img-fluid figure-img"></p>
@@ -899,12 +976,21 @@ window.Quarto = {
 </section>
 <section id="union-operation" class="level3">
 <h3 class="anchored" data-anchor-id="union-operation">Union Operation</h3>
-<p>Notation: <span class="math inline">r \cup s</span></p>
+<p>Union Operation is used to return all the unique tuples from both relations.</p>
+<p>Notation:</p>
+<p><span class="math display">
+r \cup s
+</span></p>
 <p>Defined as:</p>
 <p><span class="math display">
 r \cup s = \{ t \mid t \in r \text{ or } t \in s \}
 </span></p>
-<p>For <span class="math inline">r \cup s</span> to be valid: 1. <span class="math inline">r</span> and <span class="math inline">s</span> must have the same arity (same number of attributes). 2. The attribute domains must be compatible. The second column of <span class="math inline">r</span> deals with the same type of values as the second column of <span class="math inline">s</span>.</p>
+<p><strong>Union Compatibility.</strong> For <span class="math inline">r \cup s</span> to be valid, the following three rules must apply:</p>
+<ol type="1">
+<li>Both relations must have the same datatype.</li>
+<li>Both relations must have the same arity (same number of attributes).</li>
+<li>The order of the attribute datatypes must be the same. For example, if the first relation has an attribute <code>Name</code> of type <code>varchar</code>, then the second relation’s first attribute must also be of type <code>varchar</code>.</li>
+</ol>
 <p>Example: Find all courses taught in the Fall 2009 semester, or in the Spring 2010 semester, or in both.</p>
 <p><span class="math display">
 \Pi_{\text{course\_id}}(\sigma_{\text{semester}=\text{"Fall"} \land \text{year}=2009}(\text{section}))
@@ -918,14 +1004,28 @@ r \cup s = \{ t \mid t \in r \text{ or } t \in s \}
 </figure>
 </div>
 </section>
-<section id="set-difference-operation" class="level3">
-<h3 class="anchored" data-anchor-id="set-difference-operation">Set Difference Operation</h3>
-<p>Notation: <span class="math inline">r - s</span></p>
+<section id="difference-operation" class="level3">
+<h3 class="anchored" data-anchor-id="difference-operation">Difference Operation</h3>
+<p>Notation:</p>
+<p><span class="math display">
+r - s
+</span></p>
 <p>Defined as:</p>
 <p><span class="math display">
 r - s = \{ t \mid t \in r \text{ and } t \notin s \}
 </span></p>
-<p>Set differences must be taken between compatible relations. The same arity and domain compatibility rules apply as for union.</p>
+<p>The compatibility rules for union apply for difference operation also.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>First check if the question follows the compatibility rule and then solve the question.</p>
+</div>
+</div>
+</div>
+<p>If we take two relations <span class="math inline">r</span> and <span class="math inline">s</span>, the difference operation will display the tuples of all elements in <span class="math inline">r</span> and remove the common elements of <span class="math inline">s</span> in <span class="math inline">r</span>.</p>
 <p>Example: Find all courses taught in the Fall 2009 semester but not in the Spring 2010 semester.</p>
 <p><span class="math display">
 \Pi_{\text{course\_id}}(\sigma_{\text{semester}=\text{"Fall"} \land \text{year}=2009}(\text{section}))
@@ -941,7 +1041,10 @@ r - s = \{ t \mid t \in r \text{ and } t \notin s \}
 </section>
 <section id="intersection-operation" class="level3">
 <h3 class="anchored" data-anchor-id="intersection-operation">Intersection Operation</h3>
-<p>Notation: <span class="math inline">r \cap s</span></p>
+<p>Notation:</p>
+<p><span class="math display">
+r \cap s
+</span></p>
 <p>Defined as:</p>
 <p><span class="math display">
 r \cap s = \{ t \mid t \in r \text{ and } t \in s \}
@@ -950,6 +1053,7 @@ r \cap s = \{ t \mid t \in r \text{ and } t \in s \}
 <p><span class="math display">
 r \cap s = r - (r - s)
 </span></p>
+<p>Intersection returns only the common tuples present in both relations.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.1_p12.png" class="img-fluid figure-img"></p>
@@ -957,14 +1061,17 @@ r \cap s = r - (r - s)
 </figure>
 </div>
 </section>
-<section id="cartesian-product-operation" class="level3">
-<h3 class="anchored" data-anchor-id="cartesian-product-operation">Cartesian-Product Operation</h3>
-<p>Notation: <span class="math inline">r \times s</span></p>
+<section id="cartesian-product" class="level3">
+<h3 class="anchored" data-anchor-id="cartesian-product">Cartesian Product</h3>
+<p>Notation:</p>
+<p><span class="math display">
+r \times s
+</span></p>
 <p>Defined as:</p>
 <p><span class="math display">
 r \times s = \{ t \, q \mid t \in r \text{ and } q \in s \}
 </span></p>
-<p>This assumes that the attributes of <span class="math inline">r(R)</span> and <span class="math inline">s(S)</span> are disjoint. If they are not disjoint, you must use renaming.</p>
+<p>Cartesian Product is used to give all the possible combinations of both the relations. This assumes that the attributes of <span class="math inline">r(R)</span> and <span class="math inline">s(S)</span> are disjoint. If both relations have the same attributes when performing a Cartesian Product, then we denote the attributes with the relation prefix.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.1_p13.png" class="img-fluid figure-img"></p>
@@ -974,7 +1081,7 @@ r \times s = \{ t \, q \mid t \in r \text{ and } q \in s \}
 </section>
 <section id="rename-operation" class="level3">
 <h3 class="anchored" data-anchor-id="rename-operation">Rename Operation</h3>
-<p>The rename operation allows you to name and refer to the results of relational-algebra expressions. It also allows you to refer to a relation by more than one name.</p>
+<p>The rename operation allows us to refer to a relation by more than one name. We can also rename the attributes of a relation.</p>
 <p>Example:</p>
 <p><span class="math display">
 \rho_X(E)
@@ -994,9 +1101,8 @@ r \times s = \{ t \, q \mid t \in r \text{ and } q \in s \}
 </section>
 <section id="division-operation" class="level3">
 <h3 class="anchored" data-anchor-id="division-operation">Division Operation</h3>
-<p>The division operation is applied to two relations.</p>
+<p>Division Operation is used to return the values of <span class="math inline">R</span> that have both the values of <span class="math inline">S</span> in <span class="math inline">R</span>.</p>
 <p><span class="math inline">R(Z) \div S(X)</span>, where <span class="math inline">X \subseteq Z</span>. Let <span class="math inline">Y = Z - X</span>. The result of division is a relation <span class="math inline">T(Y)</span> that includes a tuple <span class="math inline">t</span> if tuples <span class="math inline">t_R</span> appear in <span class="math inline">R</span> with <span class="math inline">t_R[Y] = t</span>, and with <span class="math inline">t_R[X] = t_s</span> for every tuple <span class="math inline">t_s</span> in <span class="math inline">S</span>.</p>
-<p>For a tuple <span class="math inline">t</span> to appear in the result <span class="math inline">T</span> of the division, the values in <span class="math inline">t</span> must appear in <span class="math inline">R</span> in combination with every tuple in <span class="math inline">S</span>.</p>
 <p>Division is a derived operation and can be expressed in terms of other operations:</p>
 <p><span class="math display">
 r \div s \equiv \Pi_{R-S}(r) - \Pi_{R-S}((\Pi_{R-S}(r) \times s) - \Pi_{R-S,S}(r))
@@ -1025,10 +1131,9 @@ r \div s \equiv \Pi_{R-S}(r) - \Pi_{R-S}((\Pi_{R-S}(r) \times s) - \Pi_{R-S,S}(r
 </div>
 </section>
 </section>
-</section>
 <section id="module-summary" class="level2">
 <h2 class="anchored" data-anchor-id="module-summary">Module Summary</h2>
-<p>In this module we discussed relational algebra with examples. Relational Algebra is a procedural language where you specify how to compute a query using operators like select, project, union, difference, intersection, cartesian product, rename, and division.</p>
+<p>In this module we discussed relational algebra. Relational Algebra is a procedural language where we specify how to compute a query using operators like select, project, union, difference, intersection, cartesian product, rename, and division.</p>
 
 
 </section>

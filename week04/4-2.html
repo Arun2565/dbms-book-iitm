@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4.2 Formal Relational Query Languages/2 – DBMS Notes - IITM</title>
+<title>4.2 Relational Calculus – DBMS Notes - IITM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -292,7 +292,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages</a></li><li class="breadcrumb-item"><a href="../week04/4-2.html">4.2 Formal Relational Query Languages/2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-2.html">4.2 Relational Calculus</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -452,7 +452,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 4: Relational Query Languages</span></a>
+ <span class="menu-text">Week 4: Relational Query Languages &amp; ER Model</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -461,13 +461,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4.1 Formal Relational Query Languages/1</span></a>
+ <span class="menu-text">4.1 Relational Algebra</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week04/4-2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">4.2 Formal Relational Query Languages/2</span></a>
+ <span class="menu-text">4.2 Relational Calculus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.3 Entity-Relationship Model/1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.4 Entity-Relationship Model/2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week04/4-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4.5 Entity-Relationship Model/3</span></a>
   </div>
 </li>
       </ul>
@@ -810,9 +828,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#predicate-logic" id="toc-predicate-logic" class="nav-link active" data-scroll-target="#predicate-logic">Predicate Logic</a>
+  <li><a href="#procedural-vs-non-procedural-languages" id="toc-procedural-vs-non-procedural-languages" class="nav-link active" data-scroll-target="#procedural-vs-non-procedural-languages">Procedural vs Non-Procedural Languages</a></li>
+  <li><a href="#predicate-logic" id="toc-predicate-logic" class="nav-link" data-scroll-target="#predicate-logic">Predicate Logic</a>
   <ul class="collapse">
-  <li><a href="#predicates" id="toc-predicates" class="nav-link" data-scroll-target="#predicates">Predicates</a></li>
+  <li><a href="#propositional-logic-and-its-limitations" id="toc-propositional-logic-and-its-limitations" class="nav-link" data-scroll-target="#propositional-logic-and-its-limitations">Propositional Logic and Its Limitations</a></li>
   <li><a href="#quantifiers" id="toc-quantifiers" class="nav-link" data-scroll-target="#quantifiers">Quantifiers</a></li>
   </ul></li>
   <li><a href="#tuple-relational-calculus" id="toc-tuple-relational-calculus" class="nav-link" data-scroll-target="#tuple-relational-calculus">Tuple Relational Calculus</a>
@@ -829,9 +848,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages</a></li><li class="breadcrumb-item"><a href="../week04/4-2.html">4.2 Formal Relational Query Languages/2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../week04/4-1.html">Week 4: Relational Query Languages &amp; ER Model</a></li><li class="breadcrumb-item"><a href="../week04/4-2.html">4.2 Relational Calculus</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">4.2 Formal Relational Query Languages/2</h1>
+<h1 class="title">4.2 Relational Calculus</h1>
 </div>
 
 
@@ -848,46 +867,57 @@ window.Quarto = {
 </header>
 
 
+<section id="procedural-vs-non-procedural-languages" class="level2">
+<h2 class="anchored" data-anchor-id="procedural-vs-non-procedural-languages">Procedural vs Non-Procedural Languages</h2>
+<p>In a <strong>Procedural Language</strong>, we mention clearly what the predicate should be, what the condition is, what should be selected or projected, and what result should be computed. Relational Algebra is a procedural language.</p>
+<p>In a <strong>Non-Procedural Language</strong> (also called a declarative language), we only describe what the output should be like and what the property of the result should be like. It is the job of the DBMS system to figure out how to get the result.</p>
+<p>Relational Calculus is a non-procedural language. It has two types:</p>
+<ol type="1">
+<li>Tuple Relational Calculus</li>
+<li>Domain Relational Calculus</li>
+</ol>
+</section>
 <section id="predicate-logic" class="level2">
 <h2 class="anchored" data-anchor-id="predicate-logic">Predicate Logic</h2>
-<p>Predicate Logic, also called Predicate Calculus, is an extension of Propositional Logic or Boolean Algebra. In Boolean Algebra, we have propositions or variables that take True or False values.</p>
-<p>Predicate Logic adds the concept of predicates and quantifiers. This makes the logic more expressive.</p>
-<section id="predicates" class="level3">
-<h3 class="anchored" data-anchor-id="predicates">Predicates</h3>
-<p>A predicate is a statement with a variable. For example, “x is greater than 3.” Here x is a variable and “is greater than 3” is a property. This is called a predicate.</p>
-<p>It is denoted as <span class="math inline">P(x)</span>. If we put a value, it becomes a proposition. For example, <span class="math inline">P(5)</span> becomes a proposition that returns True or False.</p>
-<p>We can think of the predicate value as a function. We can have any number of variables.</p>
-<p>Propositional Logic has limitations. From the statements “Socrates is mortal” and “Plato is mortal”, we cannot conclude that all humans are mortal. Propositional Logic cannot be generalized and does not have patterns or relationships. Predicate Logic solves this by breaking the statement down into objects, relations, and properties.</p>
+<p>Relational Calculus is based on <strong>Predicate Logic</strong>. Predicate Logic is an extension of Propositional Logic with variables and quantifiers. It was proposed to make Propositional Logic more expressive.</p>
+<section id="propositional-logic-and-its-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="propositional-logic-and-its-limitations">Propositional Logic and Its Limitations</h3>
+<p>A proposition is a declarative statement which has either a <strong>True</strong> or <strong>False</strong> value. Propositional Logic is a formal logic system where propositions are connected using logical connectives.</p>
+<p>Consider these statements:</p>
+<ul>
+<li><span class="math inline">P</span>: Socrates is mortal.</li>
+<li><span class="math inline">Q</span>: Plato is mortal.</li>
+</ul>
+<p>From these two statements, we cannot conclude that “All Humans are mortal”. Propositional Logic has this limitation. It cannot be generalized and does not have patterns or relationships.</p>
+<p>In Predicate Logic, we break the statement down into objects, relations, and properties. For example, <span class="math inline">\text{Human}(\text{Socrates})</span> means Socrates is an object, and every property of Human will be applicable to Socrates.</p>
+<p>Relational Logic is also called <strong>First-Order Logic</strong>.</p>
 </section>
 <section id="quantifiers" class="level3">
 <h3 class="anchored" data-anchor-id="quantifiers">Quantifiers</h3>
-<p>Quantifiers are used to talk about properties that hold over the entire domain in a certain way. There are two types.</p>
+<p>There are two types of quantifiers.</p>
 <ol type="1">
-<li><strong>Universal Quantifier</strong> (<span class="math inline">\forall</span>). It means “for all”.</li>
+<li><strong>Universal Quantifier</strong> (<span class="math inline">\forall</span>) means “for all”.</li>
 </ol>
 <p><span class="math display">
 \forall x (\text{Human}(x) \rightarrow \text{Mortal}(x))
 </span></p>
 <p>For every <span class="math inline">x</span>, if <span class="math inline">x</span> is Human then <span class="math inline">x</span> is mortal.</p>
 <ol start="2" type="1">
-<li><strong>Existential Quantifier</strong> (<span class="math inline">\exists</span>). It means “there exists”.</li>
+<li><strong>Existential Quantifier</strong> (<span class="math inline">\exists</span>) means “there exists”.</li>
 </ol>
 <p><span class="math display">
 \exists x \; \text{Student}(x)
 </span></p>
 <p>There exists an <span class="math inline">x</span> such that <span class="math inline">x</span> is a Student.</p>
-<p>Relational Logic is also called First-Order Logic.</p>
 </section>
 </section>
 <section id="tuple-relational-calculus" class="level2">
 <h2 class="anchored" data-anchor-id="tuple-relational-calculus">Tuple Relational Calculus</h2>
-<p>Tuple Relational Calculus is a non-procedural query language. In a non-procedural language, you only describe what the output should be like. It is the job of the DBMS to figure out how to get the result.</p>
-<p>Each query is in the form:</p>
+<p>Formula:</p>
 <p><span class="math display">
 \{ t \mid P(t) \}
 </span></p>
-<p><span class="math inline">P(t)</span> may have various logical connectives such as <span class="math inline">\land</span> (and), <span class="math inline">\lor</span> (or), <span class="math inline">\lnot</span> (not), and <span class="math inline">\Rightarrow</span> (implication).</p>
-<p>The components of the predicate are: - Set of attributes. - Set of comparison operators. - Set of connectives. - Implication. - Set of quantifiers.</p>
+<p>It is the set of all tuples <span class="math inline">t</span> such that predicate <span class="math inline">P</span> is true for <span class="math inline">t</span>. <span class="math inline">P(t)</span> may have various logical connectives such as <span class="math inline">\land</span> (and), <span class="math inline">\lor</span> (or), <span class="math inline">\lnot</span> (not), and <span class="math inline">\Rightarrow</span> (implication).</p>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <p>Find the first names of students whose age is greater than 21.</p>
@@ -896,15 +926,14 @@ window.Quarto = {
 </span></p>
 <p>There are various ways to represent the same query:</p>
 <p><span class="math display">
-\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} &gt; 21 \}
-</span></p>
-<p><span class="math display">
-\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} &gt; 21 \}
-</span></p>
-<p><span class="math display">
+\begin{gather*}
+\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} &gt; 21 \} \\
+\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} &gt; 21 \} \\
 \{ t \mid \exists s \in \text{Student} (s.\text{age} &gt; 21 \land t.\text{Fname} = s.\text{Fname}) \}
+\end{gather*}
 </span></p>
-<p>If there are multiple attributes to project, we connect them using the <span class="math inline">\land</span> connective.</p>
+<p>If we have more than one attribute to project, we connect them using the <span class="math inline">\land</span> connective. For example, <span class="math inline">\{ t \mid t.\text{age} = s.\text{age} \land t.\text{name} = s.\text{name} \}</span>.</p>
+<p>The expression <span class="math inline">\{ t \mid s.\text{courseid} = c.\text{courseid} \}</span> is how we represent an inner join in Relational Calculus.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.2_p27.png" class="img-fluid figure-img"></p>
@@ -915,11 +944,12 @@ window.Quarto = {
 </section>
 <section id="domain-relational-calculus" class="level2">
 <h2 class="anchored" data-anchor-id="domain-relational-calculus">Domain Relational Calculus</h2>
-<p>Domain Relational Calculus treats a tuple as a collection of domain values. Each attribute is a domain variable.</p>
-<p>The form is:</p>
+<p>Domain Relational Calculus treats a tuple as a collection of domain values.</p>
+<p>Formula:</p>
 <p><span class="math display">
 \{ \langle x_1, x_2, \dots, x_n \rangle \mid P(x_1, x_2, \dots, x_n) \}
 </span></p>
+<p>Each <span class="math inline">x_i</span> represents a domain variable. <span class="math inline">P</span> represents a formula similar to that of predicate calculus.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/L4.2_p29.png" class="img-fluid figure-img"></p>
@@ -939,7 +969,7 @@ window.Quarto = {
 </section>
 <section id="module-summary" class="level2">
 <h2 class="anchored" data-anchor-id="module-summary">Module Summary</h2>
-<p>Predicate Logic extends propositional logic with predicates and quantifiers. Tuple Relational Calculus and Domain Relational Calculus are both non-procedural languages based on Predicate Calculus. They are equivalent in power to Relational Algebra.</p>
+<p>Relational Calculus is a non-procedural language based on Predicate Calculus. It comes in two forms: Tuple Relational Calculus, where queries are of the form <span class="math inline">\{ t \mid P(t) \}</span>, and Domain Relational Calculus, where queries are of the form <span class="math inline">\{ \langle x_1, \dots, x_n \rangle \mid P(x_1, \dots, x_n) \}</span>. Both are equivalent in power to Relational Algebra.</p>
 
 
 </section>
