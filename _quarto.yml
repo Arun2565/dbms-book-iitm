@@ -51,12 +51,18 @@ website:
           - text: "3.5 Advanced SQL"
             href: week03/3-5.qmd
 
-      - section: "Week 4: Relational Query Languages"
+      - section: "Week 4: Relational Query Languages & ER Model"
         contents:
-          - text: "4.1 Formal Relational Query Languages/1"
+          - text: "4.1 Relational Algebra"
             href: week04/4-1.qmd
-          - text: "4.2 Formal Relational Query Languages/2"
+          - text: "4.2 Relational Calculus"
             href: week04/4-2.qmd
+          - text: "4.3 Entity-Relationship Model/1"
+            href: week04/4-3.qmd
+          - text: "4.4 Entity-Relationship Model/2"
+            href: week04/4-4.qmd
+          - text: "4.5 Entity-Relationship Model/3"
+            href: week04/4-5.qmd
       
       - section: "Week 5: Relational Database Design"
         contents:

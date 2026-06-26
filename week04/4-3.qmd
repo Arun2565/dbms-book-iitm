@@ -6,23 +6,8 @@ The Entity-Relationship (E-R) Model is used in the designing phase of a
 database. It is a model that helps us visualize the data as a set of
 entities and the relations that exist between them.
 
-## Design Process
-
-Database design follows a process of abstraction. We start from the real
-world and move to a conceptual model, then to a logical model, and finally
-to a physical schema.
-
-![Database design process](images/L4.3_p6.png)
-
-## Entities and Entity Sets
-
-An entity is a real-world object. In a student database, entities are
+An entity is a real-world object. In the Student Database, entities are
 students, instructors, and departments.
-
-An entity set is a collection of similar entities. It can be taken as a
-relation with a set of entities that share the same attributes.
-
-![Entity set example](images/L4.3_p13.png)
 
 ## Attributes
 
@@ -36,33 +21,40 @@ types of attributes.
 
 2. **Single-valued and Multi-valued attributes.** A single-valued attribute
    takes only one value. A multi-valued attribute takes multiple values,
-   such as phone numbers.
+   such as phone numbers: 123456789, 234565678.
 
 3. **Derived attributes.** An attribute that can be computed from other
-   stored attributes. For example, `age` can be calculated from `date_of_birth`.
+   stored attributes. For example, `age` can be calculated from
+   `date_of_birth`. Age becomes the derived attribute.
 
 The domain is the set of all values that an attribute can take.
 
+An entity set can be taken as a relation with a set of entities, which are
+the set of attributes.
+
 ![Attribute types](images/L4.3_p15.png)
 
-## Entity Sets
+## Types of Entity Sets
+
+There are two types of entity sets.
 
 ### Strong Entity Set
 
-A strong entity set contains sufficient attributes to uniquely identify all
-its entities. In other words, a primary key exists for a strong entity set.
-The primary key is shown by underlining it.
+A strong entity set is an entity set that contains sufficient attributes to
+uniquely identify all its entities. A primary key exists for a strong entity
+set. The primary key is represented by underlining it. Each entity is a
+row. We can take each row as an object.
 
 ### Weak Entity Set
 
-A weak entity set does not contain sufficient attributes to uniquely
-identify its entities. It does not have a primary key. However, it contains
-a partial key called a discriminator. The discriminator is shown by
-underlining with a dashed line.
+A weak entity set is an entity set that does not contain sufficient
+attributes to uniquely identify all its entities. A weak entity set does not
+have a primary key, but it has a partial key called a **discriminator**,
+which is represented using dotted lines.
 
-Since a weak entity set does not have a primary key, it cannot independently
-exist in the ER Model. It appears in a relationship with a strong entity
-set. This is called the identifying relationship.
+We cannot uniquely identify a row in a weak entity set by itself. So we link
+the partial key with the primary key of a strong entity. This kind of
+relationship is called an **identifying relationship**.
 
 The primary key of a weak entity set is:
 
@@ -84,18 +76,17 @@ Weak entity set: Apartment(door_no, floor). Here `door_no` is the
 discriminator because door number alone cannot identify an apartment
 uniquely. There may be several other buildings with the same door number.
 
-Relationship: BA between Building and Apartment.
-
-By total participation in BA, each apartment must be present in at least one
-building. Building has partial participation because there may be buildings
-with no apartments.
+Relationship: BA between Building and Apartment. By total participation in
+BA, each apartment must be present in at least one building. Building has
+partial participation because there may be buildings with no apartments.
 
 Primary key of Apartment = building_no + door_no
 
 ## Relationship Sets
 
-A relationship is an association among entities. A relationship set is a
-set of relationships of the same type.
+Relationships are very important for designing the schema of the database. A
+relationship is an association among entities. A relationship set is a set
+of relationships of the same type.
 
 For example, the relationship `advisor` associates a student with an
 instructor.
@@ -109,49 +100,62 @@ between more than two entity sets are rare. For example, the project_guide
 relationship is a ternary relationship between instructor, student, and
 project.
 
-## Mapping Cardinality Constraints
+### Mapping Cardinality Constraints
 
-Mapping cardinality expresses the number of entities to which another entity
-can be associated through a relationship set. For a binary relationship set,
-the mapping cardinality must be one of the following types.
+For a binary relationship set, the mapping cardinality must be one of the
+following types.
 
-### One-to-One Relationship
+**One-to-One Relationship.** Each instructor has at most one student (1 or
+less than 1). Each student has at most one instructor (1 or less than 1).
 
-Each instructor has at most one student. Each student has at most one
-instructor.
+**One-to-Many Relationship.** Each instructor has one or many students. Each
+student has at most one instructor (meaning a student can have 1 or zero
+instructors).
 
-### One-to-Many Relationship
+**Many-to-One Relationship.** Each instructor has at most one student. Each
+student has one or many instructors.
 
-Each instructor has one or many students. Each student has at most one
-instructor.
-
-### Many-to-One Relationship
-
-Each instructor has at most one student. Each student has one or many
-instructors.
-
-### Many-to-Many Relationship
-
-Each instructor has one or many students. Each student has one or many
-instructors. For a many-to-many relationship, we need three tables to
-represent the entity set. There is an intermediate table that references
-the many-to-many relationship between two tables.
+**Many-to-Many Relationship.** Each instructor has one or many students.
+Each student has one or many instructors. For a Many-to-Many relationship,
+we need three tables to represent an entity set. There is an intermediate
+table that references or links the many-to-many relationship between two
+tables.
 
 ![Mapping cardinalities](images/L4.3_p24.png)
 
-## Participation Constraints
+### Participation Constraints
 
-Total participation (indicated by a double line) means that every entity in
-the entity set participates in at least one relationship in the relationship
-set. For example, the participation of `student` in the `advisor` relation
-is total because every student must have an associated instructor.
+**Total Participation** (indicated by a double line) means that every entity
+in the entity set participates in at least one relationship in the
+relationship set. For example, the participation of `student` in the
+`advisor` relation is total because every student must have an associated
+instructor.
 
-Partial participation means some entities may not participate in any
+**Partial Participation** means some entities may not participate in any
 relationship in the relationship set. For example, the participation of
 `instructor` in the `advisor` relation is partial.
 
+## ER Diagram Notation Summary
+
+- Rectangles represent entity sets.
+- Attributes are listed inside the rectangle.
+- An underline indicates the primary key attribute.
+- A diamond represents a relationship set.
+- Double lines indicate total participation.
+- A double rectangle represents a weak entity set.
+- A double diamond represents a weak entity set or an identifying
+  relationship.
+
+### Ternary Relationship
+
+A ternary relationship is a relationship between three entity sets.
+
+### Overlapping and Partial
+
+In overlapping specialization, an entity can be in both the relations. In
+partial specialization, an entity may not be in any of the relations.
+
 ## Module Summary
 
-We introduced the design process for database systems and the E-R Model for
-real-world representation with entities, entity sets, attributes, and
-relationships.
+We introduced the Entity-Relationship Model for real-world representation
+with entities, entity sets, attributes, and relationships.

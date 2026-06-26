@@ -1,40 +1,56 @@
 ---
-title: "4.2 Formal Relational Query Languages/2"
+title: "4.2 Relational Calculus"
 ---
+
+## Procedural vs Non-Procedural Languages
+
+In a **Procedural Language**, we mention clearly what the predicate should
+be, what the condition is, what should be selected or projected, and what
+result should be computed. Relational Algebra is a procedural language.
+
+In a **Non-Procedural Language** (also called a declarative language), we
+only describe what the output should be like and what the property of the
+result should be like. It is the job of the DBMS system to figure out how
+to get the result.
+
+Relational Calculus is a non-procedural language. It has two types:
+
+1. Tuple Relational Calculus
+2. Domain Relational Calculus
 
 ## Predicate Logic
 
-Predicate Logic, also called Predicate Calculus, is an extension of
-Propositional Logic or Boolean Algebra. In Boolean Algebra, we have
-propositions or variables that take True or False values.
+Relational Calculus is based on **Predicate Logic**. Predicate Logic is an
+extension of Propositional Logic with variables and quantifiers. It was
+proposed to make Propositional Logic more expressive.
 
-Predicate Logic adds the concept of predicates and quantifiers. This makes
-the logic more expressive.
+### Propositional Logic and Its Limitations
 
-### Predicates
+A proposition is a declarative statement which has either a **True** or
+**False** value. Propositional Logic is a formal logic system where
+propositions are connected using logical connectives.
 
-A predicate is a statement with a variable. For example, "x is greater than
-3." Here x is a variable and "is greater than 3" is a property. This is
-called a predicate.
+Consider these statements:
 
-It is denoted as $P(x)$. If we put a value, it becomes a proposition. For
-example, $P(5)$ becomes a proposition that returns True or False.
+- $P$: Socrates is mortal.
+- $Q$: Plato is mortal.
 
-We can think of the predicate value as a function. We can have any number
-of variables.
+From these two statements, we cannot conclude that "All Humans are mortal".
+Propositional Logic has this limitation. It cannot be generalized and does
+not have patterns or relationships.
 
-Propositional Logic has limitations. From the statements "Socrates is
-mortal" and "Plato is mortal", we cannot conclude that all humans are
-mortal. Propositional Logic cannot be generalized and does not have
-patterns or relationships. Predicate Logic solves this by breaking the
-statement down into objects, relations, and properties.
+In Predicate Logic, we break the statement down into objects, relations,
+and properties. For example, $\text{Human}(\text{Socrates})$ means
+Socrates is an object, and every property of Human will be applicable to
+Socrates.
+
+Relational Logic is also called **First-Order Logic**.
 
 ### Quantifiers
 
-Quantifiers are used to talk about properties that hold over the entire
-domain in a certain way. There are two types.
+There are two types of quantifiers.
 
-1. **Universal Quantifier** ($\forall$). It means "for all".
+1. **Universal Quantifier** ($\forall$) means "for all".
 
 $$
 \forall x (\text{Human}(x) \rightarrow \text{Mortal}(x))
@@ -42,7 +58,7 @@ $$
 
 For every $x$, if $x$ is Human then $x$ is mortal.
 
-2. **Existential Quantifier** ($\exists$). It means "there exists".
+2. **Existential Quantifier** ($\exists$) means "there exists".
 
 $$
 \exists x \; \text{Student}(x)
@@ -50,29 +66,17 @@ $$
 
 There exists an $x$ such that $x$ is a Student.
 
-Relational Logic is also called First-Order Logic.
-
 ## Tuple Relational Calculus
 
-Tuple Relational Calculus is a non-procedural query language. In a
-non-procedural language, you only describe what the output should be like.
-It is the job of the DBMS to figure out how to get the result.
-
-Each query is in the form:
+Formula:
 
 $$
 \{ t \mid P(t) \}
 $$
 
+It is the set of all tuples $t$ such that predicate $P$ is true for $t$.
 $P(t)$ may have various logical connectives such as $\land$ (and),
 $\lor$ (or), $\lnot$ (not), and $\Rightarrow$ (implication).
-
-The components of the predicate are:
-- Set of attributes.
-- Set of comparison operators.
-- Set of connectives.
-- Implication.
-- Set of quantifiers.
 
 ### Examples
 
@@ -85,32 +89,33 @@ $$
 There are various ways to represent the same query:
 
 $$
-\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} > 21 \}
-$$
-
-$$
-\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} > 21 \}
-$$
-
-$$
+\begin{gather*}
+\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} > 21 \} \\
+\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} > 21 \} \\
 \{ t \mid \exists s \in \text{Student} (s.\text{age} > 21 \land t.\text{Fname} = s.\text{Fname}) \}
+\end{gather*}
 $$
 
-If there are multiple attributes to project, we connect them using the
-$\land$ connective.
+If we have more than one attribute to project, we connect them using the
+$\land$ connective. For example, $\{ t \mid t.\text{age} = s.\text{age} \land t.\text{name} = s.\text{name} \}$.
+
+The expression $\{ t \mid s.\text{courseid} = c.\text{courseid} \}$ is how
+we represent an inner join in Relational Calculus.
 
 ![Tuple Relational Calculus](images/L4.2_p27.png)
 
 ## Domain Relational Calculus
 
 Domain Relational Calculus treats a tuple as a collection of domain values.
-Each attribute is a domain variable.
 
-The form is:
+Formula:
 
 $$
 \{ \langle x_1, x_2, \dots, x_n \rangle \mid P(x_1, x_2, \dots, x_n) \}
 $$
+
+Each $x_i$ represents a domain variable. $P$ represents a formula similar
+to that of predicate calculus.
 
 ![Domain Relational Calculus](images/L4.2_p29.png)
 
@@ -124,7 +129,8 @@ expressed in Relational Calculus, and the other way around.
 
 ## Module Summary
 
-Predicate Logic extends propositional logic with predicates and quantifiers.
-Tuple Relational Calculus and Domain Relational Calculus are both
-non-procedural languages based on Predicate Calculus. They are equivalent in
-power to Relational Algebra.
+Relational Calculus is a non-procedural language based on Predicate
+Calculus. It comes in two forms: Tuple Relational Calculus, where queries
+are of the form $\{ t \mid P(t) \}$, and Domain Relational Calculus, where
+queries are of the form $\{ \langle x_1, \dots, x_n \rangle \mid P(x_1, \dots, x_n) \}$.
+Both are equivalent in power to Relational Algebra.
