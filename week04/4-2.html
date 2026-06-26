@@ -75,6 +75,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -432,12 +475,53 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 6: Normalization &amp; Database Design</span></a>
+ <span class="menu-text">Week 5: Relational Database Design</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week05/5-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5.1 Good Database Design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week05/5-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5.2 Functional Dependencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week05/5-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5.3 FD Theory, BCNF &amp; 3NF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week05/5-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5.4 Algorithms for Functional Dependencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../week05/5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5.5 Lossless Join &amp; Dependency Preservation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6: Normalization &amp; Database Design</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week06/6-1.html" class="sidebar-item-text sidebar-link">
@@ -472,13 +556,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 7: Application Development</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week07/7-1.html" class="sidebar-item-text sidebar-link">
@@ -513,13 +597,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 8: Storage, Indexing &amp; Query Processing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week08/8-1.html" class="sidebar-item-text sidebar-link">
@@ -554,13 +638,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 9: Advanced Indexing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week09/9-1.html" class="sidebar-item-text sidebar-link">
@@ -595,13 +679,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 10: Transactions &amp; Concurrency</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week10/10-1.html" class="sidebar-item-text sidebar-link">
@@ -636,13 +720,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 11: Backup, Recovery &amp; RAID</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week11/11-1.html" class="sidebar-item-text sidebar-link">
@@ -677,13 +761,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
  <span class="menu-text">Week 12: Query Optimization &amp; Big Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../week12/12-1.html" class="sidebar-item-text sidebar-link">
@@ -728,12 +812,16 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#predicate-logic" id="toc-predicate-logic" class="nav-link active" data-scroll-target="#predicate-logic">Predicate Logic</a>
   <ul class="collapse">
+  <li><a href="#predicates" id="toc-predicates" class="nav-link" data-scroll-target="#predicates">Predicates</a></li>
   <li><a href="#quantifiers" id="toc-quantifiers" class="nav-link" data-scroll-target="#quantifiers">Quantifiers</a></li>
   </ul></li>
   <li><a href="#tuple-relational-calculus" id="toc-tuple-relational-calculus" class="nav-link" data-scroll-target="#tuple-relational-calculus">Tuple Relational Calculus</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">EXAMPLE</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul></li>
+  <li><a href="#domain-relational-calculus" id="toc-domain-relational-calculus" class="nav-link" data-scroll-target="#domain-relational-calculus">Domain Relational Calculus</a></li>
+  <li><a href="#equivalence-of-algebra-and-calculus" id="toc-equivalence-of-algebra-and-calculus" class="nav-link" data-scroll-target="#equivalence-of-algebra-and-calculus">Equivalence of Algebra and Calculus</a></li>
+  <li><a href="#module-summary" id="toc-module-summary" class="nav-link" data-scroll-target="#module-summary">Module Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -762,45 +850,98 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="predicate-logic" class="level2">
 <h2 class="anchored" data-anchor-id="predicate-logic">Predicate Logic</h2>
-<p>Predicate Logic or Predicate Calculus is an extension of Propositional Logic or Boolean Algebra.</p>
-<ul>
-<li>In Boolean Algebra , we have propositions or variables which take <code>True</code> or <code>False</code> values and returns a result based on the proposition.</li>
-</ul>
-<p>We add the concept of Predicates and Quantifiers to capture the concept of Propositional Logic.</p>
-<ul>
-<li>Tuple Relational Calculus and Domain Relational Calculus are entirely based on Predicate Calculus.</li>
-</ul>
-<blockquote class="blockquote">
-<p>“x is greater than 3.”</p>
-</blockquote>
-<p>where x is a predicate and the statement ‘is greater than 3’, is a property, this is called a predicate.</p>
-<ul>
-<li>It is denoted using <code>P(x)</code> , if we put a value it becomes a proposition. Like P(5) becomes a proposition where it returns <code>True</code> or <code>False</code>.</li>
-</ul>
+<p>Predicate Logic, also called Predicate Calculus, is an extension of Propositional Logic or Boolean Algebra. In Boolean Algebra, we have propositions or variables that take True or False values.</p>
+<p>Predicate Logic adds the concept of predicates and quantifiers. This makes the logic more expressive.</p>
+<section id="predicates" class="level3">
+<h3 class="anchored" data-anchor-id="predicates">Predicates</h3>
+<p>A predicate is a statement with a variable. For example, “x is greater than 3.” Here x is a variable and “is greater than 3” is a property. This is called a predicate.</p>
+<p>It is denoted as <span class="math inline">P(x)</span>. If we put a value, it becomes a proposition. For example, <span class="math inline">P(5)</span> becomes a proposition that returns True or False.</p>
 <p>We can think of the predicate value as a function. We can have any number of variables.</p>
+<p>Propositional Logic has limitations. From the statements “Socrates is mortal” and “Plato is mortal”, we cannot conclude that all humans are mortal. Propositional Logic cannot be generalized and does not have patterns or relationships. Predicate Logic solves this by breaking the statement down into objects, relations, and properties.</p>
+</section>
 <section id="quantifiers" class="level3">
 <h3 class="anchored" data-anchor-id="quantifiers">Quantifiers</h3>
-<p>Quantifiers are used to talk baout properties that hold over the entire domain in a certain way. There are two types of quantifiers : 1. Universal Quantifier 2. Existential Quantifier</p>
+<p>Quantifiers are used to talk about properties that hold over the entire domain in a certain way. There are two types.</p>
+<ol type="1">
+<li><strong>Universal Quantifier</strong> (<span class="math inline">\forall</span>). It means “for all”.</li>
+</ol>
+<p><span class="math display">
+\forall x (\text{Human}(x) \rightarrow \text{Mortal}(x))
+</span></p>
+<p>For every <span class="math inline">x</span>, if <span class="math inline">x</span> is Human then <span class="math inline">x</span> is mortal.</p>
+<ol start="2" type="1">
+<li><strong>Existential Quantifier</strong> (<span class="math inline">\exists</span>). It means “there exists”.</li>
+</ol>
+<p><span class="math display">
+\exists x \; \text{Student}(x)
+</span></p>
+<p>There exists an <span class="math inline">x</span> such that <span class="math inline">x</span> is a Student.</p>
+<p>Relational Logic is also called First-Order Logic.</p>
 </section>
 </section>
 <section id="tuple-relational-calculus" class="level2">
 <h2 class="anchored" data-anchor-id="tuple-relational-calculus">Tuple Relational Calculus</h2>
-<p>Tuple Relational Calculus is a non-procedural query language, where each query is in the form of : <br></p>
-<p>{ t | P(t)}</p>
-<p>The components of the Predicate are :</p>
-<ul>
-<li>Set of attributes.</li>
-<li>Set of comparison operators.</li>
-<li>Set of connectives : AND (^) , or (V), not ()</li>
-<li>Implication</li>
-<li>Set of quantifiers :</li>
-</ul>
-<section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">EXAMPLE</h3>
-<p>_{dept_name = ‘Physics’} (instructor)</p>
-
-
+<p>Tuple Relational Calculus is a non-procedural query language. In a non-procedural language, you only describe what the output should be like. It is the job of the DBMS to figure out how to get the result.</p>
+<p>Each query is in the form:</p>
+<p><span class="math display">
+\{ t \mid P(t) \}
+</span></p>
+<p><span class="math inline">P(t)</span> may have various logical connectives such as <span class="math inline">\land</span> (and), <span class="math inline">\lor</span> (or), <span class="math inline">\lnot</span> (not), and <span class="math inline">\Rightarrow</span> (implication).</p>
+<p>The components of the predicate are: - Set of attributes. - Set of comparison operators. - Set of connectives. - Implication. - Set of quantifiers.</p>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>Find the first names of students whose age is greater than 21.</p>
+<p><span class="math display">
+\{ t.\text{fname} \mid \text{Student}(t) \land t.\text{age} &gt; 21 \}
+</span></p>
+<p>There are various ways to represent the same query:</p>
+<p><span class="math display">
+\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} &gt; 21 \}
+</span></p>
+<p><span class="math display">
+\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} &gt; 21 \}
+</span></p>
+<p><span class="math display">
+\{ t \mid \exists s \in \text{Student} (s.\text{age} &gt; 21 \land t.\text{Fname} = s.\text{Fname}) \}
+</span></p>
+<p>If there are multiple attributes to project, we connect them using the <span class="math inline">\land</span> connective.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L4.2_p27.png" class="img-fluid figure-img"></p>
+<figcaption>Tuple Relational Calculus</figcaption>
+</figure>
+</div>
 </section>
+</section>
+<section id="domain-relational-calculus" class="level2">
+<h2 class="anchored" data-anchor-id="domain-relational-calculus">Domain Relational Calculus</h2>
+<p>Domain Relational Calculus treats a tuple as a collection of domain values. Each attribute is a domain variable.</p>
+<p>The form is:</p>
+<p><span class="math display">
+\{ \langle x_1, x_2, \dots, x_n \rangle \mid P(x_1, x_2, \dots, x_n) \}
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L4.2_p29.png" class="img-fluid figure-img"></p>
+<figcaption>Domain Relational Calculus</figcaption>
+</figure>
+</div>
+</section>
+<section id="equivalence-of-algebra-and-calculus" class="level2">
+<h2 class="anchored" data-anchor-id="equivalence-of-algebra-and-calculus">Equivalence of Algebra and Calculus</h2>
+<p>Relational Algebra and Relational Calculus are equivalent in expressive power. Every query that can be expressed in Relational Algebra can also be expressed in Relational Calculus, and the other way around.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/L4.2_p31.png" class="img-fluid figure-img"></p>
+<figcaption>Equivalence of Algebra and Calculus</figcaption>
+</figure>
+</div>
+</section>
+<section id="module-summary" class="level2">
+<h2 class="anchored" data-anchor-id="module-summary">Module Summary</h2>
+<p>Predicate Logic extends propositional logic with predicates and quantifiers. Tuple Relational Calculus and Domain Relational Calculus are both non-procedural languages based on Predicate Calculus. They are equivalent in power to Relational Algebra.</p>
+
+
 </section>
 
 </main> <!-- /main -->
