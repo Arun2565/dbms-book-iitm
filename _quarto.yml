@@ -58,14 +58,18 @@ website:
           - text: "4.2 Formal Relational Query Languages/2"
             href: week04/4-2.qmd
       
-#       - section: "Week 5: Extended DBMS Concepts"
-#         contents:
-#           - text: "5.1 Object-Relational Models"
-#             href: week05/5-1.qmd
-#           - text: "5.2 XML and Semi-structured Data"
-#             href: week05/5-2.qmd
-#           - text: "5.3 Advanced Data Types"
-#             href: week05/5-3.qmd
+      - section: "Week 5: Relational Database Design"
+        contents:
+          - text: "5.1 Good Database Design"
+            href: week05/5-1.qmd
+          - text: "5.2 Functional Dependencies"
+            href: week05/5-2.qmd
+          - text: "5.3 FD Theory, BCNF & 3NF"
+            href: week05/5-3.qmd
+          - text: "5.4 Algorithms for Functional Dependencies"
+            href: week05/5-4.qmd
+          - text: "5.5 Lossless Join & Dependency Preservation"
+            href: week05/5-5.qmd
       
       - section: "Week 6: Normalization & Database Design"
         contents:

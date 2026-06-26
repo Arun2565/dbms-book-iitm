@@ -2,50 +2,129 @@
 title: "4.2 Formal Relational Query Languages/2"
 ---
 
-## Predicate Logic 
+## Predicate Logic
 
-Predicate Logic or Predicate Calculus is an extension of Propositional Logic or Boolean Algebra.
+Predicate Logic, also called Predicate Calculus, is an extension of
+Propositional Logic or Boolean Algebra. In Boolean Algebra, we have
+propositions or variables that take True or False values.
 
-- In Boolean Algebra , we have propositions or variables which take `True` or `False` values and returns a result based on the proposition. 
+Predicate Logic adds the concept of predicates and quantifiers. This makes
+the logic more expressive.
 
-We add the concept of Predicates and Quantifiers to capture the concept of Propositional Logic.
+### Predicates
 
-- Tuple Relational Calculus and Domain Relational Calculus are entirely based on Predicate Calculus.
+A predicate is a statement with a variable. For example, "x is greater than
+3." Here x is a variable and "is greater than 3" is a property. This is
+called a predicate.
 
-> "x is greater than 3."
+It is denoted as $P(x)$. If we put a value, it becomes a proposition. For
+example, $P(5)$ becomes a proposition that returns True or False.
 
-where x is a predicate and the statement 'is greater than 3', is a property, this is called a predicate.
+We can think of the predicate value as a function. We can have any number
+of variables.
 
-- It is denoted using `P(x)` , if we put a value it becomes a proposition. Like P(5) becomes a proposition where it returns `True` or `False`. 
+Propositional Logic has limitations. From the statements "Socrates is
+mortal" and "Plato is mortal", we cannot conclude that all humans are
+mortal. Propositional Logic cannot be generalized and does not have
+patterns or relationships. Predicate Logic solves this by breaking the
+statement down into objects, relations, and properties.
 
-We can think of the predicate value as a function. We can have any number of variables.
+### Quantifiers
 
+Quantifiers are used to talk about properties that hold over the entire
+domain in a certain way. There are two types.
 
-### Quantifiers 
+1. **Universal Quantifier** ($\forall$). It means "for all".
 
-Quantifiers are used to talk baout properties that hold over the entire domain in a certain way.
-There are two types of quantifiers : 
-1. Universal Quantifier
-2. Existential Quantifier 
+$$
+\forall x (\text{Human}(x) \rightarrow \text{Mortal}(x))
+$$
 
+For every $x$, if $x$ is Human then $x$ is mortal.
 
-## Tuple Relational Calculus 
+2. **Existential Quantifier** ($\exists$). It means "there exists".
 
-Tuple Relational Calculus is a non-procedural query language, where each query is in the form of : 
-<br>
+$$
+\exists x \; \text{Student}(x)
+$$
 
-\{ t \mid | P(t)\}
+There exists an $x$ such that $x$ is a Student.
 
+Relational Logic is also called First-Order Logic.
 
-The components of the Predicate are : 
+## Tuple Relational Calculus
 
+Tuple Relational Calculus is a non-procedural query language. In a
+non-procedural language, you only describe what the output should be like.
+It is the job of the DBMS to figure out how to get the result.
+
+Each query is in the form:
+
+$$
+\{ t \mid P(t) \}
+$$
+
+$P(t)$ may have various logical connectives such as $\land$ (and),
+$\lor$ (or), $\lnot$ (not), and $\Rightarrow$ (implication).
+
+The components of the predicate are:
 - Set of attributes.
-- Set of comparison operators. 
-- Set of connectives : AND (^) , or (V), not ()
-- Implication 
-- Set of quantifiers :  
+- Set of comparison operators.
+- Set of connectives.
+- Implication.
+- Set of quantifiers.
 
-### EXAMPLE 
+### Examples
 
+Find the first names of students whose age is greater than 21.
 
-\sigma_{dept\_name = 'Physics'} (instructor)
+$$
+\{ t.\text{fname} \mid \text{Student}(t) \land t.\text{age} > 21 \}
+$$
+
+There are various ways to represent the same query:
+
+$$
+\{ t.\text{Fname} \mid \text{Student}(t) \land t.\text{age} > 21 \}
+$$
+
+$$
+\{ t.\text{Fname} \mid t \in \text{Student} \land t.\text{age} > 21 \}
+$$
+
+$$
+\{ t \mid \exists s \in \text{Student} (s.\text{age} > 21 \land t.\text{Fname} = s.\text{Fname}) \}
+$$
+
+If there are multiple attributes to project, we connect them using the
+$\land$ connective.
+
+![Tuple Relational Calculus](images/L4.2_p27.png)
+
+## Domain Relational Calculus
+
+Domain Relational Calculus treats a tuple as a collection of domain values.
+Each attribute is a domain variable.
+
+The form is:
+
+$$
+\{ \langle x_1, x_2, \dots, x_n \rangle \mid P(x_1, x_2, \dots, x_n) \}
+$$
+
+![Domain Relational Calculus](images/L4.2_p29.png)
+
+## Equivalence of Algebra and Calculus
+
+Relational Algebra and Relational Calculus are equivalent in expressive
+power. Every query that can be expressed in Relational Algebra can also be
+expressed in Relational Calculus, and the other way around.
+
+![Equivalence of Algebra and Calculus](images/L4.2_p31.png)
+
+## Module Summary
+
+Predicate Logic extends propositional logic with predicates and quantifiers.
+Tuple Relational Calculus and Domain Relational Calculus are both
+non-procedural languages based on Predicate Calculus. They are equivalent in
+power to Relational Algebra.
